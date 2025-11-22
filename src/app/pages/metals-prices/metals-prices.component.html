@@ -1,0 +1,198 @@
+<app-page-header
+  [title]="translationService.t('metals.title')"
+  [subtitle]="translationService.t('metals.subtitle')">
+  <app-button size="sm" (btnClick)="triggerDailyNotification()" [disabled]="isTriggering">
+    @if (isTriggering) {
+      {{ translationService.t('metals.sending') }}...
+    } @else {
+      {{ translationService.t('metals.triggerNotification') }}
+    }
+  </app-button>
+</app-page-header>
+
+@if (errorMessage) {
+  <div class="mb-4 p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">
+    {{ errorMessage }}
+  </div>
+}
+
+<!-- Latest Prices -->
+<div class="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+  @if (isLoading) {
+    <div class="col-span-3">
+      <app-loading-spinner />
+    </div>
+  } @else if (latestPrices) {
+    <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
+            {{ translationService.t('metals.gold') }}
+          </p>
+          <p class="mt-2 text-2xl font-semibold text-gray-800 dark:text-white">
+            {{ latestPrices.gold }}
+            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+              {{ latestPrices.currency || 'USD' }}
+            </span>
+          </p>
+        </div>
+        <div class="rounded-full bg-yellow-100 p-3 dark:bg-yellow-900/20">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" class="text-yellow-600"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" class="text-yellow-600"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" class="text-yellow-600"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
+            {{ translationService.t('metals.silver') }}
+          </p>
+          <p class="mt-2 text-2xl font-semibold text-gray-800 dark:text-white">
+            {{ latestPrices.silver }}
+            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+              {{ latestPrices.currency || 'USD' }}
+            </span>
+          </p>
+        </div>
+        <div class="rounded-full bg-gray-100 p-3 dark:bg-gray-800">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" class="text-gray-600"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" class="text-gray-600"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" class="text-gray-600"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    @if (latestPrices.platinum) {
+      <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
+              {{ translationService.t('metals.platinum') }}
+            </p>
+            <p class="mt-2 text-2xl font-semibold text-gray-800 dark:text-white">
+              {{ latestPrices.platinum }}
+              <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                {{ latestPrices.currency || 'USD' }}
+              </span>
+            </p>
+          </div>
+          <div class="rounded-full bg-blue-100 p-3 dark:bg-blue-900/20">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" class="text-blue-600"/>
+              <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" class="text-blue-600"/>
+              <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" class="text-blue-600"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    }
+  }
+</div>
+
+<!-- Historical Prices Chart -->
+@if (chartData.length > 0) {
+  <div class="mb-6">
+    <app-metals-prices-chart
+      [data]="chartData"
+      [currency]="historicalData?.currency || 'AED'"
+      [chartType]="'line'"
+      [height]="350"
+      [showLegend]="true">
+    </app-metals-prices-chart>
+  </div>
+}
+
+<!-- Historical Prices Table -->
+<div class="rounded-lg border border-gray-200 bg-white shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+  <div class="border-b border-gray-200 p-4 dark:border-gray-800">
+    <div class="flex items-center justify-between">
+      <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+        {{ translationService.t('metals.historical') }}
+      </h3>
+      <div class="flex items-center gap-2">
+        <button
+          (click)="onPeriodChange('7d')"
+          [class.bg-brand-500]="selectedPeriod === '7d'"
+          [class.text-white]="selectedPeriod === '7d'"
+          [class.text-gray-700]="selectedPeriod !== '7d'"
+          class="px-3 py-1 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
+          {{ translationService.t('metals.7days') }}
+        </button>
+        <button
+          (click)="onPeriodChange('1m')"
+          [class.bg-brand-500]="selectedPeriod === '1m'"
+          [class.text-white]="selectedPeriod === '1m'"
+          [class.text-gray-700]="selectedPeriod !== '1m'"
+          class="px-3 py-1 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
+          {{ translationService.t('metals.1month') }}
+        </button>
+        <button
+          (click)="onPeriodChange('3m')"
+          [class.bg-brand-500]="selectedPeriod === '3m'"
+          [class.text-white]="selectedPeriod === '3m'"
+          [class.text-gray-700]="selectedPeriod !== '3m'"
+          class="px-3 py-1 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
+          {{ translationService.t('metals.3months') }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="overflow-x-auto p-4">
+    <table class="w-full" [ngClass]="{'text-right': translationService.isRTL, 'text-left': !translationService.isRTL}">
+      <thead class="bg-gray-50 dark:bg-gray-800">
+        <tr>
+          <th class="px-4 py-2 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
+            {{ translationService.t('metals.date') }}
+          </th>
+          <th class="px-4 py-2 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
+            {{ translationService.t('metals.gold') }}
+          </th>
+          <th class="px-4 py-2 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
+            {{ translationService.t('metals.silver') }}
+          </th>
+          @if (historicalPrices.length > 0 && historicalPrices[0].platinum_local) {
+            <th class="px-4 py-2 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
+              {{ translationService.t('metals.platinum') }}
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+        @if (historicalPrices.length === 0) {
+          <tr>
+            <td [attr.colspan]="historicalPrices[0]?.platinum_local ? 4 : 3" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+              {{ translationService.t('metals.noData') }}
+            </td>
+          </tr>
+        } @else {
+          @for (price of historicalPrices; track price.date) {
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
+              <td class="px-4 py-3 text-sm text-gray-800 dark:text-white">
+                {{ price.date | date:'short' }}
+              </td>
+              <td class="px-4 py-3 text-sm font-medium text-gray-800 dark:text-white">
+                {{ price.gold_local | number:'1.2-2' }} {{ historicalData?.currency || 'AED' }}
+              </td>
+              <td class="px-4 py-3 text-sm font-medium text-gray-800 dark:text-white">
+                {{ price.silver_local | number:'1.2-2' }} {{ historicalData?.currency || 'AED' }}
+              </td>
+              @if (price.platinum_local) {
+                <td class="px-4 py-3 text-sm font-medium text-gray-800 dark:text-white">
+                  {{ price.platinum_local | number:'1.2-2' }} {{ historicalData?.currency || 'AED' }}
+                </td>
+              }
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+

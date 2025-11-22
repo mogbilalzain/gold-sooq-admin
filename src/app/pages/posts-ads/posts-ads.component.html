@@ -1,0 +1,158 @@
+<app-page-header
+  [title]="translationService.t('posts.title')"
+  [subtitle]="translationService.t('posts.subtitle')">
+</app-page-header>
+
+@if (errorMessage) {
+  <div class="mb-4 p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">
+    {{ errorMessage }}
+  </div>
+}
+
+<!-- Filters -->
+<div class="mb-6 rounded-lg border border-gray-200 bg-white p-4 shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+  <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div class="flex flex-wrap items-center gap-3">
+      <button
+        (click)="onStatusFilterChange('all')"
+        [class.bg-brand-500]="statusFilter === 'all'"
+        [class.text-white]="statusFilter === 'all'"
+        [class.text-gray-700]="statusFilter !== 'all'"
+        class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
+        {{ translationService.t('posts.all') }}
+      </button>
+      <button
+        (click)="onStatusFilterChange('active')"
+        [class.bg-brand-500]="statusFilter === 'active'"
+        [class.text-white]="statusFilter === 'active'"
+        [class.text-gray-700]="statusFilter !== 'active'"
+        class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
+        {{ translationService.t('posts.active') }}
+      </button>
+      <button
+        (click)="onStatusFilterChange('inactive')"
+        [class.bg-brand-500]="statusFilter === 'inactive'"
+        [class.text-white]="statusFilter === 'inactive'"
+        [class.text-gray-700]="statusFilter !== 'inactive'"
+        class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
+        {{ translationService.t('posts.inactive') }}
+      </button>
+    </div>
+    <div class="flex items-center gap-2">
+      <app-input-field
+        type="text"
+        [value]="searchTerm"
+        (valueChange)="onSearchTermChange($event)"
+        [placeholder]="translationService.t('common.search')"
+        class="form-input w-full md:w-64"
+      />
+      <app-button size="sm" (btnClick)="onSearch()">
+        {{ translationService.t('common.search') }}
+      </app-button>
+    </div>
+  </div>
+</div>
+
+@if (isLoading) {
+  <app-loading-spinner />
+} @else {
+  <div class="rounded-lg border border-gray-200 bg-white shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+    <div class="overflow-x-auto">
+      <table class="w-full" [ngClass]="{'text-right': translationService.isRTL, 'text-left': !translationService.isRTL}">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+          <tr>
+            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
+              {{ translationService.t('posts.title') }}
+            </th>
+            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
+              {{ translationService.t('posts.price') }}
+            </th>
+            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
+              {{ translationService.t('posts.status') }}
+            </th>
+            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
+              {{ translationService.t('posts.featured') }}
+            </th>
+            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
+              {{ translationService.t('common.actions') }}
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+          @if (posts.length === 0) {
+            <tr>
+              <td colspan="5" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                {{ translationService.t('posts.noPosts') }}
+              </td>
+            </tr>
+          } @else {
+            @for (post of posts; track post.id) {
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
+                <td class="px-6 py-4">
+                  <div class="text-sm font-medium text-gray-800 dark:text-white">
+                    {{ post.postTitle }}
+                  </div>
+                  <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    {{ post.postDetail?.substring(0, 50) }}...
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-800 dark:text-white">
+                  @if (post.price) {
+                    {{ post.price | number }} {{ translationService.t('posts.currency') }}
+                  } @else {
+                    <span class="text-gray-400">-</span>
+                  }
+                </td>
+                <td class="px-6 py-4">
+                  <button
+                    (click)="toggleActive(post)"
+                    [class.bg-success-100]="post.isActive"
+                    [class.text-success-700]="post.isActive"
+                    [class.bg-gray-100]="!post.isActive"
+                    [class.text-gray-700]="!post.isActive"
+                    class="px-3 py-1 text-xs font-medium rounded-full">
+                    {{ post.isActive ? translationService.t('posts.active') : translationService.t('posts.inactive') }}
+                  </button>
+                </td>
+                <td class="px-6 py-4">
+                  <button
+                    (click)="toggleFeatured(post)"
+                    [class.bg-brand-100]="post.isFeatured"
+                    [class.text-brand-700]="post.isFeatured"
+                    [class.bg-gray-100]="!post.isFeatured"
+                    [class.text-gray-700]="!post.isFeatured"
+                    class="px-3 py-1 text-xs font-medium rounded-full">
+                    {{ post.isFeatured ? translationService.t('posts.yes') : translationService.t('posts.no') }}
+                  </button>
+                </td>
+                <td class="px-6 py-4 text-sm">
+                  <div class="flex items-center gap-2">
+                    <a [routerLink]="['/posts-ads/edit', post.id]" 
+                       class="text-brand-500 hover:text-brand-600 dark:text-brand-400">
+                      {{ translationService.t('common.edit') }}
+                    </a>
+                    <button (click)="onDelete(post.id)" 
+                            class="text-error-500 hover:text-error-600 dark:text-error-400">
+                      {{ translationService.t('common.delete') }}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+
+    @if (totalPages > 1) {
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        [total]="total"
+        [limit]="limit"
+        (pageChange)="onPageChange($event)"
+      />
+    }
+  </div>
+}
+

@@ -1,0 +1,63 @@
+<app-page-header
+  [title]="translationService.t('notifications.title')"
+  [subtitle]="translationService.t('notifications.subtitle')">
+  <a routerLink="/notifications/send">
+    <app-button size="sm">
+      {{ translationService.t('notifications.sendNotification') }}
+    </app-button>
+  </a>
+</app-page-header>
+
+@if (errorMessage) {
+  <div class="mb-4 p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">
+    {{ errorMessage }}
+  </div>
+}
+
+@if (isLoading) {
+  <app-loading-spinner />
+} @else {
+  <div class="space-y-4">
+    @if (notifications.length === 0) {
+      <div class="rounded-lg border border-gray-200 bg-white p-8 text-center shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+        <p class="text-gray-500 dark:text-gray-400">
+          {{ translationService.t('notifications.noNotifications') }}
+        </p>
+      </div>
+    } @else {
+      @for (notification of notifications; track notification.id) {
+        <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+                {{ getNotificationTitle(notification) }}
+              </h3>
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                {{ getNotificationMessage(notification) }}
+              </p>
+              <div class="mt-4 flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                <span>
+                  {{ translationService.t('notifications.sentAt') }}: 
+                  {{ formatDate(notification.created_at) }}
+                </span>
+                @if (notification.fcm_sent) {
+                  <span class="px-2 py-1 bg-success-100 text-success-700 rounded-full dark:bg-success-900/20 dark:text-success-400">
+                    {{ translationService.t('notifications.sent') }}
+                  </span>
+                }
+              </div>
+            </div>
+            <button
+              (click)="onDelete(notification.id)"
+              class="ml-4 text-error-500 hover:text-error-600 dark:text-error-400">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.33333 2.5V4.16667H3.33333V5.83333H4.16667V16.6667C4.16667 17.5871 4.91286 18.3333 5.83333 18.3333H14.1667C15.0871 18.3333 15.8333 17.5871 15.8333 16.6667V5.83333H16.6667V4.16667H11.6667V2.5H8.33333ZM5.83333 5.83333H14.1667V16.6667H5.83333V5.83333ZM7.5 8.33333V15H9.16667V8.33333H7.5ZM10.8333 8.33333V15H12.5V8.33333H10.8333Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      }
+    }
+  </div>
+}
+

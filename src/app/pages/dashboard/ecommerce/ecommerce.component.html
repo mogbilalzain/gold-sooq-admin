@@ -1,0 +1,78 @@
+<div class="space-y-6">
+  <!-- Stats Cards -->
+  @if (isLoading) {
+    <app-loading-spinner />
+  } @else {
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <app-stats-card
+        [title]="translationService.t('dashboard.totalUsers')"
+        [value]="stats.totalUsers"
+        [icon]="userIcon"
+        iconBgClass="bg-blue-100 dark:bg-blue-900/20"
+      />
+      <app-stats-card
+        [title]="translationService.t('dashboard.totalPosts')"
+        [value]="stats.totalPosts"
+        [icon]="postIcon"
+        iconBgClass="bg-green-100 dark:bg-green-900/20"
+      />
+      <app-stats-card
+        [title]="translationService.t('dashboard.activePosts')"
+        [value]="stats.activePosts"
+        [icon]="activeIcon"
+        iconBgClass="bg-purple-100 dark:bg-purple-900/20"
+      />
+      <app-stats-card
+        [title]="translationService.t('dashboard.totalCategories')"
+        [value]="stats.totalCategories"
+        [icon]="categoryIcon"
+        iconBgClass="bg-orange-100 dark:bg-orange-900/20"
+      />
+    </div>
+  }
+
+  
+  <!-- Original Dashboard Components -->
+  <div class="grid grid-cols-12 gap-4 md:gap-6">
+    
+    <div class="col-span-12 space-y-6 xl:col-span-7">
+      <div><app-ecommerce-metrics /></div>
+      <div><app-monthly-sales-chart /></div>
+    </div>
+
+    <!-- Metals Prices Chart -->
+
+    <div class="col-span-12 xl:col-span-5">
+      <app-monthly-target />
+    </div>
+    @if (metalsPricesData.length > 0) {
+      <div class="col-span-12 rounded-lg border border-gray-200 bg-white shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+        <div class="p-6">
+          <h3 class="mb-4 text-lg font-semibold text-gray-800 dark:text-white">
+            {{ translationService.t('metals.title') }}
+          </h3>
+          <app-metals-prices-chart
+            [data]="metalsPricesData"
+            [currency]="metalsCurrency"
+            [chartType]="'line'"
+            [height]="300"
+            [showLegend]="true">
+          </app-metals-prices-chart>
+        </div>
+      </div>
+    }
+  
+
+    <!-- <div class="col-span-12">
+      <app-statics-chart />
+    </div> -->
+
+    <div class="col-span-12 xl:col-span-5">
+      <app-demographic-card />
+    </div>
+
+    <div class="col-span-12 xl:col-span-7">
+      <app-recent-orders/>
+    </div>
+  </div>
+</div>

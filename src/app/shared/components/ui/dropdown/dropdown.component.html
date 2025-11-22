@@ -1,0 +1,13 @@
+@if (isOpen) {
+<div
+  #dropdownRef
+  class="absolute z-40 mt-2 rounded-xl border border-gray-200 bg-white shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
+  [ngClass]="{
+    'right-0': !translationService.isRTL,
+    'left-0': translationService.isRTL
+  }"
+  [class]="className"
+>
+  <ng-content></ng-content>
+</div>
+}

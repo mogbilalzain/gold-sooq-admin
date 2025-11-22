@@ -1,0 +1,89 @@
+<app-page-header
+  [title]="translationService.t('posts.editPost')"
+  [subtitle]="translationService.t('posts.editPostSubtitle')">
+</app-page-header>
+
+@if (errorMessage) {
+  <div class="mb-4 p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">
+    {{ errorMessage }}
+  </div>
+}
+
+@if (isLoading) {
+  <app-loading-spinner />
+} @else {
+  <form (submit)="onSubmit(); $event.preventDefault()" 
+        class="rounded-lg border border-gray-200 bg-white p-6 shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+    <div class="space-y-6">
+      <div>
+        <app-label>
+          {{ translationService.t('posts.title') }} 
+          <span class="text-error-500">*</span>
+        </app-label>
+        <app-input-field
+          type="text"
+          [value]="postTitle"
+          (valueChange)="onTitleChange($event)"
+          [placeholder]="translationService.t('posts.titlePlaceholder')"
+          class="form-input"
+        />
+      </div>
+
+      <div>
+        <app-label>
+          {{ translationService.t('posts.detail') }} 
+          <span class="text-error-500">*</span>
+        </app-label>
+        <textarea
+          [value]="postDetail"
+          (input)="onDetailChange($any($event.target).value)"
+          [placeholder]="translationService.t('posts.detailPlaceholder')"
+          rows="5"
+          class="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 bg-transparent text-gray-800 focus:border-brand-300 focus:ring-brand-500/20 dark:border-gray-700 dark:text-white/90 dark:focus:border-brand-800">
+        </textarea>
+      </div>
+
+      <div>
+        <app-label>{{ translationService.t('posts.price') }}</app-label>
+        <app-input-field
+          type="number"
+          [value]="price || ''"
+          (valueChange)="onPriceChange($event)"
+          [placeholder]="translationService.t('posts.pricePlaceholder')"
+          class="form-input"
+        />
+      </div>
+
+      <div class="flex items-center gap-6">
+        <app-checkbox
+          [(checked)]="isActive"
+          [label]="translationService.t('posts.isActive')"
+        />
+        <app-checkbox
+          [(checked)]="isFeatured"
+          [label]="translationService.t('posts.isFeatured')"
+        />
+      </div>
+
+      <div class="flex items-center justify-end gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">
+        <button
+          type="button"
+          (click)="onCancel()"
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700">
+          {{ translationService.t('common.cancel') }}
+        </button>
+        <app-button
+          type="submit"
+          size="sm"
+          [disabled]="!postTitle || !postDetail || isSubmitting">
+          @if (isSubmitting) {
+            {{ translationService.t('common.saving') }}...
+          } @else {
+            {{ translationService.t('common.save') }}
+          }
+        </app-button>
+      </div>
+    </div>
+  </form>
+}
+

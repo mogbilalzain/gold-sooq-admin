@@ -1,0 +1,35 @@
+import { Component } from '@angular/core';
+import { SidebarService } from '../../services/sidebar.service';
+import { CommonModule } from '@angular/common';
+import { AppSidebarComponent } from '../app-sidebar/app-sidebar.component';
+import { BackdropComponent } from '../backdrop/backdrop.component';
+import { RouterModule } from '@angular/router';
+import { AppHeaderComponent } from '../app-header/app-header.component';
+import { TranslationService } from '../../services/translation.service';
+
+@Component({
+  selector: 'app-layout',
+  imports: [
+    CommonModule,
+    RouterModule,
+    AppHeaderComponent,
+    AppSidebarComponent,
+    BackdropComponent
+  ],
+  templateUrl: './app-layout.component.html',
+})
+
+export class AppLayoutComponent {
+  readonly isExpanded$;
+  readonly isHovered$;
+  readonly isMobileOpen$;
+
+  constructor(
+    public sidebarService: SidebarService,
+    public translationService: TranslationService
+  ) {
+    this.isExpanded$ = this.sidebarService.isExpanded$;
+    this.isHovered$ = this.sidebarService.isHovered$;
+    this.isMobileOpen$ = this.sidebarService.isMobileOpen$;
+  }
+}
