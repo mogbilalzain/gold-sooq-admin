@@ -7,7 +7,7 @@ import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
   standalone: true,
   imports: [CommonModule, SafeHtmlPipe],
   template: `
-    <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+    <div class="stats-card-modern">
       <div class="flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ title }}</p>
@@ -39,7 +39,7 @@ import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
           }
         </div>
         @if (icon) {
-          <div class="rounded-full p-3" [ngClass]="iconBgClass">
+          <div class="icon-wrapper rounded-full p-3" [ngClass]="iconBgClass">
             <span [innerHTML]="icon | safeHtml"></span>
           </div>
         }

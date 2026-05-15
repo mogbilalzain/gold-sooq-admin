@@ -10,10 +10,10 @@ import { TranslationService, Language } from '../../../services/translation.serv
     <div class="relative">
       <button
         (click)="toggleLanguage()"
-        class="flex items-center justify-center w-10 h-10 text-gray-700 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+        class="modern-button modern-button-secondary flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 text-gray-700 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-all duration-300 hover:scale-105 active:scale-95"
         [attr.aria-label]="currentLang === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'"
       >
-        <span class="text-sm font-medium">{{ currentLang === 'ar' ? 'EN' : 'ع' }}</span>
+        <span class="text-xs sm:text-sm font-medium">{{ currentLang === 'ar' ? 'EN' : 'ع' }}</span>
       </button>
     </div>
   `,

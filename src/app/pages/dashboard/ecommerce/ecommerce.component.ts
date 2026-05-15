@@ -14,6 +14,7 @@ import { PostsAdsService } from '../../../shared/services/data/posts-ads.service
 import { CategoriesService } from '../../../shared/services/data/categories.service';
 import { MetalsPricesService, HistoricalPrice } from '../../../shared/services/data/metals-prices.service';
 import { MetalsPricesChartComponent, MetalsPriceData } from '../../../shared/components/charts/metals-prices-chart/metals-prices-chart.component';
+import { CurrentPricesComponent } from '../../../shared/components/metals/current-prices/current-prices.component';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -29,6 +30,7 @@ import { forkJoin } from 'rxjs';
     StatsCardComponent,
     LoadingSpinnerComponent,
     MetalsPricesChartComponent,
+    CurrentPricesComponent,
   ],
   templateUrl: './ecommerce.component.html',
 })

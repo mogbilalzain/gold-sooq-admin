@@ -44,10 +44,12 @@ export interface TranslationKeys {
     search: string;
   };
   // Common
-  common: {
-    loading: string;
-    save: string;
-    cancel: string;
+      common: {
+        loading: string;
+        save: string;
+        cancel: string;
+        refresh: string;
+        retry: string;
     delete: string;
     edit: string;
     add: string;
@@ -163,6 +165,11 @@ export interface TranslationKeys {
         '7days': string;
         '1month': string;
         '3months': string;
+        currentPrices: string;
+        perGram: string;
+        perToz: string;
+        byCarat: string;
+        lastUpdated: string;
       };
       // Notifications
       notifications: {
@@ -256,6 +263,8 @@ export class TranslationService {
         loading: 'جاري التحميل...',
         save: 'حفظ',
         cancel: 'إلغاء',
+        refresh: 'تحديث',
+        retry: 'إعادة المحاولة',
         delete: 'حذف',
         edit: 'تعديل',
         add: 'إضافة',
@@ -366,6 +375,11 @@ export class TranslationService {
         '7days': '7 أيام',
         '1month': 'شهر واحد',
         '3months': '3 أشهر',
+        currentPrices: 'الأسعار الحالية',
+        perGram: 'للجرام',
+        perToz: 'للأونصة',
+        byCarat: 'حسب العيار',
+        lastUpdated: 'آخر تحديث',
       },
       notifications: {
         title: 'الإشعارات',
@@ -450,6 +464,8 @@ export class TranslationService {
         loading: 'Loading...',
         save: 'Save',
         cancel: 'Cancel',
+        refresh: 'Refresh',
+        retry: 'Retry',
         delete: 'Delete',
         edit: 'Edit',
         add: 'Add',
@@ -560,6 +576,11 @@ export class TranslationService {
         '7days': '7 Days',
         '1month': '1 Month',
         '3months': '3 Months',
+        currentPrices: 'Current Prices',
+        perGram: 'Per Gram',
+        perToz: 'Per Ounce',
+        byCarat: 'By Carat',
+        lastUpdated: 'Last Updated',
       },
       notifications: {
         title: 'Notifications',

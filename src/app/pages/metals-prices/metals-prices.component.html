@@ -16,6 +16,15 @@
   </div>
 }
 
+<!-- Current Prices -->
+<div class="mb-6">
+  <app-current-prices
+    [countryCode]="countryCode"
+    [showTitle]="true"
+    [autoRefresh]="false">
+  </app-current-prices>
+</div>
+
 <!-- Latest Prices -->
 <div class="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
   @if (isLoading) {

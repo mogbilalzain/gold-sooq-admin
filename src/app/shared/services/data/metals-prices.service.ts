@@ -19,6 +19,53 @@ export interface MetalsPrice {
   currency?: string;
 }
 
+export interface CurrentPricesRequest {
+  countryCode: string;
+}
+
+export interface GoldPrices {
+  usd_per_toz: number;
+  local_per_toz: number;
+  local_per_gram: number;
+  by_carat: {
+    '24k': number;
+    '22k': number;
+    '21k': number;
+    '18k': number;
+    '14k': number;
+  };
+}
+
+export interface SilverPrices {
+  usd_per_toz: number;
+  local_per_toz: number;
+  local_per_gram: number;
+}
+
+export interface PlatinumPrices {
+  usd_per_toz: number;
+  local_per_toz: number;
+  local_per_gram: number;
+}
+
+export interface CurrentPricesResponse {
+  country: string;
+  currency: string;
+  exchange_rate: number;
+  metals: {
+    gold: GoldPrices;
+    silver: SilverPrices;
+    platinum: PlatinumPrices;
+  };
+  timestamps: {
+    metal: string;
+    currency: string;
+  };
+  _meta: {
+    source: string;
+  };
+}
+
 export interface HistoricalPricesRequest {
   countryCode: string;
   period: '7d' | '1m' | '3m';
@@ -93,6 +140,13 @@ export class MetalsPricesService {
   getLatestPrices(): Observable<ApiResponse<MetalsPrice>> {
     return this.http.get<ApiResponse<MetalsPrice>>(
       `${this.apiConfig.getAdminMetalsPricesUrl()}/latest`
+    );
+  }
+
+  getCurrentPrices(request: CurrentPricesRequest): Observable<ApiResponse<CurrentPricesResponse>> {
+    return this.http.post<ApiResponse<CurrentPricesResponse>>(
+      `${this.apiConfig.getBaseUrl()}/metals-prices/getCurrentPrices`,
+      request
     );
   }
 

@@ -4,6 +4,7 @@ import { PageHeaderComponent } from '../../shared/components/layout/page-header/
 import { LoadingSpinnerComponent } from '../../shared/components/common/loading-spinner/loading-spinner.component';
 import { ButtonComponent } from '../../shared/components/ui/button/button.component';
 import { MetalsPricesChartComponent } from '../../shared/components/charts/metals-prices-chart/metals-prices-chart.component';
+import { CurrentPricesComponent } from '../../shared/components/metals/current-prices/current-prices.component';
 import { TranslationService } from '../../shared/services/translation.service';
 import { MetalsPricesService, MetalsPrice, HistoricalPrice } from '../../shared/services/data/metals-prices.service';
 import { MetalsPriceData } from '../../shared/components/charts/metals-prices-chart/metals-prices-chart.component';
@@ -18,6 +19,7 @@ import { ErrorHandlerService } from '../../shared/services/api/error-handler.ser
     LoadingSpinnerComponent,
     ButtonComponent,
     MetalsPricesChartComponent,
+    CurrentPricesComponent,
   ],
   templateUrl: './metals-prices.component.html',
 })
