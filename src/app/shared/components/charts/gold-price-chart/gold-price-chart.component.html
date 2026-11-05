@@ -1,0 +1,134 @@
+<div
+  class="rounded-m3-lg border border-outline-variant/50 bg-surface-container-lowest p-6 shadow-elevation-1 dark:border-outline-variant dark:bg-surface-container"
+>
+  <!-- Header: title + current price + change badge -->
+  <div class="flex flex-wrap items-start gap-4 mb-5">
+    <div>
+      <h3 class="text-m3-title-lg font-medium text-surface-on-surface">
+        {{ translationService.t('dashboard.goldChart') }}
+      </h3>
+      <p class="text-sm text-surface-on-surface-variant mt-0.5">
+        {{ translationService.t('dashboard.goldChartHint') }}
+      </p>
+    </div>
+    @if (!loading && !loadError && rates.length) {
+      <div class="ms-auto text-end">
+        <div class="flex items-end gap-2">
+          <span class="text-m3-headline-md font-semibold text-surface-on-surface">
+            {{ currentValue | number: '1.2-2' }}
+          </span>
+          <span class="text-sm text-surface-on-surface-variant mb-1">{{ currency }}</span>
+        </div>
+        <span
+          class="inline-flex items-center gap-1 rounded-m3-sm px-2.5 py-1 text-m3-label-md font-medium mt-1"
+          [ngClass]="changeBadgeClass"
+        >
+          {{ changePercent > 0 ? '+' : '' }}{{ changePercent | number: '1.2-2' }}%
+          <span class="font-normal opacity-80">{{ trendLabel }}</span>
+        </span>
+      </div>
+    }
+  </div>
+
+  <!-- Controls: period + karat -->
+  <div class="flex flex-wrap items-center gap-3 mb-4">
+    <mat-chip-listbox
+      hideSingleSelectionIndicator
+      [attr.aria-label]="translationService.t('dashboard.goldChart')"
+    >
+      @for (p of periods; track p) {
+        <mat-chip-option [selected]="period === p" (selectionChange)="pickPeriod($event, p)">
+          {{ translationService.t(periodLabelKey(p)) }}
+        </mat-chip-option>
+      }
+    </mat-chip-listbox>
+
+    <mat-chip-listbox
+      hideSingleSelectionIndicator
+      class="ms-auto"
+      [attr.aria-label]="translationService.t('dashboard.karat')"
+    >
+      @for (k of karats; track k) {
+        <mat-chip-option [selected]="karat === k" (selectionChange)="pickKarat($event, k)">
+          {{ k }}K
+        </mat-chip-option>
+      }
+    </mat-chip-listbox>
+  </div>
+
+  @if (loading) {
+    <!-- Loading skeleton -->
+    <div class="animate-pulse space-y-4">
+      <div class="h-[320px] w-full rounded-xl bg-surface-container-high"></div>
+      <div class="grid grid-cols-3 gap-4">
+        @for (i of [1, 2, 3]; track i) {
+          <div class="h-14 rounded-xl bg-surface-container-high"></div>
+        }
+      </div>
+    </div>
+  } @else if (loadError) {
+    <!-- Visible error state with retry -->
+    <div class="flex h-[320px] flex-col items-center justify-center gap-4 text-center">
+      <div>
+        <p class="text-surface-on-surface-variant">
+          {{ translationService.t('dashboard.pricesLoadError') }}
+        </p>
+        @if (errorMessage) {
+          <p class="mt-1 text-xs text-surface-on-surface-variant/70" dir="auto">{{ errorMessage }}</p>
+        }
+      </div>
+      <button matButton="outlined" (click)="retry()">
+        {{ translationService.t('common.retry') }}
+      </button>
+    </div>
+  } @else if (!rates.length) {
+    <!-- Empty state -->
+    <div class="flex h-[320px] items-center justify-center">
+      <p class="text-surface-on-surface-variant">{{ translationService.t('metals.noData') }}</p>
+    </div>
+  } @else {
+    <!-- Notice shown after an automatic fallback from 3 months to 1 month -->
+    @if (periodFallback) {
+      <div class="mb-3 rounded-m3-sm bg-surface-container-high px-3 py-2 text-sm text-surface-on-surface-variant">
+        {{ translationService.t('dashboard.periodFallback') }}
+      </div>
+    }
+
+    <!-- Chart -->
+    <apx-chart
+      [series]="series"
+      [chart]="chart"
+      [colors]="colors"
+      [stroke]="stroke"
+      [fill]="fill"
+      [markers]="markers"
+      [grid]="grid"
+      [dataLabels]="dataLabels"
+      [tooltip]="tooltip"
+      [xaxis]="xaxis"
+      [yaxis]="yaxis"
+    ></apx-chart>
+
+    <!-- Period stats -->
+    <div class="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-outline-variant/40 dark:border-outline-variant/30">
+      <div class="text-center">
+        <p class="text-xs text-surface-on-surface-variant">{{ translationService.t('dashboard.high') }}</p>
+        <p class="text-sm font-semibold text-surface-on-surface mt-0.5">
+          {{ highValue | number: '1.2-2' }}
+        </p>
+      </div>
+      <div class="text-center">
+        <p class="text-xs text-surface-on-surface-variant">{{ translationService.t('dashboard.low') }}</p>
+        <p class="text-sm font-semibold text-surface-on-surface mt-0.5">
+          {{ lowValue | number: '1.2-2' }}
+        </p>
+      </div>
+      <div class="text-center">
+        <p class="text-xs text-surface-on-surface-variant">{{ translationService.t('dashboard.average') }}</p>
+        <p class="text-sm font-semibold text-surface-on-surface mt-0.5">
+          {{ averageValue | number: '1.2-2' }}
+        </p>
+      </div>
+    </div>
+  }
+</div>

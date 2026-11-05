@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { PageHeaderComponent } from '../../../shared/components/layout/page-header/page-header.component';
-import { LoadingSpinnerComponent } from '../../../shared/components/common/loading-spinner/loading-spinner.component';
 import { ButtonComponent } from '../../../shared/components/ui/button/button.component';
 import { InputFieldComponent } from '../../../shared/components/form/input/input-field.component';
-import { LabelComponent } from '../../../shared/components/form/label/label.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { TranslationService } from '../../../shared/services/translation.service';
 import { NotificationsService } from '../../../shared/services/data/notifications.service';
 import { ErrorHandlerService } from '../../../shared/services/api/error-handler.service';
@@ -16,10 +17,11 @@ import { ErrorHandlerService } from '../../../shared/services/api/error-handler.
   imports: [
     CommonModule,
     PageHeaderComponent,
-    LoadingSpinnerComponent,
     ButtonComponent,
     InputFieldComponent,
-    LabelComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   templateUrl: './notification-form.component.html',
 })

@@ -22,84 +22,116 @@
 @if (isLoading) {
   <app-loading-spinner />
 } @else {
-  <div class="modern-card">
+  <div class="modern-table">
     <div class="overflow-x-auto modern-scrollbar">
-      <table class="modern-table w-full" [ngClass]="{'text-right': translationService.isRTL, 'text-left': !translationService.isRTL}">
-        <thead class="bg-gray-50 dark:bg-gray-800">
-          <tr>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('categories.name') }}
-            </th>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('categories.image') }}
-            </th>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('common.actions') }}
-            </th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-          @if (categories.length === 0) {
-            <tr>
-              <td colspan="3" class="px-6 py-12">
-                <div class="empty-state-modern">
-                  <svg class="mb-4 h-16 w-16 text-gray-400 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
-                  </svg>
-                  <h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
-                    {{ translationService.t('categories.noCategories') }}
-                  </h3>
-                  <p class="mb-6 text-gray-600 dark:text-gray-400">
-                    ابدأ بإنشاء فئتك الأولى
-                  </p>
-                  <a routerLink="/categories/add" class="modern-button modern-button-primary px-6 py-2">
-                    {{ translationService.t('common.add') }} {{ translationService.t('categories.category') }}
-                  </a>
-                </div>
-              </td>
-            </tr>
-          } @else {
-            @for (category of categories; track category.id) {
-              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
-                <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-white">
-                  {{ getCategoryName(category) }}
-                </td>
-                <td class="px-6 py-4">
-                  @if (imageUrlService.hasImage(category.image_url)) {
-                    <img [src]="imageUrlService.getImageUrl(category.image_url)" [alt]="getCategoryName(category)" 
-                         class="h-10 w-10 rounded object-cover" />
-                  } @else {
-                    <span class="text-gray-400 text-xs">{{ translationService.t('categories.noImage') }}</span>
-                  }
-                </td>
-                <td class="px-6 py-4 text-sm">
-                  <div class="flex items-center gap-2">
-                    <a [routerLink]="['/categories/edit', category.id]" 
-                       class="text-brand-500 hover:text-brand-600 dark:text-brand-400">
-                      {{ translationService.t('common.edit') }}
-                    </a>
-                    <button (click)="onDelete(category.id)" 
-                            class="text-error-500 hover:text-error-600 dark:text-error-400">
-                      {{ translationService.t('common.delete') }}
-                    </button>
-                  </div>
-                </td>
-              </tr>
+      <table mat-table [dataSource]="tableRows" class="w-full" [ngClass]="{'text-right': translationService.isRTL, 'text-left': !translationService.isRTL}">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('categories.name') }}</th>
+          <td mat-cell *matCellDef="let row" class="text-sm">
+            @if (row.isParent) {
+              <span class="font-semibold text-[color:var(--color-on-surface)]">
+                {{ getCategoryName(row.category) }}
+              </span>
+            } @else {
+              <span class="flex items-center gap-1.5 text-[color:var(--color-on-surface-variant)]"
+                    [ngClass]="translationService.isRTL ? 'pe-6' : 'ps-6'">
+                <svg class="h-3.5 w-3.5 flex-shrink-0 text-[color:var(--color-outline)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
+                     [ngClass]="{'-scale-x-100': translationService.isRTL}">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+                {{ getCategoryName(row.category) }}
+              </span>
             }
-          }
-        </tbody>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="image">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('categories.image') }}</th>
+          <td mat-cell *matCellDef="let row">
+            @if (imageUrlService.hasImage(row.category.image_url)) {
+              <img [src]="imageUrlService.getImageUrl(row.category.image_url)" [alt]="getCategoryName(row.category)"
+                   [ngClass]="row.isParent ? 'h-12 w-12 rounded-xl' : 'h-10 w-10 rounded-lg'"
+                   class="object-cover ring-1 ring-outline-variant/40" />
+            } @else {
+              <span class="text-xs text-[color:var(--color-outline)]">{{ translationService.t('categories.noImage') }}</span>
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('common.actions') }}</th>
+          <td mat-cell *matCellDef="let row">
+            <div class="flex items-center gap-1">
+              <button
+                mat-icon-button
+                [routerLink]="['/categories/edit', row.category.id]"
+                [matTooltip]="translationService.t('common.edit')"
+                [attr.aria-label]="translationService.t('common.edit')"
+                class="!text-[color:var(--color-on-surface-variant)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                </svg>
+              </button>
+              <button
+                mat-icon-button
+                (click)="openDelete(row.category)"
+                [matTooltip]="translationService.t('common.delete')"
+                [attr.aria-label]="translationService.t('common.delete')"
+                class="!text-[color:var(--color-error)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            [ngClass]="row.isParent ? 'bg-[color:var(--color-surface-container)]/40' : ''"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell px-6 py-12" [attr.colspan]="displayedColumns.length">
+            <div class="empty-state-modern">
+              <svg class="mb-4 h-16 w-16 text-[color:var(--color-outline)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+              </svg>
+              <h3 class="mb-2 text-lg font-semibold text-[color:var(--color-on-surface)]">
+                {{ translationService.t('categories.noCategories') }}
+              </h3>
+              <p class="mb-6 text-[color:var(--color-on-surface-variant)]">
+                ابدأ بإنشاء فئتك الأولى
+              </p>
+              <a matButton="filled" routerLink="/categories/add" class="px-6">
+                {{ translationService.t('common.add') }} {{ translationService.t('categories.category') }}
+              </a>
+            </div>
+          </td>
+        </tr>
       </table>
     </div>
 
     @if (totalPages > 1) {
-      <app-pagination
-        [currentPage]="currentPage"
-        [totalPages]="totalPages"
-        [total]="total"
-        [limit]="limit"
-        (pageChange)="onPageChange($event)"
-      />
+      <div class="border-t border-outline-variant/40 dark:border-outline-variant/30">
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalPages]="totalPages"
+          [total]="total"
+          [limit]="limit"
+          (pageChange)="onPageChange($event)"
+        />
+      </div>
     }
   </div>
 }
+
+<app-confirm-dialog
+  [open]="!!deleteTarget"
+  variant="destructive"
+  [title]="translationService.t('categories.confirmDeleteTitle')"
+  [message]="(deleteTarget ? getCategoryName(deleteTarget) : '') + ' — ' + translationService.t('categories.confirmDelete')"
+  [confirmLabel]="translationService.t('common.delete')"
+  [processing]="actionProcessing"
+  (confirmed)="confirmDelete()"
+  (cancelled)="deleteTarget = null"
+/>
 

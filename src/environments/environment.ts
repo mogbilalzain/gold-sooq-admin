@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://www.ashieari.com/GoldSouqAPIs/api',
+  apiBaseUrl: 'http://localhost:3005/AyarSouqAPIs/api',
   apiTimeout: 30000, // 30 seconds
 };
 

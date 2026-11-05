@@ -83,7 +83,8 @@ export class MetalsPricesChartComponent implements OnInit, OnChanges {
         },
       },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backgroundColor: '#313030',
+        cornerRadius: 4,
         padding: 12,
         titleFont: {
           family: 'Outfit, sans-serif',
@@ -120,7 +121,7 @@ export class MetalsPricesChartComponent implements OnInit, OnChanges {
       y: {
         type: 'linear',
         grid: {
-          color: 'rgba(0, 0, 0, 0.05)',
+          color: 'rgba(206, 198, 178, 0.35)',
         },
         ticks: {
           font: {
@@ -251,7 +252,7 @@ export class MetalsPricesChartComponent implements OnInit, OnChanges {
     };
 
     // Update RTL support and legend visibility
-    const fontFamily = this.translationService.isRTL ? 'Cairo, sans-serif' : 'Outfit, sans-serif';
+    const fontFamily = this.translationService.isRTL ? 'Tajawal, sans-serif' : 'Outfit, sans-serif';
     const legendAlign = this.translationService.isRTL ? 'end' : 'start';
 
     this.chartOptions = {
@@ -298,7 +299,7 @@ export class MetalsPricesChartComponent implements OnInit, OnChanges {
         y: {
           type: 'linear',
           grid: {
-            color: 'rgba(0, 0, 0, 0.05)',
+            color: 'rgba(206, 198, 178, 0.35)',
           },
           ticks: {
             font: {

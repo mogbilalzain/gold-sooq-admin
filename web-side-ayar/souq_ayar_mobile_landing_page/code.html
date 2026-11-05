@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>سوق عيار - كل ما يخص الذهب</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100..900&family=Tajawal:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#484a11",
+                        "primary-container": "#d6b42c",
+                        "tertiary-fixed-dim": "#e6c503",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#dcd9d9",
+                        "on-primary-fixed-variant": "#554500",
+                        "on-secondary-fixed": "#1c1d00",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#564600",
+                        "surface-variant": "#e5e2e1",
+                        "secondary-container": "#e5e79e",
+                        "on-tertiary-fixed": "#221b00",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#66682c",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-fixed": "#e5e79e",
+                        "surface-container-highest": "#e5e2e1",
+                        "inverse-primary": "#e7c43c",
+                        "outline-variant": "#cfc6ae",
+                        "error": "#ba1a1a",
+                        "tertiary": "#6e5d00",
+                        "secondary-fixed-dim": "#c9cb85",
+                        "surface-container-high": "#eae7e7",
+                        "on-surface-variant": "#4c4634",
+                        "surface-tint": "#715d00",
+                        "on-tertiary-fixed-variant": "#534600",
+                        "primary": "#715d00",
+                        "background": "#fcf9f8",
+                        "on-tertiary-container": "#544700",
+                        "on-background": "#1c1b1b",
+                        "tertiary-fixed": "#ffe25f",
+                        "inverse-on-surface": "#f3f0ef",
+                        "tertiary-container": "#d4b500",
+                        "surface-bright": "#fcf9f8",
+                        "inverse-surface": "#313030",
+                        "secondary": "#606227",
+                        "outline": "#7e7762",
+                        "surface-container": "#f0eded",
+                        "primary-fixed": "#ffe178",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#231b00",
+                        "on-surface": "#1c1b1b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "primary-fixed-dim": "#e7c43c",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1.5rem"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "xl": "64px",
+                        "margin-mobile": "20px",
+                        "md": "24px",
+                        "margin-desktop": "120px",
+                        "base": "8px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["IBM Plex Sans Arabic"],
+                        "display-lg": ["Tajawal"],
+                        "headline-lg": ["Tajawal"],
+                        "headline-lg-mobile": ["Tajawal"],
+                        "label-lg": ["IBM Plex Sans Arabic"],
+                        "headline-sm": ["Tajawal"],
+                        "body-md": ["Tajawal"],
+                        "body-lg": ["Tajawal"],
+                        "headline-md": ["Tajawal"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "display-lg": ["40px", { "lineHeight": "52px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    },
+                    "boxShadow": {
+                        "gold": "0px 10px 30px rgba(214, 180, 44, 0.08)",
+                        "diffuse": "0px 4px 20px rgba(0, 0, 0, 0.04)"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #fcf9f8; color: #1c1b1b; }
+        .gold-gradient { background: linear-gradient(135deg, #d6b42c 0%, #a88a18 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); }
+    </style>
+</head>
+<body class="max-w-[390px] mx-auto bg-surface relative overflow-x-hidden">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full max-w-[390px] z-50 bg-background/95 backdrop-blur-md border-b border-outline-variant/30 flex justify-between items-center px-margin-mobile py-4 shadow-sm">
+<a class="flex-shrink-0" href="#">
+<img alt="سوق عيار" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmFnMS1PVdrZY0SuO8vydrKzkQ-Z1q-UPfQndHD9PoAvlDoCBLGEGRzk0M3XMLQi2zY8cD-h3flY5905_-V5nw0t1crISow5l4v1AhgbCxtdxKG6muM5xwv4ZCxgwvWsOiz8WTq9hkiOMro1NSAzPcs89wVeZB4hh-lXqVeMGwDSqjJrE2a_a7yJvtjxWZWHdG6VQYDq2yhYYrnQh-peFav_LyymvljBo5Lxzx62jQVLYPKqtnRpy4zkC_QE5RXOEdrw"/>
+</a>
+<button aria-label="Menu" class="text-on-surface p-2 rounded-lg hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[28px]">menu</span>
+</button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-[80px] pb-[100px] px-margin-mobile flex flex-col gap-xl">
+<!-- Hero Section -->
+<section class="flex flex-col items-center text-center gap-md pt-lg">
+<div class="flex flex-col gap-base">
+<span class="text-primary font-label-lg text-label-lg tracking-wider uppercase">منصة الذهب الأولى</span>
+<h1 class="font-display-lg text-display-lg text-on-surface leading-tight">
+                    كل ما يخص الذهب في <span class="text-primary-container">سوق واحد</span>
+</h1>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[300px]">
+                تطبيقك الشامل لأسعار الذهب المباشرة، التداول، ومتاجر المجوهرات الموثوقة.
+            </p>
+<div class="flex gap-sm mt-sm w-full justify-center">
+<button class="bg-[#171717] text-white px-md py-sm rounded-2xl font-label-lg text-label-lg flex items-center justify-center gap-xs flex-1 max-w-[160px] shadow-diffuse hover:scale-95 transition-transform min-h-[44px]">
+<span class="material-symbols-outlined">download</span>
+                    حمل التطبيق
+                </button>
+</div>
+<div class="relative w-full aspect-[1/2] mt-lg max-w-[280px] mx-auto">
+<div class="absolute inset-0 bg-primary-container/10 rounded-[40px] transform rotate-3 scale-105"></div>
+<img alt="تطبيق سوق عيار يعرض أسعار الذهب الحية بواجهة مستخدم حديثة وأنيقة" class="relative z-10 w-full h-full object-cover rounded-[32px] shadow-gold border-4 border-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2jGDnTPoBFE-EzWblaopnbFrtrVBvKPh3mcuKu8sPfc_rpAMXGa7dY8lgR_ao8n6tjpCRJDrFdnjY_KLQ44qHN1pbtLjL6WSNcjHPb48d__2HxrJYtuzYyzhx208-KUffWDpAvJ4KuzuAKP7Sox9ZLbJWtB5iiSSN-m7MjNSCC5HrA0YQrPMNtIoe0q5AUzXBqmW2gVlec3KERs5O2pY-OQfNCYhoWTEcpvNIlgLj5NeYzo4B3KRDKtlQ9vUeqbrA8Q"/>
+</div>
+</section>
+<!-- Key Features Bento -->
+<section class="flex flex-col gap-md">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface text-center mb-sm">المميزات الرئيسية</h2>
+<div class="grid grid-cols-2 gap-sm">
+<div class="bg-surface-container-lowest p-md rounded-2xl shadow-diffuse flex flex-col gap-sm items-center text-center">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">أسعار حية</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">تحديث فوري لأسعار الذهب العالمية والمحلية.</p>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-2xl shadow-diffuse flex flex-col gap-sm items-center text-center">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">storefront</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">متاجر موثوقة</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">دليل شامل لأفضل محلات الذهب المعتمدة.</p>
+</div>
+<div class="col-span-2 bg-surface-container-lowest p-md rounded-2xl shadow-gold border border-primary-container/30 flex gap-md items-center">
+<div class="w-14 h-14 rounded-full gold-gradient flex items-center justify-center text-white flex-shrink-0">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">أمان و موثوقية</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">جميع التعاملات والمتاجر تخضع لرقابة صارمة لضمان حقوقك.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Preview Section -->
+<section class="flex flex-col gap-md relative">
+<div class="absolute -right-margin-mobile w-32 h-32 bg-primary-container/20 rounded-full blur-3xl -z-10"></div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface text-center mb-base">واجهة سهلة الاستخدام</h2>
+<p class="font-body-md text-body-md text-on-surface-variant text-center px-md mb-md">
+                تصفح الأقسام بكل سهولة، من أسعار العملات إلى المعدات وأجهزة الكشف.
+            </p>
+<div class="flex gap-sm overflow-x-auto pb-sm snap-x snap-mandatory hide-scrollbar -mx-margin-mobile px-margin-mobile">
+<img alt="واجهة التطبيق تظهر أقسام مختلفة مثل طلبات الشراء، خدمات الذهب، وأجهزة الكشف" class="w-[240px] flex-shrink-0 snap-center rounded-2xl shadow-diffuse border border-outline-variant/20 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTawZ40BjZGMWcWrLs8LEH6bSCOTyuBjSLlxeDxeN1PsWdE4WoYSQL529oo7crVQkcIVgQ1D7LJT0OJeVOiKKEPXPDb3jtnjuXRLbBR5cd0xKY8mczv1tqvO6NvSGCWhBRYAElBLc_N6p_NapfMjbbCSara8H354nTd0O_VoNI43YBbQeihMdE6oG6gpfTKczRpoT6mcsQAI7mPz4zk7MxfmY3qq_7P9vw7GxmRUUudk_qE9b4f3nPIqJbwqnaksONDg"/>
+<img alt="رسم بياني يوضح حركة أسعار الذهب خلال 7 أيام بتصميم عصري وواضح" class="w-[240px] flex-shrink-0 snap-center rounded-2xl shadow-diffuse border border-outline-variant/20 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9cUF2lPvWKjSukmBwBIvuEgge2G6aGleZtsCPRuoT7xF68AhVkYrTDHWtxpksi9nMOGsQ1z_P5hFZIVYxPVEUFankKigECG4sk3XzUIb1DlWCx0o7THjMgYFkg7nMD2HBd4XwidU2pkJynHq3rVMFRBkP2ockMC-szMJ3W_6CAsdH-siZaedXtnmy_xjbLeJfgUuuruHBVdtYqhA0WbTC-fIoX-JOBOS-9-DLQT9J-oFyvVEdRV-RCKAcCZny0JXnBA"/>
+</div>
+</section>
+<!-- Call to Action -->
+<section class="bg-[#171717] rounded-3xl p-lg text-center flex flex-col items-center gap-md relative overflow-hidden mt-md">
+<div class="absolute top-0 right-0 w-full h-full bg-[url('placeholder')] opacity-10 bg-cover bg-center pointer-events-none" data-alt="Abstract geometric pattern resembling gold facets and light reflections on a dark background, minimal and premium texture."></div>
+<span class="material-symbols-outlined text-primary-container text-[48px] relative z-10">diamond</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-white relative z-10">ابدأ تجربتك الآن</h2>
+<p class="font-body-md text-body-md text-surface-variant relative z-10 max-w-[250px]">
+                انضم لآلاف المستخدمين المستفيدين من خدمات سوق عيار يومياً.
+            </p>
+<button class="bg-primary-container text-[#171717] px-lg py-sm rounded-2xl font-label-lg text-label-lg font-bold mt-sm shadow-gold hover:scale-95 transition-transform min-h-[44px] relative z-10">
+                تحميل التطبيق مجاناً
+            </button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest flex flex-col items-center justify-center w-full py-xl px-margin-mobile border-t border-outline-variant/20 gap-md">
+<img alt="سوق عيار" class="h-10 w-auto grayscale opacity-80 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMr1YDzxWKCagMwD2gCLCA5-4SligKrXrtdbNRsgQxKBQMyLA-unRKrN1_R8BrsENmp0_qTkaVca6MNV3vsg5rqBGihNGVDwuuCjV6Zs1ICwridQ2gPgV0O8bYx2_wPPxWvTzJ6PQlTjknAnFxJtLccHWvxlD6CKcH3qtYaRzhtKxnjj57-QMRfhapL62pYt2d7vDJD1Vww-Y8YcNjl0bOCo1_bfb2mpDHdI7hpcxdqTLeKk3jIt-jEjVgaJ5yVCeNHw"/>
+<div class="flex gap-md font-body-md text-body-md text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">الشروط والأحكام</a>
+<a class="hover:text-primary transition-colors" href="#">سياسة الخصوصية</a>
+<a class="hover:text-primary transition-colors" href="#">اتصل بنا</a>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-sm">
+            © 2024 سوق عيار. جميع الحقوق محفوظة.
+        </p>
+</footer>
+<style>
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</body></html>

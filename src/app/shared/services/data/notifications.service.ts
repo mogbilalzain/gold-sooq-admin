@@ -32,8 +32,19 @@ export interface Notification {
   fcm_sent?: boolean;
 }
 
+export interface NotificationsListRequest {
+  page?: number;
+  limit?: number;
+}
+
 export interface NotificationsListResponse {
   notifications: Notification[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
 }
 
 @Injectable({
@@ -54,9 +65,17 @@ export class NotificationsService {
     );
   }
 
-  listNotifications(): Observable<ApiResponse<NotificationsListResponse>> {
+  listNotifications(request: NotificationsListRequest = {}): Observable<ApiResponse<NotificationsListResponse>> {
+    const params: Record<string, string> = {};
+    if (request.page) {
+      params['page'] = String(request.page);
+    }
+    if (request.limit) {
+      params['limit'] = String(request.limit);
+    }
     return this.http.get<ApiResponse<NotificationsListResponse>>(
-      `${this.apiConfig.getAdminNotificationsUrl()}/listNotifications`
+      `${this.apiConfig.getAdminNotificationsUrl()}/listNotifications`,
+      { params }
     );
   }
 

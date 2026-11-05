@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سوق الذهب | Gold Sooq — منصة تداول المعادن النفيسة</title>
+<meta name="description" content="منصة سوق الذهب الرائدة لتداول الذهب والمجوهرات والمعادن النفيسة في المنطقة. أسعار مباشرة، متاجر موثوقة، وتجربة عصرية آمنة.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          background: "#f9f9f9",
+          surface: "#f9f9f9",
+          "surface-bright": "#ffffff",
+          "surface-container-lowest": "#ffffff",
+          "surface-container-low": "#f4f3f3",
+          "surface-container": "#eeeeee",
+          "surface-container-high": "#e8e8e8",
+          "surface-container-highest": "#e2e2e2",
+          "surface-variant": "#e2e2e2",
+          "on-surface": "#1a1c1c",
+          "on-surface-variant": "#4d4635",
+          "on-background": "#1a1c1c",
+          "inverse-surface": "#2f3131",
+          "inverse-on-surface": "#f1f1f1",
+          outline: "#7f7663",
+          "outline-variant": "#d0c5af",
+          primary: "#745b00",
+          "on-primary": "#ffffff",
+          "primary-container": "#c5a028",
+          "on-primary-container": "#493800",
+          "primary-fixed": "#ffe08b",
+          "primary-fixed-dim": "#eac249",
+          "on-primary-fixed": "#241a00",
+          "on-primary-fixed-variant": "#584400",
+          "inverse-primary": "#eac249",
+          secondary: "#5f5e5e",
+          "on-secondary": "#ffffff",
+          "secondary-container": "#e2dfde",
+          "on-secondary-container": "#636262",
+          "secondary-fixed": "#e5e2e1",
+          "secondary-fixed-dim": "#c8c6c5",
+          "on-secondary-fixed": "#1c1b1b",
+          "on-secondary-fixed-variant": "#474746",
+          tertiary: "#5e604d",
+          "on-tertiary": "#ffffff",
+          "tertiary-container": "#a5a690",
+          "on-tertiary-container": "#3a3c2a",
+          "tertiary-fixed": "#e4e4cc",
+          "tertiary-fixed-dim": "#c8c8b0",
+          "on-tertiary-fixed": "#1b1d0e",
+          "on-tertiary-fixed-variant": "#474836",
+          error: "#ba1a1a",
+          "on-error": "#ffffff",
+          "error-container": "#ffdad6",
+          "on-error-container": "#93000a"
+        },
+        borderRadius: { DEFAULT: "0.5rem", md: "0.75rem", lg: "1rem", xl: "1.5rem", "2xl": "1.75rem", "3xl": "2rem" },
+        spacing: { gutter: "24px", "stack-sm": "8px", "stack-md": "16px", "stack-lg": "32px", "container-max": "1280px", "margin-mobile": "16px", "margin-desktop": "48px" },
+        fontFamily: {
+          "display-lg": ["Playfair Display", "Cairo", "serif"],
+          "headline-lg": ["Playfair Display", "Cairo", "serif"],
+          "headline-md": ["Cairo", "IBM Plex Sans", "sans-serif"],
+          "body-lg": ["Cairo", "IBM Plex Sans", "sans-serif"],
+          "body-md": ["Cairo", "IBM Plex Sans", "sans-serif"],
+          "label-md": ["Cairo", "IBM Plex Sans", "sans-serif"]
+        },
+        fontSize: {
+          "display-lg": ["48px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }],
+          "headline-lg": ["32px", { lineHeight: "1.3", fontWeight: "700" }],
+          "headline-md": ["24px", { lineHeight: "1.4", fontWeight: "600" }],
+          "body-lg": ["18px", { lineHeight: "1.7", fontWeight: "400" }],
+          "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+          "label-md": ["14px", { lineHeight: "1.2", letterSpacing: "0.04em", fontWeight: "600" }]
+        }
+      }
+    }
+  };
+</script>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="bg-background text-on-background">
+
+<!-- Mobile drawer backdrop -->
+<div class="gs-drawer-backdrop" data-drawer-close></div>
+
+<!-- Mobile drawer -->
+<aside class="gs-drawer" aria-hidden="true">
+  <div class="flex items-center justify-between px-6 h-20 border-b border-outline-variant/40">
+    <span class="font-display-lg text-2xl text-gradient-gold font-bold">Gold Sooq</span>
+    <button data-drawer-close class="p-2 rounded-lg hover:bg-surface-container-low" aria-label="إغلاق القائمة">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+  <nav class="flex flex-col gap-1 p-6 text-right">
+    <a class="gs-nav-link py-3 text-base" href="index.html">الرئيسية</a>
+    <a class="gs-nav-link py-3 text-base" href="categories.html">الأقسام</a>
+    <a class="gs-nav-link py-3 text-base" href="prices.html">الأسعار المباشرة</a>
+    <a class="gs-nav-link py-3 text-base" href="how-it-works.html">كيف يعمل</a>
+    <a class="gs-nav-link py-3 text-base" href="about.html">المميزات</a>
+    <a class="gs-nav-link py-3 text-base" href="pricing.html">الباقات</a>
+    <a class="gs-nav-link py-3 text-base" href="contact.html">تواصل معنا</a>
+  </nav>
+  <div class="mt-auto p-6 grid grid-cols-2 gap-3 border-t border-outline-variant/40">
+    <a href="contact.html" class="btn-ghost text-center">تسجيل الدخول</a>
+    <a href="pricing.html" class="btn-gold text-center">إنشاء حساب</a>
+  </div>
+</aside>
+
+<!-- Sticky Header -->
+<header class="gs-header">
+  <div class="flex flex-row-reverse justify-between items-center w-full px-gutter max-w-container-max mx-auto h-full">
+    <a href="index.html" class="flex items-center gap-2 group">
+      <span class="w-9 h-9 rounded-xl bg-gold-metallic flex items-center justify-center gold-glow-sm">
+        <span class="material-symbols-outlined text-on-primary-fixed text-[20px]" style="font-variation-settings:'FILL' 1;">diamond</span>
+      </span>
+      <span class="font-display-lg text-2xl font-bold text-gradient-gold">Gold Sooq</span>
+    </a>
+    <nav class="hidden lg:flex flex-row-reverse items-center gap-1">
+      <a class="gs-nav-link" href="index.html">الرئيسية</a>
+      <a class="gs-nav-link" href="categories.html">الأقسام</a>
+      <a class="gs-nav-link" href="prices.html">الأسعار</a>
+      <a class="gs-nav-link" href="how-it-works.html">كيف يعمل</a>
+      <a class="gs-nav-link" href="about.html">المميزات</a>
+      <a class="gs-nav-link" href="pricing.html">الباقات</a>
+      <a class="gs-nav-link" href="contact.html">تواصل معنا</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="contact.html" class="hidden md:inline-flex text-primary font-bold text-sm px-4 py-2 hover:text-on-primary-fixed-variant transition-colors">تسجيل الدخول</a>
+      <a href="pricing.html" class="hidden md:inline-flex btn-gold !py-2.5 !px-5">إنشاء حساب</a>
+      <button data-drawer-open class="lg:hidden p-2 rounded-lg hover:bg-surface-container-low" aria-label="فتح القائمة">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Live Price Ticker -->
+<div class="gs-ticker pt-20" aria-label="شريط الأسعار المباشر">
+  <div class="gs-ticker__track">
+    <span class="gs-ticker__item"><span class="gs-ticker__label">ذهب 24K</span><span class="gs-ticker__value">285.50</span><span class="gs-ticker__delta-down">▼ 0.20%</span></span>
+    <span class="gs-ticker__item"><span class="gs-ticker__label">ذهب 22K</span><span class="gs-ticker__value">264.25</span><span class="gs-ticker__delta-up">▲ 0.50%</span></span>
+    <span class="gs-ticker__item"><span class="gs-ticker__label">ذهب 21K</span><span class="gs-ticker__value">252.00</span><span class="gs-ticker__delta-up">▲ 0.40%</span></span>
+    <span class="gs-ticker__item"><span class="gs-ticker__label">ذهب 18K</span><span class="gs-ticker__value">216.00</span><span class="gs-ticker__delta-down">▼ 0.10%</span></span>
+    <span class="gs-ticker__item"><span class="gs-ticker__label">فضة</span><span class="gs-ticker__value">3.45</span><span class="gs-ticker__delta-up">▲ 1.20%</span></span>
+    <span class="gs-ticker__item"><span class="gs-ticker__label">بلاتين</span><span class="gs-ticker__value">124.80</span><span class="gs-ticker__delta-up">▲ 0.80%</span></span>
+    <!-- duplicated for seamless loop -->
+    <span class="gs-ticker__item"><span class="gs-ticker__label">ذهب 24K</span><span class="gs-ticker__value">285.50</span><span class="gs-ticker__delta-down">▼ 0.20%</span></span>
+    <span class="gs-ticker__item"><span class="gs-ticker__label">ذهب 22K</span><span class="gs-ticker__value">264.25</span><span class="gs-ticker__delta-up">▲ 0.50%</span></span>
+    <span class="gs-ticker__item"><span class="gs-ticker__label">ذهب 21K</span><span class="gs-ticker__value">252.00</span><span class="gs-ticker__delta-up">▲ 0.40%</span></span>
+    <span class="gs-ticker__item"><span class="gs-ticker__label">ذهب 18K</span><span class="gs-ticker__value">216.00</span><span class="gs-ticker__delta-down">▼ 0.10%</span></span>
+    <span class="gs-ticker__item"><span class="gs-ticker__label">فضة</span><span class="gs-ticker__value">3.45</span><span class="gs-ticker__delta-up">▲ 1.20%</span></span>
+    <span class="gs-ticker__item"><span class="gs-ticker__label">بلاتين</span><span class="gs-ticker__value">124.80</span><span class="gs-ticker__delta-up">▲ 0.80%</span></span>
+  </div>
+</div>
+
+<main>
+<main>
+
+<!-- Hero (slim) -->
+<section class="relative aurora py-16">
+  <div class="max-w-container-max mx-auto px-gutter relative z-10 text-right">
+    <nav class="text-sm text-secondary mb-4 flex flex-row-reverse gap-2 reveal" aria-label="مسار التنقل">
+      <a href="index.html" class="hover:text-primary">الرئيسية</a>
+      <span>/</span>
+      <span class="text-on-surface font-bold">الأقسام</span>
+    </nav>
+    <h1 class="font-display-lg text-3xl md:text-display-lg leading-tight reveal">
+      استكشف <span class="shimmer-text">التصنيفات</span>
+    </h1>
+    <p class="font-body-lg text-secondary mt-4 max-w-2xl reveal">اكتشف أرقى المعادن الثمينة والساعات الفاخرة المنسقة بدقة من جميع أنحاء العالم.</p>
+  </div>
+</section>
+
+<!-- Categories grid + filters -->
+<section class="pb-16">
+  <div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-12 gap-6">
+
+    <!-- Sidebar Filters -->
+    <aside class="md:col-span-3 reveal">
+      <div class="gs-card p-6 sticky top-28">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="font-bold text-lg">تصفية</h3>
+          <span class="material-symbols-outlined text-primary cursor-pointer">tune</span>
+        </div>
+        <div class="mb-6">
+          <label class="block text-xs uppercase tracking-wider text-secondary font-bold mb-3">نطاق السعر (د.إ)</label>
+          <input class="w-full accent-primary" max="100000" min="0" step="500" type="range" value="50000"/>
+          <div class="flex justify-between text-xs text-secondary mt-2"><span>0</span><span>100,000+</span></div>
+        </div>
+        <div class="mb-6">
+          <label class="block text-xs uppercase tracking-wider text-secondary font-bold mb-3">العيار</label>
+          <div class="flex flex-wrap gap-2">
+            <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant text-sm cursor-pointer hover:border-primary transition-colors"><input type="checkbox" class="accent-primary"/>24K</label>
+            <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant text-sm cursor-pointer hover:border-primary transition-colors"><input type="checkbox" class="accent-primary"/>22K</label>
+            <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant text-sm cursor-pointer hover:border-primary transition-colors"><input type="checkbox" class="accent-primary"/>21K</label>
+            <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant text-sm cursor-pointer hover:border-primary transition-colors"><input type="checkbox" class="accent-primary"/>18K</label>
+          </div>
+        </div>
+        <div class="mb-6">
+          <label class="block text-xs uppercase tracking-wider text-secondary font-bold mb-3">الحالة</label>
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer"><input class="accent-primary" name="cond" type="radio" checked/><span class="text-sm">جديد</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input class="accent-primary" name="cond" type="radio"/><span class="text-sm">مستعمل ممتاز</span></label>
+            <label class="flex items-center gap-2 cursor-pointer"><input class="accent-primary" name="cond" type="radio"/><span class="text-sm">جميع الحالات</span></label>
+          </div>
+        </div>
+        <button class="btn-gold w-full">تطبيق التصفية</button>
+        <button class="text-secondary text-sm w-full mt-3 hover:text-primary transition-colors">إعادة تعيين</button>
+      </div>
+    </aside>
+
+    <!-- Bento Grid -->
+    <div class="md:col-span-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+
+      <a href="categories.html" class="md:col-span-2 group relative overflow-hidden rounded-3xl border border-outline-variant aspect-[16/10] reveal">
+        <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="ذهب" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs1U1vg9I4AFsk2qBydYXnHA5bR3NBMqUHJ0D1fHvFDfxNvm0FRDfMWOYWIJg8f7FTfJAC8eieMi5QPF3nxVNE8vAgIVA8GHay1sI42v-VlOJLy31JwjMfdrDAZqH3J5bqXnnPsBAll42MxMMITHNpANqLRLTnbRReJ8-pe_V0Qso_Ge0GaGK8ML1TGjxv0z-KCtU9hSIK71YGoxoX95RC38eA5NQg_7EQ1aOMQcpz5CYHn0XgJHS63PZ0l8cIMCDhh08UfznZd38"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-7 text-white">
+          <div class="flex items-end justify-between gap-3">
+            <div>
+              <h2 class="font-display-lg text-3xl md:text-4xl mb-1">الذهب</h2>
+              <p class="text-sm opacity-80">سبائك، عملات، ومجوهرات فاخرة</p>
+            </div>
+            <span class="bg-gold-metallic text-on-primary-fixed px-4 py-1.5 rounded-full text-xs font-bold gold-glow-sm">1,240 قطعة</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="categories.html" class="group relative overflow-hidden rounded-3xl border border-outline-variant aspect-square reveal">
+        <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="ألماس" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzQ_i9nrLJ2WOtKSgVF4wrXo2Eyr8a2D8_mNPZKXIXIQnOq-tOFsiiRzcDxoI9mCq0sobpeBgqxS7R__uHOMbzZTD2Gn_SlaL_ZIee30NNV7k7PiEwGQNDJkxNlZndAX_7M6fzb9mXIllxe8WVaCqydW7jOhySA0iBUzirye-Q96dl_-mLhO3S3HwU5P2utpU6WLSP5cqf1t9SWAtFRhXUO4KnRZChUrHP6hRAi6S5ZMs4AtvyKIt33qvde8sGtkRbI7CQv7XzCnc"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent flex flex-col justify-end p-5 text-white">
+          <h2 class="font-bold text-2xl">الألماس</h2>
+          <p class="text-xs opacity-80">420 متوفر</p>
+        </div>
+      </a>
+
+      <a href="categories.html" class="group relative overflow-hidden rounded-3xl border border-outline-variant aspect-square reveal">
+        <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="فضة" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO-dMDjMVDepfNxwhYVG7yu5jZUKauXMwpFfjneTkUWU8L4sO25GMb_Mf5nk4V8Fm5RIaytJ4S2VW_avfa1jNx56QdDyfSq5FbwGSdt9jFU3dbE-nrazuuTDlEzmbQmL1IuVmLxa5rmJrsZivpNeTwPdUF8GJS6_jxlUkmEyPk3r7PEPC2_uyomyCvNq44XhUdennLKHBV7WP_A8qEervgxWKLpcj7BqSan_5gl8BwUQYxTGq3XY4_7AVZaRr_DOZ50nbO1EbwH2M"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent flex flex-col justify-end p-5 text-white">
+          <h2 class="font-bold text-2xl">الفضة</h2>
+          <p class="text-xs opacity-80">850 متوفر</p>
+        </div>
+      </a>
+
+      <a href="categories.html" class="md:col-span-2 group relative overflow-hidden rounded-3xl border border-outline-variant aspect-[16/10] reveal">
+        <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="ساعات" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsL14sxDCvuWm4V5PAXSOuhgbnAuhRCOOFYwrImgl-FEn9r8H3FT6rJ_OfD9O0LUfQYxNJDI7ir86yEJhhqAd6-y44b3NQE_m3YIohevHH3j1_vOP3N7td3QjHY2MMWvzJ-_FAUdk5TiEls4z9jb33r0Hj9oGbWWfpPeII2dRMgRthqsj_7tFUg-NSUC5JVuLa8C_xKGLGRF_NRIoQST1anhK5huXLWPRdqJiO10d2UpiKXjiO1JpA6LVf3a5w_8HUypNaCCl1icw"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-7 text-white">
+          <div class="flex items-end justify-between gap-3">
+            <div>
+              <h2 class="font-display-lg text-3xl md:text-4xl mb-1">الساعات الفاخرة</h2>
+              <p class="text-sm opacity-80">ماركات عالمية وقطع استثمارية</p>
+            </div>
+            <span class="bg-gold-metallic text-on-primary-fixed px-4 py-1.5 rounded-full text-xs font-bold gold-glow-sm">150 قطعة</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="categories.html" class="group relative overflow-hidden rounded-3xl border border-outline-variant aspect-square reveal">
+        <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="بلاتين" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqhLWtHB_fO2kGcp_n6V0jJaGknGP-n-lwK3BF4gN6F9T8MNaWtPOVCgVQAHoxTDBd0EICoRU97682qCBDYzsrWOpdjBms5LrExg5w2X0HaY_xBe4KFS4jJXQpVvlDaMs8DIXE4cDfiQFL81quazt_4jTQ7L6HJAOnA6HVxUoly8ZTTu5JIe3KZs7frvkTu6QM66BfS8XCiUmdAgd1SPLOq-UyjFXNI0HynZ2Bt7YV4MzWMWfxSLCdmYbS7kswdiHWjiUPYrUwFcI"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent flex flex-col justify-end p-5 text-white">
+          <h2 class="font-bold text-2xl">البلاتين</h2>
+          <p class="text-xs opacity-80">65 متوفر</p>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- Latest collections row -->
+<section class="py-16 bg-surface-container-lowest border-y border-outline-variant/30">
+  <div class="max-w-container-max mx-auto px-gutter">
+    <div class="flex flex-row-reverse items-center justify-between mb-8 gap-3 flex-wrap">
+      <h3 class="font-headline-md text-2xl reveal">أحدث المجموعات المضافة</h3>
+      <a class="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all" href="prices.html">عرض الأسعار <span class="material-symbols-outlined">arrow_back</span></a>
+    </div>
+    <div class="flex overflow-x-auto gap-5 pb-4 custom-scrollbar">
+      <a href="categories.html" class="min-w-[220px] gs-card p-3 group">
+        <div class="aspect-square rounded-2xl overflow-hidden bg-surface-container mb-3">
+          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="عقد" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYVZ0amiMN_wO47XudxPD02KjkYcypKR_cB47Vhyy7GI3p4kJlz7Ua50MP7nXk2M6-PC-oV1J24TSaevP-DECZxaBRyOu6hfRI8HKY09id0SstOc_m1EzzAlIjaFVqS4J1apyPco7p_OB58rSSx6rI0Vsk9fqITxaw8RlsQ9iFx_Tlgkd1-fjDUdwKYKNDme5dBw37ctbeLKZvyFOs_hydbp9kpyaXpy1xWPsn1AUFMG06E_b9oh3Z2K6VsAFadmeJpdhq5yu3yIo"/>
+        </div>
+        <div class="px-2 pb-2">
+          <p class="font-bold truncate">عقد ذهب عيار 21</p>
+          <p class="text-primary font-bold mt-1">4,200 د.إ</p>
+        </div>
+      </a>
+      <a href="categories.html" class="min-w-[220px] gs-card p-3 group">
+        <div class="aspect-square rounded-2xl overflow-hidden bg-surface-container mb-3">
+          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="ساعة" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtO6T8zdG0BAYofxl_b28dYYlU54t1G_6cGHAuvE2a7o9g9c0flajOtR-13K_YqL6-x4LFktxk43pYY7o6Wjc2kyQXz3LG60SBQlAJHdKdz-jvRUh4nvF_NNjZ4pLOCYhTq_o6jP_0VTfvHIftqWe8oHcCrOyQxP5afuJMdBqBEyfYpdT4GFGKDnzYAel4EAoL6hD0VtRBnWgSCKHO0iNbSOoUYslfCGb6kP4wz6FqjiQOziIDA89JrLA-pyovJESkPM2vS-IdUZk"/>
+        </div>
+        <div class="px-2 pb-2">
+          <p class="font-bold truncate">رولكس دايت جست</p>
+          <p class="text-primary font-bold mt-1">55,000 د.إ</p>
+        </div>
+      </a>
+      <a href="categories.html" class="min-w-[220px] gs-card p-3 group">
+        <div class="aspect-square rounded-2xl overflow-hidden bg-surface-container mb-3">
+          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="فضة" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5FzmuOgNieM6mWLfLYiGdJ6DbmPV2nCJis83LUhozobTSpwhDDlxE3W0LdIGuJXQIedmpn9EpVWNkZe4SrU5_WLq70yO0aKqYV7vmvTQ5mY1xsPI6COcrH6gGPQVkFxmHlUW2DaovQc6HKhWFWw_Zg1_j_EfQDvwbTu-eCfqcfG8hwrfc-xNqA_7Mq668r5MtGJIB9SnCiNyL3vix-NxGAMN0RHGvM8Kk2Yq_aBhV4dCjrkWkudHPM3W7X8BmKtO3h194JLHkcnw"/>
+        </div>
+        <div class="px-2 pb-2">
+          <p class="font-bold truncate">مجموعة فضة استثمارية</p>
+          <p class="text-primary font-bold mt-1">1,800 د.إ</p>
+        </div>
+      </a>
+      <a href="categories.html" class="min-w-[220px] gs-card p-3 group">
+        <div class="aspect-square rounded-2xl overflow-hidden bg-surface-container mb-3">
+          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="ألماس" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOMmrlqkoow69vIp3cBGFQvKyC_wHCdKrWRWZlvxUVwNQg4iH80UTvgL2sb1ecnYrudNGOjndlxT63-wPCorsi2egzPl2nwvok7DKqpvae8jlrhBwhcD8gUGKMI0hzNKZsYxA4DOgCuQ2_jRFOYgmN38DBk4sGNJfeP4pwrLQLRqxjgarZKCXyr7mSdOJtqZQ5IHey4kHzgxFAixr6rJj1e2wex0enHJ2l65YOjcLvgt45iNGgOowOM3V302RmNLv55zKwMiJP52Y"/>
+        </div>
+        <div class="px-2 pb-2">
+          <p class="font-bold truncate">أقراط ألماس سوليتير</p>
+          <p class="text-primary font-bold mt-1">12,500 د.إ</p>
+        </div>
+      </a>
+      <a href="categories.html" class="min-w-[220px] gs-card p-3 group">
+        <div class="aspect-square rounded-2xl overflow-hidden bg-surface-container mb-3">
+          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="أساور" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOxLgMZi7NDT9stR5pWj3KKhomnZc7GxwYOim_dIonczmZ2KOPbS_M-8dx4Z9wOd3ln-IYfzcIHQBr4EFTvfEdXj9df7JpWSMHUXBUcJJ5kV6wj_oTEOFmRWFo3LZ_j2RMYWHpWvt-GAKEbMl23kYlP8zM22GPOZg1HlpQIB1YYZOKvIX7w-6ZmFnyeQm1E-u0bRCX83L0Bp_mqUu7bpqE9DaRaDZFqMVVHzw8yTJdgwlKEYlzqFp6Q11qGkRDrYFDeVUC6dkDSX4"/>
+        </div>
+        <div class="px-2 pb-2">
+          <p class="font-bold truncate">أساور ذهب ملكي</p>
+          <p class="text-primary font-bold mt-1">9,200 د.إ</p>
+        </div>
+      </a>
+    </div>
+    <div class="text-center mt-10">
+      <a href="contact.html" class="btn-gold">انضم كبائع <span class="material-symbols-outlined">arrow_back</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-inverse-surface text-inverse-on-surface pt-20 pb-8 relative overflow-hidden">
+  <div class="absolute -top-32 right-0 w-[500px] h-[500px] bg-primary-container/20 rounded-full blur-[140px] pointer-events-none"></div>
+  <div class="max-w-container-max mx-auto px-gutter relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-14">
+      <div class="lg:col-span-2 text-right">
+        <div class="flex flex-row-reverse items-center gap-2 mb-5">
+          <span class="w-9 h-9 rounded-xl bg-gold-metallic flex items-center justify-center gold-glow-sm">
+            <span class="material-symbols-outlined text-on-primary-fixed text-[20px]" style="font-variation-settings:'FILL' 1;">diamond</span>
+          </span>
+          <span class="font-display-lg text-2xl font-bold text-gradient-gold">Gold Sooq</span>
+        </div>
+        <p class="text-inverse-on-surface/70 leading-relaxed max-w-md">منصتكم الموثوقة لتداول واقتناء أثمن المعادن والمقتنيات الفاخرة في المنطقة. الدقة في كل جرام، والثقة في كل صفقة.</p>
+        <div class="flex flex-row-reverse gap-3 mt-6">
+          <a href="#" aria-label="X" class="w-10 h-10 rounded-full glass-dark flex items-center justify-center hover:bg-primary-container/30 transition-colors"><span class="material-symbols-outlined text-[18px]">public</span></a>
+          <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full glass-dark flex items-center justify-center hover:bg-primary-container/30 transition-colors"><span class="material-symbols-outlined text-[18px]">photo_camera</span></a>
+          <a href="#" aria-label="WhatsApp" class="w-10 h-10 rounded-full glass-dark flex items-center justify-center hover:bg-primary-container/30 transition-colors"><span class="material-symbols-outlined text-[18px]">chat</span></a>
+          <a href="contact.html" aria-label="Email" class="w-10 h-10 rounded-full glass-dark flex items-center justify-center hover:bg-primary-container/30 transition-colors"><span class="material-symbols-outlined text-[18px]">mail</span></a>
+        </div>
+      </div>
+      <div class="text-right">
+        <h4 class="font-bold text-base mb-5 text-white">المنصة</h4>
+        <ul class="space-y-3 text-sm">
+          <li><a class="text-inverse-on-surface/70 hover:text-primary-fixed-dim transition-colors" href="index.html">الرئيسية</a></li>
+          <li><a class="text-inverse-on-surface/70 hover:text-primary-fixed-dim transition-colors" href="categories.html">الأقسام</a></li>
+          <li><a class="text-inverse-on-surface/70 hover:text-primary-fixed-dim transition-colors" href="prices.html">الأسعار المباشرة</a></li>
+          <li><a class="text-inverse-on-surface/70 hover:text-primary-fixed-dim transition-colors" href="how-it-works.html">كيف يعمل</a></li>
+        </ul>
+      </div>
+      <div class="text-right">
+        <h4 class="font-bold text-base mb-5 text-white">الشركة</h4>
+        <ul class="space-y-3 text-sm">
+          <li><a class="text-inverse-on-surface/70 hover:text-primary-fixed-dim transition-colors" href="about.html">من نحن</a></li>
+          <li><a class="text-inverse-on-surface/70 hover:text-primary-fixed-dim transition-colors" href="pricing.html">الباقات</a></li>
+          <li><a class="text-inverse-on-surface/70 hover:text-primary-fixed-dim transition-colors" href="contact.html">تواصل معنا</a></li>
+          <li><a class="text-inverse-on-surface/70 hover:text-primary-fixed-dim transition-colors" href="contact.html">المساعدة</a></li>
+        </ul>
+      </div>
+      <div class="text-right">
+        <h4 class="font-bold text-base mb-5 text-white">النشرة الإخبارية</h4>
+        <p class="text-inverse-on-surface/70 text-sm mb-4">احصل على تحديثات السوق وعروض حصرية أسبوعياً.</p>
+        <form class="flex glass-dark rounded-xl p-1.5">
+          <input type="email" placeholder="بريدك الإلكتروني" class="flex-1 bg-transparent text-white placeholder:text-white/50 px-3 py-2 text-sm outline-none" />
+          <button type="button" class="bg-gold-metallic text-on-primary-fixed font-bold px-4 py-2 rounded-lg text-sm">اشترك</button>
+        </form>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row-reverse justify-between items-center gap-4 text-sm text-inverse-on-surface/60">
+      <span>© 2024 Gold Sooq. جميع الحقوق محفوظة.</span>
+      <div class="flex flex-row-reverse gap-6">
+        <a class="hover:text-primary-fixed-dim transition-colors" href="about.html">سياسة الخصوصية</a>
+        <a class="hover:text-primary-fixed-dim transition-colors" href="about.html">الشروط والأحكام</a>
+        <a class="hover:text-primary-fixed-dim transition-colors" href="contact.html">الأسئلة الشائعة</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating chat button -->
+<a href="contact.html" class="gs-fab" aria-label="تواصل معنا">
+  <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">chat_bubble</span>
+</a>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

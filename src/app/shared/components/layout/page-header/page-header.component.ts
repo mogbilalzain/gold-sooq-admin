@@ -8,13 +8,13 @@ import { TranslationService } from '../../../services/translation.service';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">
+        <h2 class="text-m3-headline-sm sm:text-m3-headline-md font-semibold text-[color:var(--color-on-surface)]">
           {{ title }}
         </h2>
         @if (subtitle) {
-          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p class="mt-1 text-m3-body-md text-[color:var(--color-on-surface-variant)]">
             {{ subtitle }}
           </p>
         }

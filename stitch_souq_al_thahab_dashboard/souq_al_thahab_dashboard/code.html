@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>سوق الذهب | منصة تداول الذهب</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            background-color: #0A0A0A;
+            color: #e5e2e1;
+        }
+        .glass-card {
+            background: rgba(18, 18, 18, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.05);
+        }
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #f2ca50 0%, #d4af37 100%);
+        }
+        .gold-glow {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        .sparkline {
+            fill: none;
+            stroke: #f2ca50;
+            stroke-width: 2;
+            filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.3));
+        }
+        .sparkline-green {
+            stroke: #4ade80;
+            filter: drop-shadow(0 2px 4px rgba(74, 222, 128, 0.3));
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #131313; }
+        ::-webkit-scrollbar-thumb { background: #353534; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f2ca50; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#2a2a2a",
+                      "on-tertiary-container": "#5b4000",
+                      "error-container": "#93000a",
+                      "on-error": "#690005",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-highest": "#353534",
+                      "on-surface": "#e5e2e1",
+                      "outline": "#99907c",
+                      "on-background": "#e5e2e1",
+                      "inverse-surface": "#e5e2e1",
+                      "on-primary-fixed-variant": "#574500",
+                      "on-tertiary-fixed-variant": "#5d4200",
+                      "surface": "#131313",
+                      "primary-container": "#d4af37",
+                      "secondary-container": "#ffdb3c",
+                      "tertiary-container": "#e1aa36",
+                      "on-secondary-fixed-variant": "#544600",
+                      "primary": "#f2ca50",
+                      "secondary-fixed-dim": "#e9c400",
+                      "surface-tint": "#e9c349",
+                      "surface-variant": "#353534",
+                      "background": "#131313",
+                      "tertiary-fixed": "#ffdea6",
+                      "on-surface-variant": "#d0c5af",
+                      "on-tertiary": "#412d00",
+                      "outline-variant": "#4d4635",
+                      "inverse-on-surface": "#313030",
+                      "primary-fixed": "#ffe088",
+                      "error": "#ffb4ab",
+                      "on-secondary-container": "#725f00",
+                      "on-secondary-fixed": "#221b00",
+                      "on-primary-fixed": "#241a00",
+                      "surface-dim": "#131313",
+                      "on-tertiary-fixed": "#271900",
+                      "on-secondary": "#3a3000",
+                      "surface-bright": "#393939",
+                      "inverse-primary": "#735c00",
+                      "on-primary-container": "#554300",
+                      "tertiary": "#ffc551",
+                      "primary-fixed-dim": "#e9c349",
+                      "secondary": "#fff9ef",
+                      "surface-container-low": "#1c1b1b",
+                      "secondary-fixed": "#ffe16d",
+                      "on-primary": "#3c2f00",
+                      "surface-container": "#201f1f",
+                      "tertiary-fixed-dim": "#f7bd48",
+                      "surface-container-lowest": "#0e0e0e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "sm": "8px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "unit": "4px",
+                      "xl": "40px",
+                      "md": "16px"
+              },
+              "fontFamily": {
+                      "label-caps": ["IBM Plex Sans Arabic"],
+                      "body-sm": ["IBM Plex Sans Arabic"],
+                      "body-lg": ["IBM Plex Sans Arabic"],
+                      "headline-lg": ["IBM Plex Sans Arabic"],
+                      "display-lg": ["IBM Plex Sans Arabic"],
+                      "title-md": ["IBM Plex Sans Arabic"]
+              },
+              "fontSize": {
+                      "label-caps": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="flex bg-background min-h-screen">
+<!-- Predicted SideNavBar -->
+<aside class="bg-surface-container-low dark:bg-surface-container-low border-l border-outline-variant fixed right-0 h-full w-64 flex flex-col py-lg z-50">
+<div class="px-md mb-xl flex flex-row-reverse items-center gap-3">
+<div class="w-10 h-10 gold-gradient-bg rounded-lg flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-title-md text-primary leading-tight">سوق الذهب</h1>
+<p class="text-on-surface-variant font-label-caps text-[10px]">منصة تداول الذهب</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto">
+<!-- Active Navigation -->
+<a class="bg-primary-container text-on-primary-container rounded-lg mx-2 flex flex-row-reverse items-center gap-3 p-3 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">الرئيسية</span>
+</a>
+<a class="text-on-surface-variant flex flex-row-reverse items-center gap-3 p-3 mx-2 hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">show_chart</span>
+<span class="font-label-caps text-label-caps">أسعار الذهب</span>
+</a>
+<a class="text-on-surface-variant flex flex-row-reverse items-center gap-3 p-3 mx-2 hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span class="font-label-caps text-label-caps">التداول</span>
+</a>
+<a class="text-on-surface-variant flex flex-row-reverse items-center gap-3 p-3 mx-2 hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-caps text-label-caps">الطلبات</span>
+</a>
+<a class="text-on-surface-variant flex flex-row-reverse items-center gap-3 p-3 mx-2 hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-caps text-label-caps">المحفظة</span>
+</a>
+<a class="text-on-surface-variant flex flex-row-reverse items-center gap-3 p-3 mx-2 hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="font-label-caps text-label-caps">السحب والإيداع</span>
+</a>
+<a class="text-on-surface-variant flex flex-row-reverse items-center gap-3 p-3 mx-2 hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-caps text-label-caps">السبائك والعملات</span>
+</a>
+<a class="text-on-surface-variant flex flex-row-reverse items-center gap-3 p-3 mx-2 hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-caps text-label-caps">التقارير</span>
+</a>
+<a class="text-on-surface-variant flex flex-row-reverse items-center gap-3 p-3 mx-2 hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-caps text-label-caps">التنبيهات</span>
+</a>
+<a class="text-on-surface-variant flex flex-row-reverse items-center gap-3 p-3 mx-2 hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">الإعدادات</span>
+</a>
+</nav>
+<!-- CTA & Promo Card -->
+<div class="px-md mt-md">
+<div class="glass-card rounded-xl p-md relative overflow-hidden group">
+<img alt="Gold Investment" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:scale-110 transition-transform duration-700" data-alt="A macro cinematic shot of heavy solid gold bars stacked neatly in a vault with dramatic dark lighting. The surfaces of the gold bars reflect warm amber light creating a luxurious and secure fintech atmosphere with deep charcoal shadows and high-contrast highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKD-7Rl5ab8KdN5PpPD-c-laQjMQLmZve4SbHL9svy-lIUwF2Rve3lZRSAza37zHK_Yr9uNc7qghxLiftVeuOoEoWalBEIDksoIlMKfGb5vT4WNassdsUvSSSYEeNtWOCkbkdloJFikJmLzhowmYpX_m9k87Wk04icpHmcW0TJn_jQKh5ZhQqraPT6c-TlQPaU85YszRXTRRodwMRDxh9u4l0UBSwH3lOP1iqlt96QKl-eB-g0G-ASK0qZuALdgQ8JOMsHstNvEyHX"/>
+<div class="relative z-10">
+<p class="font-title-md text-sm text-primary mb-1">استثمر في مستقبلك</p>
+<p class="font-body-sm text-xs text-on-surface-variant mb-4">ابدأ التداول بالذهب اليوم</p>
+<button class="w-full py-2 gold-gradient-bg text-on-primary font-bold rounded-lg text-sm gold-glow active:scale-95 transition-all">تداول الآن</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="flex-1 mr-64">
+<!-- Predicted TopNavBar -->
+<header class="bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline-variant shadow-sm sticky top-0 z-40">
+<div class="flex flex-row-reverse justify-between items-center w-full px-md py-sm">
+<!-- Search & Profile Cluster -->
+<div class="flex flex-row-reverse items-center gap-md">
+<div class="flex flex-row-reverse items-center gap-sm bg-surface-container-high px-3 py-2 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm text-on-surface w-64 placeholder:text-on-surface-variant/50 text-right" placeholder="ابحث عن الذهب، السبائك، العيارات..." type="text"/>
+</div>
+<div class="flex items-center gap-md ml-4 border-l border-outline-variant pl-4">
+<button class="relative text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">mail</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">payments</span>
+</button>
+</div>
+<div class="flex items-center gap-3 mr-4">
+<div class="text-right">
+<p class="font-body-sm font-bold text-on-surface">أحمد محمد</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant">متداول محترف</p>
+</div>
+<img alt="صورة الملف الشخصي للمتداول" class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgZ1UnPmIWeA0nitxSURY7IuCx3zsAQyeWxUiIF8igZUI8vQL0P8Fko3FfEV7tfWFszGxkdkBLyoXSSm6yIoAzG3UBxSvT34EmVeNqV8ryitWmmw2Osjs0qVI_x2JpqoyWZe1zRmtcSJ6y78cCA9djiwIkg2hmhT36Tf_Z6KN-0o9NE0MlHwA4fz1XvJq_3G9xRzFUce58iK7MgVAnjuuzPqvgbKex4xoN19Eb_n_DJiNM7ad_DOO1RB1ookr-cdZe36ouYVkGtEBF"/>
+</div>
+</div>
+<!-- Branding & Currency -->
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-2 bg-surface-container px-4 py-2 rounded-lg border border-outline-variant cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="text-on-surface font-bold text-sm">SAR</span>
+<span class="material-symbols-outlined text-primary text-sm">expand_more</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-headline-lg text-primary font-bold">سوق الذهب</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-lg">
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-lg">
+<!-- Wallet Balance -->
+<div class="glass-card p-lg rounded-xl flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm cursor-help">info</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-caps text-xs">رصيد المحفظة</p>
+<div class="flex items-baseline gap-2">
+<h3 class="font-display-lg text-title-md text-on-surface">45,320.75</h3>
+<span class="text-xs text-on-surface-variant">SAR</span>
+</div>
+<p class="text-[10px] text-primary/80 mt-1">متاح للسحب</p>
+</div>
+</div>
+<!-- Total Assets -->
+<div class="glass-card p-lg rounded-xl flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">cases</span>
+</div>
+<svg class="sparkline" height="20" width="60">
+<path d="M0,15 L10,12 L20,18 L30,5 L40,8 L50,2 L60,10"></path>
+</svg>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-caps text-xs">إجمالي الأصول</p>
+<div class="flex items-baseline gap-2">
+<h3 class="font-display-lg text-title-md text-on-surface">245,680.50</h3>
+<span class="text-xs text-on-surface-variant">SAR</span>
+</div>
+<p class="text-[10px] text-green-400 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span>
+                            +12.45% منذ بداية الشهر
+                        </p>
+</div>
+</div>
+<!-- Profit/Loss -->
+<div class="glass-card p-lg rounded-xl flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-green-400">payments</span>
+</div>
+<svg class="sparkline sparkline-green" height="20" width="60">
+<path d="M0,18 L15,10 L30,12 L45,2 L60,5"></path>
+</svg>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-caps text-xs">أرباح وخسائر اليوم</p>
+<div class="flex items-baseline gap-2">
+<h3 class="font-display-lg text-title-md text-green-400">+2,450.30</h3>
+<span class="text-xs text-on-surface-variant">SAR</span>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-1">مقارنة باليوم السابق</p>
+</div>
+</div>
+<!-- Total Orders -->
+<div class="glass-card p-lg rounded-xl flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+</div>
+<div class="text-right">
+<p class="text-on-surface-variant font-label-caps text-xs">قيد التنفيذ</p>
+<p class="text-primary font-bold">6</p>
+</div>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-caps text-xs">إجمالي الطلبات</p>
+<h3 class="font-display-lg text-title-md text-on-surface">28</h3>
+<p class="text-[10px] text-on-surface-variant mt-1">طلب مكتمل</p>
+</div>
+</div>
+</div>
+<!-- Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-lg">
+<!-- Gold Price Chart -->
+<div class="lg:col-span-2 glass-card p-lg rounded-xl">
+<div class="flex flex-row-reverse justify-between items-center mb-md">
+<div>
+<h2 class="font-title-md text-on-surface">أسعار الذهب اليوم</h2>
+<p class="text-on-surface-variant text-xs">سعر الذهب (الجرام عيار 24)</p>
+</div>
+<div class="flex gap-2 bg-surface-container-high p-1 rounded-lg">
+<button class="px-3 py-1 rounded text-xs text-on-surface-variant hover:text-on-surface">سنة</button>
+<button class="px-3 py-1 rounded text-xs text-on-surface-variant hover:text-on-surface">90 يوم</button>
+<button class="px-3 py-1 rounded text-xs text-on-surface-variant hover:text-on-surface">30 يوم</button>
+<button class="px-3 py-1 rounded text-xs text-on-surface-variant hover:text-on-surface">7 أيام</button>
+<button class="px-3 py-1 bg-primary text-on-primary rounded text-xs font-bold">اليوم</button>
+</div>
+</div>
+<div class="relative h-64 w-full mt-lg">
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-10">
+<div class="border-b border-on-surface"></div>
+<div class="border-b border-on-surface"></div>
+<div class="border-b border-on-surface"></div>
+<div class="border-b border-on-surface"></div>
+</div>
+<!-- Simple Visual Representation of Chart -->
+<svg class="w-full h-full" viewbox="0 0 1000 300">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#f2ca50" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#f2ca50" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,250 Q100,220 200,240 T400,180 T600,210 T800,150 T1000,100" fill="none" stroke="#f2ca50" stroke-width="3"></path>
+<path d="M0,250 Q100,220 200,240 T400,180 T600,210 T800,150 T1000,100 V300 H0 Z" fill="url(#chartGradient)"></path>
+</svg>
+<div class="flex justify-between text-[10px] text-on-surface-variant mt-4 font-label-caps">
+<span>00:00</span>
+<span>04:00</span>
+<span>08:00</span>
+<span>12:00</span>
+<span>16:00</span>
+<span>20:00</span>
+<span>24:00</span>
+</div>
+</div>
+<div class="flex flex-row-reverse items-center justify-between mt-md pt-md border-t border-outline-variant">
+<div class="text-right">
+<p class="text-primary font-display-lg text-title-md">2510.45 <span class="text-xs">SAR</span></p>
+<p class="text-green-400 text-xs">+24.30 (0.98%) ↑</p>
+</div>
+<button class="text-primary text-xs hover:underline">عرض جميع الأسعار</button>
+</div>
+</div>
+<!-- Live Gold Prices Table -->
+<div class="glass-card p-lg rounded-xl">
+<div class="flex flex-row-reverse justify-between items-center mb-md">
+<h2 class="font-title-md text-on-surface">أسعار الذهب الآن</h2>
+<button class="text-primary text-xs hover:underline">تحديث</button>
+</div>
+<div class="space-y-4">
+<!-- Table Header -->
+<div class="grid grid-cols-4 text-[10px] font-label-caps text-on-surface-variant text-right border-b border-outline-variant pb-2">
+<span>العيار</span>
+<span>سعر البيع</span>
+<span>سعر الشراء</span>
+<span>التغير</span>
+</div>
+<!-- Table Rows -->
+<div class="grid grid-cols-4 text-xs text-on-surface text-right items-center py-1">
+<span class="font-bold text-primary">عيار 24</span>
+<span>2510.45</span>
+<span>2477.15</span>
+<span class="text-green-400">+0.98%</span>
+</div>
+<div class="grid grid-cols-4 text-xs text-on-surface text-right items-center py-1">
+<span class="font-bold text-primary">عيار 22</span>
+<span>2309.25</span>
+<span>2277.85</span>
+<span class="text-green-400">+0.93%</span>
+</div>
+<div class="grid grid-cols-4 text-xs text-on-surface text-right items-center py-1">
+<span class="font-bold text-primary">عيار 21</span>
+<span>2191.65</span>
+<span>2161.35</span>
+<span class="text-green-400">+0.89%</span>
+</div>
+<div class="grid grid-cols-4 text-xs text-on-surface text-right items-center py-1">
+<span class="font-bold text-primary">عيار 18</span>
+<span>1882.85</span>
+<span>1856.95</span>
+<span class="text-green-400">+0.91%</span>
+</div>
+<div class="grid grid-cols-4 text-xs text-on-surface text-right items-center py-1">
+<span class="font-bold text-primary">عيار 14</span>
+<span>1461.10</span>
+<span>1440.95</span>
+<span class="text-green-400">+0.85%</span>
+</div>
+</div>
+<div class="mt-8">
+<img alt="Trade Ad" class="w-full h-24 object-cover rounded-lg opacity-40 hover:opacity-100 transition-opacity duration-500 cursor-pointer" data-alt="A close-up artistic photograph of molten gold being poured into a rectangular graphite mold. The liquid metal glows with intense brilliance against a dark, industrial workshop background. High-speed photography captures shimmering sparks and fluid textures in a professional fintech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjYdgLOejtWXkaVfd7W1vfIeuvPGujTnab51OrdEpM0Ij0DF7J5gxUyzKg__yk_VhziQqzyd_GtCakQoMs45cP-LAWC6GtEQDp0gurjcvwpy14cJ-K2fuiupyOBJNdQvKmrfeCD3hew_RnibPH9AfxweWcNSOjrh-efCPZRsjCRrW65WY36Ipg-A_F947Pssm6r-0GSxiYCgiQqAtRwEPMQV1qeYMwFluPWiN97dqarVqmKyVKNWJ9INjgO8cfb5oF61vAgmoPvoJG"/>
+</div>
+</div>
+</div>
+<!-- Bottom Row -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-gutter">
+<!-- Recent Orders -->
+<div class="lg:col-span-1 glass-card p-lg rounded-xl">
+<div class="flex flex-row-reverse justify-between items-center mb-md">
+<h2 class="font-title-md text-on-surface text-sm">آخر الطلبات</h2>
+<button class="text-primary text-[10px] hover:underline">عرض الكل</button>
+</div>
+<div class="space-y-4">
+<div class="flex flex-row-reverse justify-between items-center group">
+<div class="flex flex-row-reverse gap-3 items-center">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm">shopping_cart</span>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold">شراء ذهب عيار 24</p>
+<p class="text-[9px] text-on-surface-variant">20/05/2024 - 14:30</p>
+</div>
+</div>
+<div class="text-left">
+<p class="text-xs font-bold">10,000.00</p>
+<span class="bg-green-500/10 text-green-400 text-[8px] px-2 py-0.5 rounded-full">مكتمل</span>
+</div>
+</div>
+<div class="flex flex-row-reverse justify-between items-center group">
+<div class="flex flex-row-reverse gap-3 items-center">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm">sell</span>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold">بيع ذهب عيار 21</p>
+<p class="text-[9px] text-on-surface-variant">20/05/2024 - 11:15</p>
+</div>
+</div>
+<div class="text-left">
+<p class="text-xs font-bold">5,250.75</p>
+<span class="bg-primary/10 text-primary text-[8px] px-2 py-0.5 rounded-full">قيد التنفيذ</span>
+</div>
+</div>
+<div class="flex flex-row-reverse justify-between items-center group">
+<div class="flex flex-row-reverse gap-3 items-center">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold">شراء سبيكة 50 جرام</p>
+<p class="text-[9px] text-on-surface-variant">19/05/2024 - 16:45</p>
+</div>
+</div>
+<div class="text-left">
+<p class="text-xs font-bold">15,000.00</p>
+<span class="bg-green-500/10 text-green-400 text-[8px] px-2 py-0.5 rounded-full">مكتمل</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Price Alerts -->
+<div class="lg:col-span-1 glass-card p-lg rounded-xl">
+<div class="flex flex-row-reverse justify-between items-center mb-md">
+<h2 class="font-title-md text-on-surface text-sm">تنبيهات السعر</h2>
+<button class="text-primary text-[10px] hover:underline">عرض الكل</button>
+</div>
+<div class="space-y-3 mb-4">
+<div class="bg-surface-container rounded-lg p-3 flex flex-row-reverse justify-between items-center border border-outline-variant/30">
+<div class="flex flex-row-reverse gap-3 items-center">
+<span class="material-symbols-outlined text-primary text-sm">notifications_active</span>
+<div class="text-right">
+<p class="text-xs font-bold">عيار 24</p>
+<p class="text-[9px] text-on-surface-variant">عند وصول السعر إلى 2,520</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-green-400 text-[9px] font-bold">نشط</span>
+<button class="text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-xs">delete</span></button>
+</div>
+</div>
+<div class="bg-surface-container rounded-lg p-3 flex flex-row-reverse justify-between items-center border border-outline-variant/30 opacity-70">
+<div class="flex flex-row-reverse gap-3 items-center">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">notifications_off</span>
+<div class="text-right">
+<p class="text-xs font-bold">عيار 21</p>
+<p class="text-[9px] text-on-surface-variant">عند وصول السعر إلى 2,200</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant text-[9px] font-bold">متوقف</span>
+<button class="text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-xs">delete</span></button>
+</div>
+</div>
+</div>
+<button class="w-full py-2 border-2 border-dashed border-outline-variant hover:border-primary text-on-surface-variant hover:text-primary rounded-lg text-xs transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                        إنشاء تنبيه جديد
+                    </button>
+</div>
+<!-- Asset Distribution -->
+<div class="lg:col-span-2 glass-card p-lg rounded-xl">
+<div class="flex flex-row-reverse justify-between items-center mb-md">
+<h2 class="font-title-md text-on-surface">توزيع الأصول</h2>
+<span class="material-symbols-outlined text-on-surface-variant">pie_chart</span>
+</div>
+<div class="flex flex-row-reverse items-center justify-between gap-lg">
+<!-- Chart Mockup -->
+<div class="relative w-40 h-40">
+<svg class="w-full h-full rotate-[-90deg]" viewbox="0 0 36 36">
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#353534" stroke-width="4"></circle>
+<circle class="transition-all duration-1000" cx="18" cy="18" fill="transparent" r="15.9" stroke="#f2ca50" stroke-dasharray="65 100" stroke-dashoffset="0" stroke-width="4"></circle>
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#d4af37" stroke-dasharray="20 100" stroke-dashoffset="-65" stroke-width="4"></circle>
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#a0821c" stroke-dasharray="10 100" stroke-dashoffset="-85" stroke-width="4"></circle>
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#544600" stroke-dasharray="5 100" stroke-dashoffset="-95" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<p class="text-[10px] text-on-surface-variant font-label-caps">إجمالي</p>
+<p class="text-sm font-bold text-on-surface">100%</p>
+</div>
+</div>
+<!-- Legend -->
+<div class="flex-1 space-y-3">
+<div class="flex flex-row-reverse items-center justify-between gap-3">
+<div class="flex flex-row-reverse items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<p class="text-xs text-on-surface">ذهب مادي</p>
+</div>
+<p class="text-xs font-bold">65%</p>
+</div>
+<div class="flex flex-row-reverse items-center justify-between gap-3">
+<div class="flex flex-row-reverse items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary-container"></div>
+<p class="text-xs text-on-surface">سبائك</p>
+</div>
+<p class="text-xs font-bold">20%</p>
+</div>
+<div class="flex flex-row-reverse items-center justify-between gap-3">
+<div class="flex flex-row-reverse items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary-container"></div>
+<p class="text-xs text-on-surface">عملات ذهبية</p>
+</div>
+<p class="text-xs font-bold">10%</p>
+</div>
+<div class="flex flex-row-reverse items-center justify-between gap-3">
+<div class="flex flex-row-reverse items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<p class="text-xs text-on-surface">نقدي</p>
+</div>
+<p class="text-xs font-bold">5%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions for chart responsiveness/animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const chartPath = document.querySelector('svg path[fill="url(#chartGradient)"]');
+            if (chartPath) {
+                chartPath.style.transition = 'opacity 1.5s ease-in-out';
+                chartPath.style.opacity = '1';
+            }
+
+            // Simple hover effect for table rows
+            const rows = document.querySelectorAll('.grid-cols-4');
+            rows.forEach(row => {
+                row.addEventListener('mouseenter', () => {
+                    row.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
+                });
+                row.addEventListener('mouseleave', () => {
+                    row.style.backgroundColor = 'transparent';
+                });
+            });
+        });
+    </script>
+</body></html>

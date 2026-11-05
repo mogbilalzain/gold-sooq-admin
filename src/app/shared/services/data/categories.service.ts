@@ -20,10 +20,12 @@ export interface Category {
   id: number;
   name_en: string;
   name_ar: string;
+  name?: string;
   image_url?: string;
-  parent_category_id?: number;
-  createdAt?: string;
-  updatedAt?: string;
+  parent_category_id?: number | null;
+  created_at?: string;
+  updated_at?: string;
+  subCategories?: Category[];
 }
 
 export interface CategoriesListResponse {
@@ -39,16 +41,18 @@ export interface CategoriesListResponse {
 export interface CreateCategoryRequest {
   name_en: string;
   name_ar: string;
-  image_url?: string;
-  parent_category_id?: number;
+  /** R2 storage key from /media/upload-url (omit for no image) */
+  image_storage_key?: string;
+  parent_category_id?: number | null;
 }
 
 export interface UpdateCategoryRequest {
   categoryId: number;
   name_en?: string;
   name_ar?: string;
-  image_url?: string;
-  parent_category_id?: number;
+  /** Omit when the image is unchanged */
+  image_storage_key?: string;
+  parent_category_id?: number | null;
 }
 
 export interface DeleteCategoryRequest {
@@ -73,36 +77,32 @@ export class CategoriesService {
     );
   }
 
-  createCategory(request: CreateCategoryRequest): Observable<ApiResponse<Category>> {
-    return this.http.post<ApiResponse<Category>>(
+  /** Backend returns only the new id: { categoryId }. */
+  createCategory(request: CreateCategoryRequest): Observable<ApiResponse<{ categoryId: number }>> {
+    return this.http.post<ApiResponse<{ categoryId: number }>>(
       `${this.apiConfig.getAdminCategoriesUrl()}/create`,
       request
     );
   }
 
-  updateCategory(request: UpdateCategoryRequest): Observable<ApiResponse<Category>> {
-    return this.http.post<ApiResponse<Category>>(
+  /** Backend returns only the id: { categoryId }. */
+  updateCategory(request: UpdateCategoryRequest): Observable<ApiResponse<{ categoryId: number }>> {
+    return this.http.post<ApiResponse<{ categoryId: number }>>(
       `${this.apiConfig.getAdminCategoriesUrl()}/update`,
       request
     );
   }
 
-  deleteCategory(request: DeleteCategoryRequest): Observable<ApiResponse<{ deleted: boolean }>> {
-    return this.http.post<ApiResponse<{ deleted: boolean }>>(
+  /** Backend returns only the id: { categoryId } (hard delete). */
+  deleteCategory(request: DeleteCategoryRequest): Observable<ApiResponse<{ categoryId: number }>> {
+    return this.http.post<ApiResponse<{ categoryId: number }>>(
       `${this.apiConfig.getAdminCategoriesUrl()}/delete`,
       request
     );
   }
 
-  uploadCategoryImage(categoryId: number, file: File): Observable<ApiResponse<{ image_url: string }>> {
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('categoryId', categoryId.toString());
-
-    return this.http.post<ApiResponse<{ image_url: string }>>(
-      `${this.apiConfig.getAdminCategoriesUrl()}/uploadImage`,
-      formData
-    );
-  }
+  // Image uploads go through MediaUploadService (presigned R2 flow):
+  // POST /media/upload-url → PUT file to signed URL → storageKey passed as
+  // image_storage_key in create/update.
 }
 

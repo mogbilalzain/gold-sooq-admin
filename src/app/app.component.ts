@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslationService } from './shared/services/translation.service';
+import { ThemeService } from './shared/services/theme.service';
+import { SettingsService } from './shared/services/data/settings.service';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +16,13 @@ import { TranslationService } from './shared/services/translation.service';
 export class AppComponent implements OnInit {
   title = 'Gold Market Admin Dashboard';
 
-  constructor(private translationService: TranslationService) {}
+  private readonly translationService = inject(TranslationService);
+  private readonly themeService = inject(ThemeService);
+  private readonly settingsService = inject(SettingsService);
 
   ngOnInit(): void {
-    // Initialize language service - this will set the initial language and RTL
     const savedLang = localStorage.getItem('language') || 'ar';
     this.translationService.setLanguage(savedLang as 'ar' | 'en');
+    this.settingsService.loadSettings();
   }
 }

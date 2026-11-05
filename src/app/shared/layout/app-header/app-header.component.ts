@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostBinding, HostListener, ViewChild } from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -22,6 +22,7 @@ import { TranslationService } from '../../services/translation.service';
 })
 export class AppHeaderComponent {
   isApplicationMenuOpen = false;
+  isScrolled = false;
   readonly isMobileOpen$;
 
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
@@ -43,6 +44,11 @@ export class AppHeaderComponent {
 
   toggleApplicationMenu() {
     this.isApplicationMenuOpen = !this.isApplicationMenuOpen;
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 8;
   }
 
   ngAfterViewInit() {

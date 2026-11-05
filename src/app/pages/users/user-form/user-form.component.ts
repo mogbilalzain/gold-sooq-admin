@@ -5,8 +5,8 @@ import { PageHeaderComponent } from '../../../shared/components/layout/page-head
 import { LoadingSpinnerComponent } from '../../../shared/components/common/loading-spinner/loading-spinner.component';
 import { ButtonComponent } from '../../../shared/components/ui/button/button.component';
 import { InputFieldComponent } from '../../../shared/components/form/input/input-field.component';
-import { LabelComponent } from '../../../shared/components/form/label/label.component';
 import { CheckboxComponent } from '../../../shared/components/form/input/checkbox.component';
+import { MatButtonModule } from '@angular/material/button';
 import { TranslationService } from '../../../shared/services/translation.service';
 import { UsersService, User } from '../../../shared/services/data/users.service';
 import { ErrorHandlerService } from '../../../shared/services/api/error-handler.service';
@@ -20,8 +20,8 @@ import { ErrorHandlerService } from '../../../shared/services/api/error-handler.
     LoadingSpinnerComponent,
     ButtonComponent,
     InputFieldComponent,
-    LabelComponent,
     CheckboxComponent,
+    MatButtonModule,
   ],
   templateUrl: './user-form.component.html',
 })

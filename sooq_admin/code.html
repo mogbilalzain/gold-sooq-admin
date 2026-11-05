@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>عيار سوق - لوحة التحكم</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Cairo:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Cairo', 'Plus Jakarta Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        /* Custom Scrollbar for Luxury Feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4af3733;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af3766;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#241a00",
+                        "secondary": "#586062",
+                        "inverse-surface": "#283236",
+                        "background": "#f1fbff",
+                        "primary": "#735c00",
+                        "inverse-on-surface": "#e7f3f7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#191c1d",
+                        "surface-dim": "#d1dce0",
+                        "on-secondary-container": "#5d6466",
+                        "tertiary-container": "#b1b3b4",
+                        "surface-bright": "#f1fbff",
+                        "surface-variant": "#d9e4e9",
+                        "surface": "#f1fbff",
+                        "on-secondary-fixed": "#161d1f",
+                        "primary-container": "#d4af37",
+                        "inverse-primary": "#e9c349",
+                        "surface-container-highest": "#d9e4e9",
+                        "primary-fixed": "#ffe088",
+                        "on-primary-container": "#554300",
+                        "secondary-fixed-dim": "#c1c8ca",
+                        "outline-variant": "#d0c5af",
+                        "secondary-container": "#dae1e3",
+                        "on-tertiary-container": "#434546",
+                        "secondary-fixed": "#dde4e6",
+                        "primary-fixed-dim": "#e9c349",
+                        "on-secondary-fixed-variant": "#41484a",
+                        "surface-tint": "#735c00",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#eaf5fa",
+                        "tertiary-fixed-dim": "#c5c7c8",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-background": "#131d21",
+                        "tertiary": "#5c5f60",
+                        "surface-container-high": "#dfeaef",
+                        "surface-container": "#e4f0f4",
+                        "tertiary-fixed": "#e1e3e4",
+                        "on-primary-fixed-variant": "#574500",
+                        "on-surface": "#131d21",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#4d4635",
+                        "on-tertiary-fixed-variant": "#454748",
+                        "outline": "#7f7663"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "2rem",
+                        "section-gap": "2.5rem",
+                        "element-gap": "1rem",
+                        "grid-columns": "12",
+                        "sidebar-width": "280px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Plus Jakarta Sans", "Cairo"],
+                        "body-md": ["Plus Jakarta Sans", "Cairo"],
+                        "headline-md": ["Plus Jakarta Sans", "Cairo"],
+                        "headline-lg": ["Plus Jakarta Sans", "Cairo"],
+                        "display-lg": ["Plus Jakarta Sans", "Cairo"],
+                        "title-lg": ["Plus Jakarta Sans", "Cairo"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="fixed right-0 top-0 h-full z-50 flex flex-col py-8 shadow-[30px_10px_60px_-15px_rgba(0,0,0,0.04)] bg-white/80 dark:bg-inverse-surface/80 backdrop-blur-xl w-[280px] hidden md:flex">
+<div class="px-8 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full gold-gradient flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">diamond</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">عيار سوق</h1>
+<p class="text-[10px] text-secondary leading-none">لوحة تحكم المدير</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 overflow-y-auto">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl font-label-lg text-label-lg text-primary border-r-4 border-primary bg-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>لوحة القيادة</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl font-label-lg text-label-lg text-secondary hover:bg-primary-container/5 transition-colors" href="#">
+<span class="material-symbols-outlined">category</span>
+<span>التصنيفات</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl font-label-lg text-label-lg text-secondary hover:bg-primary-container/5 transition-colors" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span>الإعلانات</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl font-label-lg text-label-lg text-secondary hover:bg-primary-container/5 transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>العملاء</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl font-label-lg text-label-lg text-secondary hover:bg-primary-container/5 transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>أسعار الذهب</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl font-label-lg text-label-lg text-secondary hover:bg-primary-container/5 transition-colors" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span>التنبيهات</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl font-label-lg text-label-lg text-secondary hover:bg-primary-container/5 transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>التحليلات</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl font-label-lg text-label-lg text-secondary hover:bg-primary-container/5 transition-colors" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span>الفواتير</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pt-8 border-t border-outline-variant/30">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl font-label-lg text-label-lg text-secondary hover:bg-primary-container/5 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>الإعدادات</span>
+</a>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 lg:pr-[280px] z-40 flex justify-between items-center px-8 h-20 bg-white/80 backdrop-blur-xl border-b border-outline-variant/30">
+<div class="flex items-center gap-6 w-full max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-secondary">search</span>
+<input class="w-full h-11 pr-12 pl-4 rounded-full border-none bg-surface-container text-body-md focus:ring-2 focus:ring-primary-container transition-all" placeholder="ابحث عن إعلان، عميل أو معاملة..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container transition-all text-secondary">
+<span class="material-symbols-outlined">language</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container transition-all text-secondary">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container transition-all text-secondary relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-left hidden sm:block">
+<p class="font-label-lg text-on-surface">أحمد العلي</p>
+<p class="text-[10px] text-secondary">مدير النظام</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary-container/20" data-alt="A professional headshot of a Middle Eastern male executive in business attire, looking confident in a high-end corporate setting with soft ambient lighting and a luxurious minimalist office background. The overall tone is sophisticated and trustworthy, aligned with a premium fintech brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8bPRlGE8tIR5XdyP2AWHartkvkHo8_rLfW54eDKGMCBiYuPp8hyqb5KUKoS0txpq8qE8k6sumdQRqS636Z_Tdi4M0UbxuIDscECn4f4KEh-FxOuhap2pqSlzQ8cxp-cQFBaJpcMWV098xXo0U1ZkwzLnVZQHXFaEVXhmyR1uKD4sjh-eXABb9tf_dJlPmnN1OV8Z_Wzdd-Q2665mbUto3FbbU26yGoPxLjl1C9mVYP92YyySwrh5I5Apovr5fNDif4LhDGnRnkCI"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="lg:pr-[280px] pt-28 pb-12 px-8 min-h-screen">
+<div class="max-w-[1400px] mx-auto space-y-8">
+<!-- KPI Cards Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- KPI 1 -->
+<div class="bg-white p-8 rounded-lg shadow-[30px_10px_60px_-15px_rgba(0,0,0,0.04)] border-t-2 border-primary-container group transition-transform hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 rounded-2xl bg-primary-container/10 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+</div>
+<span class="flex items-center gap-1 text-label-sm font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                            5%+
+                        </span>
+</div>
+<p class="text-secondary font-label-lg mb-1">إجمالي المستخدمين</p>
+<h3 class="text-headline-md font-bold text-on-surface">12,400</h3>
+</div>
+<!-- KPI 2 -->
+<div class="bg-white p-8 rounded-lg shadow-[30px_10px_60px_-15px_rgba(0,0,0,0.04)] border-t-2 border-primary-container group transition-transform hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 rounded-2xl bg-primary-container/10 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">campaign</span>
+</div>
+<span class="flex items-center gap-1 text-label-sm font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                            12%+
+                        </span>
+</div>
+<p class="text-secondary font-label-lg mb-1">إجمالي الإعلانات</p>
+<h3 class="text-headline-md font-bold text-on-surface">3,800</h3>
+</div>
+<!-- KPI 3 -->
+<div class="bg-white p-8 rounded-lg shadow-[30px_10px_60px_-15px_rgba(0,0,0,0.04)] border-t-2 border-primary-container group transition-transform hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 rounded-2xl bg-primary-container/10 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="flex items-center gap-1 text-label-sm font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                            8%+
+                        </span>
+</div>
+<p class="text-secondary font-label-lg mb-1">الإعلانات النشطة</p>
+<h3 class="text-headline-md font-bold text-on-surface">2,100</h3>
+</div>
+<!-- KPI 4 -->
+<div class="bg-white p-8 rounded-lg shadow-[30px_10px_60px_-15px_rgba(0,0,0,0.04)] border-t-2 border-primary-container group transition-transform hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 rounded-2xl bg-primary-container/10 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">category</span>
+</div>
+</div>
+<p class="text-secondary font-label-lg mb-1">التصنيفات</p>
+<h3 class="text-headline-md font-bold text-on-surface">45</h3>
+</div>
+</div>
+<!-- Metal Prices Section -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="text-title-lg font-bold text-on-surface">أسعار المعادن (درهم إماراتي/جرام)</h2>
+<div class="flex items-center gap-2 text-label-sm text-secondary">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        تحديث مباشر الآن
+                    </div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Gold 24K Card -->
+<div class="bg-white p-6 rounded-lg shadow-sm border border-outline-variant/30 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-1 bg-primary-container text-[10px] text-white font-bold px-2 rounded-bl-lg">الأكثر مبيعاً</div>
+<p class="text-label-sm text-secondary mb-2">ذهب عيار 24</p>
+<div class="flex items-end gap-1">
+<span class="text-headline-md font-bold text-primary">285.50</span>
+<span class="text-[10px] text-secondary pb-1">AED</span>
+</div>
+</div>
+<!-- Gold 22K -->
+<div class="bg-white p-6 rounded-lg shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
+<p class="text-label-sm text-secondary mb-2">ذهب عيار 22</p>
+<div class="flex items-end gap-1">
+<span class="text-headline-md font-bold text-on-surface">264.25</span>
+<span class="text-[10px] text-secondary pb-1">AED</span>
+</div>
+</div>
+<!-- Gold 21K -->
+<div class="bg-white p-6 rounded-lg shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
+<p class="text-label-sm text-secondary mb-2">ذهب عيار 21</p>
+<div class="flex items-end gap-1">
+<span class="text-headline-md font-bold text-on-surface">252.00</span>
+<span class="text-[10px] text-secondary pb-1">AED</span>
+</div>
+</div>
+<!-- Gold 18K -->
+<div class="bg-white p-6 rounded-lg shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow">
+<p class="text-label-sm text-secondary mb-2">ذهب عيار 18</p>
+<div class="flex items-end gap-1">
+<span class="text-headline-md font-bold text-on-surface">216.00</span>
+<span class="text-[10px] text-secondary pb-1">AED</span>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 flex gap-4">
+<!-- Silver -->
+<div class="flex-1 bg-slate-50 p-6 rounded-lg border border-slate-200">
+<div class="flex items-center gap-2 mb-2 text-slate-600">
+<span class="material-symbols-outlined">toll</span>
+<p class="text-label-sm font-semibold">فضة</p>
+</div>
+<div class="flex items-end gap-1">
+<span class="text-headline-md font-bold text-slate-800">3.45</span>
+<span class="text-[10px] text-slate-500 pb-1">AED</span>
+</div>
+</div>
+<!-- Platinum -->
+<div class="flex-1 bg-zinc-100 p-6 rounded-lg border border-zinc-300">
+<div class="flex items-center gap-2 mb-2 text-zinc-600">
+<span class="material-symbols-outlined">diamond</span>
+<p class="text-label-sm font-semibold">بلاتين</p>
+</div>
+<div class="flex items-end gap-1">
+<span class="text-headline-md font-bold text-zinc-800">112.30</span>
+<span class="text-[10px] text-zinc-500 pb-1">AED</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Analytics Row -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Gold Price Trend Line Chart Mock -->
+<div class="bg-white p-8 rounded-lg shadow-[30px_10px_60px_-15px_rgba(0,0,0,0.04)]">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-title-lg font-bold text-on-surface">اتجاه سعر الذهب</h3>
+<p class="text-body-md text-secondary">آخر 30 يوم (عيار 24)</p>
+</div>
+<button class="flex items-center gap-2 text-primary font-semibold text-label-lg">
+                            التفاصيل
+                            <span class="material-symbols-outlined text-sm">arrow_back_ios</span>
+</button>
+</div>
+<div class="h-64 flex items-end justify-between gap-2 px-2 relative">
+<!-- Chart Lines Overlay (SVG Placeholder) -->
+<div class="absolute inset-x-0 bottom-0 top-0 pointer-events-none opacity-20">
+<svg class="w-full h-full" viewbox="0 0 400 150">
+<path d="M0 130 Q 50 110, 100 120 T 200 80 T 300 40 T 400 20" fill="none" stroke="#d4af37" stroke-linecap="round" stroke-width="4"></path>
+<path d="M0 130 Q 50 110, 100 120 T 200 80 T 300 40 T 400 20 L 400 150 L 0 150 Z" fill="url(#goldGradient)"></path>
+<defs>
+<lineargradient id="goldGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#d4af37"></stop>
+<stop offset="100%" stop-color="transparent"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+<!-- X-Axis Labels -->
+<div class="absolute bottom-[-24px] inset-x-0 flex justify-between text-[10px] text-secondary">
+<span>1 أكتوبر</span>
+<span>15 أكتوبر</span>
+<span>30 أكتوبر</span>
+</div>
+</div>
+</div>
+<!-- Monthly Ad Volume Bar Chart Mock -->
+<div class="bg-white p-8 rounded-lg shadow-[30px_10px_60px_-15px_rgba(0,0,0,0.04)]">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-title-lg font-bold text-on-surface">حجم الإعلانات الشهري</h3>
+<p class="text-body-md text-secondary">مقارنة الأشهر الستة الماضية</p>
+</div>
+</div>
+<div class="h-64 flex items-end justify-around gap-4 px-4 border-b border-outline-variant/30 pb-4">
+<div class="w-full bg-slate-100 rounded-t-lg transition-all hover:bg-primary-container h-[40%]" title="مايو: 1.2k"></div>
+<div class="w-full bg-slate-100 rounded-t-lg transition-all hover:bg-primary-container h-[55%]" title="يونيو: 1.8k"></div>
+<div class="w-full bg-slate-100 rounded-t-lg transition-all hover:bg-primary-container h-[45%]" title="يوليو: 1.5k"></div>
+<div class="w-full bg-slate-100 rounded-t-lg transition-all hover:bg-primary-container h-[75%]" title="أغسطس: 2.5k"></div>
+<div class="w-full bg-slate-100 rounded-t-lg transition-all hover:bg-primary-container h-[60%]" title="سبتمبر: 2.1k"></div>
+<div class="w-full bg-primary-container rounded-t-lg transition-all h-[95%]" title="أكتوبر: 3.8k"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Recent Ads Table -->
+<div class="lg:col-span-2 bg-white rounded-lg shadow-[30px_10px_60px_-15px_rgba(0,0,0,0.04)] overflow-hidden">
+<div class="px-8 py-6 border-b border-outline-variant/30 flex items-center justify-between">
+<h3 class="text-title-lg font-bold text-on-surface">أحدث الإعلانات</h3>
+<button class="text-primary font-semibold text-label-lg">مشاهدة الكل</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-right border-collapse">
+<thead>
+<tr class="bg-surface-container/50 text-secondary font-label-lg">
+<th class="px-8 py-4 font-semibold">المنتج</th>
+<th class="px-8 py-4 font-semibold">التصنيف</th>
+<th class="px-8 py-4 font-semibold">السعر</th>
+<th class="px-8 py-4 font-semibold">الحالة</th>
+<th class="px-8 py-4 font-semibold">التاريخ</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="hover:bg-primary-container/5 transition-colors">
+<td class="px-8 py-5">طقم ذهب عيار 21 ملكي</td>
+<td class="px-8 py-5">أطقم</td>
+<td class="px-8 py-5 font-bold">12,500 د.إ</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">تم النشر</span>
+</td>
+<td class="px-8 py-5 text-secondary text-label-sm">24 أكتوبر 2023</td>
+</tr>
+<tr class="hover:bg-primary-container/5 transition-colors">
+<td class="px-8 py-5">سبيكة ذهب 50 جرام 24K</td>
+<td class="px-8 py-5">سبائك</td>
+<td class="px-8 py-5 font-bold">14,275 د.إ</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-primary-container/20 text-primary">مميز</span>
+</td>
+<td class="px-8 py-5 text-secondary text-label-sm">23 أكتوبر 2023</td>
+</tr>
+<tr class="hover:bg-primary-container/5 transition-colors">
+<td class="px-8 py-5">خاتم الماس وذهب أبيض</td>
+<td class="px-8 py-5">خواتم</td>
+<td class="px-8 py-5 font-bold">8,900 د.إ</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-700">قيد المراجعة</span>
+</td>
+<td class="px-8 py-5 text-secondary text-label-sm">22 أكتوبر 2023</td>
+</tr>
+<tr class="hover:bg-primary-container/5 transition-colors">
+<td class="px-8 py-5">ساعة رولكس ديت جست</td>
+<td class="px-8 py-5">ساعات فاخرة</td>
+<td class="px-8 py-5 font-bold">45,000 د.إ</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">تم النشر</span>
+</td>
+<td class="px-8 py-5 text-secondary text-label-sm">22 أكتوبر 2023</td>
+</tr>
+<tr class="hover:bg-primary-container/5 transition-colors">
+<td class="px-8 py-5">قلادة كارتييه ذهب</td>
+<td class="px-8 py-5">قلادات</td>
+<td class="px-8 py-5 font-bold">21,400 د.إ</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">تم النشر</span>
+</td>
+<td class="px-8 py-5 text-secondary text-label-sm">21 أكتوبر 2023</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Customer Distribution -->
+<div class="bg-white p-8 rounded-lg shadow-[30px_10px_60px_-15px_rgba(0,0,0,0.04)] flex flex-col">
+<h3 class="text-title-lg font-bold text-on-surface mb-6">توزيع العملاء</h3>
+<!-- Simplified World Map Placeholder -->
+<div class="relative w-full h-40 bg-surface-container rounded-xl mb-8 flex items-center justify-center overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20" data-alt="A stylized, minimalist vector map of the world presented in a clean light-mode dashboard style. The continents are rendered in a soft gray, while the Middle East region, specifically the UAE, Saudi Arabia, and Qatar, are highlighted with a premium gold glow and subtle pin markers to represent active customer density. The background is a crisp, clean white with soft depth shadows." data-location="United Arab Emirates" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP-UK6U7rUTKMHwb6PkZTuBIOehZwa_u7UJj155tNoLJWweJAkEsvmTtb9ZU9GMn_FlUCDPA6sqXkP7G4SfdZIQpsHfkvFL17KAomw986YCTsXDikaJWSt9-g6FAq-xQhNBGd2I8GFKUkLCaTxhU5dtpWGPCMTfCABhoi9G2Xbvku1Dvib7RPil3Zk9RAEVJloj6H5UtZJBj1-ClmU1bTRkQLy5sEfqA4ruk67H9Zs0laoidG4_00lipKZcxXNUCBYIknFb5j6Mlo"/>
+<div class="relative z-10 flex flex-col items-center">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">public</span>
+<p class="text-label-sm font-bold text-primary mt-2">عالمي</p>
+</div>
+</div>
+<div class="space-y-6 flex-1">
+<!-- UAE -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-label-lg">
+<span class="font-bold">الإمارات</span>
+<span class="text-secondary">65%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full gold-gradient rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<!-- KSA -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-label-lg">
+<span class="font-bold">السعودية</span>
+<span class="text-secondary">22%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-slate-400 rounded-full" style="width: 22%"></div>
+</div>
+</div>
+<!-- Qatar -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-label-lg">
+<span class="font-bold">قطر</span>
+<span class="text-secondary">13%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-slate-300 rounded-full" style="width: 13%"></div>
+</div>
+</div>
+</div>
+<button class="mt-8 w-full py-4 border border-primary-container text-primary font-bold rounded-xl hover:bg-primary-container/5 transition-all">
+                        تقرير الديموغرافية الكامل
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB (Mobile Only) -->
+<button class="md:hidden fixed bottom-6 left-6 w-14 h-14 gold-gradient rounded-full shadow-lg flex items-center justify-center text-white z-50 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+<script>
+        // Simple Interaction logic
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                document.querySelectorAll('nav a').forEach(l => {
+                    l.classList.remove('text-primary', 'border-r-4', 'border-primary', 'bg-primary-container/10');
+                    l.classList.add('text-secondary');
+                });
+                link.classList.remove('text-secondary');
+                link.classList.add('text-primary', 'border-r-4', 'border-primary', 'bg-primary-container/10');
+            });
+        });
+
+        // Price Animation Simulation
+        setInterval(() => {
+            const priceElement = document.querySelector('span.text-primary.text-headline-md');
+            const currentPrice = parseFloat(priceElement.innerText);
+            const variation = (Math.random() - 0.5) * 0.1;
+            priceElement.innerText = (currentPrice + variation).toFixed(2);
+        }, 5000);
+    </script>
+</body></html>

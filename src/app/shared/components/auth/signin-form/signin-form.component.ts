@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { LabelComponent } from '../../form/label/label.component';
 import { CheckboxComponent } from '../../form/input/checkbox.component';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { InputFieldComponent } from '../../form/input/input-field.component';
@@ -13,7 +12,6 @@ import { ErrorHandlerService } from '../../../services/api/error-handler.service
   selector: 'app-signin-form',
   imports: [
     CommonModule,
-    LabelComponent,
     CheckboxComponent,
     ButtonComponent,
     InputFieldComponent,
@@ -24,7 +22,6 @@ import { ErrorHandlerService } from '../../../services/api/error-handler.service
 })
 export class SigninFormComponent {
 
-  showPassword = false;
   isChecked = false;
   isLoading = false;
   errorMessage = '';
@@ -38,10 +35,6 @@ export class SigninFormComponent {
     public translationService: TranslationService,
     private errorHandler: ErrorHandlerService
   ) {}
-
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
 
   onPhoneNumberChange(value: string | number) {
     this.phoneNumber = String(value);
@@ -72,6 +65,12 @@ export class SigninFormComponent {
       next: (response) => {
         this.isLoading = false;
         if (response.status === 'success' && response.data) {
+          // Reject access when the returned role is not an admin.
+          if (response.data.role !== 'admin') {
+            this.authService.logout();
+            this.errorMessage = this.translationService.t('auth.notAdmin');
+            return;
+          }
           // Login successful - redirect to dashboard
           const returnUrl = this.router.parseUrl(this.router.url).queryParams['returnUrl'] || '/';
           this.router.navigate([returnUrl]);

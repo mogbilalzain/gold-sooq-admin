@@ -1,38 +1,20 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * Image URLs come back from the API as complete CDN URLs
+ * (https://cdn.ayarsouq.com/...) — they are used directly.
+ * This service is kept as a pass-through for existing callers;
+ * no prefixing is performed anymore.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class ImageUrlService {
-  private readonly imageBaseUrl = 'https://ashieari.com/images/';
-
-  /**
-   * إضافة رابط الصور الأساسي للصور القادمة من الباك اند
-   * @param imageUrl - رابط الصورة من الباك اند
-   * @returns رابط الصورة الكامل
-   */
   getImageUrl(imageUrl: string | null | undefined): string {
-    if (!imageUrl) {
-      return '';
-    }
-
-    // إذا كان الرابط يبدأ بـ http:// أو https://، إرجاعه كما هو
-    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
-      return imageUrl;
-    }
-
-    // إذا كان الرابط يبدأ بـ /، إزالة الـ / الأول
-    const cleanUrl = imageUrl.startsWith('/') ? imageUrl.substring(1) : imageUrl;
-
-    // إضافة الرابط الأساسي
-    return `${this.imageBaseUrl}${cleanUrl}`;
+    return imageUrl ?? '';
   }
 
-  /**
-   * التحقق من وجود رابط صورة
-   */
   hasImage(imageUrl: string | null | undefined): boolean {
     return !!imageUrl && imageUrl.trim() !== '';
   }
 }
-

@@ -1,12 +1,7 @@
 <button
-  type="button"
-  [ngClass]="
-    'inline-flex items-center justify-center gap-2 rounded-lg transition ' +
-    className + ' ' +
-    sizeClasses + ' ' +
-    variantClasses + ' ' +
-    disabledClasses
-  "
+  [type]="type"
+  [matButton]="appearance"
+  [ngClass]="[className, sizeClasses, variant === 'danger' ? 'app-btn-danger' : '', disabledClasses]"
   [disabled]="disabled"
   (click)="onClick($event)"
 >

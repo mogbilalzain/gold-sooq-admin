@@ -1,67 +1,125 @@
+<!-- Page Header -->
+<app-page-header
+  [title]="translationService.t('sidebar.dashboard')"
+  [subtitle]="translationService.t('dashboard.subtitle')">
+</app-page-header>
+
 <div class="space-y-6">
-  <!-- Stats Cards -->
+  <!-- Row 1: Real KPI stats -->
   @if (isLoading) {
-  <app-loading-spinner />
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-6">
+      @for (i of [1, 2, 3, 4]; track i) {
+        <div
+          class="rounded-m3-lg border border-outline-variant/50 bg-surface-container-lowest p-6 shadow-elevation-1 dark:border-outline-variant dark:bg-surface-container animate-pulse"
+        >
+          <div class="h-12 w-12 rounded-m3-md bg-surface-container-high"></div>
+          <div class="mt-4 space-y-2">
+            <div class="h-3 w-1/2 rounded bg-surface-container-high"></div>
+            <div class="h-6 w-2/3 rounded bg-surface-container-high"></div>
+          </div>
+        </div>
+      }
+    </div>
   } @else {
-  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-    <app-stats-card [title]="translationService.t('dashboard.totalUsers')" [value]="stats.totalUsers" [icon]="userIcon"
-      iconBgClass="bg-blue-100 dark:bg-blue-900/20" />
-    <app-stats-card [title]="translationService.t('dashboard.totalPosts')" [value]="stats.totalPosts" [icon]="postIcon"
-      iconBgClass="bg-green-100 dark:bg-green-900/20" />
-    <app-stats-card [title]="translationService.t('dashboard.activePosts')" [value]="stats.activePosts"
-      [icon]="activeIcon" iconBgClass="bg-purple-100 dark:bg-purple-900/20" />
-    <app-stats-card [title]="translationService.t('dashboard.totalCategories')" [value]="stats.totalCategories"
-      [icon]="categoryIcon" iconBgClass="bg-orange-100 dark:bg-orange-900/20" />
-  </div>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-6">
+      <app-stats-card
+        [title]="translationService.t('dashboard.totalUsers')"
+        [value]="stats.totalUsers"
+        [icon]="userIcon"
+      ></app-stats-card>
+
+      <app-stats-card
+        [title]="translationService.t('dashboard.totalPosts')"
+        [value]="stats.totalPosts"
+        [icon]="postIcon"
+        iconBgClass="bg-success-50 text-success-600 dark:bg-success-500/15 dark:text-success-500"
+      ></app-stats-card>
+
+      <app-stats-card
+        [title]="translationService.t('dashboard.activePosts')"
+        [value]="stats.activePosts"
+        [icon]="activeIcon"
+        iconBgClass="bg-warning-500/10 text-warning-600 dark:bg-warning-500/15 dark:text-warning-400"
+      ></app-stats-card>
+
+      <app-stats-card
+        [title]="translationService.t('dashboard.totalCategories')"
+        [value]="stats.totalCategories"
+        [icon]="categoryIcon"
+      ></app-stats-card>
+    </div>
   }
 
-
-  <!-- Original Dashboard Components -->
-  <div class="grid grid-cols-12 gap-4 md:gap-6">
-
-    <div class="col-span-12 space-y-6 xl:col-span-7">
-      <div><app-ecommerce-metrics /></div>
-      <div><app-monthly-sales-chart /></div>
-    </div>
-
-    <!-- Metals Prices Chart -->
-
-    <div class="col-span-12 xl:col-span-5">
-      <app-monthly-target />
-    </div>
-    <!-- Current Metals Prices -->
-    <div class="col-span-12 mb-6">
-      <app-current-prices [countryCode]="'AE'" [showTitle]="true" [autoRefresh]="false">
-      </app-current-prices>
-    </div>
-
-    @if (metalsPricesData.length > 0) {
-    <div
-      class="col-span-12 rounded-lg border border-gray-200 bg-white shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
-      <div class="p-6">
-        <h3 class="mb-4 text-lg font-semibold text-gray-800 dark:text-white">
-          {{ translationService.t('metals.title') }}
+  <!-- Row 1b: Work waiting for the admin -->
+  @if (attentionCards.length) {
+    <section>
+      <div class="mb-3">
+        <h3 class="text-m3-title-lg font-medium text-surface-on-surface">
+          {{ translationService.t('dashboard.needsAttention') }}
         </h3>
-        <app-metals-prices-chart [data]="metalsPricesData" [currency]="metalsCurrency" [chartType]="'line'"
-          [height]="300" [showLegend]="true">
-        </app-metals-prices-chart>
+        <p class="text-sm text-surface-on-surface-variant mt-0.5">
+          {{ translationService.t('dashboard.needsAttentionHint') }}
+        </p>
       </div>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-6">
+        @for (card of attentionCards; track card.labelKey) {
+          <a
+            [routerLink]="card.route"
+            [queryParams]="card.queryParams"
+            class="state-layer flex items-center gap-4 rounded-m3-lg border bg-surface-container-lowest p-5 shadow-elevation-1 dark:bg-surface-container"
+            [ngClass]="card.count ? 'border-warning-500/50' : 'border-outline-variant/50 dark:border-outline-variant'"
+          >
+            <span
+              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-m3-md"
+              [ngClass]="card.iconBgClass"
+              [innerHTML]="card.icon | safeHtml"
+            ></span>
+            <div class="min-w-0">
+              <p class="text-m3-headline-sm font-semibold text-surface-on-surface">{{ card.count }}</p>
+              <p class="truncate text-sm text-surface-on-surface-variant">
+                {{ translationService.t(card.labelKey) }}
+              </p>
+            </div>
+          </a>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- Row 2: Gold first — current prices + price pulse -->
+  <div class="grid grid-cols-12 gap-4 md:gap-6">
+    <div class="col-span-12 xl:col-span-8">
+      <app-current-prices></app-current-prices>
     </div>
-    }
-
-
-
-
-    <!-- <div class="col-span-12">
-      <app-statics-chart />
-    </div> -->
-
-    <div class="col-span-12 xl:col-span-5">
-      <app-demographic-card />
-    </div>
-
-    <div class="col-span-12 xl:col-span-7">
-      <app-recent-orders />
+    <div class="col-span-12 xl:col-span-4">
+      <app-price-pulse
+        [data]="metalsPricesData"
+        [currency]="metalsCurrency"
+      ></app-price-pulse>
     </div>
   </div>
+
+  <!-- Row 3: Historical chart + pending review -->
+  <div class="grid grid-cols-12 gap-4 md:gap-6">
+    <div class="col-span-12 xl:col-span-7">
+      <app-gold-price-chart></app-gold-price-chart>
+    </div>
+    <div class="col-span-12 xl:col-span-5">
+      <app-pending-review
+        [posts]="pendingPosts"
+        [total]="pending?.ads ?? null"
+        [loading]="loadingPending"
+      ></app-pending-review>
+    </div>
+  </div>
+
+  <!-- Row 3b: Platform activity over the last 30 days -->
+  <app-activity-chart class="block" [daily]="daily" [loading]="isLoading"></app-activity-chart>
+
+  <!-- Row 4: Recent ads (real data) -->
+  <app-recent-posts
+    class="block"
+    [posts]="recentPosts"
+    [loading]="loadingPosts"
+  ></app-recent-posts>
 </div>

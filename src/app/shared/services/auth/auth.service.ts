@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ApiConfigService } from '../api/api-config.service';
 import { TokenStorageService } from './token-storage.service';
 import { ErrorHandlerService } from '../api/error-handler.service';
+import { AdminInboxService } from '../data/admin-inbox.service';
 
 export interface LoginRequest {
   phoneNumber: string;
@@ -53,7 +54,8 @@ export class AuthService {
     private apiConfig: ApiConfigService,
     private tokenStorage: TokenStorageService,
     private errorHandler: ErrorHandlerService,
-    private router: Router
+    private router: Router,
+    private adminInbox: AdminInboxService
   ) {
     // Load user from storage on init
     const user = this.tokenStorage.getUser();
@@ -78,6 +80,7 @@ export class AuthService {
   }
 
   logout(): void {
+    this.adminInbox.stop();
     this.tokenStorage.clear();
     this.currentUserSubject.next(null);
     this.router.navigate(['/signin']);

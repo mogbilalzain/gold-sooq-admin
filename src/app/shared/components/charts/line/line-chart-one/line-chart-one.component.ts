@@ -39,7 +39,7 @@ export class LineChartOneComponent {
   ];
 
   public chart: ApexChart = {
-    fontFamily: 'Outfit, sans-serif',
+    fontFamily: 'Tajawal, Outfit, sans-serif',
     height: 310,
     type: 'area',
     toolbar: {
@@ -47,7 +47,8 @@ export class LineChartOneComponent {
     }
   };
 
-  public colors: string[] = ['#465FFF', '#9CB9FF'];
+  // Ayar Sooq brand: gold + charcoal area chart palette
+  public colors: string[] = ['#d4af37', '#94a3b8'];
 
   public stroke: ApexStroke = {
     curve: 'straight',

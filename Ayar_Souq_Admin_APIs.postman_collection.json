@@ -1,0 +1,1452 @@
+{
+	"info": {
+		"_postman_id": "admin-gold-souq-apis",
+		"name": "Ayar Souq - Admin APIs",
+		"description": "Comprehensive Admin API collection for Ayar Souq backend project. Includes all admin endpoints with authentication, validation, and examples.\n\n## Authentication\nAll admin endpoints require:\n1. **JWT Token** in Authorization header\n2. **Admin Role** verification\n\n## Base URL\n`{{baseUrl}}/AyarSouqAPIs/api`\n\n## Collections Included\n- **Admin Authentication** - Signin, password reset & change password\n- **Categories Management** - CRUD operations for categories\n- **Posts/Ads Management** - List, approve, reject, update & delete user posts\n- **Users Management** - User administration\n- **Metals Pricing** - Metal prices management & daily notifications\n- **Notifications Management** - Send, list & delete multi-language notifications",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "🔐 Admin Authentication",
+			"item": [
+				{
+					"name": "Admin Signin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Admin token received', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('token');",
+									"    pm.expect(jsonData.data.role).to.eql('admin');",
+									"    pm.environment.set('adminToken', jsonData.data.token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"{{adminPhoneNumber}}\",\n    \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/auth/signin",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "auth", "signin"]
+						},
+						"description": "Admin login to get JWT token. Uses phone number + password and requires the 'admin' role."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Admin Password Reset OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('OTP sent', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('success');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"{{adminPhoneNumber}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/auth/restPassword/sendOTP",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "auth", "restPassword", "sendOTP"]
+						},
+						"description": "Send a one-time password to the admin's phone for password reset"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Admin Password Reset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Password reset and token received', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('token');",
+									"    pm.environment.set('adminToken', jsonData.data.token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"{{adminPhoneNumber}}\",\n    \"otpCode\": {{otpCode}},\n    \"newPassword\": \"new_admin_password\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/auth/restPassword/verifyToRestPassword",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "auth", "restPassword", "verifyToRestPassword"]
+						},
+						"description": "Verify the OTP and set a new admin password"
+					},
+					"response": []
+				},
+				{
+					"name": "Change Admin Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Password changed and token received', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('token');",
+									"    pm.environment.set('adminToken', jsonData.data.token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"{{adminPhoneNumber}}\",\n    \"currentPassword\": \"admin123\",\n    \"newPassword\": \"new_admin_password\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/auth/changePassword",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "auth", "changePassword"]
+						},
+						"description": "Change the password for the authenticated admin account"
+					},
+					"response": []
+				}
+			],
+			"description": "Admin authentication: signin, password reset and change password"
+		},
+		{
+			"name": "📂 Categories Management",
+			"item": [
+				{
+					"name": "List Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response has categories data', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"    pm.expect(jsonData.data).to.have.property('categories');",
+									"    pm.expect(jsonData.data).to.have.property('pagination');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"langCode\": \"en\",\n    \"page\": 1,\n    \"limit\": 20\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/categories/list",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "categories", "list"]
+						},
+						"description": "Get paginated list of categories with admin privileges"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Category Image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response has image URLs', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('imageUrl');",
+									"    pm.expect(jsonData.data).to.have.property('fullImageUrl');",
+									"    ",
+									"    // Store imageUrl for creating category",
+									"    pm.environment.set('uploadedImageUrl', jsonData.data.imageUrl);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "categoryImage",
+									"type": "file",
+									"src": [],
+									"description": "Select an image file (JPEG, PNG, GIF, max 5MB)"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/categories/uploadImage",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "categories", "uploadImage"]
+						},
+						"description": "Upload image for category. Returns imageUrl to use in create/update operations."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Category created successfully', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('categoryId');",
+									"    ",
+									"    // Store categoryId for update/delete operations",
+									"    pm.environment.set('createdCategoryId', jsonData.data.categoryId);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name_en\": \"Gold Jewelry\",\n    \"name_ar\": \"مجوهرات ذهبية\",\n    \"image_url\": \"{{uploadedImageUrl}}\",\n    \"parent_category_id\": null\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/categories/create",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "categories", "create"]
+						},
+						"description": "Create new category with English and Arabic names. Optionally include uploaded image URL."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Category updated successfully', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('categoryId');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoryId\": {{createdCategoryId}},\n    \"name_en\": \"Gold Jewelry Updated\",\n    \"name_ar\": \"مجوهرات ذهبية محدثة\",\n    \"image_url\": \"{{uploadedImageUrl}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/categories/update",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "categories", "update"]
+						},
+						"description": "Update existing category. All fields except categoryId are optional."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Category deleted successfully', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('categoryId');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoryId\": {{createdCategoryId}}\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/categories/delete",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "categories", "delete"]
+						},
+						"description": "Delete category by ID. This will permanently remove the category."
+					},
+					"response": []
+				}
+			],
+			"description": "Admin category management operations including CRUD and image upload"
+		},
+		{
+			"name": "📝 Posts/Ads Management",
+			"item": [
+				{
+					"name": "List Posts/Ads",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response has posts data', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('posts');",
+									"    pm.expect(jsonData.data).to.have.property('pagination');",
+									"    ",
+									"    if (jsonData.data.posts.length > 0) {",
+									"        pm.environment.set('samplePostId', jsonData.data.posts[0].id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"langCode\": \"en\",\n    \"page\": 1,\n    \"limit\": 20,\n    \"status\": \"all\",\n    \"categoryId\": null,\n    \"countryId\": null,\n    \"dateFrom\": null,\n    \"dateTo\": null\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/posts-ads/list",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "posts-ads", "list"]
+						},
+						"description": "Get paginated list of all posts/ads with advanced filtering options"
+					},
+					"response": []
+				},
+				{
+					"name": "List Posts with Filters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Filtered results returned', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('posts');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"langCode\": \"en\",\n    \"page\": 1,\n    \"limit\": 10,\n    \"status\": \"active\",\n    \"categoryId\": 1,\n    \"dateFrom\": \"2024-01-01\",\n    \"dateTo\": \"2024-12-31\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/posts-ads/list",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "posts-ads", "list"]
+						},
+						"description": "Example of filtered post listing with status, category, and date range filters"
+					},
+					"response": []
+				},
+				{
+					"name": "Approve Post/Ad",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Post approved successfully', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('postAdsId');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"postAdsId\": {{samplePostId}}\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/posts-ads/approve",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "posts-ads", "approve"]
+						},
+						"description": "Approve a pending post/ad so it becomes publicly visible."
+					},
+					"response": []
+				},
+				{
+					"name": "Reject Post/Ad",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Post rejected successfully', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('postAdsId');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"postAdsId\": {{samplePostId}},\n    \"reason\": \"Content does not meet marketplace guidelines\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/posts-ads/reject",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "posts-ads", "reject"]
+						},
+						"description": "Reject a post/ad with a required reason (1-500 characters)."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post/Ad",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Post updated successfully', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('postAdsId');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"postAdsId\": {{samplePostId}},\n    \"postTitle\": \"Updated Post Title\",\n    \"postDetail\": \"Updated post description with admin modifications\",\n    \"price\": 1500,\n    \"isActive\": true,\n    \"isFeatured\": false\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/posts-ads/update",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "posts-ads", "update"]
+						},
+						"description": "Admin update of any post/ad. Can modify content and active status."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post/Ad",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Post deleted successfully', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('postAdsId');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"postAdsId\": {{samplePostId}}\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/posts-ads/delete",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "posts-ads", "delete"]
+						},
+						"description": "Permanently delete a post/ad. Use with caution as this action cannot be undone."
+					},
+					"response": []
+				}
+			],
+			"description": "Admin management of user posts and advertisements"
+		},
+		{
+			"name": "👥 Users Management",
+			"item": [
+				{
+					"name": "List Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response has users data', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('users');",
+									"    pm.expect(jsonData.data).to.have.property('pagination');",
+									"    ",
+									"    if (jsonData.data.users.length > 0) {",
+									"        pm.environment.set('sampleUserId', jsonData.data.users[0].id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"page\": 1,\n    \"limit\": 20,\n    \"status\": \"all\",\n    \"verified\": null,\n    \"searchTerm\": null\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/users/list",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "users", "list"]
+						},
+						"description": "Get paginated list of all users with filtering options"
+					},
+					"response": []
+				},
+				{
+					"name": "List Users with Search",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Search results returned', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('users');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"page\": 1,\n    \"limit\": 10,\n    \"status\": \"active\",\n    \"verified\": true,\n    \"searchTerm\": \"john\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/users/list",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "users", "list"]
+						},
+						"description": "Example of filtered user search with status, verification, and search term"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('User updated successfully', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('userId');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": {{sampleUserId}},\n    \"fullName\": \"John Doe Updated\",\n    \"email\": \"john.doe.updated@example.com\",\n    \"phoneNumber\": \"+249912345678\",\n    \"verified\": true,\n    \"status\": \"active\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/users/update",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "users", "update"]
+						},
+						"description": "Admin update of user profile, verification status, and account status"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('User deleted successfully', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('userId');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": {{sampleUserId}}\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/users/delete",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "users", "delete"]
+						},
+						"description": "Permanently delete user account. Use with extreme caution as this action cannot be undone."
+					},
+					"response": []
+				}
+			],
+			"description": "Admin user account management and oversight"
+		},
+		{
+			"name": "🥇 Metals Pricing Management",
+			"item": [
+				{
+					"name": "Get Latest Metals Prices",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response has data', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/metals-prices/latest",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "metals-prices", "latest"]
+						},
+						"description": "Retrieve the most recent metals prices data (admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Historical Metals Prices",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response has data', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/metals-prices/historical?period=1m&country=AE",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "metals-prices", "historical"],
+							"query": [
+								{
+									"key": "period",
+									"value": "1m",
+									"description": "Time period: 7d, 1m, or 3m"
+								},
+								{
+									"key": "country",
+									"value": "AE",
+									"description": "Country code for localized data"
+								}
+							]
+						},
+						"description": "Retrieve historical metals prices for a period (admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Trigger Daily Price Notification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Notification sent', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('success');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/metals-prices/daily-notifications/trigger",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "metals-prices", "daily-notifications", "trigger"]
+						},
+						"description": "Send immediate daily metals price notification to all users via FCM topics"
+					},
+					"response": []
+				},
+				{
+					"name": "Preview Daily Price Notification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response has preview', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/metals-prices/daily-notifications/preview",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "metals-prices", "daily-notifications", "preview"]
+						},
+						"description": "Preview what the current daily metals price notification would look like"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Daily Notification Schedule",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response has schedule', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/metals-prices/daily-notifications/schedule",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "metals-prices", "daily-notifications", "schedule"]
+						},
+						"description": "Check the status and configuration of daily metals price notifications"
+					},
+					"response": []
+				}
+			],
+			"description": "Admin metals pricing management and daily price notifications"
+		},
+		{
+			"name": "🔔 Notifications Management",
+			"item": [
+				{
+					"name": "Send Notification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Notification sent successfully', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('id');",
+									"    pm.environment.set('notification_id', jsonData.data.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title_ar\": \"مجموعة ذهبية جديدة متوفرة\",\n    \"title_en\": \"New Gold Collection Available\",\n    \"message_ar\": \"اطلع على أحدث مجموعة مجوهرات ذهبية لدينا بتصاميم حصرية وأسعار تنافسية.\",\n    \"message_en\": \"Check out our latest gold collection with exclusive designs and competitive prices.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/notifications/sendNotification",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "notifications", "sendNotification"]
+						},
+						"description": "Send a multi-language (Arabic + English) notification to all users via FCM topic and save it to the database."
+					},
+					"response": []
+				},
+				{
+					"name": "List Notifications",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Response has notifications data', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('data');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/notifications/listNotifications",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "notifications", "listNotifications"]
+						},
+						"description": "Get all multi-language notifications sent by admin."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Notification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Notification deleted successfully', function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property('deleted');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/AyarSouqAPIs/api/admin/notifications/deleteNotification/{{notification_id}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["AyarSouqAPIs", "api", "admin", "notifications", "deleteNotification", "{{notification_id}}"]
+						},
+						"description": "Delete a specific notification from the database by its ID (path parameter)."
+					},
+					"response": []
+				}
+			],
+			"description": "Admin notifications management: send multi-language notifications, list and delete them"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Pre-request script for admin collection",
+					"console.log('Admin API Request: ' + pm.request.url);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Global test script",
+					"pm.test('Response time is less than 5000ms', function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+					"});",
+					"",
+					"pm.test('Response is JSON', function () {",
+					"    pm.response.to.be.json;",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://ayarsouq.com",
+			"description": "Base URL for the Ayar Souq API"
+		},
+		{
+			"key": "adminToken",
+			"value": "",
+			"description": "JWT token for admin authentication"
+		},
+		{
+			"key": "adminPhoneNumber",
+			"value": "+249912345678",
+			"description": "Admin phone number in E.164 format (SD: +249..., AE: +971...)"
+		},
+		{
+			"key": "otpCode",
+			"value": "123456",
+			"description": "6-digit OTP code received via SMS"
+		},
+		{
+			"key": "uploadedImageUrl",
+			"value": "",
+			"description": "Uploaded image URL for category operations"
+		},
+		{
+			"key": "createdCategoryId",
+			"value": "",
+			"description": "ID of created category for update/delete operations"
+		},
+		{
+			"key": "samplePostId",
+			"value": "",
+			"description": "Sample post ID for update/delete operations"
+		},
+		{
+			"key": "sampleUserId",
+			"value": "",
+			"description": "Sample user ID for update/delete operations"
+		},
+		{
+			"key": "notification_id",
+			"value": "",
+			"description": "ID of the sent notification for delete operation"
+		}
+	]
+} 

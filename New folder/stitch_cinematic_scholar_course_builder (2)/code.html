@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Instructor Courses | Cinematic Scholar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Manrope:wght@200..800&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#111317",
+                        "surface-container": "#1e2024",
+                        "surface-container-lowest": "#0c0e11",
+                        "error": "#ffb4ab",
+                        "surface-tint": "#e3c287",
+                        "on-surface-variant": "#d0c5b6",
+                        "inverse-on-surface": "#2f3035",
+                        "outline-variant": "#4d463a",
+                        "on-tertiary-fixed": "#151c27",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#ffdea3",
+                        "on-background": "#e2e2e8",
+                        "unread-glow": "rgba(255, 221, 159, 0.15)",
+                        "on-tertiary": "#2a313c",
+                        "inverse-surface": "#e2e2e8",
+                        "secondary-container": "#42474e",
+                        "on-primary": "#402d00",
+                        "glass-border": "rgba(255, 255, 255, 0.08)",
+                        "primary-fixed-dim": "#e3c287",
+                        "inverse-primary": "#735b29",
+                        "on-surface": "#e2e2e8",
+                        "surface-container-highest": "#333539",
+                        "surface-bright": "#37393d",
+                        "primary-container": "#ffdd9f",
+                        "secondary-fixed": "#dee3eb",
+                        "on-secondary": "#2b3137",
+                        "on-primary-container": "#79602e",
+                        "primary": "#fffdff",
+                        "background": "#111317",
+                        "surface-dim": "#111317",
+                        "secondary": "#c2c7cf",
+                        "surface-container-low": "#1a1c20",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#42474e",
+                        "on-primary-fixed": "#261900",
+                        "outline": "#998f81",
+                        "on-primary-fixed-variant": "#594314",
+                        "on-secondary-fixed": "#171c22",
+                        "tertiary-fixed": "#dce3f2",
+                        "secondary-fixed-dim": "#c2c7cf",
+                        "on-tertiary-fixed-variant": "#404753",
+                        "on-tertiary-container": "#5d6471",
+                        "on-secondary-container": "#b0b5bd",
+                        "tertiary-container": "#dbe2f1",
+                        "surface-variant": "#333539",
+                        "surface-container-high": "#282a2e",
+                        "tertiary": "#fffeff",
+                        "tertiary-fixed-dim": "#c0c7d5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-mobile": "20px",
+                        "notification-gap": "12px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "notification-title": ["Manrope"],
+                        "display-lg-mobile": ["EB Garamond"],
+                        "micro-label": ["Manrope"],
+                        "headline-md": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"],
+                        "label-caps": ["Manrope"],
+                        "headline-sm": ["EB Garamond"],
+                        "body-lg": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "newsreader": ["Newsreader"]
+                    },
+                    "fontSize": {
+                        "notification-title": ["16px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "500"}],
+                        "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #111317;
+            color: #e2e2e8;
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .unread-indicator {
+            border-left: 3px solid #ffdea3;
+        }
+        .gradient-orange {
+            background: linear-gradient(135deg, #e3c287 0%, #79602e 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #ffdea3;
+            border-radius: 999px;
+            box-shadow: 0 0 10px rgba(255, 222, 163, 0.4);
+        }
+        .newsreader {
+            font-family: 'Newsreader', serif;
+        }
+        .sidebar-active {
+            border-left: 4px solid #ffdea3;
+            background: rgba(255, 222, 163, 0.1);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0c0e11; }
+        ::-webkit-scrollbar-thumb { background: #333539; border-radius: 10px; }
+    </style>
+</head>
+<body class="dark selection:bg-primary-fixed/30">
+<!-- SideNavBar Anchor -->
+<aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low dark:bg-surface-container-lowest/50 backdrop-blur-2xl shadow-[20px_0_40px_rgba(79,55,138,0.04)] flex flex-col py-8 px-6 gap-8 z-40 hidden md:flex transition-all duration-300">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed/20 flex items-center justify-center overflow-hidden border border-outline-variant">
+<img alt="Academy Admin" data-alt="A sophisticated gold-leaf emblem representing a high-end film academy logo, set against a dark, textured charcoal background with subtle cinematic lighting and soft atmospheric particles." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMj-DzAIEckTGpt0aXnRJxxSgwijc4Ol1C_KaJx28-olMeqfWL4d8bc4-3Jv5Hj1pO1RGeqQGijTMKTPwB5DcFzV9UPZ14_ThGZIsaNsTYZDV6tctWY1p5Pv_qT1BOGhrQIW29RZXJzXDbehRIaHYg-hOx3wCEEY0PqxVtmxn5LUT5ROc1seQFrt8DYFl-KS04YoUsbRgFdpzGg_2QNqlSxRVHTXt5oh9KwQNOUxLA5eBI7AwzTX0oAtAGPyKoME6G-KG1gbqLByM"/>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed leading-none">Academy Admin</h1>
+<p class="font-micro-label text-micro-label text-on-surface-variant uppercase tracking-widest mt-1">Premium Tier</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-outline-variant hover:text-primary hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary dark:text-primary-fixed font-semibold relative sidebar-active transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="font-body-md text-body-md">Curriculum</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-outline-variant hover:text-primary hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-body-md text-body-md">Students</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-outline-variant hover:text-primary hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-body-md text-body-md">Assignments</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-outline-variant hover:text-primary hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-body-md text-body-md">Revenue</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-outline-variant hover:text-primary hover:translate-x-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-2">
+<button class="gradient-orange text-on-primary font-label-caps text-label-caps py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-primary-fixed/10 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Create New Course
+            </button>
+<div class="border-t border-outline-variant/30 my-4"></div>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant dark:text-outline-variant hover:text-primary text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Help Center
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant dark:text-outline-variant hover:text-primary text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-72 flex-1 min-h-screen">
+<!-- TopNavBar Anchor -->
+<header class="fixed top-0 right-0 left-0 md:left-72 z-30 flex justify-between items-center px-margin-desktop h-20 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl shadow-sm transition-all duration-300 ease-in-out">
+<div class="flex items-center gap-8">
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed tracking-tight">Scholarship</h2>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary font-body-md text-body-md" href="#">Dashboard</a>
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Courses</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary font-body-md text-body-md" href="#">Analytics</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary font-body-md text-body-md" href="#">Resources</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group hidden sm:block">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline-variant text-xl">search</span>
+<input class="bg-surface-container rounded-full pl-10 pr-4 py-2 text-body-md outline-none border border-outline-variant focus:border-primary-fixed transition-colors w-48 lg:w-64" placeholder="Search resources..." type="text"/>
+</div>
+<button class="p-2 text-on-surface-variant hover:text-primary relative transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-outline-variant cursor-pointer hover:opacity-80 transition-opacity">
+<img alt="Instructor profile picture" data-alt="A professional headshot of a sophisticated university professor in their late 40s, wearing a dark turtleneck and rimless glasses, set against a blurred background of a dimly lit private library with floor-to-ceiling bookshelves." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9j5F_3vU1E2mR816ToaDTOkUAZvXUwdZwZyXMHV5np-M_8hfC-6q80ix4vNUITxoyAz9rcyE3GtZ3ZagsCBpmIEH9Jos9R6TfcJ4OJLlOkXZgjsfAj6YLttbHxL1HqWw3zAhtOKC0TMz43Mvu70eiPqk0cYbjgfj37kc_XlRlsM5HVESDeRK02mTQp4KEW1Vb6L2Sz7QPEes-8ypUnRUHzNULPd3OneUSZ-iIAsrZ6v1YmaTRQw15natPSgxaX9swZBdHvhcVjo4"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="pt-28 pb-16 px-6 lg:px-margin-desktop max-w-container-max mx-auto">
+<!-- Hero Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<h1 class="newsreader font-display-lg text-display-lg italic text-primary leading-tight">My Courses</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">Manage your courses, track publishing status, and continue building your learning content for the modern cinephile.</p>
+</div>
+<button class="gradient-orange text-on-primary font-label-caps text-label-caps px-8 py-4 rounded-xl flex items-center justify-center gap-3 shadow-xl shadow-primary-fixed/20 hover:scale-[1.02] active:scale-[0.98] transition-all whitespace-nowrap">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                    Create New Course
+                </button>
+</div>
+<!-- Stats Row -->
+<div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 mb-12">
+<div class="glass-card p-6 rounded-2xl group hover:border-primary-fixed/40 transition-all">
+<p class="font-micro-label text-micro-label text-on-surface-variant uppercase tracking-widest mb-2">Total</p>
+<div class="flex items-end justify-between">
+<span class="font-display-lg-mobile text-display-lg-mobile font-bold text-primary">24</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary-fixed transition-colors">auto_stories</span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-2xl unread-indicator group hover:border-primary-fixed/40 transition-all">
+<p class="font-micro-label text-micro-label text-on-surface-variant uppercase tracking-widest mb-2">Published</p>
+<div class="flex items-end justify-between">
+<span class="font-display-lg-mobile text-display-lg-mobile font-bold text-primary">18</span>
+<span class="material-symbols-outlined text-primary-fixed">check_circle</span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-2xl group hover:border-primary-fixed/40 transition-all">
+<p class="font-micro-label text-micro-label text-on-surface-variant uppercase tracking-widest mb-2">Drafts</p>
+<div class="flex items-end justify-between">
+<span class="font-display-lg-mobile text-display-lg-mobile font-bold text-primary">4</span>
+<span class="material-symbols-outlined text-outline-variant">edit_note</span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-2xl group hover:border-primary-fixed/40 transition-all">
+<p class="font-micro-label text-micro-label text-on-surface-variant uppercase tracking-widest mb-2">Pending</p>
+<div class="flex items-end justify-between">
+<span class="font-display-lg-mobile text-display-lg-mobile font-bold text-primary">2</span>
+<span class="material-symbols-outlined text-outline-variant">hourglass_empty</span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-2xl group hover:border-primary-fixed/40 transition-all">
+<p class="font-micro-label text-micro-label text-on-surface-variant uppercase tracking-widest mb-2">Students</p>
+<div class="flex items-end justify-between">
+<span class="font-display-lg-mobile text-display-lg-mobile font-bold text-primary">1.2k</span>
+<span class="material-symbols-outlined text-outline-variant">groups</span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-2xl group hover:border-primary-fixed/40 transition-all">
+<p class="font-micro-label text-micro-label text-on-surface-variant uppercase tracking-widest mb-2">Revenue</p>
+<div class="flex items-end justify-between">
+<span class="font-display-lg-mobile text-display-lg-mobile font-bold text-primary">$12k</span>
+<span class="material-symbols-outlined text-outline-variant">monetization_on</span>
+</div>
+</div>
+</div>
+<!-- Filter Bar -->
+<div class="glass-card p-4 rounded-2xl flex flex-col lg:flex-row gap-4 items-center mb-8">
+<div class="relative w-full lg:flex-1">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline-variant">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-xl pl-12 pr-4 py-3 text-body-md focus:outline-none focus:ring-1 focus:ring-primary-fixed transition-all" placeholder="Filter your courses..." type="text"/>
+</div>
+<div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+<select class="bg-surface-container-low border border-outline-variant rounded-xl px-4 py-3 text-body-md focus:outline-none focus:ring-1 focus:ring-primary-fixed appearance-none min-w-[140px]">
+<option>Status: All</option>
+<option>Published</option>
+<option>Draft</option>
+<option>Pending</option>
+</select>
+<select class="bg-surface-container-low border border-outline-variant rounded-xl px-4 py-3 text-body-md focus:outline-none focus:ring-1 focus:ring-primary-fixed appearance-none min-w-[160px]">
+<option>Category: All</option>
+<option>Theory</option>
+<option>Production</option>
+<option>History</option>
+</select>
+<div class="flex-1 lg:flex-none"></div>
+<button class="flex items-center gap-2 px-4 py-3 text-body-md text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">sort</span>
+                        Sort: Recent
+                    </button>
+</div>
+</div>
+<!-- Course Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Course Card 1 -->
+<article class="glass-card rounded-2xl overflow-hidden flex flex-col group hover:shadow-[0_0_30px_rgba(255,222,163,0.08)] transition-all">
+<div class="relative h-56 overflow-hidden">
+<img alt="Cinematic Lighting" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A cinematic high-contrast photograph of vintage movie studio lighting equipment on a dark soundstage, with dramatic shafts of golden light cutting through artificial fog, creating a moody noir atmosphere with deep shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIb9HZJSC9FerjROkTKQwlRuIXzVreuCAchud72S0dHVKYCTHv7S5ExtFcaebRteYVOL1uzwOP1j7KmhTIJNrgILdBXRSu3jPmFqPZFaUSpK3212H4IsaSrCwGEbF6kTkwS_Jdpf9ACfjkr981-xbnBoVl9xGulEjTzixwT22JGd__zlWrdO74-NvMgZ6KuwYIZFd4FcVw9I1vxY273X3RLvWpAy5MPIpiwLerQ68rl4RxqMHDTH1hWpwAnDayFm1TYvUJZ5UbLqs"/>
+<div class="absolute top-4 left-4">
+<span class="bg-primary-fixed text-on-primary-fixed font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-tighter">Published</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="bg-surface/90 backdrop-blur-md px-4 py-2 rounded-lg text-body-md font-bold text-primary flex items-center gap-2 hover:bg-primary hover:text-surface transition-all">
+<span class="material-symbols-outlined text-sm">edit</span> Edit
+                             </button>
+<button class="w-10 h-10 bg-surface/90 backdrop-blur-md rounded-lg flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-3">
+<span class="active-dot"></span>
+<span class="font-micro-label text-micro-label text-primary-fixed uppercase tracking-widest">History &amp; Theory</span>
+</div>
+<h3 class="newsreader text-headline-sm text-primary mb-4 leading-snug">The Architecture of Shadows: Film Noir 1944-1958</h3>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 grid grid-cols-3 gap-2">
+<div class="flex flex-col">
+<span class="font-micro-label text-[9px] text-on-surface-variant uppercase tracking-tighter">Students</span>
+<span class="font-body-md font-bold text-on-surface">842</span>
+</div>
+<div class="flex flex-col">
+<span class="font-micro-label text-[9px] text-on-surface-variant uppercase tracking-tighter">Rating</span>
+<span class="font-body-md font-bold text-on-surface flex items-center gap-1">4.9 <span class="material-symbols-outlined text-[14px] text-primary-fixed" style="font-variation-settings: 'FILL' 1;">star</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-micro-label text-[9px] text-on-surface-variant uppercase tracking-tighter">Revenue</span>
+<span class="font-body-md font-bold text-on-surface">$4.2k</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Course Card 2 -->
+<article class="glass-card rounded-2xl overflow-hidden flex flex-col group transition-all unread-indicator">
+<div class="relative h-56 overflow-hidden">
+<img alt="Camera Lens" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A macro close-up of a high-end cinema camera lens, showing intricate internal reflections and multi-colored glass coatings, with a shallow depth of field and soft bokeh in the background, exuding technical precision and artistic quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoeheg0Y5wc9xXNhNukRW6o5SfFK7SQSa1I-DG_r3tHDsvOXUDDolVaA4wPkcDChX0ojVWSjGwNkdrP0TKLaGO8nlYH8J_CablpT_vTQvKlmxBcEkS10U5sBqoOqmSSfV1hJu6ONyKbRqnU3dsyn9DDPOLsxmmcI3Mdfq_4pKjC-bvPFTaFrdR5RzqAI-71HzeKDq4SVJh8d2aTS5J9e_5nioGkPKOlzwb8UDer8zijzM48UCXKMNKcBg13sc8hgQAEt4ya8heDgI"/>
+<div class="absolute top-4 left-4">
+<span class="bg-surface-container-highest text-on-surface font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-tighter">Draft</span>
+</div>
+<div class="absolute inset-0 bg-surface/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-primary-fixed text-on-primary-fixed px-6 py-3 rounded-xl text-label-caps font-bold hover:scale-105 transition-transform flex items-center gap-2">
+<span class="material-symbols-outlined">play_arrow</span> Continue Setup
+                            </button>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-3">
+<span class="active-dot"></span>
+<span class="font-micro-label text-micro-label text-primary-fixed uppercase tracking-widest">Cinematography</span>
+</div>
+<h3 class="newsreader text-headline-sm text-primary mb-4 leading-snug">Visual Poetics: Masterclass in Anamorphic Framing</h3>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 grid grid-cols-3 gap-2">
+<div class="flex flex-col">
+<span class="font-micro-label text-[9px] text-on-surface-variant uppercase tracking-tighter">Students</span>
+<span class="font-body-md font-bold text-on-surface-variant">—</span>
+</div>
+<div class="flex flex-col">
+<span class="font-micro-label text-[9px] text-on-surface-variant uppercase tracking-tighter">Rating</span>
+<span class="font-body-md font-bold text-on-surface-variant">—</span>
+</div>
+<div class="flex flex-col">
+<span class="font-micro-label text-[9px] text-on-surface-variant uppercase tracking-tighter">Revenue</span>
+<span class="font-body-md font-bold text-on-surface-variant">$0</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Course Card 3 -->
+<article class="glass-card rounded-2xl overflow-hidden flex flex-col group transition-all">
+<div class="relative h-56 overflow-hidden">
+<img alt="Film Reel" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A stack of weathered silver film canisters and a vintage 35mm film reel resting on a mahogany desk in a dimly lit archive room, with a soft desk lamp creating warm highlights on the metallic surfaces and aged labels." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKfz_tRKNiJPWbpaiTwwjqlu8sYJdNV8VduHQ1OhcPiQWA06-HL7T3zDrzSQBPQvC1gB1F4r5HbtQ38YHpGO8NDVV8VnRSBKL7P7a-eGeWtwE2_OHccKAc-7e4cbPiO2f4SF5DL0B7tUjdntTjSHMYJUvVbFlBMvWUkwYeOoMYhZYGO6H-n4mU5ldw_1aXWmfgn8MWj2nEx9rScXiX6Q4y_nWzn7TlsSClECt2r0oNx_mN59TMyrf7aDcY2oz1UsryLVGrxoQg7k8"/>
+<div class="absolute top-4 left-4">
+<span class="bg-tertiary-container text-on-tertiary-container font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-tighter">Pending</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="bg-surface/90 backdrop-blur-md px-4 py-2 rounded-lg text-body-md font-bold text-primary flex items-center gap-2 hover:bg-primary hover:text-surface transition-all">
+<span class="material-symbols-outlined text-sm">visibility</span> Preview
+                             </button>
+<button class="w-10 h-10 bg-surface/90 backdrop-blur-md rounded-lg flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-3">
+<span class="active-dot"></span>
+<span class="font-micro-label text-micro-label text-primary-fixed uppercase tracking-widest">Auteur Studies</span>
+</div>
+<h3 class="newsreader text-headline-sm text-primary mb-4 leading-snug">Restoration Ethics: Preserving the Silver Screen</h3>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 grid grid-cols-3 gap-2">
+<div class="flex flex-col">
+<span class="font-micro-label text-[9px] text-on-surface-variant uppercase tracking-tighter">Students</span>
+<span class="font-body-md font-bold text-on-surface">12</span>
+</div>
+<div class="flex flex-col">
+<span class="font-micro-label text-[9px] text-on-surface-variant uppercase tracking-tighter">Rating</span>
+<span class="font-body-md font-bold text-on-surface flex items-center gap-1">5.0 <span class="material-symbols-outlined text-[14px] text-primary-fixed" style="font-variation-settings: 'FILL' 1;">star</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-micro-label text-[9px] text-on-surface-variant uppercase tracking-tighter">Revenue</span>
+<span class="font-body-md font-bold text-on-surface">$540</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Course Card 4 -->
+<article class="glass-card rounded-2xl overflow-hidden flex flex-col group transition-all">
+<div class="relative h-56 overflow-hidden">
+<img alt="Script Editing" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A close-up top-down view of a classic typewriter with a sheet of paper containing a screenplay, with red ink annotations and a pair of reading glasses resting beside it, set in a cozy study with amber-toned lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjr61Bp74vBb54T5Y1CdlpYdxSWV7Meyz713DSTvCq1M7UHa-amZwfwyetsoc62fziA-7jqb2rrodPAh6gfJwoUOjUmq04JUny7_XM0Cc-qKhuxGmajiopCRsEYD5DxCDanpbnvVJrHosDIGrnsIMryO91tFQIvbSGtmOHQxjQZqJQsDmyPrQs9H5L1NoYapqYdn1THkP6uu4njSL1JR08vz5qHWOgMktwDOItg2783m0i6Q7Zqdj83rUQmY9K7QYrOk_Resh1qsA"/>
+<div class="absolute top-4 left-4">
+<span class="bg-primary-fixed text-on-primary-fixed font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-tighter">Published</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="bg-surface/90 backdrop-blur-md px-4 py-2 rounded-lg text-body-md font-bold text-primary flex items-center gap-2 hover:bg-primary hover:text-surface transition-all">
+<span class="material-symbols-outlined text-sm">edit</span> Edit
+                             </button>
+<button class="w-10 h-10 bg-surface/90 backdrop-blur-md rounded-lg flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-3">
+<span class="active-dot"></span>
+<span class="font-micro-label text-micro-label text-primary-fixed uppercase tracking-widest">Screenwriting</span>
+</div>
+<h3 class="newsreader text-headline-sm text-primary mb-4 leading-snug">The Narrative Subconscious: Writing Between Lines</h3>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 grid grid-cols-3 gap-2">
+<div class="flex flex-col">
+<span class="font-micro-label text-[9px] text-on-surface-variant uppercase tracking-tighter">Students</span>
+<span class="font-body-md font-bold text-on-surface">312</span>
+</div>
+<div class="flex flex-col">
+<span class="font-micro-label text-[9px] text-on-surface-variant uppercase tracking-tighter">Rating</span>
+<span class="font-body-md font-bold text-on-surface flex items-center gap-1">4.8 <span class="material-symbols-outlined text-[14px] text-primary-fixed" style="font-variation-settings: 'FILL' 1;">star</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-micro-label text-[9px] text-on-surface-variant uppercase tracking-tighter">Revenue</span>
+<span class="font-body-md font-bold text-on-surface">$1.9k</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 right-0 bg-surface/80 backdrop-blur-2xl border-t border-outline-variant/30 px-6 py-4 flex justify-around md:hidden z-50">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-label-caps uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary-fixed" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="text-[10px] font-label-caps uppercase">Courses</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-label-caps uppercase">Stats</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-label-caps uppercase">Settings</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions and atmospheric effects
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            // Subtle parallax for glass cards or background glow could be added here
+            // This is just a placeholder for potential high-end animation logic
+        });
+
+        // Simple tab/filter highlight logic (demo only)
+        const selectElements = document.querySelectorAll('select');
+        selectElements.forEach(select => {
+            select.addEventListener('change', (e) => {
+                select.classList.add('border-primary-fixed');
+                setTimeout(() => select.classList.remove('border-primary-fixed'), 1000);
+            });
+        });
+    </script>
+</body></html>

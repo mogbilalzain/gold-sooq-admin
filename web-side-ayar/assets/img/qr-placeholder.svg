@@ -1,0 +1,39 @@
+<!-- REPLACE: real QR when store URLs exist -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="QR placeholder">
+  <rect width="120" height="120" fill="#ffffff"/>
+  <g fill="#171717">
+    <!-- finder patterns (3 corners) -->
+    <rect x="8" y="8" width="28" height="28" rx="3"/>
+    <rect x="84" y="8" width="28" height="28" rx="3"/>
+    <rect x="8" y="84" width="28" height="28" rx="3"/>
+    <!-- decorative modules (no encoded data) -->
+    <rect x="48" y="8" width="6" height="6"/><rect x="60" y="14" width="6" height="6"/>
+    <rect x="72" y="8" width="6" height="6"/><rect x="48" y="26" width="6" height="6"/>
+    <rect x="66" y="32" width="6" height="6"/><rect x="8" y="48" width="6" height="6"/>
+    <rect x="20" y="54" width="6" height="6"/><rect x="32" y="48" width="6" height="6"/>
+    <rect x="48" y="48" width="6" height="6"/><rect x="60" y="54" width="6" height="6"/>
+    <rect x="72" y="48" width="6" height="6"/><rect x="90" y="48" width="6" height="6"/>
+    <rect x="102" y="54" width="6" height="6"/><rect x="14" y="66" width="6" height="6"/>
+    <rect x="26" y="72" width="6" height="6"/><rect x="44" y="66" width="6" height="6"/>
+    <rect x="56" y="72" width="6" height="6"/><rect x="68" y="66" width="6" height="6"/>
+    <rect x="84" y="72" width="6" height="6"/><rect x="96" y="66" width="6" height="6"/>
+    <rect x="108" y="72" width="6" height="6"/><rect x="48" y="84" width="6" height="6"/>
+    <rect x="60" y="90" width="6" height="6"/><rect x="72" y="84" width="6" height="6"/>
+    <rect x="84" y="90" width="6" height="6"/><rect x="96" y="84" width="6" height="6"/>
+    <rect x="48" y="102" width="6" height="6"/><rect x="66" y="108" width="6" height="6"/>
+    <rect x="84" y="102" width="6" height="6"/><rect x="102" y="96" width="6" height="6"/>
+    <rect x="108" y="108" width="6" height="6"/><rect x="54" y="96" width="6" height="6"/>
+    <rect x="90" y="108" width="6" height="6"/><rect x="36" y="96" width="6" height="6"/>
+    <rect x="36" y="60" width="6" height="6"/><rect x="78" y="96" width="6" height="6"/>
+  </g>
+  <g fill="#ffffff">
+    <rect x="14" y="14" width="16" height="16" rx="2"/>
+    <rect x="90" y="14" width="16" height="16" rx="2"/>
+    <rect x="14" y="90" width="16" height="16" rx="2"/>
+  </g>
+  <g fill="#171717">
+    <rect x="18" y="18" width="8" height="8" rx="1"/>
+    <rect x="94" y="18" width="8" height="8" rx="1"/>
+    <rect x="18" y="94" width="8" height="8" rx="1"/>
+  </g>
+</svg>

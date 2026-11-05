@@ -1,44 +1,59 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
+
+type ButtonSize = 'sm' | 'md' | 'lg';
+type ButtonVariant = 'primary' | 'outline' | 'ghost' | 'danger';
+type MatAppearance = 'filled' | 'outlined' | 'text' | 'tonal' | 'elevated';
 
 @Component({
   selector: 'app-button',
   imports: [
     CommonModule,
+    MatButton,
     SafeHtmlPipe,
   ],
   templateUrl: './button.component.html',
   styles: ``,
-  host: {
-
-  },
+  host: {},
 })
 export class ButtonComponent {
 
-  @Input() size: 'sm' | 'md' = 'md';
-  @Input() variant: 'primary' | 'outline' = 'primary';
+  @Input() size: ButtonSize = 'md';
+  @Input() variant: ButtonVariant = 'primary';
   @Input() disabled = false;
   @Input() className = '';
-  @Input() startIcon?: string; // SVG or icon class, or use ng-content for more flexibility
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
+  @Input() startIcon?: string;
   @Input() endIcon?: string;
 
   @Output() btnClick = new EventEmitter<Event>();
 
   get sizeClasses(): string {
-    return this.size === 'sm'
-      ? 'px-4 py-3 text-sm'
-      : 'px-5 py-3.5 text-sm';
+    switch (this.size) {
+      case 'sm':
+        return 'app-btn-sm';
+      case 'lg':
+        return 'app-btn-lg';
+      default:
+        return '';
+    }
   }
 
-  get variantClasses(): string {
-    return this.variant === 'primary'
-      ? 'bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300'
-      : 'bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300';
+  get appearance(): MatAppearance {
+    switch (this.variant) {
+      case 'outline':
+        return 'outlined';
+      case 'ghost':
+        return 'text';
+      default:
+        return 'filled';
+    }
   }
 
   get disabledClasses(): string {
-    return this.disabled ? 'cursor-not-allowed opacity-50' : '';
+    return this.disabled ? 'pointer-events-none' : '';
   }
 
   onClick(event: Event) {

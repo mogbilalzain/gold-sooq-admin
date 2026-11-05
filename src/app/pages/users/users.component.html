@@ -4,63 +4,74 @@
 </app-page-header>
 
 @if (errorMessage) {
-  <div class="mb-4 p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">
+  <div class="mb-4 p-3 text-sm rounded-xl status-pill-error">
     {{ errorMessage }}
   </div>
 }
 
 <!-- Filters -->
-<div class="mb-6 rounded-lg border border-gray-200 bg-white p-4 shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+<div class="modern-card !p-5 md:!p-6 mb-6">
   <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-    <div class="flex flex-wrap items-center gap-3">
-      <button
-        (click)="onStatusFilterChange('all')"
-        [class.bg-brand-500]="statusFilter === 'all'"
-        [class.text-white]="statusFilter === 'all'"
-        [class.text-gray-700]="statusFilter !== 'all'"
-        class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
-        {{ translationService.t('users.all') }}
-      </button>
-      <button
-        (click)="onStatusFilterChange('active')"
-        [class.bg-brand-500]="statusFilter === 'active'"
-        [class.text-white]="statusFilter === 'active'"
-        [class.text-gray-700]="statusFilter !== 'active'"
-        class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
-        {{ translationService.t('users.active') }}
-      </button>
-      <button
-        (click)="onStatusFilterChange('inactive')"
-        [class.bg-brand-500]="statusFilter === 'inactive'"
-        [class.text-white]="statusFilter === 'inactive'"
-        [class.text-gray-700]="statusFilter !== 'inactive'"
-        class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
-        {{ translationService.t('users.inactive') }}
-      </button>
-      <button
-        (click)="onVerifiedFilterChange(verifiedFilter === true ? undefined : true)"
-        [class.bg-brand-500]="verifiedFilter === true"
-        [class.text-white]="verifiedFilter === true"
-        [class.text-gray-700]="verifiedFilter !== true"
-        class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
-        {{ translationService.t('users.verified') }}
-      </button>
-      <button
-        (click)="onVerifiedFilterChange(verifiedFilter === false ? undefined : false)"
-        [class.bg-brand-500]="verifiedFilter === false"
-        [class.text-white]="verifiedFilter === false"
-        [class.text-gray-700]="verifiedFilter !== false"
-        class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
-        {{ translationService.t('users.unverified') }}
-      </button>
+    <div class="flex flex-wrap items-center gap-4">
+      <mat-chip-listbox [attr.aria-label]="translationService.t('users.status')">
+        <mat-chip-option
+          [selected]="statusFilter === 'all'"
+          (selectionChange)="pickStatus($event, 'all')">
+          {{ translationService.t('users.all') }}
+        </mat-chip-option>
+        <mat-chip-option
+          [selected]="statusFilter === 'active'"
+          (selectionChange)="pickStatus($event, 'active')">
+          {{ translationService.t('users.active') }}
+        </mat-chip-option>
+        <mat-chip-option
+          [selected]="statusFilter === 'inactive'"
+          (selectionChange)="pickStatus($event, 'inactive')">
+          {{ translationService.t('users.inactive') }}
+        </mat-chip-option>
+      </mat-chip-listbox>
+      <mat-chip-listbox multiple [attr.aria-label]="translationService.t('users.verified')">
+        <mat-chip-option
+          [selected]="verifiedFilter === true"
+          (selectionChange)="onVerifiedFilterChange($event.selected ? true : undefined)">
+          {{ translationService.t('users.verified') }}
+        </mat-chip-option>
+        <mat-chip-option
+          [selected]="verifiedFilter === false"
+          (selectionChange)="onVerifiedFilterChange($event.selected ? false : undefined)">
+          {{ translationService.t('users.unverified') }}
+        </mat-chip-option>
+      </mat-chip-listbox>
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex flex-wrap items-center gap-2">
+      <mat-form-field class="w-40" subscriptSizing="dynamic">
+        <mat-label>{{ translationService.t('users.accountType') }}</mat-label>
+        <mat-select
+          [value]="accountTypeFilter"
+          (selectionChange)="onAccountTypeFilterChange($event.value)">
+          <mat-option value="all">{{ translationService.t('users.allAccountTypes') }}</mat-option>
+          <mat-option value="individual">{{ translationService.t('users.accountIndividual') }}</mat-option>
+          <mat-option value="business">{{ translationService.t('users.accountBusiness') }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-44" subscriptSizing="dynamic">
+        <mat-label>{{ translationService.t('users.identityStatus') }}</mat-label>
+        <mat-select
+          [value]="identityStatusFilter"
+          (selectionChange)="onIdentityStatusFilterChange($event.value)">
+          <mat-option value="all">{{ translationService.t('users.allIdentityStatuses') }}</mat-option>
+          <mat-option value="unverified">{{ translationService.t('identity.status.unverified') }}</mat-option>
+          <mat-option value="verified">{{ translationService.t('identity.status.verified') }}</mat-option>
+          <mat-option value="expired">{{ translationService.t('identity.status.expired') }}</mat-option>
+          <mat-option value="revoked">{{ translationService.t('identity.status.revoked') }}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <app-input-field
         type="text"
         [value]="searchTerm"
         (valueChange)="onSearchTermChange($event)"
         [placeholder]="translationService.t('common.search')"
-        class="form-input w-full md:w-64"
+        class="block w-full md:w-56"
       />
       <app-button size="sm" (btnClick)="onSearch()">
         {{ translationService.t('common.search') }}
@@ -72,100 +83,147 @@
 @if (isLoading) {
   <app-loading-spinner />
 } @else {
-  <div class="rounded-lg border border-gray-200 bg-white shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+  <div class="modern-table">
     <div class="overflow-x-auto">
-      <table class="w-full" [ngClass]="{'text-right': translationService.isRTL, 'text-left': !translationService.isRTL}">
-        <thead class="bg-gray-50 dark:bg-gray-800">
-          <tr>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('users.name') }}
-            </th>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('users.phoneNumber') }}
-            </th>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('users.email') }}
-            </th>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('users.status') }}
-            </th>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('users.verified') }}
-            </th>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('common.actions') }}
-            </th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-          @if (users.length === 0) {
-            <tr>
-              <td colspan="6" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
-                {{ translationService.t('users.noUsers') }}
-              </td>
-            </tr>
-          } @else {
-            @for (user of users; track user.id) {
-              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
-                <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-white">
-                  {{ getUserFullName(user) }}
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-white">
-                  {{ getUserPhoneNumber(user) }}
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-white">
-                  {{ user.email || '-' }}
-                </td>
-                <td class="px-6 py-4">
-                  <button
-                    (click)="toggleActive(user)"
-                    [class.bg-success-100]="getUserIsActive(user)"
-                    [class.text-success-700]="getUserIsActive(user)"
-                    [class.bg-gray-100]="!getUserIsActive(user)"
-                    [class.text-gray-700]="!getUserIsActive(user)"
-                    class="px-3 py-1 text-xs font-medium rounded-full">
-                    {{ getUserIsActive(user) ? translationService.t('users.active') : translationService.t('users.inactive') }}
-                  </button>
-                </td>
-                <td class="px-6 py-4">
-                  <button
-                    (click)="toggleVerified(user)"
-                    [class.bg-brand-100]="getUserIsVerified(user)"
-                    [class.text-brand-700]="getUserIsVerified(user)"
-                    [class.bg-gray-100]="!getUserIsVerified(user)"
-                    [class.text-gray-700]="!getUserIsVerified(user)"
-                    class="px-3 py-1 text-xs font-medium rounded-full">
-                    {{ getUserIsVerified(user) ? translationService.t('users.yes') : translationService.t('users.no') }}
-                  </button>
-                </td>
-                <td class="px-6 py-4 text-sm">
-                  <div class="flex items-center gap-2">
-                    <a [routerLink]="['/users/edit', user.id]" 
-                       class="text-brand-500 hover:text-brand-600 dark:text-brand-400">
-                      {{ translationService.t('common.edit') }}
-                    </a>
-                    <button (click)="onDelete(user.id)" 
-                            class="text-error-500 hover:text-error-600 dark:text-error-400">
-                      {{ translationService.t('common.delete') }}
-                    </button>
-                  </div>
-                </td>
-              </tr>
+      <table mat-table [dataSource]="users" class="w-full" [ngClass]="{'text-right': translationService.isRTL, 'text-left': !translationService.isRTL}">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('users.name') }}</th>
+          <td mat-cell *matCellDef="let user" class="text-sm font-medium">
+            <div>{{ getUserFullName(user) }}</div>
+            @if (isBusiness(user) && user.tradeName) {
+              <div class="text-xs text-[color:var(--color-on-surface-variant)]">{{ user.tradeName }}</div>
             }
-          }
-        </tbody>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="accountType">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('users.accountType') }}</th>
+          <td mat-cell *matCellDef="let user" class="text-sm">
+            <span class="status-pill" [class.status-pill-info]="isBusiness(user)">
+              {{ isBusiness(user) ? translationService.t('users.accountBusiness') : translationService.t('users.accountIndividual') }}
+            </span>
+            @if (businessVerified(user)) {
+              <span class="ms-1 text-success-500" [title]="translationService.t('posts.businessVerified')">✓</span>
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('users.phoneNumber') }}</th>
+          <td mat-cell *matCellDef="let user" class="text-sm">
+            {{ getUserPhoneNumber(user) }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="identityStatus">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('users.identityStatus') }}</th>
+          <td mat-cell *matCellDef="let user" class="text-sm">
+            <span class="status-pill"
+                  [class.status-pill-success]="identityVerified(user)"
+                  [class.status-pill-warning]="!identityVerified(user)">
+              {{ translationService.t('identity.status.' + (user.identity_status || 'unverified')) }}
+            </span>
+            @if (user.identity_expires_on) {
+              <div class="text-xs text-[color:var(--color-on-surface-variant)] mt-1">{{ user.identity_expires_on | date:'yyyy-MM-dd' }}</div>
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('users.status') }}</th>
+          <td mat-cell *matCellDef="let user">
+            <button
+              (click)="toggleActive(user)"
+              class="status-pill"
+              [class.status-pill-success]="getUserIsActive(user)"
+              [class.status-pill-warning]="!getUserIsActive(user)">
+              {{ getUserIsActive(user) ? translationService.t('users.active') : translationService.t('users.inactive') }}
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="verified">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('users.verified') }}</th>
+          <td mat-cell *matCellDef="let user">
+            <button
+              (click)="toggleVerified(user)"
+              class="status-pill"
+              [class.status-pill-info]="getUserIsVerified(user)"
+              [class.status-pill-warning]="!getUserIsVerified(user)">
+              {{ getUserIsVerified(user) ? translationService.t('users.yes') : translationService.t('users.no') }}
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('common.actions') }}</th>
+          <td mat-cell *matCellDef="let user">
+            <div class="flex items-center gap-1">
+              <button
+                mat-icon-button
+                [routerLink]="['/users', user.id]"
+                [matTooltip]="translationService.t('common.details')"
+                [attr.aria-label]="translationService.t('common.details')"
+                class="!text-[color:var(--color-on-surface-variant)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+              <button
+                mat-icon-button
+                [routerLink]="['/users/edit', user.id]"
+                [matTooltip]="translationService.t('common.edit')"
+                [attr.aria-label]="translationService.t('common.edit')"
+                class="!text-[color:var(--color-on-surface-variant)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                </svg>
+              </button>
+              <button
+                mat-icon-button
+                (click)="openDelete(user)"
+                [matTooltip]="translationService.t('common.delete')"
+                [attr.aria-label]="translationService.t('common.delete')"
+                class="!text-[color:var(--color-error)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell px-6 py-12 text-center text-[color:var(--color-on-surface-variant)]" [attr.colspan]="displayedColumns.length">
+            {{ translationService.t('users.noUsers') }}
+          </td>
+        </tr>
       </table>
     </div>
 
     @if (totalPages > 1) {
-      <app-pagination
-        [currentPage]="currentPage"
-        [totalPages]="totalPages"
-        [total]="total"
-        [limit]="limit"
-        (pageChange)="onPageChange($event)"
-      />
+      <div class="border-t border-outline-variant/40 dark:border-outline-variant/30">
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalPages]="totalPages"
+          [total]="total"
+          [limit]="limit"
+          (pageChange)="onPageChange($event)"
+        />
+      </div>
     }
   </div>
 }
 
+<app-confirm-dialog
+  [open]="!!deleteTarget"
+  variant="destructive"
+  [title]="translationService.t('users.confirmDeleteTitle')"
+  [message]="(deleteTarget ? getUserFullName(deleteTarget) : '') + ' — ' + translationService.t('users.confirmDelete')"
+  [confirmLabel]="translationService.t('common.delete')"
+  [processing]="actionProcessing"
+  (confirmed)="confirmDelete()"
+  (cancelled)="deleteTarget = null"
+/>

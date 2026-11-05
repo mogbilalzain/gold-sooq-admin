@@ -5,6 +5,10 @@ import { PageHeaderComponent } from '../../shared/components/layout/page-header/
 import { LoadingSpinnerComponent } from '../../shared/components/common/loading-spinner/loading-spinner.component';
 import { PaginationComponent } from '../../shared/components/common/pagination/pagination.component';
 import { ButtonComponent } from '../../shared/components/ui/button/button.component';
+import { ConfirmDialogComponent } from '../../shared/components/common/confirm-dialog/confirm-dialog.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 import { TranslationService } from '../../shared/services/translation.service';
 import { CategoriesService, Category } from '../../shared/services/data/categories.service';
 import { ErrorHandlerService } from '../../shared/services/api/error-handler.service';
@@ -20,18 +24,38 @@ import { ImageUrlService } from '../../shared/services/utils/image-url.service';
     LoadingSpinnerComponent,
     PaginationComponent,
     ButtonComponent,
+    ConfirmDialogComponent,
+    MatTableModule,
+    MatTooltipModule,
+    MatButtonModule,
   ],
   templateUrl: './categories.component.html',
 })
 export class CategoriesComponent implements OnInit {
   categories: Category[] = [];
+  displayedColumns = ['name', 'image', 'actions'];
   isLoading = false;
   errorMessage = '';
-  
+
+  /** Flattened parent + sub rows for the mat-table data source. */
+  get tableRows(): { category: Category; isParent: boolean }[] {
+    const rows: { category: Category; isParent: boolean }[] = [];
+    for (const category of this.categories) {
+      rows.push({ category, isParent: true });
+      for (const sub of category.subCategories ?? []) {
+        rows.push({ category: sub, isParent: false });
+      }
+    }
+    return rows;
+  }
+
   currentPage = 1;
   limit = 20;
   total = 0;
   totalPages = 0;
+
+  deleteTarget: Category | null = null;
+  actionProcessing = false;
 
   constructor(
     public translationService: TranslationService,
@@ -76,18 +100,25 @@ export class CategoriesComponent implements OnInit {
     this.loadCategories();
   }
 
-  onDelete(categoryId: number) {
-    if (confirm(this.translationService.t('categories.confirmDelete'))) {
-      this.categoriesService.deleteCategory({ categoryId }).subscribe({
-        next: () => {
-          this.loadCategories();
-        },
-        error: (error) => {
-          const apiError = this.errorHandler.handleError(error);
-          alert(apiError.message);
-        }
-      });
-    }
+  openDelete(category: Category) {
+    this.deleteTarget = category;
+  }
+
+  confirmDelete() {
+    if (!this.deleteTarget) return;
+    this.actionProcessing = true;
+    this.categoriesService.deleteCategory({ categoryId: this.deleteTarget.id }).subscribe({
+      next: () => {
+        this.actionProcessing = false;
+        this.deleteTarget = null;
+        this.loadCategories();
+      },
+      error: (error) => {
+        this.actionProcessing = false;
+        this.deleteTarget = null;
+        this.errorMessage = this.translationService.translateApiError(this.errorHandler.handleError(error).message);
+      }
+    });
   }
 
   getCategoryName(category: Category): string {

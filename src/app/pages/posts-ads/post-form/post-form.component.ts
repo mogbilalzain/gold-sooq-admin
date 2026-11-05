@@ -5,8 +5,10 @@ import { PageHeaderComponent } from '../../../shared/components/layout/page-head
 import { LoadingSpinnerComponent } from '../../../shared/components/common/loading-spinner/loading-spinner.component';
 import { ButtonComponent } from '../../../shared/components/ui/button/button.component';
 import { InputFieldComponent } from '../../../shared/components/form/input/input-field.component';
-import { LabelComponent } from '../../../shared/components/form/label/label.component';
 import { CheckboxComponent } from '../../../shared/components/form/input/checkbox.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { TranslationService } from '../../../shared/services/translation.service';
 import { PostsAdsService, PostAd } from '../../../shared/services/data/posts-ads.service';
 import { ErrorHandlerService } from '../../../shared/services/api/error-handler.service';
@@ -20,8 +22,10 @@ import { ErrorHandlerService } from '../../../shared/services/api/error-handler.
     LoadingSpinnerComponent,
     ButtonComponent,
     InputFieldComponent,
-    LabelComponent,
     CheckboxComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   templateUrl: './post-form.component.html',
 })
@@ -72,11 +76,11 @@ export class PostFormComponent implements OnInit {
         if (response.status === 'success' && response.data) {
           const post = response.data.posts.find((p: PostAd) => p.id === this.postId);
           if (post) {
-            this.postTitle = post.postTitle || '';
-            this.postDetail = post.postDetail || '';
+            this.postTitle = post.post_title || '';
+            this.postDetail = '';
             this.price = post.price || null;
-            this.isActive = post.isActive;
-            this.isFeatured = post.isFeatured || false;
+            this.isActive = post.is_active === '1' || (post.is_active as any) === 1;
+            this.isFeatured = post.is_featured === 1;
           }
         }
         this.isLoading = false;

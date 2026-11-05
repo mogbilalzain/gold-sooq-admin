@@ -1,0 +1,45 @@
+<app-page-header
+  [title]="translationService.t('settings.title')"
+  [subtitle]="translationService.t('settings.subtitle')">
+</app-page-header>
+
+<div class="modern-card max-w-lg">
+  <div class="space-y-6">
+
+    <!-- Currency selector -->
+    <div>
+      <mat-form-field class="w-full" subscriptSizing="dynamic">
+        <mat-label>{{ translationService.t('settings.currency') }}</mat-label>
+        <mat-select
+          [value]="selectedCurrency"
+          (selectionChange)="onCurrencyChange($event.value)">
+          @for (c of settingsService.availableCurrencies; track c) {
+            <mat-option [value]="c">{{ c }}</mat-option>
+          }
+        </mat-select>
+        <mat-hint>{{ translationService.t('settings.currencyHint') }}</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <!-- Messages -->
+    @if (errorMessage) {
+      <p class="text-sm font-medium text-error-500 dark:text-error-400">{{ errorMessage }}</p>
+    }
+
+    <!-- Save button -->
+    <div class="flex justify-end pt-2 border-t border-[color:var(--color-outline-variant)]/40">
+      <app-button
+        type="button"
+        size="sm"
+        [disabled]="isSaving"
+        (btnClick)="onSave()">
+        @if (isSaving) {
+          {{ translationService.t('common.saving') }}...
+        } @else {
+          {{ translationService.t('common.save') }}
+        }
+      </app-button>
+    </div>
+
+  </div>
+</div>

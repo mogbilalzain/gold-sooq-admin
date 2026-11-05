@@ -7,10 +7,10 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <div class="flex items-center justify-center" [ngClass]="containerClass">
-      <div class="animate-spin rounded-full border-4 border-gray-200 border-t-brand-500" 
+      <div class="animate-spin rounded-full border-[color:var(--color-surface-container-high)] border-t-[color:var(--color-primary)]" 
            [ngClass]="spinnerClass"></div>
       @if (message) {
-        <span class="ml-3 text-sm text-gray-600 dark:text-gray-400">{{ message }}</span>
+        <span class="ms-3 text-m3-body-md text-[color:var(--color-on-surface-variant)]">{{ message }}</span>
       }
     </div>
   `,
@@ -23,7 +23,7 @@ export class LoadingSpinnerComponent {
 
   get containerClass(): string {
     if (this.fullScreen) {
-      return 'fixed inset-0 bg-white/80 dark:bg-gray-900/80 z-50';
+      return 'fixed inset-0 bg-[color:var(--color-surface)]/80 z-50';
     }
     return 'py-8';
   }

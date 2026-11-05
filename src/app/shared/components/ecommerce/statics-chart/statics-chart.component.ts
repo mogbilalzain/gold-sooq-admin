@@ -42,7 +42,8 @@ export class StatisticsChartComponent {
     toolbar: { show: false }
   };
 
-  public colors: string[] = ['#465FFF', '#9CB9FF'];
+  // Ayar Sooq brand: premium gold primary + charcoal secondary
+  public colors: string[] = ['#d4af37', '#2d3436'];
 
   public stroke: ApexStroke = {
     curve: 'straight',

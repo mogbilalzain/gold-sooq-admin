@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Courses Management | Cinematic Scholar Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .unread-indicator {
+            box-shadow: 0 0 15px rgba(255, 221, 159, 0.15);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0c0e11;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4d463a;
+            border-radius: 2px;
+        }
+        .status-badge {
+            padding: 2px 8px;
+            border-radius: 2px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#111317",
+                        "surface-container": "#1e2024",
+                        "surface-container-lowest": "#0c0e11",
+                        "error": "#ffb4ab",
+                        "surface-tint": "#e3c287",
+                        "on-surface-variant": "#d0c5b6",
+                        "inverse-on-surface": "#2f3035",
+                        "outline-variant": "#4d463a",
+                        "on-tertiary-fixed": "#151c27",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#ffdea3",
+                        "on-background": "#e2e2e8",
+                        "unread-glow": "rgba(255, 221, 159, 0.15)",
+                        "on-tertiary": "#2a313c",
+                        "inverse-surface": "#e2e2e8",
+                        "secondary-container": "#42474e",
+                        "on-primary": "#402d00",
+                        "glass-border": "rgba(255, 255, 255, 0.08)",
+                        "primary-fixed-dim": "#e3c287",
+                        "inverse-primary": "#735b29",
+                        "on-surface": "#e2e2e8",
+                        "surface-container-highest": "#333539",
+                        "surface-bright": "#37393d",
+                        "primary-container": "#ffdd9f",
+                        "secondary-fixed": "#dee3eb",
+                        "on-secondary": "#2b3137",
+                        "on-primary-container": "#79602e",
+                        "primary": "#fffdff",
+                        "background": "#111317",
+                        "surface-dim": "#111317",
+                        "secondary": "#c2c7cf",
+                        "surface-container-low": "#1a1c20",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#42474e",
+                        "on-primary-fixed": "#261900",
+                        "outline": "#998f81",
+                        "on-primary-fixed-variant": "#594314",
+                        "on-secondary-fixed": "#171c22",
+                        "tertiary-fixed": "#dce3f2",
+                        "secondary-fixed-dim": "#c2c7cf",
+                        "on-tertiary-fixed-variant": "#404753",
+                        "on-tertiary-container": "#5d6471",
+                        "on-secondary-container": "#b0b5bd",
+                        "tertiary-container": "#dbe2f1",
+                        "surface-variant": "#333539",
+                        "surface-container-high": "#282a2e",
+                        "tertiary": "#fffeff",
+                        "tertiary-fixed-dim": "#c0c7d5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-mobile": "20px",
+                        "notification-gap": "12px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "notification-title": ["Manrope"],
+                        "display-lg": ["EB Garamond"],
+                        "headline-md": ["EB Garamond"],
+                        "headline-sm": ["EB Garamond"],
+                        "body-lg": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "micro-label": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low dark:bg-surface-container-lowest/50 backdrop-blur-2xl flex flex-col py-8 px-6 gap-8 shadow-[20px_0_40px_rgba(79,55,138,0.04)] z-50">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg overflow-hidden border border-outline-variant">
+<img alt="Academy Admin" class="w-full h-full object-cover" data-alt="A minimalist architectural logo representing a prestigious film academy. The symbol is composed of sharp, thin lines forming a stylized aperture and a classical Greek column. The aesthetic is monochromatic with a slight golden glow, set against a deep charcoal background with a film grain texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6rnrrD_BEpcYvuXHDfuxVKiJRDeiixYJO-K0bnDU5eXM6pFFrZnyiqRjJqvS0JPG7IXkTe0ZCkWz_DqDbrWThL4-wuyarAsMTXZdk0jg61E29cK-J6OQZkbqsQKaRKTn6syj9c0z8Tp8gDnCAjQ0-Fio-2LmTupHUxoXfmNqZKD1AI2maVkNTHy8NXzgc6Ms4LqBH1clNP24udRX0x1iKOCU2xAiIpNk_1pFu4JmcFyHHTtDkPY2RngMFJHs9y87NCzyYzQFqRA0"/>
+</div>
+<div>
+<h2 class="font-headline-sm text-primary">Academy Admin</h2>
+<p class="font-micro-label text-outline uppercase tracking-widest">Premium Tier</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:text-primary transition-transform duration-200 hover:translate-x-1 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-primary">dashboard</span>
+<span class="font-body-md">Overview</span>
+</a>
+<!-- Active Link (Curriculum/Courses) -->
+<a class="flex items-center gap-4 py-3 px-4 text-primary dark:text-primary-fixed font-semibold relative after:content-[''] after:absolute after:-right-4 after:top-1/2 after:-translate-y-1/2 after:w-1 after:h-6 after:bg-primary after:rounded-full transition-all duration-300" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="font-body-md">Curriculum</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:text-primary transition-transform duration-200 hover:translate-x-1 group" href="#">
+<span class="material-symbols-outlined text-xl">group</span>
+<span class="font-body-md">Students</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:text-primary transition-transform duration-200 hover:translate-x-1 group" href="#">
+<span class="material-symbols-outlined text-xl">assignment</span>
+<span class="font-body-md">Assignments</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:text-primary transition-transform duration-200 hover:translate-x-1 group" href="#">
+<span class="material-symbols-outlined text-xl">payments</span>
+<span class="font-body-md">Revenue</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-4 text-on-surface-variant hover:text-primary transition-transform duration-200 hover:translate-x-1 group" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+</nav>
+<button class="w-full bg-primary-fixed-dim text-on-primary-fixed font-label-caps py-4 tracking-widest hover:opacity-90 transition-opacity">
+            CREATE NEW COURSE
+        </button>
+<footer class="mt-auto border-t border-outline-variant pt-6 space-y-2">
+<a class="flex items-center gap-4 py-2 px-4 text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-xl">help</span>
+<span class="font-body-md">Help Center</span>
+</a>
+<a class="flex items-center gap-4 py-2 px-4 text-on-surface-variant hover:text-error transition-all" href="#">
+<span class="material-symbols-outlined text-xl">logout</span>
+<span class="font-body-md">Logout</span>
+</a>
+</footer>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<header class="h-20 flex justify-between items-center px-margin-desktop bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl fixed top-0 left-72 right-0 z-40 shadow-sm">
+<div class="flex items-center gap-8">
+<h1 class="font-headline-sm font-bold text-primary dark:text-primary-fixed">Scholarship</h1>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-opacity" href="#">Dashboard</a>
+<a class="font-body-md text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1" href="#">Courses</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-opacity" href="#">Analytics</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-opacity" href="#">Resources</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:text-primary transition-opacity">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-opacity">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-outline-variant">
+<img alt="Instructor profile picture" class="w-full h-full object-cover" data-alt="A portrait of a distinguished scholar in their late 50s with salt-and-pepper hair and classic horn-rimmed glasses. He is wearing a dark charcoal turtleneck against a moody, soft-focus library background with leather-bound books. The lighting is warm and directional, creating a Rembrandt-style cinematic effect." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdaymffwp4tKHLBJsGkOUrX7dt16R5eAFa1gdmtK6KqIH4XS8yLsHsxiT3VoKvn9D4gHOrYiEoosGWj2H2Ypzsv1cCfDvJp3BQV-QTOjHWgpZ8es-C_TCQQdkb0erS7QCE9IGt2Su6FPu7EuPLZHjp6zKcuy3QjEU1KYARcKEQtTx0i-FQV3aLX5-1vS2-GKMBlBkUksUMRx674Kda0FmzAPJRXeBRZcSs2y1nbZU7zqcv7BgZaWE46qP92OJMxoQamt0wmFa5ipY"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="mt-20 px-margin-desktop py-12 flex-1 flex flex-col gap-12 max-w-container-max mx-auto w-full">
+<!-- Page Header -->
+<section class="flex flex-col md:flex-row justify-between items-end gap-6">
+<div class="space-y-2">
+<h2 class="font-display-lg text-primary">Courses Management</h2>
+<p class="font-body-lg text-on-surface-variant italic">Review, monitor, and manage all courses across the platform.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-3 border border-primary/20 text-primary font-label-caps tracking-widest hover:bg-primary/5 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">download</span>
+                        EXPORT
+                    </button>
+<button class="px-6 py-3 bg-primary text-on-primary font-label-caps tracking-widest hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">grading</span>
+                        REVIEW QUEUE
+                    </button>
+</div>
+</section>
+<!-- Stats Overview -->
+<section class="grid grid-cols-2 md:grid-cols-5 gap-4">
+<div class="glass-card p-6 flex flex-col gap-2">
+<span class="font-micro-label text-outline uppercase">Total Courses</span>
+<span class="font-headline-md text-primary">1,284</span>
+<span class="text-xs text-primary-fixed-dim">+12% this month</span>
+</div>
+<div class="glass-card p-6 flex flex-col gap-2">
+<span class="font-micro-label text-outline uppercase">Published</span>
+<span class="font-headline-md text-primary">942</span>
+<div class="w-full h-1 bg-surface-container mt-2">
+<div class="bg-primary w-3/4 h-full"></div>
+</div>
+</div>
+<div class="glass-card p-6 flex flex-col gap-2">
+<span class="font-micro-label text-outline uppercase">Pending</span>
+<span class="font-headline-md text-primary-fixed">56</span>
+<span class="text-xs text-on-surface-variant">Requires attention</span>
+</div>
+<div class="glass-card p-6 flex flex-col gap-2">
+<span class="font-micro-label text-outline uppercase">Rejected</span>
+<span class="font-headline-md text-error">12</span>
+<span class="text-xs text-error/60">Policy violations</span>
+</div>
+<div class="glass-card p-6 flex flex-col gap-2 border-primary/20 bg-primary/5">
+<span class="font-micro-label text-primary-fixed uppercase">Total Revenue</span>
+<span class="font-headline-md text-primary">$42.8k</span>
+<span class="text-xs text-primary-fixed-dim">Projected $50k</span>
+</div>
+</section>
+<!-- Advanced Filter Bar -->
+<section class="glass-card p-4 flex flex-wrap items-center gap-4">
+<div class="flex-1 min-w-[200px] relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xl">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant pl-12 pr-4 py-2 text-body-md focus:border-primary-fixed-dim focus:ring-0 outline-none transition-colors" placeholder="Search course or instructor..." type="text"/>
+</div>
+<select class="bg-surface-container-lowest border border-outline-variant px-4 py-2 text-body-md focus:border-primary-fixed-dim outline-none min-w-[140px]">
+<option>Status</option>
+<option>Published</option>
+<option>Pending</option>
+<option>Draft</option>
+</select>
+<select class="bg-surface-container-lowest border border-outline-variant px-4 py-2 text-body-md focus:border-primary-fixed-dim outline-none min-w-[140px]">
+<option>Category</option>
+<option>Film Noir</option>
+<option>Cinematography</option>
+<option>Archival Studies</option>
+</select>
+<div class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant px-4 py-2">
+<span class="material-symbols-outlined text-outline text-lg">calendar_today</span>
+<input class="bg-transparent border-none p-0 text-body-md focus:ring-0 outline-none w-32" placeholder="Date Range" type="text"/>
+</div>
+<button class="p-2 border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary transition-all">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</section>
+<!-- High-Density Data Table -->
+<section class="glass-card overflow-hidden">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-high/50 backdrop-blur-md">
+<tr>
+<th class="px-6 py-5 w-12">
+<input class="rounded-none bg-transparent border-outline-variant text-primary focus:ring-offset-background" type="checkbox"/>
+</th>
+<th class="px-6 py-5 font-label-caps tracking-widest text-outline text-xs">COURSE</th>
+<th class="px-6 py-5 font-label-caps tracking-widest text-outline text-xs">INSTRUCTOR</th>
+<th class="px-6 py-5 font-label-caps tracking-widest text-outline text-xs">STATUS</th>
+<th class="px-6 py-5 font-label-caps tracking-widest text-outline text-xs">PRICE</th>
+<th class="px-6 py-5 font-label-caps tracking-widest text-outline text-xs">STUDENTS</th>
+<th class="px-6 py-5 font-label-caps tracking-widest text-outline text-xs">REVENUE</th>
+<th class="px-6 py-5 font-label-caps tracking-widest text-outline text-xs text-right">ACTIONS</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<input class="rounded-none bg-transparent border-outline-variant text-primary focus:ring-offset-background" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-16 h-10 bg-surface-container overflow-hidden flex-shrink-0">
+<img alt="Course Thumbnail" class="w-full h-full object-cover" data-alt="A moody, high-contrast black and white cinematic still of a classic film camera on a set. Smoke swirls in the background under sharp spotlighting. The image captures the essence of 1940s Hollywood noir aesthetics, emphasizing texture and dramatic shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMlLBu7vl0myweOZK94Nb2GIcPDl2TyRO6HHtHyoE53kiQwIuDrlmUWhrrl01Q6voSnnF4TEgL9_b4Wx7JqUv5va9-43N6a8KpoXW594IOkFlVkse7813JA2LlzfFa8iN87wlyfkIv0em78gpeHjrTWxm4ZGWVp7KjWofnkTsGE8dFT4ZRy2im-cZdOsu0mmwQCRBBXLS4M1_stFIVLoujaRjOI4FDyW9cMw2MEKwehdnPDtrTK3MFdk8Gw8BXp0wUyBEcRpMnFCY"/>
+</div>
+<span class="font-body-md font-medium text-primary group-hover:text-primary-fixed transition-colors">The Shadows of Noir</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant font-body-md">Dr. Elias Thorne</td>
+<td class="px-6 py-4">
+<span class="status-badge bg-primary/10 text-primary border border-primary/20">Published</span>
+</td>
+<td class="px-6 py-4 font-body-md">$149.00</td>
+<td class="px-6 py-4 font-body-md">1,240</td>
+<td class="px-6 py-4 font-body-md">$184.7k</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container text-primary rounded" title="View"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-2 hover:bg-surface-container text-primary rounded" title="Approve"><span class="material-symbols-outlined text-lg">check_circle</span></button>
+<button class="p-2 hover:bg-surface-container text-outline rounded" title="More"><span class="material-symbols-outlined text-lg">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 (Pending State) -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<input class="rounded-none bg-transparent border-outline-variant text-primary focus:ring-offset-background" type="checkbox"/>
+</td>
+<td class="px-6 py-4 relative">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-10 bg-primary-fixed"></div>
+<div class="flex items-center gap-4">
+<div class="w-16 h-10 bg-surface-container overflow-hidden flex-shrink-0">
+<img alt="Course Thumbnail" class="w-full h-full object-cover" data-alt="A vintage 35mm film reel sitting on a worn wooden table. A single beam of light illuminates the dusty air around the reel, highlighting its metallic sheen and the celluloid tape. The atmosphere is quiet, contemplative, and rich in historical texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZvmvRXDZiNhrxRPA_K_jRvObKqrEgwc5kX994PP5RaV7ueYMd2zpO5SzPBqwb659abhBtLimFqbCw9KuHvoU2v5sjgcS0FlviKira4CLrz5q8A548_e4RXBz8MWiSrZT8W6DqXpPwH8_kc8MptDKvHXgdgJBfzEASzwHFiWCTCpzkDYPhTQxhqFHq_ovkwYENkksXUKIKr86J2JJPl2dttrpAbUrQdrto43X3KMuJgkypDzOdSOa1H7ocL8q55ShlLEAELIsnNyE"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md font-medium text-primary flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-primary unread-indicator"></div>
+                                                Archival Restoration Techniques
+                                            </span>
+<span class="text-xs text-primary-fixed-dim">New submission</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant font-body-md">Sarah Jenkins</td>
+<td class="px-6 py-4">
+<span class="status-badge bg-primary-fixed/10 text-primary-fixed border border-primary-fixed/20">Pending</span>
+</td>
+<td class="px-6 py-4 font-body-md">$199.00</td>
+<td class="px-6 py-4 font-body-md">0</td>
+<td class="px-6 py-4 font-body-md">$0.00</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="px-3 py-1 bg-primary text-on-primary font-label-caps text-[10px] tracking-widest hover:opacity-90">APPROVE</button>
+<button class="px-3 py-1 border border-error text-error font-label-caps text-[10px] tracking-widest hover:bg-error/10">REJECT</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<input class="rounded-none bg-transparent border-outline-variant text-primary focus:ring-offset-background" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-16 h-10 bg-surface-container overflow-hidden flex-shrink-0">
+<img alt="Course Thumbnail" class="w-full h-full object-cover" data-alt="An expansive cinematic landscape featuring a lonely lighthouse under a dramatic, stormy purple and gold sky. The composition follows the rule of thirds, with deep shadows in the foreground and a brilliant glow emanating from the horizon. Digital oil painting style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpd35LYREeu2asKQnYl_YGw-oO-6HsbB24m1K8sUh4ruw7Ywt-HwuaAK4tLJ5uP2PV-sLFL7-9NwTDOf3U4-hZ201-uW9Mb3HOG-jivhAChrvpdttC0wa0mzuAScwPBXB-bobN8pPxH3ZR5a7o3c43yrgbP2WRyqDaOVLrY2iYdLAWQ6Fdaxu1sZF72RoOpkhsD7doABn0WIEQy-iBJhztqk6X0JnP45yTUo-ZqwWJuzrge2Yiye3YudkLFmrifhMRbkYhYXahRdo"/>
+</div>
+<span class="font-body-md font-medium text-primary">Landscape Cinematography</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant font-body-md">Marcus Vance</td>
+<td class="px-6 py-4">
+<span class="status-badge bg-primary/10 text-primary border border-primary/20">Published</span>
+</td>
+<td class="px-6 py-4 font-body-md">$89.00</td>
+<td class="px-6 py-4 font-body-md">3,410</td>
+<td class="px-6 py-4 font-body-md">$303.4k</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container text-primary rounded"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-2 hover:bg-surface-container text-primary rounded"><span class="material-symbols-outlined text-lg">check_circle</span></button>
+<button class="p-2 hover:bg-surface-container text-outline rounded"><span class="material-symbols-outlined text-lg">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 4 (Rejected) -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<input class="rounded-none bg-transparent border-outline-variant text-primary focus:ring-offset-background" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-16 h-10 bg-surface-container overflow-hidden flex-shrink-0 grayscale opacity-50">
+<img alt="Course Thumbnail" class="w-full h-full object-cover" data-alt="A macro shot of a shattered glass lens on a dark reflective surface. The fragments of glass catch the low light, creating sharp, jagged highlights against a deep, moody background. The image evokes a sense of broken dreams or technical failure, styled with a cold, blueish cinematic tint." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEv8jvdQsB7DHc5MOBe_J7x9001p8eALrky0MbSe9xvM5ZB4CofCgkL32K3hI9VxlSeVwJcY0ecnHu0i-QTXGvLmnQzCRK3scI0uTjQ4tRH1ploCQ9NL7xZw6dVcSStioJ4trOAS7pblUyJ3hYComcY82-w8pbxToh8VVUDQQ9ArcoDWgSwV-Yw4tuxGQvYg3KThtDWND8yZ3xnfIlhgLnZrYkCcKRCpGWZ5G572UZa4ulQ_f_XEHes-cWt0-jdHh8ZaLM7tg6j1o"/>
+</div>
+<span class="font-body-md font-medium text-outline">Modern Horror Tropes</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant font-body-md">Lydia Grant</td>
+<td class="px-6 py-4">
+<span class="status-badge bg-error/10 text-error border border-error/20">Rejected</span>
+</td>
+<td class="px-6 py-4 font-body-md text-outline">$129.00</td>
+<td class="px-6 py-4 font-body-md text-outline">0</td>
+<td class="px-6 py-4 font-body-md text-outline">$0.00</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 hover:bg-surface-container text-on-surface-variant rounded" title="Restore"><span class="material-symbols-outlined text-lg">restore</span></button>
+<button class="p-2 hover:bg-surface-container text-error rounded" title="Delete"><span class="material-symbols-outlined text-lg">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 bg-surface-container-low flex justify-between items-center border-t border-outline-variant/30">
+<span class="font-micro-label text-outline uppercase tracking-wider">Showing 1-10 of 1,284 Courses</span>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant text-outline hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-on-primary font-label-caps text-xs">1</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant text-outline hover:border-primary hover:text-primary">2</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant text-outline hover:border-primary hover:text-primary">3</button>
+<span class="text-outline self-center">...</span>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant text-outline hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Interactive Atmosphere Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hover effect for table rows
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                row.addEventListener('mouseenter', () => {
+                    row.style.boxShadow = 'inset 4px 0 0 #fffdff';
+                });
+                row.addEventListener('mouseleave', () => {
+                    row.style.boxShadow = 'none';
+                });
+            });
+
+            // Smooth background ambient light effect
+            document.body.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                // Very subtle light leak simulation
+                const intensity = 0.02;
+                document.body.style.backgroundImage = `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(227, 194, 135, ${intensity}), transparent 50%)`;
+            });
+        });
+    </script>
+</body></html>

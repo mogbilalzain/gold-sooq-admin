@@ -53,14 +53,24 @@ export class MonthlyTargetComponent {
     },
   };
   public fill: ApexFill = {
-    type: 'solid',
-    colors: ['#465FFF'],
+    type: 'gradient',
+    gradient: {
+      shade: 'light',
+      type: 'vertical',
+      shadeIntensity: 0.4,
+      gradientToColors: ['#e9c349'],
+      inverseColors: false,
+      opacityFrom: 1,
+      opacityTo: 1,
+      stops: [0, 100],
+    },
   };
   public stroke: ApexStroke = {
     lineCap: 'round',
   };
   public labels: string[] = ['Progress'];
-  public colors: string[] = ['#465FFF'];
+  // Ayar Sooq brand: premium gold
+  public colors: string[] = ['#d4af37'];
 
   isOpen = false;
 

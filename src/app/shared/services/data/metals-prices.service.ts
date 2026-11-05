@@ -10,15 +10,6 @@ export interface ApiResponse<T> {
   data: T;
 }
 
-export interface MetalsPrice {
-  gold: string;
-  silver: string;
-  platinum?: string;
-  timestamp: string;
-  country?: string;
-  currency?: string;
-}
-
 export interface CurrentPricesRequest {
   countryCode: string;
 }
@@ -137,9 +128,10 @@ export class MetalsPricesService {
     private errorHandler: ErrorHandlerService
   ) {}
 
-  getLatestPrices(): Observable<ApiResponse<MetalsPrice>> {
-    return this.http.get<ApiResponse<MetalsPrice>>(
-      `${this.apiConfig.getAdminMetalsPricesUrl()}/latest`
+  getLatestPrices(countryCode = 'AE'): Observable<ApiResponse<CurrentPricesResponse>> {
+    return this.http.post<ApiResponse<CurrentPricesResponse>>(
+      `${this.apiConfig.getAdminMetalsPricesUrl()}/latest`,
+      { countryCode }
     );
   }
 
@@ -152,7 +144,7 @@ export class MetalsPricesService {
 
   getHistoricalPrices(request: HistoricalPricesRequest): Observable<ApiResponse<HistoricalPricesResponse>> {
     return this.http.post<ApiResponse<HistoricalPricesResponse>>(
-      `${this.apiConfig.getBaseUrl()}/metals-prices/getHistoricalPrices`,
+      `${this.apiConfig.getAdminMetalsPricesUrl()}/historical`,
       request
     );
   }

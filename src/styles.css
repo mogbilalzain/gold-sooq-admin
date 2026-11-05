@@ -4,7 +4,12 @@ layer(base);
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap")
 layer(base);
 
-@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap")
+layer(base);
+
+/* source("./") limits class detection to src/ — without it Tailwind scans the whole
+   repo, including the static design exports whose markup breaks the CSS build. */
+@import "tailwindcss" source("./");
 @import "swiper/css/bundle";
 @import "./styles-modern-enhancements.css";
 
@@ -14,6 +19,8 @@ layer(base);
   --font-*: initial;
   --font-outfit: Outfit, sans-serif;
   --font-cairo: Cairo, sans-serif;
+  --font-tajawal: Tajawal, 'Cairo', sans-serif;
+  --font-plex-arabic: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
 
   --breakpoint-*: initial;
   --breakpoint-2xsm: 375px;
@@ -47,19 +54,59 @@ layer(base);
   --color-white: #ffffff;
   --color-black: #101828;
 
-  /* Gold Market Brand Colors - ألوان سوق الذهب */
-  --color-brand-25: #fefbf5;
-  --color-brand-50: #fdf8ed;
-  --color-brand-100: #faf1d6;
-  --color-brand-200: #f5e0b3;
-  --color-brand-300: #ecc966;
-  --color-brand-400: #e2b833;
-  --color-brand-500: #d8ac41;
-  --color-brand-600: #c2993a;
-  --color-brand-700: #a88533;
-  --color-brand-800: #8d712c;
-  --color-brand-900: #725d25;
-  --color-brand-950: #5a4a1e;
+  /* Ayar Sooq Premium Gold Brand Colors - ألوان سوق العيار الفاخر */
+  --color-brand-25: #fffbea;
+  --color-brand-50: #fdf6d4;
+  --color-brand-100: #faeca6;
+  --color-brand-200: #f3d96a;
+  --color-brand-300: #e9c349;
+  --color-brand-400: #ddb53e;
+  --color-brand-500: #d4af37;
+  --color-brand-600: #b8962e;
+  --color-brand-700: #957826;
+  --color-brand-800: #735c00;
+  --color-brand-900: #574500;
+  --color-brand-950: #241a00;
+
+  /* Ayar Premium warm surface tokens - Material 3 inspired tiered system */
+  --color-surface: #ffffff;
+  --color-surface-dim: #ddd9d8;
+  --color-surface-bright: #ffffff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f7f2f2;
+  --color-surface-container: #f0eded;
+  --color-surface-container-high: #ece7e7;
+  --color-surface-container-highest: #e6e1e1;
+  --color-on-surface: #1c1b1b;
+  --color-on-surface-variant: #4c4637;
+  --color-outline: #7d7766;
+  --color-outline-variant: #cec6b2;
+  --color-inverse-surface: #313030;
+  --color-inverse-on-surface: #f4f0ef;
+  --color-gold-accent: #d6b42c;
+
+  /* Status washes (pastel-inspired backgrounds with high-contrast text) */
+  --color-success-wash: #e7f4ec;
+  --color-success-wash-text: #146c2e;
+  --color-warning-wash: #fef3c7;
+  --color-warning-wash-text: #92400e;
+  --color-error-wash: #fde8ec;
+  --color-error-wash-text: #93000a;
+  --color-info-wash: #e0f2fe;
+  --color-info-wash-text: #026aa2;
+
+  /* Material 3 color roles, derived from the gold brand palette */
+  --color-primary: #b8962e;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #faeca6;
+  --color-on-primary-container: #574500;
+  --color-secondary-container: #f3e9cf;
+  --color-on-secondary-container: #3d3420;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-scrim: #000000;
 
   --color-blue-light-25: #f5fbff;
   --color-blue-light-50: #f0f9ff;
@@ -86,7 +133,9 @@ layer(base);
   --color-gray-800: #1d2939;
   --color-gray-900: #101828;
   --color-gray-950: #0c111d;
-  --color-gray-dark: #1a2231;
+  --color-gray-dark: #1a2429;
+  /* Alias preserved for legacy components - matches surface-container in dark */
+  --color-dark-900: #131d21;
 
   /* Gold/Amber Colors - ألوان ذهبية */
   --color-orange-25: #fffbf5;
@@ -154,12 +203,74 @@ layer(base);
   --shadow-theme-xs: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   --shadow-theme-xl: 0px 20px 24px -4px rgba(16, 24, 40, 0.08),
     0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+
+  /* Material 3 elevation levels (umbra + penumbra) */
+  --shadow-elevation-1: 0 1px 2px 0 rgba(28, 27, 27, 0.08),
+    0 1px 3px 1px rgba(28, 27, 27, 0.05);
+  --shadow-elevation-2: 0 1px 2px 0 rgba(28, 27, 27, 0.08),
+    0 2px 6px 2px rgba(28, 27, 27, 0.06);
+  --shadow-elevation-3: 0 4px 8px 3px rgba(28, 27, 27, 0.07),
+    0 1px 3px 0 rgba(28, 27, 27, 0.1);
+
+  /* Legacy shadow names, now mapped onto the elevation scale */
+  --shadow-card: var(--shadow-elevation-1);
+  --shadow-card-hover: var(--shadow-elevation-2);
+  --shadow-level-2: var(--shadow-elevation-3);
+  --shadow-gold: 0 8px 20px -6px rgba(212, 175, 55, 0.35);
+  --shadow-gold-lg: 0 12px 28px -8px rgba(212, 175, 55, 0.45);
+
   --shadow-datepicker: -5px 0 0 #262d3c, 5px 0 0 #262d3c;
-  --shadow-focus-ring: 0px 0px 0px 4px rgba(70, 95, 255, 0.12);
+  --shadow-focus-ring: 0px 0px 0px 4px rgba(212, 175, 55, 0.18);
   --shadow-slider-navigation: 0px 1px 2px 0px rgba(16, 24, 40, 0.1),
     0px 1px 3px 0px rgba(16, 24, 40, 0.1);
   --shadow-tooltip: 0px 4px 6px -2px rgba(16, 24, 40, 0.05),
     -8px 0px 20px 8px rgba(16, 24, 40, 0.05);
+
+  /* Material 3 shape scale */
+  --radius-m3-xs: 4px;
+  --radius-m3-sm: 8px;
+  --radius-m3-md: 12px;
+  --radius-m3-lg: 16px;
+  --radius-m3-xl: 28px;
+
+  /* Legacy radius names, aligned with the M3 shape scale */
+  --radius-card: 1rem; /* 16px - M3 large */
+  --radius-pill: 9999px;
+  --radius-input: 0.75rem; /* 12px - M3 medium */
+  --radius-inner: 0.5rem; /* 8px - M3 small */
+  --radius-section: 1.75rem; /* 28px - M3 extra large */
+
+  /* Material 3 type scale (m3- prefix avoids the legacy title-* sizes) */
+  --text-m3-headline-md: 1.75rem;
+  --text-m3-headline-md--line-height: 2.25rem;
+  --text-m3-headline-sm: 1.5rem;
+  --text-m3-headline-sm--line-height: 2rem;
+  --text-m3-title-lg: 1.375rem;
+  --text-m3-title-lg--line-height: 1.75rem;
+  --text-m3-title-md: 1rem;
+  --text-m3-title-md--line-height: 1.5rem;
+  --text-m3-title-sm: 0.875rem;
+  --text-m3-title-sm--line-height: 1.25rem;
+  --text-m3-body-lg: 1rem;
+  --text-m3-body-lg--line-height: 1.5rem;
+  --text-m3-body-md: 0.875rem;
+  --text-m3-body-md--line-height: 1.25rem;
+  --text-m3-label-lg: 0.875rem;
+  --text-m3-label-lg--line-height: 1.25rem;
+  --text-m3-label-md: 0.75rem;
+  --text-m3-label-md--line-height: 1rem;
+  --text-m3-label-sm: 0.6875rem;
+  --text-m3-label-sm--line-height: 1rem;
+
+  /* Material 3 motion easing */
+  --ease-m3-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-m3-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-m3-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+
+  /* Spacing scale */
+  --spacing-card: 2rem; /* 32px - standard card padding */
+  --spacing-section: 2.5rem; /* 40px - section gap */
+  --spacing-element: 1rem; /* 16px - element gap */
 
   --drop-shadow-4xl: 0 35px 35px rgba(0, 0, 0, 0.25),
     0 45px 65px rgba(0, 0, 0, 0.15);
@@ -171,6 +282,110 @@ layer(base);
   --z-index-9999: 9999;
   --z-index-99999: 99999;
   --z-index-999999: 999999;
+}
+
+/*
+  Dark mode overrides for the Ayar Sooq surface system.
+  These override the CSS custom properties at runtime when `.dark` is
+  applied to <html>, so all utility classes like `bg-surface`,
+  `text-on-surface`, `border-outline-variant` automatically swap.
+*/
+.dark {
+  --color-surface: #141311;
+  --color-surface-dim: #0e0d0c;
+  --color-surface-bright: #232120;
+  --color-surface-container-lowest: #0a0908;
+  --color-surface-container-low: #1c1b1a;
+  --color-surface-container: #232120;
+  --color-surface-container-high: #2b2926;
+  --color-surface-container-highest: #35322e;
+  --color-on-surface: #f4f0ef;
+  --color-on-surface-variant: #b8b0a0;
+  --color-outline: #8b8371;
+  --color-outline-variant: #454037;
+  --color-inverse-surface: #f4f0ef;
+  --color-inverse-on-surface: #313030;
+
+  /* Status washes - desaturated for dark backgrounds */
+  --color-success-wash: rgba(18, 183, 106, 0.15);
+  --color-success-wash-text: #6ce9a6;
+  --color-warning-wash: rgba(247, 144, 9, 0.15);
+  --color-warning-wash-text: #fec84b;
+  --color-error-wash: rgba(240, 68, 56, 0.15);
+  --color-error-wash-text: #fda29b;
+  --color-info-wash: rgba(11, 165, 236, 0.15);
+  --color-info-wash-text: #7cd4fd;
+
+  --color-primary: #e9c349;
+  --color-on-primary: #3c2f00;
+  --color-primary-container: #574500;
+  --color-on-primary-container: #ffe088;
+  --color-secondary-container: #4f4532;
+  --color-on-secondary-container: #f3e1bb;
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  --shadow-elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.3),
+    0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --shadow-elevation-2: 0 1px 2px 0 rgba(0, 0, 0, 0.3),
+    0 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --shadow-elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15),
+    0 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Aliases used by several templates (text-surface-on-surface[-variant]) */
+@theme inline {
+  --color-surface-on-surface: var(--color-on-surface);
+  --color-surface-on-surface-variant: var(--color-on-surface-variant);
+}
+
+/* Material 3 motion durations */
+:root {
+  --m3-duration-short: 150ms;
+  --m3-duration-medium: 250ms;
+  --m3-duration-long: 400ms;
+}
+
+/*
+  Material 3 state layers: a translucent overlay of the content color
+  painted over the element's own background (no pseudo-element needed).
+*/
+@layer components {
+  .state-layer,
+  .state-layer-primary {
+    transition: background-color var(--m3-duration-short) var(--ease-m3-standard),
+      background-image var(--m3-duration-short) var(--ease-m3-standard),
+      box-shadow var(--m3-duration-short) var(--ease-m3-standard),
+      color var(--m3-duration-short) var(--ease-m3-standard);
+  }
+  .state-layer:hover {
+    background-image: linear-gradient(
+      color-mix(in srgb, currentColor 8%, transparent),
+      color-mix(in srgb, currentColor 8%, transparent)
+    );
+  }
+  .state-layer:active,
+  .state-layer:focus-visible {
+    background-image: linear-gradient(
+      color-mix(in srgb, currentColor 12%, transparent),
+      color-mix(in srgb, currentColor 12%, transparent)
+    );
+  }
+  .state-layer-primary:hover {
+    background-image: linear-gradient(
+      color-mix(in srgb, var(--color-primary) 8%, transparent),
+      color-mix(in srgb, var(--color-primary) 8%, transparent)
+    );
+  }
+  .state-layer-primary:active,
+  .state-layer-primary:focus-visible {
+    background-image: linear-gradient(
+      color-mix(in srgb, var(--color-primary) 12%, transparent),
+      color-mix(in srgb, var(--color-primary) 12%, transparent)
+    );
+  }
 }
 
 /*
@@ -187,29 +402,40 @@ layer(base);
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: var(--color-outline-variant, currentColor);
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  html {
+    /* Prevent unwanted horizontal scroll while keeping sticky positioning intact */
+    overflow-x: clip;
+  }
   body {
-    @apply relative font-normal font-outfit z-1 bg-gray-50;
+    @apply relative font-normal font-outfit z-1;
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    overflow-x: clip;
+  }
+  .dark body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
   }
   
-  /* Arabic Font - Cairo */
+  /* Arabic Font - Tajawal (Ayar Premium identity) */
   [dir="rtl"],
   [lang="ar"],
   .lang-ar,
   body.lang-ar,
   html[lang="ar"] body {
-    font-family: 'Cairo', sans-serif !important;
+    font-family: 'Tajawal', 'Cairo', sans-serif !important;
   }
-  
+
   [dir="rtl"] *,
   [lang="ar"] *,
   .lang-ar * {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Tajawal', 'Cairo', sans-serif;
   }
   
   /* English Font - Outfit */
@@ -350,24 +576,27 @@ layer(base);
   }
 }
 
+/* M3 navigation drawer items */
 @utility menu-item {
-  @apply relative flex items-center w-full gap-3 px-3 py-2 font-medium rounded-lg text-theme-sm;
+  @apply relative flex items-center w-full gap-3 h-12 px-4 rounded-full text-m3-label-lg font-medium;
 }
 
 @utility menu-item-active {
-  @apply bg-brand-50 text-brand-500 dark:bg-brand-500/[0.12] dark:text-brand-400;
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+  font-weight: 600;
 }
 
 @utility menu-item-inactive {
-  @apply text-gray-700 hover:bg-gray-100 group-hover:text-gray-700 dark:text-gray-300 dark:hover:bg-white/5 dark:hover:text-gray-300;
+  color: var(--color-on-surface-variant);
 }
 
 @utility menu-item-icon {
-  @apply text-gray-500 group-hover:text-gray-700 dark:text-gray-400;
+  color: var(--color-on-surface-variant);
 }
 
 @utility menu-item-icon-active {
-  @apply text-brand-500 dark:text-brand-400;
+  color: var(--color-on-primary-container);
 }
 
 @utility menu-item-icon-size {
@@ -377,7 +606,7 @@ layer(base);
 }
 
 @utility menu-item-icon-inactive {
-  @apply text-gray-500 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-300;
+  color: var(--color-on-surface-variant);
 }
 
 @utility menu-item-arrow {
@@ -385,22 +614,24 @@ layer(base);
 }
 
 @utility menu-item-arrow-active {
-  @apply rotate-180 text-brand-500 dark:text-brand-400;
+  @apply rotate-180;
+  color: var(--color-on-primary-container);
 }
 
 @utility menu-item-arrow-inactive {
-  @apply text-gray-500 group-hover:text-gray-700 dark:text-gray-400 dark:group-hover:text-gray-300;
+  color: var(--color-on-surface-variant);
 }
 
 @utility menu-dropdown-item {
-  @apply relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-theme-sm font-medium;
+  @apply relative flex items-center gap-3 h-10 rounded-full px-4 text-m3-label-lg font-medium;
 }
 @utility menu-dropdown-item-active {
-  @apply bg-brand-50 text-brand-500 dark:bg-brand-500/[0.12] dark:text-brand-400;
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
 }
 
 @utility menu-dropdown-item-inactive {
-  @apply text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5;
+  color: var(--color-on-surface-variant);
 }
 
 @utility menu-dropdown-badge {
@@ -425,6 +656,52 @@ layer(base);
 
 @utility menu-dropdown-badge-pro-inactive {
   @apply bg-brand-50 group-hover:bg-brand-100 dark:bg-brand-500/15 dark:group-hover:bg-brand-500/20;
+}
+
+/*
+  Ayar Sooq card primitive - canonical luxury card with ambient shadow,
+  generous padding, exaggerated rounded corners, and dark-mode aware
+  background using surface tokens.
+*/
+@utility card {
+  @apply relative rounded-m3-lg bg-white p-6 sm:p-8;
+  background-color: var(--color-surface-container-lowest);
+  box-shadow: var(--shadow-elevation-1);
+  transition: box-shadow var(--m3-duration-medium) var(--ease-m3-standard);
+}
+@utility card-hover {
+  &:hover {
+    box-shadow: var(--shadow-elevation-2);
+  }
+}
+
+/* Status pill - M3 tonal label: pastel container with high-contrast text */
+@utility status-pill {
+  @apply inline-flex items-center gap-1.5 rounded-m3-sm px-2.5 py-1 text-m3-label-md font-medium;
+  letter-spacing: 0.03em;
+}
+@utility status-pill-success {
+  background-color: var(--color-success-wash);
+  color: var(--color-success-wash-text);
+}
+@utility status-pill-warning {
+  background-color: var(--color-warning-wash);
+  color: var(--color-warning-wash-text);
+}
+@utility status-pill-error {
+  background-color: var(--color-error-wash);
+  color: var(--color-error-wash-text);
+}
+@utility status-pill-info {
+  background-color: var(--color-info-wash);
+  color: var(--color-info-wash-text);
+}
+
+/* Row hover: M3 state layer tinted with the primary (gold) role */
+@utility gold-row-hover {
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 7%, transparent);
+  }
 }
 
 @utility no-scrollbar {
@@ -464,6 +741,167 @@ layer(base);
   }
 }
 
+/*
+  Ayar Sooq global polish — retroactively softens the legacy TailAdmin
+  card pattern without touching dozens of templates.
+  These selectors target the existing class combinations and upgrade them
+  to use the new luxury tokens (radius, shadow, border).
+*/
+@layer components {
+  /* Soft luxury treatment for legacy cards using TailAdmin patterns */
+  .rounded-2xl.border.border-gray-200.bg-white,
+  .rounded-2xl.border.bg-white,
+  [class*="rounded-2xl"][class*="border-gray-200"][class*="bg-white"]:not(.modern-card):not(.stats-card-modern) {
+    box-shadow: var(--shadow-elevation-1);
+    border-color: color-mix(in srgb, var(--color-outline-variant) 60%, transparent);
+  }
+
+  /* Dark mode: smooth out the white/[0.03] backgrounds */
+  .dark [class*="rounded-2xl"][class*="dark:bg-white/\\[0\\.03\\]"]:not(.modern-card):not(.stats-card-modern) {
+    background-color: var(--color-surface-container);
+    border-color: var(--color-outline-variant);
+  }
+
+  /* Polish for inline rounded-lg cards (metals chart, recent orders sub-cards) */
+  .rounded-lg.border.border-gray-200.bg-white {
+    border-color: var(--color-outline-variant);
+  }
+
+  /* Selection highlighting uses brand gold */
+  ::selection {
+    background-color: rgba(212, 175, 55, 0.25);
+    color: var(--color-on-surface);
+  }
+}
+
+/*
+  Borderless elevation treatment — borders are replaced by soft shadows.
+  The Material outline widths themselves are zeroed via tokens in
+  material-theme.scss; this layer paints the shadow boundary for form
+  fields, stroked buttons, and legacy Tailwind-bordered buttons/inputs.
+*/
+@layer components {
+  /* mat-form-field: floating label over a shadowed, solid wrapper */
+  .mat-mdc-form-field .mdc-text-field--outlined {
+    background-color: var(--color-surface-container-lowest);
+    border-radius: var(--radius-m3-sm);
+    box-shadow: var(--shadow-elevation-1);
+    transition: box-shadow var(--m3-duration-short) var(--ease-m3-standard);
+  }
+  .mat-mdc-form-field:hover .mdc-text-field--outlined:not(.mdc-text-field--focused):not(.mdc-text-field--disabled) {
+    box-shadow: var(--shadow-elevation-2);
+  }
+  .mat-mdc-form-field .mdc-text-field--outlined.mdc-text-field--focused {
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--color-primary) 45%, transparent),
+      var(--shadow-elevation-2);
+  }
+  .mat-mdc-form-field.mat-mdc-form-field-invalid .mdc-text-field--outlined,
+  .mat-mdc-form-field.ng-invalid.ng-touched .mdc-text-field--outlined {
+    box-shadow:
+      0 0 0 1.5px color-mix(in srgb, var(--color-error) 50%, transparent),
+      var(--shadow-elevation-1);
+  }
+  .mat-mdc-form-field .mdc-text-field--outlined.mdc-text-field--disabled {
+    box-shadow: none;
+  }
+
+  /* Material stroked buttons: solid surface + shadow instead of the outline */
+  .mat-mdc-outlined-button:not(:disabled) {
+    background-color: var(--color-surface-container-lowest);
+    box-shadow: var(--shadow-elevation-1);
+  }
+  .mat-mdc-outlined-button:not(:disabled):hover {
+    box-shadow: var(--shadow-elevation-2);
+  }
+
+  /* Legacy Tailwind-bordered buttons and raw inputs (checkbox/radio excluded) */
+  button[class*="border"]:not([class*="border-0"]):not([type="checkbox"]):not([type="radio"]),
+  input:not([type="checkbox"]):not([type="radio"])[class*="border"]:not([class*="border-0"]),
+  select[class*="border"]:not([class*="border-0"]),
+  textarea[class*="border"]:not([class*="border-0"]) {
+    border: 0 !important;
+    box-shadow: var(--shadow-elevation-1);
+    transition: box-shadow var(--m3-duration-short) var(--ease-m3-standard);
+  }
+  button[class*="border"]:not([class*="border-0"]):not(:disabled):hover,
+  input:not([type="checkbox"]):not([type="radio"])[class*="border"]:not([class*="border-0"]):hover,
+  select[class*="border"]:not([class*="border-0"]):hover,
+  textarea[class*="border"]:not([class*="border-0"]):hover {
+    box-shadow: var(--shadow-elevation-2);
+  }
+  button[class*="border"]:not([class*="border-0"]):focus-visible,
+  input:not([type="checkbox"]):not([type="radio"])[class*="border"]:not([class*="border-0"]):focus,
+  select[class*="border"]:not([class*="border-0"]):focus,
+  textarea[class*="border"]:not([class*="border-0"]):focus {
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--color-primary) 45%, transparent),
+      var(--shadow-elevation-2);
+  }
+
+  /* Full-box bordered surfaces get the soft elevation shadow instead.
+     One-sided utilities (border-t/b/l/r) are dividers — removed below
+     with no shadow, per design. */
+  .border:not([class*="border-transparent"]):not([class*="border-0"]):not([class*="border-none"]) {
+    box-shadow: var(--shadow-elevation-1);
+  }
+
+  /* Filter chips: shadow instead of the M3 outline (zeroed via token) */
+  .mat-mdc-chip-option {
+    transition: box-shadow var(--m3-duration-short) var(--ease-m3-standard),
+      background-color var(--m3-duration-short) var(--ease-m3-standard);
+  }
+  .mat-mdc-chip-option:not(.mat-mdc-chip-selected) {
+    background-color: var(--color-surface-container-lowest);
+    box-shadow: var(--shadow-elevation-1);
+  }
+  .mat-mdc-chip-option:not(.mat-mdc-chip-selected):hover {
+    box-shadow: var(--shadow-elevation-2);
+  }
+  .mat-mdc-chip-option.mat-mdc-chip-selected {
+    box-shadow: var(--shadow-elevation-1);
+  }
+
+}
+
+/* Zebra rows replace the removed row separators (works in light + dark).
+   Unlayered on purpose: Material's unlayered `.mat-mdc-cell { background:
+   inherit }` would otherwise win over the components layer. Higher
+   specificity than that rule, and hover stays after zebra so it wins on
+   striped rows. */
+.mat-mdc-table tbody tr:nth-child(even) .mat-mdc-cell,
+.modern-table tbody tr:nth-child(even) td {
+  background-color: color-mix(in srgb, var(--color-on-surface) 3%, transparent);
+}
+.mat-mdc-table tbody tr:hover .mat-mdc-cell,
+.modern-table tbody tr:hover td {
+  background-color: color-mix(in srgb, var(--color-primary) 7%, transparent);
+}
+
+/* Unlayered on purpose: Material's own unlayered stroked-button background
+   would otherwise win over the components layer above. */
+.mat-mdc-outlined-button:not(:disabled) {
+  background-color: var(--color-surface-container-lowest);
+}
+
+/*
+  Borderless dashboard — unlayered so Tailwind's utilities layer cannot
+  override it. Exact 1px-width utility classes only; functional borders
+  (border-2 spinners, border-[1.25px] radio circle, border-4) and
+  color-only utilities (border-gray-200, border-t-[color:...]) are
+  untouched but draw nothing once the width is zero.
+*/
+.border, .border-t, .border-b, .border-l, .border-r,
+.border-x, .border-y, .border-s, .border-e {
+  border-width: 0;
+}
+hr {
+  border-top-width: 0;
+}
+:where([class*="divide-"]) > * {
+  border-width: 0;
+}
+
 .tableCheckbox:checked ~ span span {
   @apply opacity-100;
 }
@@ -481,7 +919,7 @@ layer(base);
 }
 
 .apexcharts-tooltip.apexcharts-theme-light {
-  @apply gap-1 !rounded-lg !border-gray-200 p-3 !shadow-theme-sm dark:!border-gray-800 dark:!bg-gray-900;
+  @apply gap-1 !rounded-lg !border-0 p-3 !shadow-theme-sm dark:!bg-gray-900;
 }
 
 .apexcharts-tooltip-marker {
@@ -550,7 +988,9 @@ layer(base);
 
 .stocks-slider-outer .swiper-button-next,
 .stocks-slider-outer .swiper-button-prev {
-  @apply !static mt-0 h-8 w-9 rounded-full border dark:hover:bg-white/[0.05] border-gray-200 !text-gray-700 transition hover:bg-gray-100 dark:border-white/[0.03] dark:bg-gray-800 dark:!text-gray-400  dark:hover:!text-white/90;
+  @apply !static mt-0 h-8 w-9 rounded-full dark:hover:bg-white/[0.05] !text-gray-700 transition hover:bg-gray-100 dark:bg-gray-800 dark:!text-gray-400  dark:hover:!text-white/90;
+  border: 0;
+  box-shadow: var(--shadow-elevation-1);
 }
 
 .stocks-slider-outer .swiper-button-next.swiper-button-disabled,
@@ -567,7 +1007,8 @@ layer(base);
   @apply w-full;
 }
 .flatpickr-calendar {
-  @apply mt-2 !bg-white !rounded-xl !p-5 !border !border-gray-200 dark:!border-white/5 !text-gray-500 dark:!bg-gray-dark dark:!text-gray-400 dark:!shadow-theme-xl 2xsm:!w-auto;
+  @apply mt-2 !bg-white !rounded-xl !p-5 !border-0 !text-gray-500 dark:!bg-gray-dark dark:!text-gray-400 dark:!shadow-theme-xl 2xsm:!w-auto;
+  box-shadow: var(--shadow-theme-lg);
 }
 
 .flatpickr-months .flatpickr-prev-month:hover svg,
@@ -696,13 +1137,13 @@ span.flatpickr-weekday,
 .flatpickr-day.selected.nextMonthDay,
 .flatpickr-day.startRange.nextMonthDay,
 .flatpickr-day.endRange.nextMonthDay {
-  background: #465fff;
+  background: #d4af37;
   @apply !border-brand-500 !bg-brand-500 hover:!border-brand-500 hover:!bg-brand-500;
 }
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n + 1)) {
-  box-shadow: -10px 0 0 #465fff;
+  box-shadow: -10px 0 0 #d4af37;
 }
 
 .flatpickr-months .flatpickr-prev-month svg,
@@ -745,7 +1186,9 @@ span.flatpickr-weekday,
   @apply gap-2;
 }
 .fc-button-group .fc-button {
-  @apply flex h-10 w-10 items-center justify-center !rounded-lg border border-gray-200 bg-transparent hover:border-gray-200 hover:bg-gray-50 focus:shadow-none active:!border-gray-200 active:!bg-transparent active:!shadow-none dark:border-gray-800 dark:hover:border-gray-800 dark:hover:bg-gray-900 dark:active:!border-gray-800 capitalize;
+  @apply flex h-10 w-10 items-center justify-center !rounded-lg bg-white hover:bg-gray-50 active:!bg-transparent dark:bg-gray-800 dark:hover:bg-gray-900 capitalize;
+  border: 0;
+  box-shadow: var(--shadow-elevation-1);
 }
 
 .fc-button-group .fc-button.fc-prev-button:before {

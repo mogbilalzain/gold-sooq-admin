@@ -42,7 +42,7 @@ export class CountryMapComponent {
       });
 
       polygonSeries.mapPolygons.template.states.create("hover", {
-        fill: am5.color(0x465FFF),
+        fill: am5.color(0xd4af37),
       });
 
       // Add blue dot markers
@@ -65,7 +65,7 @@ export class CountryMapComponent {
 
         let circle = am5.Circle.new(this.root, {
           radius: 6,
-          fill: am5.color(0x465FFF),
+          fill: am5.color(0xd4af37),
           stroke: am5.color(0xffffff),
           strokeWidth: 2,
         });
@@ -75,7 +75,7 @@ export class CountryMapComponent {
           am5.Bullet.new(this.root, {
             sprite: am5.Circle.new(this.root, {
               radius: 6,
-              fill: am5.color(0x465FFF),
+              fill: am5.color(0xd4af37),
               stroke: am5.color(0xffffff),
               strokeWidth: 2,
               tooltipText: m.name

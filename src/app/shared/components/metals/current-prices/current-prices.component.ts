@@ -4,6 +4,7 @@ import { TranslationService } from '../../../services/translation.service';
 import { MetalsPricesService, CurrentPricesResponse } from '../../../services/data/metals-prices.service';
 import { ErrorHandlerService } from '../../../services/api/error-handler.service';
 import { LoadingSpinnerComponent } from '../../common/loading-spinner/loading-spinner.component';
+import { SettingsService } from '../../../services/data/settings.service';
 
 @Component({
   selector: 'app-current-prices',
@@ -29,8 +30,30 @@ export class CurrentPricesComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     public translationService: TranslationService,
     private metalsPricesService: MetalsPricesService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    public settingsService: SettingsService
   ) {}
+
+  /** Narrowed accessors: keep the template null-safe under strictTemplates. */
+  get metals() {
+    return this.currentPrices?.metals ?? null;
+  }
+
+  get gold() {
+    return this.currentPrices?.metals?.gold ?? null;
+  }
+
+  get silver() {
+    return this.currentPrices?.metals?.silver ?? null;
+  }
+
+  get platinum() {
+    return this.currentPrices?.metals?.platinum ?? null;
+  }
+
+  get timestamps() {
+    return this.currentPrices?.timestamps ?? null;
+  }
 
   ngOnInit() {
     this.loadCurrentPrices();
@@ -60,8 +83,12 @@ export class CurrentPricesComponent implements OnInit, OnChanges, OnDestroy {
       countryCode: this.countryCode
     }).subscribe({
       next: (response) => {
-        if (response.status === 'success' && response.data) {
+        // Tolerant check: a malformed/partial payload must not crash the template
+        // (a throw here aborts the CD tick and freezes every component below this card).
+        if (response.status === 'success' && response.data?.metals?.gold) {
           this.currentPrices = response.data;
+        } else {
+          this.currentPrices = null;
         }
         this.isLoading = false;
       },

@@ -11,42 +11,46 @@ export interface ApiError {
   providedIn: 'root'
 })
 export class ErrorHandlerService {
-  
+
+  private isArabic(): boolean {
+    if (typeof document === 'undefined') return true;
+    const lang = document.documentElement.getAttribute('lang') || 'ar';
+    return lang === 'ar';
+  }
+
+  private fallbackMessage(status: number): string {
+    const ar = this.isArabic();
+    switch (status) {
+      case 400:
+        return ar ? 'طلب غير صحيح' : 'Bad request';
+      case 401:
+        return ar ? 'غير مصرح - يرجى تسجيل الدخول' : 'Unauthorized — please sign in';
+      case 403:
+        return ar ? 'غير مصرح - تحتاج صلاحيات المدير' : 'Forbidden — admin privileges required';
+      case 404:
+        return ar ? 'المورد غير موجود' : 'Resource not found';
+      case 500:
+        return ar ? 'خطأ في الخادم' : 'Server error';
+      default:
+        return ar ? 'حدث خطأ غير متوقع' : 'An unexpected error occurred';
+    }
+  }
+
   handleError(error: HttpErrorResponse): ApiError {
-    let errorMessage = 'حدث خطأ غير متوقع';
+    let errorMessage = this.fallbackMessage(500);
     let status = 500;
 
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
       errorMessage = error.error.message;
     } else {
-      // Server-side error
       status = error.status || 500;
-      
+
       if (error.error && error.error.message) {
         errorMessage = error.error.message;
       } else if (error.error && typeof error.error === 'string') {
         errorMessage = error.error;
       } else {
-        switch (error.status) {
-          case 400:
-            errorMessage = 'طلب غير صحيح';
-            break;
-          case 401:
-            errorMessage = 'غير مصرح - يرجى تسجيل الدخول';
-            break;
-          case 403:
-            errorMessage = 'غير مصرح - تحتاج صلاحيات المدير';
-            break;
-          case 404:
-            errorMessage = 'المورد غير موجود';
-            break;
-          case 500:
-            errorMessage = 'خطأ في الخادم';
-            break;
-          default:
-            errorMessage = 'حدث خطأ غير متوقع';
-        }
+        errorMessage = this.fallbackMessage(status);
       }
     }
 
@@ -61,4 +65,3 @@ export class ErrorHandlerService {
     return this.handleError(error).message;
   }
 }
-

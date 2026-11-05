@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="web_standard" name="shell-type" />
+  <meta content="#14100a" name="theme-color" />
+  <title>سوق عيار | سوق الذهب والمجوهرات في الإمارات</title>
+  <link rel="icon" type="image/png" href="assests/logo.png" />
+  <script>document.documentElement.classList.add('js');</script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&amp;family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "onyx": "#14100a",
+            "onyx-2": "#1e1710",
+            "gold-bright": "#f2ce5f",
+            "gold-deep": "#9a7400",
+            "surface-container-low": "#fef2e5",
+            "tertiary": "#8a5a00",
+            "primary-fixed": "#ffe088",
+            "surface-bright": "#fff8f3",
+            "on-secondary-fixed": "#211b11",
+            "outline": "#7f7663",
+            "inverse-primary": "#e9c349",
+            "secondary-fixed-dim": "#d2c4b5",
+            "secondary-container": "#ebdece",
+            "error": "#ba1a1a",
+            "on-primary": "#ffffff",
+            "secondary-fixed": "#eee0d1",
+            "on-primary-fixed": "#241a00",
+            "secondary": "#665d51",
+            "on-tertiary-fixed": "#261900",
+            "surface-container-lowest": "#ffffff",
+            "inverse-on-surface": "#fbefe2",
+            "background": "#fff8f3",
+            "on-secondary": "#ffffff",
+            "on-surface-variant": "#4d4635",
+            "surface-container": "#f8ecdf",
+            "surface-tint": "#7a5c00",
+            "tertiary-fixed-dim": "#ecc06a",
+            "inverse-surface": "#14100a",
+            "on-error": "#ffffff",
+            "on-surface": "#1c160d",
+            "on-primary-fixed-variant": "#574500",
+            "primary": "#7a5c00",
+            "on-tertiary-fixed-variant": "#5d4200",
+            "tertiary-container": "#d6ad59",
+            "on-secondary-fixed-variant": "#4e453a",
+            "primary-container": "#d4af37",
+            "on-tertiary-container": "#5a4100",
+            "on-tertiary": "#ffffff",
+            "on-background": "#1c160d",
+            "surface-dim": "#e3d8cc",
+            "surface-container-high": "#f2e6da",
+            "on-primary-container": "#3d3000",
+            "on-error-container": "#93000a",
+            "surface": "#fff8f3",
+            "on-secondary-container": "#6b6155",
+            "surface-variant": "#ece1d4",
+            "surface-container-highest": "#ece1d4",
+            "tertiary-fixed": "#ffdea3",
+            "outline-variant": "#d0c5af",
+            "primary-fixed-dim": "#e9c349",
+            "error-container": "#ffdad6"
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+          spacing: {
+            "gutter-mobile": "1rem", "space-xl": "3.5rem", "space-lg": "2rem", "margin-mobile": "1.25rem",
+            "margin": "3rem", "space-md": "1.25rem", "space-xs": "0.375rem", "gutter": "1.5rem", "space-sm": "0.75rem"
+          },
+          fontFamily: {
+            "display-hero": ["Almarai", "Tajawal", "sans-serif"],
+            "display-hero-mobile": ["Almarai", "Tajawal", "sans-serif"],
+            "headline-xl": ["Almarai", "Tajawal", "sans-serif"],
+            "headline-xl-mobile": ["Almarai", "Tajawal", "sans-serif"],
+            "headline-lg": ["Almarai", "Tajawal", "sans-serif"],
+            "headline-md": ["Almarai", "Tajawal", "sans-serif"],
+            "headline-sm": ["Almarai", "Tajawal", "sans-serif"],
+            "body-lg": ["Tajawal", "sans-serif"],
+            "body-md": ["Tajawal", "sans-serif"],
+            "body-sm": ["Tajawal", "sans-serif"],
+            "label-lg": ["Tajawal", "sans-serif"],
+            "label-md": ["Tajawal", "sans-serif"],
+            "label-micro": ["Tajawal", "sans-serif"]
+          },
+          fontSize: {
+            "headline-xl": ["2.5rem", { "lineHeight": "3.35rem", "fontWeight": "800" }],
+            "headline-lg": ["2rem", { "lineHeight": "2.75rem", "fontWeight": "800" }],
+            "label-lg": ["0.875rem", { "lineHeight": "1.25rem", "fontWeight": "700" }],
+            "body-sm": ["0.875rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "headline-sm": ["1.25rem", { "lineHeight": "1.85rem", "fontWeight": "700" }],
+            "body-md": ["1rem", { "lineHeight": "1.7rem", "fontWeight": "400" }],
+            "label-md": ["0.75rem", { "lineHeight": "1rem", "fontWeight": "500" }],
+            "label-micro": ["0.6875rem", { "lineHeight": "0.875rem", "fontWeight": "700" }],
+            "headline-md": ["1.5rem", { "lineHeight": "2.1rem", "fontWeight": "700" }],
+            "display-hero": ["3.75rem", { "lineHeight": "4.75rem", "fontWeight": "800" }],
+            "body-lg": ["1.125rem", { "lineHeight": "1.9rem", "fontWeight": "400" }],
+            "display-hero-mobile": ["2.25rem", { "lineHeight": "3.1rem", "fontWeight": "800" }],
+            "headline-xl-mobile": ["1.75rem", { "lineHeight": "2.5rem", "fontWeight": "800" }]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+
+    :root {
+      --onyx: #14100a;
+      --onyx-2: #1e1710;
+      --gold-bright: #f2ce5f;
+      --gold: #d4af37;
+      --gold-deep: #9a7400;
+      --gold-grad: linear-gradient(135deg, #f6dc84 0%, #d4af37 48%, #a8820f 100%);
+      --shadow-1: 0 10px 30px -10px rgba(137, 103, 25, 0.10), 0 1px 3px 0 rgba(41, 34, 24, 0.05);
+      --shadow-2: 0 24px 48px -14px rgba(137, 103, 25, 0.24), 0 2px 6px 0 rgba(41, 34, 24, 0.06);
+      --glow-gold: 0 18px 40px -12px rgba(212, 175, 55, 0.55);
+      --ease-out: cubic-bezier(.2, .7, .2, 1);
+    }
+
+    html { scroll-behavior: smooth; scrollbar-color: #c9a23a #fbf3e8; scrollbar-width: thin; }
+    body { letter-spacing: 0; }
+    section[id] { scroll-margin-top: 4.5rem; }
+    .dir-ltr { direction: ltr; unicode-bidi: isolate; }
+
+    ::selection { background: var(--gold); color: var(--onyx); }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #fbf3e8; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #e9c349, #a8820f); border-radius: 9999px; border: 3px solid #fbf3e8; }
+    ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #f2ce5f, #9a7400); }
+
+    /* ---------- Header ---------- */
+    .site-header { transition: background-color .35s ease, box-shadow .35s ease; }
+    .site-header .hdr-inner { height: 5rem; transition: height .35s var(--ease-out); }
+    .site-header.is-scrolled { background-color: rgba(255, 248, 243, .96); box-shadow: 0 10px 30px -18px rgba(41, 34, 24, .35), 0 1px 0 rgba(212, 175, 55, .25); }
+    .site-header.is-scrolled .hdr-inner { height: 4rem; }
+    .nav-link { padding: .375rem .875rem; border-radius: 9999px; color: #4d4635; transition: color .25s, background-color .25s, box-shadow .25s; }
+    .nav-link:hover { color: #1c160d; background-color: rgba(212, 175, 55, .10); }
+    .nav-link.is-active { color: #1c160d; background-color: #f2e6da; box-shadow: inset 0 0 0 1px rgba(212, 175, 55, .40); }
+
+    /* ---------- Gold text & buttons ---------- */
+    .text-molten {
+      background: linear-gradient(100deg, #8a5a00 0%, #c99a1e 18%, #f2ce5f 34%, #d4af37 50%, #8a5a00 66%, #c99a1e 84%, #f2ce5f 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: shimmer 7s linear infinite;
+    }
+    .text-gold-static { background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    .btn-gold { position: relative; overflow: hidden; isolation: isolate; background: linear-gradient(135deg, #f2ce5f 0%, #d4af37 50%, #b38b1d 100%); color: var(--onyx); box-shadow: 0 10px 24px -12px rgba(154, 116, 0, .6), inset 0 1px 0 rgba(255, 255, 255, .45); transition: transform .3s var(--ease-out), box-shadow .3s; }
+    .btn-gold::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent); transform: translateX(-120%) skewX(-20deg); animation: sheen 4.5s ease-in-out infinite; z-index: -1; }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: var(--glow-gold), inset 0 1px 0 rgba(255, 255, 255, .5); }
+
+    .store-btn { transition: transform .3s var(--ease-out), box-shadow .3s, background-color .3s; box-shadow: 0 12px 28px -14px rgba(20, 16, 10, .7), inset 0 0 0 1px rgba(212, 175, 55, .25); }
+    .store-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px -12px rgba(212, 175, 55, .55), inset 0 0 0 1px rgba(242, 206, 95, .7); }
+
+    /* ---------- Atmosphere ---------- */
+    .grain { position: relative; isolation: isolate; }
+    .grain::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: .07; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+    .gold-divider { height: 1px; max-width: 72rem; margin: 0 auto; background: linear-gradient(90deg, transparent, rgba(212, 175, 55, .55), transparent); }
+    .glow-orb { animation: pulseGlow 9s ease-in-out infinite; }
+    .hero-dots { background-image: radial-gradient(rgba(154, 116, 0, .18) 1px, transparent 1px); background-size: 26px 26px; -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%); mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%); }
+    .mesh-gold { background: radial-gradient(circle at 18% 20%, rgba(242, 206, 95, .38), transparent 52%), radial-gradient(circle at 85% 85%, rgba(154, 116, 0, .16), transparent 55%), #f8ecdf; }
+
+    /* ---------- Motion primitives ---------- */
+    .float-a { animation: floatY 6s ease-in-out infinite; }
+    .float-b { animation: floatY 7.5s ease-in-out -2s infinite; }
+    .float-c { animation: floatY 5.5s ease-in-out -1s infinite; }
+    .float-d { animation: floatY 8.5s ease-in-out -3.5s infinite; }
+    .float-phone { animation: floatPhone 8s ease-in-out infinite; }
+
+    .lift-card { box-shadow: var(--shadow-1); transition: transform .45s var(--ease-out), box-shadow .45s var(--ease-out), border-color .45s; }
+    .lift-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-2); border-color: rgba(212, 175, 55, .55); }
+
+    .shine { position: relative; overflow: hidden; }
+    .shine::after { content: ""; position: absolute; top: -20%; bottom: -20%; left: -60%; width: 45%; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(242, 206, 95, .22), rgba(255, 255, 255, .35), rgba(242, 206, 95, .22), transparent); transform: skewX(-20deg); transition: left .9s var(--ease-out); }
+    .shine:hover::after { left: 130%; }
+
+    .feature-icon { width: 4rem; height: 4rem; border-radius: 1.1rem; overflow: hidden; background: #f8ecdf; box-shadow: 0 0 0 1px rgba(212, 175, 55, .35), 0 10px 22px -10px rgba(154, 116, 0, .45); transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out); }
+    .feature-icon img { transform: scale(1.12); transition: transform .7s var(--ease-out); }
+    .group:hover .feature-icon { transform: translateY(-2px) rotate(-4deg); box-shadow: 0 0 0 1px rgba(212, 175, 55, .75), 0 16px 30px -10px rgba(212, 175, 55, .7); }
+    .group:hover .feature-icon img { transform: scale(1.25); }
+
+    /* ---------- UAE eyebrow pill ---------- */
+    .uae-pill { position: relative; }
+    .uae-pill::after { content: ""; position: absolute; left: 22px; right: 22px; bottom: -1px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, #ff0000 0 25%, #00732f 25% 50%, #ffffff 50% 75%, #000000 75%); opacity: .85; }
+    .uae-sheen { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
+    .uae-sheen::before { content: ""; position: absolute; top: 0; bottom: 0; left: -40%; width: 32%; background: linear-gradient(90deg, transparent, rgba(242, 206, 95, .35), rgba(255, 255, 255, .7), rgba(242, 206, 95, .35), transparent); transform: skewX(-20deg); animation: pillSheen 1.4s var(--ease-out) 1.2s 1 both; }
+    .uae-pill:hover .uae-sheen::before { animation: pillSheenHover 1.1s var(--ease-out) 1 both; }
+    .seal-pulse { position: absolute; inset: 0; border-radius: 9999px; background: #00732f; animation: sealPulse 2.6s ease-out infinite; }
+    .uae-flag { display: inline-flex; border-radius: 3px; overflow: hidden; box-shadow: 0 0 0 1px rgba(0, 0, 0, .14); }
+
+    .spec-row { transition: transform .35s var(--ease-out), box-shadow .35s, background-color .35s; }
+    .spec-row:hover { transform: translateX(-6px); box-shadow: 0 0 0 1px rgba(212, 175, 55, .45), 0 14px 30px -14px rgba(154, 116, 0, .35); }
+
+    .ticker-card { transition: border-color .35s, transform .35s var(--ease-out), box-shadow .35s; }
+    .ticker-card:hover { transform: translateY(-4px); border-color: rgba(242, 206, 95, .8); box-shadow: 0 20px 40px -20px rgba(212, 175, 55, .55); }
+    .flash-up { animation: flashUp 1.2s ease-out; }
+    .flash-down { animation: flashDown 1.2s ease-out; }
+
+    @property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+    .conic-border { position: relative; box-shadow: 0 30px 60px -24px rgba(154, 116, 0, .45); }
+    .conic-border::before {
+      content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; pointer-events: none;
+      background: conic-gradient(from var(--angle), #d4af37, #fff1b8, #9a7400, #f2ce5f, #d4af37);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+      animation: spinAngle 6s linear infinite;
+    }
+    .spin-ring { background: conic-gradient(from 0deg, transparent 0 15%, #f2ce5f 30%, transparent 45% 65%, #d4af37 80%, transparent 95%); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px)); mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px)); animation: spin 10s linear infinite; }
+    .ambient-shift { background-size: 220% 220%; animation: gradShift 14s ease-in-out infinite; }
+
+    .step-num { font-family: Almarai, Tajawal, sans-serif; font-size: 5.5rem; line-height: 1; font-weight: 800; background: linear-gradient(180deg, rgba(212, 175, 55, .55), rgba(212, 175, 55, 0)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .steps-panel { transition: opacity .3s ease, transform .3s var(--ease-out); }
+    .steps-panel.is-fading { opacity: 0; transform: translateY(14px); }
+    .tab-btn { color: #4d4635; transition: color .25s, background-color .25s, box-shadow .25s; }
+    .tab-btn:hover { color: #1c160d; }
+    .tab-btn.is-active { background: #fff; color: #8a5a00; box-shadow: 0 6px 16px -8px rgba(154, 116, 0, .45), inset 0 0 0 1px rgba(212, 175, 55, .35); }
+
+    /* ---------- FAQ accordion ---------- */
+    .faq-item { transition: border-color .3s, box-shadow .3s; }
+    .faq-item.is-open { border-color: rgba(212, 175, 55, .6); box-shadow: var(--shadow-2); }
+    .faq-panel { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .45s var(--ease-out), opacity .35s ease; }
+    .faq-item.is-open .faq-panel { grid-template-rows: 1fr; opacity: 1; }
+    .faq-icon { transition: transform .4s var(--ease-out), background-color .3s, color .3s; }
+    .faq-item.is-open .faq-icon { transform: rotate(180deg); background-color: var(--gold); color: var(--onyx); }
+
+    /* ---------- Scroll reveal ---------- */
+    .js .reveal { opacity: 0; transform: translateY(26px); filter: blur(6px); transition: opacity .9s var(--ease-out), transform .9s var(--ease-out), filter .9s var(--ease-out); transition-delay: var(--d, 0ms); }
+    .js .reveal.is-in { opacity: 1; transform: none; filter: none; }
+
+    /* ---------- Back to top ---------- */
+    .to-top { opacity: 0; transform: translateY(16px) scale(.9); pointer-events: none; transition: opacity .35s, transform .35s var(--ease-out); }
+    .to-top.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+
+    @keyframes shimmer { to { background-position: -200% center; } }
+    @keyframes sheen { 0% { transform: translateX(-120%) skewX(-20deg); } 55%, 100% { transform: translateX(320%) skewX(-20deg); } }
+    @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes floatPhone { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    @keyframes pulseGlow { 0%, 100% { opacity: .75; scale: 1; } 50% { opacity: 1; scale: 1.08; } }
+    @keyframes spinAngle { to { --angle: 360deg; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes gradShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    @keyframes pillSheen { from { left: -40%; } to { left: 120%; } }
+    @keyframes pillSheenHover { from { left: -40%; } to { left: 120%; } }
+    @keyframes sealPulse { 0% { transform: scale(1); opacity: .45; } 100% { transform: scale(1.75); opacity: 0; } }
+    @keyframes flashUp { 0% { color: #34d399; text-shadow: 0 0 18px rgba(52, 211, 153, .65); } 100% { text-shadow: none; } }
+    @keyframes flashDown { 0% { color: #fb7185; text-shadow: 0 0 18px rgba(251, 113, 133, .65); } 100% { text-shadow: none; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0ms !important; }
+      .js .reveal { opacity: 1; transform: none; filter: none; }
+    }
+  </style>
+</head>
+
+<body class="bg-background font-body-md text-body-md text-on-surface antialiased">
+  <!-- HEADER -->
+  <header class="site-header fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl" id="site-header">
+    <div class="hdr-inner max-w-7xl mx-auto px-gutter flex items-center justify-between">
+      <a class="flex items-center gap-space-sm" href="#about">
+        <img alt="سوق عيار" class="w-9 h-9 rounded-xl object-cover ring-2 ring-primary-container/40" src="assests/logo.png" />
+        <div class="flex flex-col">
+          <span class="font-headline-sm text-headline-sm text-on-surface font-extrabold leading-tight">سوق عيار</span>
+          <span class="font-label-micro text-label-micro text-primary font-bold">الإمارات العربية المتحدة</span>
+        </div>
+      </a>
+      <nav class="hidden lg:flex items-center gap-space-xs" id="main-nav">
+        <a class="nav-link is-active font-label-lg text-label-lg" data-path="about" href="#about">عن التطبيق</a>
+        <a class="nav-link font-label-lg text-label-lg" data-path="features" href="#features">المميزات</a>
+        <a class="nav-link font-label-lg text-label-lg" data-path="how-it-works" href="#how-it-works">كيف يعمل</a>
+        <a class="nav-link font-label-lg text-label-lg" data-path="for-stores" href="#for-stores">للمتاجر</a>
+        <a class="nav-link font-label-lg text-label-lg" data-path="faq" href="#faq">الأسئلة الشائعة</a>
+      </nav>
+      <div class="flex items-center gap-space-sm">
+        <button class="px-space-sm py-space-xs rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md font-bold transition-all" type="button">EN</button>
+        <a class="btn-gold px-space-md py-2 rounded-full font-label-lg text-label-lg" data-path="download-app" href="#download">حمّل التطبيق</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-full pt-20 bg-background">
+    <div class="flex flex-col w-full">
+
+      <!-- HERO SECTION -->
+      <section class="relative w-full overflow-hidden bg-gradient-to-b from-surface-bright via-background to-surface-container-low pt-space-lg pb-space-xl" id="about">
+        <!-- Ambient Gold Glows -->
+        <div class="pointer-events-none absolute inset-0 hero-dots -z-10"></div>
+        <div class="glow-orb pointer-events-none absolute top-12 left-1/2 -translate-x-1/2 w-[850px] h-[550px] bg-primary-fixed/30 rounded-full blur-[140px] -z-10" data-parallax="0.6"></div>
+        <div class="glow-orb pointer-events-none absolute -top-24 right-10 w-72 h-72 bg-tertiary-fixed/40 rounded-full blur-3xl -z-10" data-parallax="1.2" style="animation-delay:-4s"></div>
+        <div class="glow-orb pointer-events-none absolute bottom-10 left-10 w-80 h-80 bg-primary-container/15 rounded-full blur-3xl -z-10" data-parallax="-0.8" style="animation-delay:-2s"></div>
+
+        <div class="max-w-7xl mx-auto px-gutter flex flex-col items-center text-center">
+          <!-- Eyebrow Pill -->
+          <div class="reveal uae-pill inline-flex items-center gap-2 p-1.5 rounded-full bg-surface/90 backdrop-blur shadow-[0_10px_28px_-12px_rgba(154,116,0,0.45)] border border-primary-container/40 mb-space-md">
+            <span class="uae-sheen"></span>
+            <span class="relative flex w-7 h-7 shrink-0">
+              <span class="seal-pulse"></span>
+              <span class="relative w-7 h-7 rounded-full bg-[#00732F] text-white flex items-center justify-center shadow-[0_4px_12px_-3px_rgba(0,115,47,0.75)] ring-2 ring-white">
+                <span class="material-symbols-outlined text-[17px]" style="font-variation-settings:'FILL' 1">verified</span>
+              </span>
+            </span>
+            <span class="font-label-lg text-label-lg text-on-surface font-bold px-1">سوق متخصص في الذهب والمجوهرات</span>
+            <span class="inline-flex items-center gap-1.5 ps-2.5 pe-2 py-1 rounded-full bg-white ring-1 ring-black/5 shadow-sm">
+              <span class="uae-flag" aria-hidden="true">
+                <svg height="12" viewBox="0 0 12 6" width="24">
+                  <rect fill="#00732F" height="2" width="9" x="3" y="0" />
+                  <rect fill="#FFFFFF" height="2" width="9" x="3" y="2" />
+                  <rect fill="#000000" height="2" width="9" x="3" y="4" />
+                  <rect fill="#FF0000" height="6" width="3" x="0" y="0" />
+                </svg>
+              </span>
+              <span class="font-label-md text-label-md font-bold text-on-surface">الإمارات</span>
+            </span>
+          </div>
+
+          <!-- Main Headline -->
+          <h1 class="reveal max-w-4xl font-display-hero-mobile text-display-hero-mobile md:font-display-hero md:text-display-hero text-on-surface mb-space-md font-extrabold" style="--d:80ms">
+            ذهب ومجوهرات…
+            <span class="block mt-1 text-molten">بمعلومات أوضح وخيارات أقرب</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="reveal max-w-2xl font-body-lg text-body-lg text-on-surface-variant mb-space-lg leading-relaxed" style="--d:160ms">
+            اكتشف إعلانات الذهب والمجوهرات في دولة الإمارات، قارن المواصفات والأوزان والأسعار بدقة، واعرض قطعك في بيئة رقمية تليق ببريق المعادن النفيسة.
+          </p>
+
+          <!-- CTA Badges & Actions -->
+          <div class="reveal flex flex-wrap items-center justify-center gap-space-sm mb-space-xl" style="--d:240ms">
+            <a class="store-btn group flex items-center gap-space-xs bg-onyx hover:bg-black text-on-primary px-space-md py-2.5 rounded-full" href="#download">
+              <svg class="w-6 h-6 fill-current text-white" viewBox="0 0 24 24">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8.92-2.87-.9.04-2.02.61-2.65 1.35-.56.64-.99 1.7-.88 2.74 1.02.08 2-.47 2.61-1.22z"></path>
+              </svg>
+              <div class="flex flex-col text-right">
+                <span class="font-label-micro text-label-micro text-outline-variant font-light leading-none">متاح على</span>
+                <span class="font-label-lg text-label-lg font-bold leading-tight">App Store</span>
+              </div>
+            </a>
+            <a class="store-btn group flex items-center gap-space-xs bg-onyx hover:bg-black text-on-primary px-space-md py-2.5 rounded-full" href="#download">
+              <svg class="w-6 h-6" viewBox="0 0 24 24">
+                <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92z" fill="#4285F4"></path>
+                <path d="M14.499 12.707l2.302 2.302-10.937 6.333 8.635-8.635z" fill="#EA4335"></path>
+                <path d="M17.698 9.509l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491z" fill="#FBBC04"></path>
+                <path d="M5.864 2.658L16.802 8.99l-2.303 2.303-8.635-8.635z" fill="#34A853"></path>
+              </svg>
+              <div class="flex flex-col text-right">
+                <span class="font-label-micro text-label-micro text-outline-variant font-light leading-none">احصل عليه من</span>
+                <span class="font-label-lg text-label-lg font-bold leading-tight">Google Play</span>
+              </div>
+            </a>
+            <a class="group flex items-center gap-1.5 px-space-md py-3 rounded-full text-tertiary font-label-lg text-label-lg hover:bg-surface-container transition-all" href="#how-it-works">
+              <span>اكتشف كيف يعمل</span>
+              <span class="material-symbols-outlined text-[18px] transition-transform group-hover:-translate-x-1">arrow_back</span>
+            </a>
+          </div>
+
+          <!-- Fan Phones Composition & Floating Chips -->
+          <div class="relative w-full max-w-5xl mt-space-md flex items-end justify-center pb-6">
+            <!-- Left Sub-Phone (Angled) -->
+            <div class="hidden sm:block absolute right-4 lg:right-16 bottom-0 w-64 lg:w-72 bg-onyx p-2.5 rounded-[40px] shadow-2xl transform rotate-[-8deg] origin-bottom-right transition-transform hover:rotate-[-4deg] duration-500 z-10 border border-primary-container/25">
+              <div class="rounded-[32px] overflow-hidden">
+                <img alt="شاشة الترحيب في تطبيق سوق عيار" class="w-full h-[420px] object-cover object-top" src="assests/images/Apple%20iPhone%2016%20Pro%20Max%20Screenshot%201.png" />
+              </div>
+            </div>
+
+            <!-- Center Phone -->
+            <div class="float-phone relative w-72 sm:w-80 lg:w-[340px] bg-onyx p-3 rounded-[48px] shadow-[0_30px_70px_-15px_rgba(212,175,55,0.38)] z-20 border-2 border-primary-container/60">
+              <div class="absolute top-5 left-1/2 -translate-x-1/2 w-24 h-4 bg-black rounded-full z-30"></div>
+              <div class="rounded-[40px] overflow-hidden pt-6 bg-black">
+                <img alt="شاشة السوق في تطبيق سوق عيار" class="w-full h-[540px] sm:h-[560px] lg:h-[600px] object-cover object-top" src="assests/images/Apple%20iPhone%2014%20Plus%20Screenshot%201.png" />
+              </div>
+            </div>
+
+            <!-- Right Sub-Phone (Angled) -->
+            <div class="hidden sm:block absolute left-4 lg:left-16 bottom-0 w-64 lg:w-72 bg-onyx p-2.5 rounded-[40px] shadow-2xl transform rotate-[8deg] origin-bottom-left transition-transform hover:rotate-[4deg] duration-500 z-10 border border-primary-container/25">
+              <div class="rounded-[32px] overflow-hidden">
+                <img alt="شاشة اختيار نوع الحساب في تطبيق سوق عيار" class="w-full h-[420px] object-cover object-top" src="assests/images/Apple%20iPhone%2016%20Pro%20Max%20Screenshot%203.png" />
+              </div>
+            </div>
+
+            <!-- Orbiting Floating Micro-Pills -->
+            <div class="absolute -top-3 right-8 sm:right-24 z-30" data-parallax="1.6">
+              <div class="float-a bg-surface/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-lg border border-primary-container/40 flex items-center gap-1.5">
+                <span class="text-base">✨</span>
+                <span class="font-label-md text-label-md font-bold text-tertiary">عيار ٢١ أصيل</span>
+              </div>
+            </div>
+            <div class="absolute top-24 left-4 sm:left-20 z-30" data-parallax="-1.3">
+              <div class="float-b bg-surface/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-lg border border-primary-container/40 flex items-center gap-1.5">
+                <span class="text-base">⚖️</span>
+                <span class="font-label-md text-label-md font-bold text-on-surface">الوزن: 24.5 غرام</span>
+              </div>
+            </div>
+            <div class="absolute bottom-16 right-0 sm:right-10 z-30" data-parallax="1">
+              <div class="float-c bg-onyx text-on-primary px-3 py-1.5 rounded-full shadow-[0_14px_30px_-10px_rgba(20,16,10,0.6)] ring-1 ring-primary-container/50 flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-gold-bright text-[18px]" style="font-variation-settings:'FILL' 1">verified</span>
+                <span class="font-label-md text-label-md font-bold text-primary-fixed">هوية موثقة 100%</span>
+              </div>
+            </div>
+            <div class="absolute bottom-24 left-2 sm:left-12 z-30" data-parallax="-1.8">
+              <div class="float-d bg-surface/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-lg border border-surface-container-high flex items-center gap-1">
+                <span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
+                <span class="font-label-md text-label-md font-bold text-on-surface">دبي • أبوظبي • الشارقة</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION B: PRODUCT LISTING SPEC DETAILS -->
+      <section class="w-full py-space-xl bg-surface relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-gutter">
+          <div class="reveal text-center max-w-2xl mx-auto mb-space-xl">
+            <span class="font-label-lg text-label-lg text-primary font-bold">تفاصيل متكاملة وشفافة</span>
+            <h2 class="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-on-surface font-extrabold mt-1 mb-2">
+              كل تفصيلة تساعدك على <span class="text-gold-static">الاختيار الواثق</span>
+            </h2>
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+              من العيار والوزن الصافي إلى طريقة عرض السعر ومعلومات البائع؛ تعرّف على كل جوانب القطعة قبل اتخاذ خطوتك القادمة.
+            </p>
+          </div>
+
+          <div class="relative mesh-gold rounded-3xl p-6 lg:p-12 shadow-sm border border-primary-container/25">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <!-- Central Feature Showcase Card -->
+              <div class="reveal group lg:col-span-6 bg-surface rounded-2xl p-6 lift-card border border-primary-container/30 relative">
+                <div class="relative w-full h-80 rounded-xl overflow-hidden bg-surface-container">
+                  <img alt="خاتم ذهب مع دمغة 750" class="w-full h-full object-cover transition-transform duration-[2500ms] ease-out group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXvwPCAtJeIaztCWvZCRcOpBx7yBpEWCXPERIrUcQ1NQlQzH2PNO2cH6k0-WRaN0tk3zemiCxBGe4pj7UzEywKHAwbVV9_kIKVJD8-a9tIQ_tLBK0EjASS8nmTcjhIXAvQPOOmhQnfT8A5xJDfvh6haNfHNJIUCvxCmHi03Ec9q_L0Vjzmyw4MUpyvrpeRQz0NOatzpvvXgE3TfbX57UNXAoHi0F7M79fdfyVyQ-WB6EW2pw0lK22_" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-onyx/40 via-transparent to-transparent"></div>
+                  <div class="absolute top-3 right-3 bg-onyx/90 text-primary-fixed px-3 py-1 rounded-full font-label-md text-label-md font-bold flex items-center gap-1 ring-1 ring-primary-container/40">
+                    <span class="material-symbols-outlined text-[16px]">stars</span>
+                    <span>فحص وتصوير فوتوغرافي واضح</span>
+                  </div>
+                </div>
+                <div class="mt-4 flex items-center justify-between">
+                  <div>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">طقم مجوهرات تراثي فاخر</h3>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">معروض بواسطة: مجوهرات ديوان الذهب • سوق ديرة</p>
+                  </div>
+                  <span class="btn-gold px-3 py-1 rounded-full font-label-lg text-label-lg font-bold">21K</span>
+                </div>
+              </div>
+
+              <!-- Spec Chips -->
+              <div class="lg:col-span-6 flex flex-col gap-3.5" data-stagger>
+                <div class="reveal spec-row bg-surface p-4 rounded-xl shadow-sm border-r-4 border-primary-container flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-primary-container/20 text-tertiary flex items-center justify-center">
+                      <span class="material-symbols-outlined">workspace_premium</span>
+                    </div>
+                    <div>
+                      <h4 class="font-headline-sm text-label-lg font-bold text-on-surface">العيار الدقيق</h4>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant">تحديد واضح للعيار المعتمد: 18K / 21K / 22K / 24K</p>
+                    </div>
+                  </div>
+                  <span class="shrink-0 font-label-lg text-label-lg font-bold text-primary bg-surface-container px-2.5 py-1 rounded-lg">عيار 21</span>
+                </div>
+                <div class="reveal spec-row bg-surface p-4 rounded-xl shadow-sm border-r-4 border-primary-container flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-primary-container/20 text-tertiary flex items-center justify-center">
+                      <span class="material-symbols-outlined">scale</span>
+                    </div>
+                    <div>
+                      <h4 class="font-headline-sm text-label-lg font-bold text-on-surface">الوزن الصافي بالأجرام</h4>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant">مذكور بكسور الغرام الدقيقة لضمان احتساب القيمة</p>
+                    </div>
+                  </div>
+                  <span class="shrink-0 font-label-lg text-label-lg font-bold text-on-surface bg-surface-container px-2.5 py-1 rounded-lg">18.42 جم</span>
+                </div>
+                <div class="reveal spec-row bg-surface p-4 rounded-xl shadow-sm border-r-4 border-primary-container flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-primary-container/20 text-tertiary flex items-center justify-center">
+                      <span class="material-symbols-outlined">payments</span>
+                    </div>
+                    <div>
+                      <h4 class="font-headline-sm text-label-lg font-bold text-on-surface">طريقة عرض السعر</h4>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant">سعر محدد، حسب سعر الذهب بالسوق، أو التواصل للبائع</p>
+                    </div>
+                  </div>
+                  <span class="shrink-0 font-label-lg text-label-lg font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg">سعر محدد مسبقاً</span>
+                </div>
+                <div class="reveal spec-row bg-surface p-4 rounded-xl shadow-sm border-r-4 border-primary-container flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-primary-container/20 text-tertiary flex items-center justify-center">
+                      <span class="material-symbols-outlined">verified</span>
+                    </div>
+                    <div>
+                      <h4 class="font-headline-sm text-label-lg font-bold text-on-surface">شارة البائع ومستواه</h4>
+                      <p class="font-body-sm text-body-sm text-on-surface-variant">معرفة ما إذا كان البائع متجرًا معتمدًا أو فردًا موثق الهوية</p>
+                    </div>
+                  </div>
+                  <span class="shrink-0 font-label-lg text-label-lg font-bold text-primary bg-primary-fixed/40 px-2.5 py-1 rounded-lg">نشاط تجاري موثق ✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION C: ONYX MARKET BANNER -->
+      <section class="grain w-full py-space-xl bg-onyx text-on-primary relative overflow-hidden" id="market">
+        <div class="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.12] pointer-events-none"></div>
+        <div class="glow-orb absolute -top-20 right-1/4 w-96 h-96 bg-primary-container/25 rounded-full blur-[130px] pointer-events-none"></div>
+        <div class="glow-orb absolute -bottom-32 left-10 w-80 h-80 bg-gold-deep/30 rounded-full blur-[120px] pointer-events-none" style="animation-delay:-5s"></div>
+        <div class="max-w-7xl mx-auto px-gutter relative z-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+            <div class="reveal lg:col-span-5 text-right flex flex-col gap-space-sm">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 ring-1 ring-primary-container/30 text-primary-fixed w-fit">
+                <span class="relative flex w-2 h-2">
+                  <span class="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-75"></span>
+                  <span class="relative w-2 h-2 rounded-full bg-emerald-400"></span>
+                </span>
+                <span class="font-label-md text-label-md font-bold">مؤشر السوق الحي في الإمارات</span>
+              </div>
+              <h2 class="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl font-extrabold text-on-primary">
+                تابع السوق… وافهم المعروض <span class="text-molten">بصورة أوضح</span>
+              </h2>
+              <p class="font-body-md text-body-md text-outline-variant leading-relaxed">
+                اطّلع على أسعار الذهب والفضة والبلاتين كمرجع رقمي معتمد يساعدك أثناء استكشاف الإعلانات والتفاوض وعقد الصفقات.
+              </p>
+              <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 mt-2">
+                <p class="font-label-micro text-label-micro text-secondary-fixed leading-normal">
+                  ⚠️ تنبيه: قد يختلف سعر القطعة النهائي بحسب المصنعية، النقاء، الصياغة والحالة. الأسعار المعروضة مرجعية واسترشادية لتسهيل الحساب.
+                </p>
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-3" data-stagger id="ticker-grid">
+              <div class="reveal ticker-card bg-white/[0.06] backdrop-blur-md p-4 rounded-2xl border border-primary-container/30 flex flex-col justify-between" data-ticker>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="font-label-lg text-label-lg font-bold text-primary-fixed">عيار 24</span>
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                </div>
+                <p class="font-headline-md text-headline-md font-bold text-on-primary dir-ltr text-right tabular-nums" data-price="312.50">312.50</p>
+                <span class="font-label-micro text-label-micro text-outline-variant">درهم / غرام</span>
+                <div class="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-emerald-400 font-label-micro text-label-micro dir-ltr" data-change="0.65">
+                  <span data-change-text>+0.65%</span>
+                  <span class="material-symbols-outlined text-[14px]" data-change-icon>arrow_upward</span>
+                </div>
+              </div>
+              <div class="reveal ticker-card bg-white/[0.06] backdrop-blur-md p-4 rounded-2xl border border-primary-container/30 flex flex-col justify-between" data-ticker>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="font-label-lg text-label-lg font-bold text-primary-fixed">عيار 21</span>
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                </div>
+                <p class="font-headline-md text-headline-md font-bold text-on-primary dir-ltr text-right tabular-nums" data-price="275.20">275.20</p>
+                <span class="font-label-micro text-label-micro text-outline-variant">درهم / غرام</span>
+                <div class="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-emerald-400 font-label-micro text-label-micro dir-ltr" data-change="0.52">
+                  <span data-change-text>+0.52%</span>
+                  <span class="material-symbols-outlined text-[14px]" data-change-icon>arrow_upward</span>
+                </div>
+              </div>
+              <div class="reveal ticker-card bg-white/[0.06] backdrop-blur-md p-4 rounded-2xl border border-primary-container/30 flex flex-col justify-between" data-ticker>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="font-label-lg text-label-lg font-bold text-primary-fixed">عيار 18</span>
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                </div>
+                <p class="font-headline-md text-headline-md font-bold text-on-primary dir-ltr text-right tabular-nums" data-price="236.00">236.00</p>
+                <span class="font-label-micro text-label-micro text-outline-variant">درهم / غرام</span>
+                <div class="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-emerald-400 font-label-micro text-label-micro dir-ltr" data-change="0.48">
+                  <span data-change-text>+0.48%</span>
+                  <span class="material-symbols-outlined text-[14px]" data-change-icon>arrow_upward</span>
+                </div>
+              </div>
+              <div class="reveal ticker-card bg-gradient-to-br from-primary-container/20 to-white/[0.04] backdrop-blur-md p-4 rounded-2xl border border-primary-container/50 flex flex-col justify-between" data-ticker>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="font-label-lg text-label-lg font-bold text-primary-fixed">أونصة الذهب</span>
+                  <span class="material-symbols-outlined text-primary-fixed text-[18px]">public</span>
+                </div>
+                <p class="font-headline-md text-headline-md font-bold text-on-primary dir-ltr text-right tabular-nums" data-price="2740.00">2,740.00</p>
+                <span class="font-label-micro text-label-micro text-outline-variant">دولار أمريكي</span>
+                <div class="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-emerald-400 font-label-micro text-label-micro dir-ltr" data-change="0.80">
+                  <span data-change-text>+0.80%</span>
+                  <span class="material-symbols-outlined text-[14px]" data-change-icon>arrow_upward</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION D: SIX FEATURE CARDS -->
+      <section class="w-full py-space-xl bg-surface-bright" id="features">
+        <div class="max-w-7xl mx-auto px-gutter">
+          <div class="reveal text-center max-w-2xl mx-auto mb-space-xl">
+            <span class="font-label-lg text-label-lg text-primary font-bold">بنية تحتية متطورة</span>
+            <h2 class="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-on-surface font-extrabold mt-1 mb-2">
+              تجربة مصممة لطبيعة <span class="text-gold-static">سوق الذهب</span>
+            </h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+              كل خاصية تم تطويرها بعناية لتراعي خصوصية وأمان تجارة المجوهرات والمعادن الثمينة في الدولة.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-stagger>
+            <div class="reveal lift-card shine bg-surface p-7 rounded-3xl border border-primary-container/20 flex flex-col justify-between group">
+              <div>
+                <div class="feature-icon mb-5">
+                  <img alt="بحث يناسب ما تبحث عنه" class="w-full h-full object-cover" loading="lazy" src="assests/icons/feature-search.jpg" />
+                </div>
+                <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2">بحث يناسب ما تبحث عنه</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  استكشف الفئات وحدّد المواصفات كالعيار والوزن والمدينة للوصول إلى خيارات تلائم ذوقك وميزانيتك بدقة بالغة.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-surface-container flex items-center text-primary font-label-md text-label-md font-bold">
+                <span>تصفح الفئات</span>
+                <span class="material-symbols-outlined text-[16px] mr-1 transition-transform group-hover:-translate-x-1">chevron_left</span>
+              </div>
+            </div>
+            <div class="reveal lift-card shine bg-surface p-7 rounded-3xl border border-primary-container/20 flex flex-col justify-between group">
+              <div>
+                <div class="feature-icon mb-5">
+                  <img alt="تفاصيل منظّمة للقطعة" class="w-full h-full object-cover" loading="lazy" src="assests/icons/feature-details.jpg" />
+                </div>
+                <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2">تفاصيل منظّمة للقطعة</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  تصفح بطاقة المواصفات الكاملة لكل قطعة: الوزن، والعيار، وحالة القطعة، والدمغة الرسمية دون غموض أو نقصان.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-surface-container flex items-center text-primary font-label-md text-label-md font-bold">
+                <span>معايير العرض</span>
+                <span class="material-symbols-outlined text-[16px] mr-1 transition-transform group-hover:-translate-x-1">chevron_left</span>
+              </div>
+            </div>
+            <div class="reveal lift-card shine bg-surface p-7 rounded-3xl border border-primary-container/20 flex flex-col justify-between group">
+              <div>
+                <div class="feature-icon mb-5">
+                  <img alt="طرق واضحة لعرض السعر" class="w-full h-full object-cover" loading="lazy" src="assests/icons/feature-pricing.jpg" />
+                </div>
+                <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2">طرق واضحة لعرض السعر</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  مرونة تناسب رغبة البائع: تحديد سعر ثابت، أو ربط بالسعر الفوري اللحظي لجرام الذهب، أو التواصل المباشر.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-surface-container flex items-center text-primary font-label-md text-label-md font-bold">
+                <span>نماذج التسعير</span>
+                <span class="material-symbols-outlined text-[16px] mr-1 transition-transform group-hover:-translate-x-1">chevron_left</span>
+              </div>
+            </div>
+            <div class="reveal lift-card shine bg-surface p-7 rounded-3xl border border-primary-container/20 flex flex-col justify-between group">
+              <div>
+                <div class="feature-icon mb-5">
+                  <img alt="حالة توثيق ظاهرة" class="w-full h-full object-cover" loading="lazy" src="assests/icons/feature-verified.jpg" />
+                </div>
+                <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2">حالة توثيق ظاهرة</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  شارات معتمدة تميز هوية الأفراد والأنشطة التجارية المرخصة لتمنحك وضوحاً كاملاً حول الجهة العارضة.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-surface-container flex items-center text-primary font-label-md text-label-md font-bold">
+                <span>سياسة الشارات</span>
+                <span class="material-symbols-outlined text-[16px] mr-1 transition-transform group-hover:-translate-x-1">chevron_left</span>
+              </div>
+            </div>
+            <div class="reveal lift-card shine bg-surface p-7 rounded-3xl border border-primary-container/20 flex flex-col justify-between group">
+              <div>
+                <div class="feature-icon mb-5">
+                  <img alt="حضور خاص للمتاجر" class="w-full h-full object-cover" loading="lazy" src="assests/icons/feature-store.jpg" />
+                </div>
+                <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2">حضور خاص للمتاجر</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  ملف تجاري احترافي يبرز الهوية البصرية للعلامة، وموقع المعرض، وساعات العمل، وكتالوج الإعلانات النشطة.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-surface-container flex items-center text-primary font-label-md text-label-md font-bold">
+                <span>مزايا المتاجر</span>
+                <span class="material-symbols-outlined text-[16px] mr-1 transition-transform group-hover:-translate-x-1">chevron_left</span>
+              </div>
+            </div>
+            <div class="reveal lift-card shine bg-surface p-7 rounded-3xl border border-primary-container/20 flex flex-col justify-between group">
+              <div>
+                <div class="feature-icon mb-5">
+                  <img alt="مراجعة قبل النشر" class="w-full h-full object-cover" loading="lazy" src="assests/icons/feature-review.jpg" />
+                </div>
+                <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2">مراجعة قبل النشر</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  تخضع جميع الإعلانات للمراجعة الإدارية للتأكد من مطابقة شروط العرض والوضوح قبل ظهورها لكافة المستخدمين.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-surface-container flex items-center text-primary font-label-md text-label-md font-bold">
+                <span>ضوابط النشر</span>
+                <span class="material-symbols-outlined text-[16px] mr-1 transition-transform group-hover:-translate-x-1">chevron_left</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="gold-divider"></div>
+
+      <!-- SECTION E: BUSINESS PROFILE EDITORIAL -->
+      <section class="w-full py-space-xl bg-surface-container-low relative" id="for-stores">
+        <div class="max-w-7xl mx-auto px-gutter">
+          <div class="reveal bg-surface rounded-3xl p-8 lg:p-14 lift-card border border-primary-container/25">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+              <div class="lg:col-span-6 relative group">
+                <div class="relative w-full h-[460px] rounded-2xl overflow-hidden shadow-lg border border-primary-container/30">
+                  <img alt="معرض مجوهرات فاخر في دبي" class="w-full h-full object-cover transition-transform duration-[2500ms] ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvxvHPmZ7j6gml8LqQnrHOzLD9KONFMRAvNfCdiiPPDwbpjUEfDwTMI-dH3e0adU-ei9MnrQYxnrkN2cnxXr0Grav3H39RXpsKjjOPlyWeB6RoE_5l8Y3-huB-6GPA_Fmf2Mf_OTJ6qaUCRiH6706F2kSryZkD-ed4LjD0uxIBYRFldzRko2z7o6mUJlqtsRttfL9r0b2oomLoApUg_LrWgUodsJd_wg_SJ7bLWmy3OhCbnFLG8eki" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-onyx/55 via-onyx/5 to-transparent"></div>
+                  <div class="absolute bottom-6 inset-x-6">
+                    <div class="float-a bg-surface/95 backdrop-blur-md p-4 rounded-2xl border border-primary-container/40 shadow-xl flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full btn-gold flex items-center justify-center font-headline-sm text-headline-sm font-bold">م</div>
+                        <div>
+                          <div class="flex items-center gap-1.5">
+                            <span class="font-headline-sm text-label-lg font-bold text-on-surface">دار الزمرد للمجوهرات</span>
+                            <span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings:'FILL' 1">verified</span>
+                          </div>
+                          <p class="font-body-sm text-body-sm text-on-surface-variant">رخصة تجارية: دبي • 142 إعلان نشط</p>
+                        </div>
+                      </div>
+                      <span class="px-3 py-1 rounded-full bg-surface-container-high text-tertiary font-label-micro text-label-micro font-bold">متجر موثق</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-6 flex flex-col gap-space-sm text-right">
+                <span class="font-label-lg text-label-lg text-primary font-bold">لشركاء التجارة والصاغة</span>
+                <h2 class="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-on-surface font-extrabold">
+                  لنشاطك التجاري <span class="text-gold-static">حضورٌ يليق به</span>
+                </h2>
+                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                  عرّف العملاء بمتجرك من خلال ملف تجاري يجمع هويتك البصرية، ومعلومات النشاط، وساعات العمل، وفروعك في الإمارات، ووسائل التواصل المباشر، وتشكيلاتك المعروضة.
+                </p>
+                <div class="flex flex-col gap-3 my-2">
+                  <div class="flex items-center gap-2 text-on-surface">
+                    <span class="material-symbols-outlined text-primary-container" style="font-variation-settings:'FILL' 1">check_circle</span>
+                    <span class="font-body-md text-body-md font-medium">لوحة تحكم مرنة لإدارة المخزون والإعلانات المرفوعة</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-on-surface">
+                    <span class="material-symbols-outlined text-primary-container" style="font-variation-settings:'FILL' 1">check_circle</span>
+                    <span class="font-body-md text-body-md font-medium">إمكانية إضافة مواقع الفروع الجغرافية وأوقات استقبال الزوار</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-on-surface">
+                    <span class="material-symbols-outlined text-primary-container" style="font-variation-settings:'FILL' 1">check_circle</span>
+                    <span class="font-body-md text-body-md font-medium">رابط مشاركة مخصص لمتجرك يمكن نشره في وسائل التواصل</span>
+                  </div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-surface-container border-r-4 border-primary-container">
+                  <p class="font-label-md text-label-md text-on-surface-variant">
+                    ⚖️ <strong>ملاحظة نظامية:</strong> يخضع توثيق الأنشطة التجارية للمراجعة والتدقيق والاعتماد الإداري وفق الضوابط السارية في دولة الإمارات.
+                  </p>
+                </div>
+                <div class="mt-2">
+                  <a class="btn-gold inline-flex items-center gap-2 px-space-md py-3 rounded-full font-label-lg text-label-lg" href="#register-store">
+                    <span>سجّل نشاطك التجاري الآن</span>
+                    <span class="material-symbols-outlined text-[18px]">store</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION F: STEPS WITH TAB SWITCHER -->
+      <section class="w-full py-space-xl bg-surface-bright" id="how-it-works">
+        <div class="max-w-7xl mx-auto px-gutter">
+          <div class="reveal text-center max-w-xl mx-auto mb-space-xl">
+            <span class="font-label-lg text-label-lg text-primary font-bold">بساطة ومرونة</span>
+            <h2 class="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-on-surface font-extrabold mt-1 mb-2">
+              خطوات بسيطة تبدأ <span class="text-gold-static">من هاتفك</span>
+            </h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+              رحلة مستخدم سلسة ومدروسة تناسب الباحثين عن الذهب والصاغة على حد سواء.
+            </p>
+            <div class="inline-flex p-1 rounded-full bg-surface-container mt-space-md border border-primary-container/25" role="tablist">
+              <button aria-selected="true" class="tab-btn is-active px-space-md py-2 rounded-full font-label-lg text-label-lg font-bold" id="tab-buyer" onclick="switchStepMode('buyer')" role="tab" type="button">أريد الشراء</button>
+              <button aria-selected="false" class="tab-btn px-space-md py-2 rounded-full font-label-lg text-label-lg font-bold" id="tab-seller" onclick="switchStepMode('seller')" role="tab" type="button">أريد البيع</button>
+            </div>
+          </div>
+
+          <!-- Buyer Steps -->
+          <div class="steps-panel flex flex-col gap-space-xl" data-steps="buyer">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+              <div class="reveal lg:col-span-6 relative order-2 lg:order-1 flex flex-col justify-center text-right">
+                <span class="step-num select-none -mb-5">٠١</span>
+                <h3 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-2">حمّل التطبيق وأنشئ حسابك</h3>
+                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-4">
+                  ابدأ باستكشاف سوق عيار مباشرة من هاتفك المحمول، أنشئ حسابك الشخصي وفعّل ميزات التنبيهات لمتابعة كل جديد فور وروده.
+                </p>
+                <div class="flex items-center gap-2 text-primary font-label-md text-label-md font-bold">
+                  <span class="material-symbols-outlined text-[18px]">install_mobile</span>
+                  <span>متاح مجاناً على منصتي iOS و Android</span>
+                </div>
+              </div>
+              <div class="reveal lg:col-span-6 order-1 lg:order-2 flex justify-center" style="--d:120ms">
+                <div class="w-full max-w-md h-72 rounded-3xl mesh-gold overflow-hidden p-6 border border-primary-container/25 flex items-center justify-center relative lift-card">
+                  <div class="w-44 bg-onyx p-2 rounded-[32px] border border-primary-container/40 shadow-xl rotate-[-3deg] hover:rotate-0 transition-transform duration-500">
+                    <div class="rounded-[24px] overflow-hidden">
+                      <img alt="شاشة تسجيل الدخول في تطبيق سوق عيار" class="w-full h-56 object-cover object-top" src="assests/images/Apple%20iPhone%2016%20Pro%20Max%20Screenshot%206.png" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+              <div class="reveal lg:col-span-6 flex justify-center order-1">
+                <div class="w-full max-w-md h-72 rounded-3xl mesh-gold overflow-hidden p-6 border border-primary-container/25 flex flex-col justify-center relative lift-card">
+                  <div class="bg-surface p-4 rounded-2xl shadow-sm border border-surface-container-highest flex flex-col gap-3">
+                    <div class="flex items-center justify-between text-on-surface font-label-lg text-label-lg font-bold">
+                      <span>تصفية حسب العيار</span>
+                      <span class="text-primary font-normal">إعادة ضبط</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                      <span class="btn-gold px-3 py-1 rounded-full font-label-micro text-label-micro font-bold">24K (سبائك)</span>
+                      <span class="px-3 py-1 rounded-full bg-surface-container text-on-surface font-label-micro text-label-micro">21K (مجوهرات)</span>
+                      <span class="px-3 py-1 rounded-full bg-surface-container text-on-surface font-label-micro text-label-micro">18K (إيطالي)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="reveal lg:col-span-6 relative flex flex-col justify-center text-right order-2" style="--d:120ms">
+                <span class="step-num select-none -mb-5">٠٢</span>
+                <h3 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-2">ابحث وحدّد ما يناسبك بدقة</h3>
+                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-4">
+                  تصفّح الفئات المتنوعة (سبائك، ليرات، أطقم زفاف، خواتم، أساور) واستخدم فلاتر التخصيص الذكية لتضييق الخيارات حسب الإمارة والوزن والعيار.
+                </p>
+                <div class="flex items-center gap-2 text-primary font-label-md text-label-md font-bold">
+                  <span class="material-symbols-outlined text-[18px]">tune</span>
+                  <span>فلاتر احترافية مخصصة لسوق المعادن</span>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+              <div class="reveal lg:col-span-6 relative order-2 lg:order-1 flex flex-col justify-center text-right">
+                <span class="step-num select-none -mb-5">٠٣</span>
+                <h3 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-2">قارن تفاصيل القطع والأوزان</h3>
+                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-4">
+                  راجع صور القطعة العالية الجودة، وتحقق من بطاقة المواصفات الصادرة مع الإعلان، وراقب مؤشر السعر بالنسبة لأسعار الذهب اللحظية.
+                </p>
+                <div class="flex items-center gap-2 text-primary font-label-md text-label-md font-bold">
+                  <span class="material-symbols-outlined text-[18px]">compare_arrows</span>
+                  <span>شفافية كاملة في احتساب الأجرام والمصنعية</span>
+                </div>
+              </div>
+              <div class="reveal lg:col-span-6 order-1 lg:order-2 flex justify-center" style="--d:120ms">
+                <div class="w-full max-w-md h-72 rounded-3xl mesh-gold overflow-hidden p-6 border border-primary-container/25 flex flex-col justify-center relative lift-card">
+                  <div class="bg-surface p-4 rounded-2xl shadow-sm flex items-center justify-between">
+                    <div class="text-right">
+                      <span class="font-label-micro text-label-micro text-on-surface-variant">سعر الجرام المقترح</span>
+                      <p class="font-headline-sm text-headline-sm font-bold text-tertiary">282 د.إ / جم</p>
+                    </div>
+                    <span class="px-2 py-1 rounded bg-emerald-50 text-emerald-800 font-label-micro text-label-micro font-bold">مطابق للمؤشر</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+              <div class="reveal lg:col-span-6 flex justify-center order-1">
+                <div class="w-full max-w-md h-72 rounded-3xl mesh-gold overflow-hidden p-6 border border-primary-container/25 flex items-center justify-center relative lift-card">
+                  <div class="bg-surface p-5 rounded-2xl shadow-sm w-full max-w-xs flex flex-col items-center text-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-[36px]">shield_person</span>
+                    <span class="font-label-lg text-label-lg font-bold text-on-surface">ملف معتمد ومراجع</span>
+                    <p class="font-label-micro text-label-micro text-on-surface-variant">تواصل آمن عبر التطبيق أو زيارة المعرض مباشرة</p>
+                  </div>
+                </div>
+              </div>
+              <div class="reveal lg:col-span-6 relative flex flex-col justify-center text-right order-2" style="--d:120ms">
+                <span class="step-num select-none -mb-5">٠٤</span>
+                <h3 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-2">تعرّف على البائع وتواصل بثقة</h3>
+                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-4">
+                  اطّلع على شارة التوثيق الخاصة بالبائع (فرد موثق الهوية أو متجر مرخص) وتواصل مباشرة لإتمام الصفقة بأمان كامل ووضوح تام.
+                </p>
+                <div class="flex items-center gap-2 text-primary font-label-md text-label-md font-bold">
+                  <span class="material-symbols-outlined text-[18px]">chat</span>
+                  <span>محادثة مشفرة مع إمكانية الاتصال المباشر</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Seller Steps -->
+          <div class="steps-panel hidden flex-col gap-space-xl" data-steps="seller">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+              <div class="reveal lg:col-span-6 relative order-2 lg:order-1 flex flex-col justify-center text-right">
+                <span class="step-num select-none -mb-5">٠١</span>
+                <h3 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-2">أنشئ حسابك كبائع</h3>
+                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-4">
+                  سجّل برقم هاتفك الإماراتي واختر نوع حسابك: بائع فرد أو نشاط تجاري، ثم أكمل بيانات ملفك في دقائق.
+                </p>
+                <div class="flex items-center gap-2 text-primary font-label-md text-label-md font-bold">
+                  <span class="material-symbols-outlined text-[18px]">person_add</span>
+                  <span>نوعان من الحسابات: فرد أو متجر</span>
+                </div>
+              </div>
+              <div class="reveal lg:col-span-6 order-1 lg:order-2 flex justify-center" style="--d:120ms">
+                <div class="w-full max-w-md h-72 rounded-3xl mesh-gold overflow-hidden p-6 border border-primary-container/25 flex items-center justify-center relative lift-card">
+                  <div class="grid grid-cols-2 gap-3 w-full max-w-xs">
+                    <div class="bg-surface p-4 rounded-2xl shadow-sm ring-2 ring-primary-container flex flex-col items-center gap-2 text-center">
+                      <span class="material-symbols-outlined text-primary text-[30px]">person</span>
+                      <span class="font-label-lg text-label-lg font-bold text-on-surface">بائع فرد</span>
+                      <span class="material-symbols-outlined text-primary-container text-[18px]" style="font-variation-settings:'FILL' 1">radio_button_checked</span>
+                    </div>
+                    <div class="bg-surface/70 p-4 rounded-2xl shadow-sm flex flex-col items-center gap-2 text-center">
+                      <span class="material-symbols-outlined text-on-surface-variant text-[30px]">storefront</span>
+                      <span class="font-label-lg text-label-lg font-bold text-on-surface-variant">نشاط تجاري</span>
+                      <span class="material-symbols-outlined text-outline-variant text-[18px]">radio_button_unchecked</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+              <div class="reveal lg:col-span-6 flex justify-center order-1">
+                <div class="w-full max-w-md h-72 rounded-3xl mesh-gold overflow-hidden p-6 border border-primary-container/25 flex flex-col justify-center relative lift-card">
+                  <div class="bg-surface p-4 rounded-2xl shadow-sm flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">badge</span>
+                        <span class="font-label-lg text-label-lg font-bold text-on-surface">الهوية الإماراتية</span>
+                      </div>
+                      <span class="px-2 py-0.5 rounded-full bg-primary-fixed/50 text-tertiary font-label-micro text-label-micro font-bold">قيد المراجعة</span>
+                    </div>
+                    <div class="h-2 rounded-full bg-surface-container overflow-hidden">
+                      <div class="h-full w-4/5 rounded-full btn-gold"></div>
+                    </div>
+                    <span class="font-label-micro text-label-micro text-on-surface-variant">تم رفع الوثيقة بنجاح</span>
+                  </div>
+                </div>
+              </div>
+              <div class="reveal lg:col-span-6 relative flex flex-col justify-center text-right order-2" style="--d:120ms">
+                <span class="step-num select-none -mb-5">٠٢</span>
+                <h3 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-2">وثّق هويتك أو نشاطك</h3>
+                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-4">
+                  ارفع وثيقة الهوية أو الرخصة التجارية لتحصل على شارة التوثيق التي تمنح المشترين ثقة أكبر في إعلاناتك.
+                </p>
+                <div class="flex items-center gap-2 text-primary font-label-md text-label-md font-bold">
+                  <span class="material-symbols-outlined text-[18px]">verified_user</span>
+                  <span>شارة «هوية موثقة» أو «نشاط تجاري موثق»</span>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+              <div class="reveal lg:col-span-6 relative order-2 lg:order-1 flex flex-col justify-center text-right">
+                <span class="step-num select-none -mb-5">٠٣</span>
+                <h3 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-2">صوّر قطعتك وحدّد مواصفاتها</h3>
+                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-4">
+                  أضف صوراً واضحة، وحدّد العيار والوزن الصافي والفئة، واختر طريقة عرض السعر: سعر محدد، حسب سعر السوق، أو التواصل.
+                </p>
+                <div class="flex items-center gap-2 text-primary font-label-md text-label-md font-bold">
+                  <span class="material-symbols-outlined text-[18px]">photo_camera</span>
+                  <span>بطاقة مواصفات منظمة لكل إعلان</span>
+                </div>
+              </div>
+              <div class="reveal lg:col-span-6 order-1 lg:order-2 flex justify-center" style="--d:120ms">
+                <div class="w-full max-w-md h-72 rounded-3xl mesh-gold overflow-hidden p-6 border border-primary-container/25 flex flex-col justify-center relative lift-card">
+                  <div class="bg-surface p-4 rounded-2xl shadow-sm flex flex-col gap-2.5">
+                    <div class="flex items-center justify-between font-label-md text-label-md">
+                      <span class="text-on-surface-variant">العيار</span>
+                      <span class="btn-gold px-2.5 py-0.5 rounded-full font-bold">21K</span>
+                    </div>
+                    <div class="flex items-center justify-between font-label-md text-label-md border-t border-surface-container pt-2.5">
+                      <span class="text-on-surface-variant">الوزن الصافي</span>
+                      <span class="font-bold text-on-surface">18.42 جم</span>
+                    </div>
+                    <div class="flex items-center justify-between font-label-md text-label-md border-t border-surface-container pt-2.5">
+                      <span class="text-on-surface-variant">طريقة عرض السعر</span>
+                      <span class="font-bold text-tertiary">حسب سعر السوق</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+              <div class="reveal lg:col-span-6 flex justify-center order-1">
+                <div class="w-full max-w-md h-72 rounded-3xl mesh-gold overflow-hidden p-6 border border-primary-container/25 flex flex-col justify-center gap-3 relative lift-card">
+                  <div class="bg-surface p-3.5 rounded-2xl shadow-sm flex items-center gap-3">
+                    <span class="w-9 h-9 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center material-symbols-outlined text-[20px]">task_alt</span>
+                    <span class="font-label-lg text-label-lg font-bold text-on-surface">تمت الموافقة على إعلانك</span>
+                  </div>
+                  <div class="float-b bg-onyx p-3.5 rounded-2xl shadow-lg flex items-center gap-3 ring-1 ring-primary-container/40">
+                    <span class="w-9 h-9 rounded-full btn-gold flex items-center justify-center material-symbols-outlined text-[20px]">chat</span>
+                    <div class="text-right">
+                      <span class="block font-label-lg text-label-lg font-bold text-primary-fixed">استفسار جديد</span>
+                      <span class="font-label-micro text-label-micro text-outline-variant">عن: طقم ملكي مسبوك</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="reveal lg:col-span-6 relative flex flex-col justify-center text-right order-2" style="--d:120ms">
+                <span class="step-num select-none -mb-5">٠٤</span>
+                <h3 class="font-headline-lg text-headline-lg font-bold text-on-surface mb-2">انشر بعد المراجعة واستقبل الطلبات</h3>
+                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-4">
+                  يُراجَع إعلانك قبل نشره، ثم يظهر للمهتمين في الإمارات لتستقبل الاستفسارات وتتواصل مع المشترين مباشرة.
+                </p>
+                <div class="flex items-center gap-2 text-primary font-label-md text-label-md font-bold">
+                  <span class="material-symbols-outlined text-[18px]">notifications_active</span>
+                  <span>إشعارات فورية عند وصول أي استفسار</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="gold-divider"></div>
+
+      <!-- SECTION G: THREE AUDIENCE CARDS -->
+      <section class="w-full py-space-xl bg-surface">
+        <div class="max-w-7xl mx-auto px-gutter">
+          <div class="reveal text-center max-w-2xl mx-auto mb-space-xl">
+            <span class="font-label-lg text-label-lg text-primary font-bold">مجتمع متكامل</span>
+            <h2 class="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-on-surface font-extrabold mt-1 mb-2">
+              سوق واحد… <span class="text-gold-static">لاحتياجات مختلفة</span>
+            </h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+              سواء كنت مقتنياً، هاوياً، أو تمتلك سلسلة متاجر ذهب كبرى؛ تجد في سوق عيار المساحة المناسبة.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md items-stretch" data-stagger>
+            <!-- Buyers -->
+            <div class="reveal lift-card bg-surface-container-low p-8 rounded-3xl flex flex-col justify-between border border-surface-container-high">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center text-primary mb-4">
+                  <span class="material-symbols-outlined text-[28px]">search</span>
+                </div>
+                <span class="font-label-md text-label-md text-on-surface-variant font-bold">للباحث عن اقتناء</span>
+                <h3 class="font-headline-md text-headline-md font-bold text-on-surface mt-1 mb-3">المشتري والمقتني</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mb-6">
+                  استكشف آلاف القطع والمجوهرات النادرة والسبائك الاستثمارية من مختلف مناطق الإمارات، وقارن العيارات والأسعار بضغطة زر واحدة.
+                </p>
+                <ul class="flex flex-col gap-2.5 font-body-sm text-body-sm text-on-surface mb-6">
+                  <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">done</span><span>تصفح مجاني وشامل لكافة المعروضات</span></li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">done</span><span>تنبيهات فورية عند توفر عيار معين</span></li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">done</span><span>مقارنة مباشرة مع أسعار الذهب اللحظية</span></li>
+                </ul>
+              </div>
+              <a class="w-full py-3 rounded-full bg-surface-container-highest text-on-surface font-label-lg text-label-lg text-center font-bold hover:bg-onyx hover:text-primary-fixed transition-all" href="#download">ابدأ التصفح الآن</a>
+            </div>
+
+            <!-- Individual Sellers (Highlighted) -->
+            <div class="reveal lg:-mt-2 lg:mb-2">
+              <div class="conic-border h-full bg-gradient-to-b from-[#fff3cf] via-surface-container to-surface-container-low p-8 rounded-3xl flex flex-col justify-between">
+                <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-onyx text-primary-fixed px-4 py-1 rounded-full font-label-micro text-label-micro font-bold ring-1 ring-primary-container/60 shadow-lg z-10">الأكثر نشاطاً</div>
+                <div>
+                  <div class="w-12 h-12 rounded-2xl btn-gold flex items-center justify-center mb-4">
+                    <span class="material-symbols-outlined text-[28px]">person_check</span>
+                  </div>
+                  <span class="font-label-md text-label-md text-tertiary font-bold">للأفراد المهتمين بالبيع</span>
+                  <h3 class="font-headline-md text-headline-md font-bold text-on-surface mt-1 mb-3">البائع الفرد</h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mb-6">
+                    اعرض مجوهراتك الشخصية أو سبائكك الفائضة بوضوح تام، وحدّد الوزن والعيار، وتواصل مباشرة مع مشترين جادين ومهتمين.
+                  </p>
+                  <ul class="flex flex-col gap-2.5 font-body-sm text-body-sm text-on-surface mb-6">
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">done</span><span>توثيق الهوية عبر منظومة التحقق الآمنة</span></li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">done</span><span>سهولة التقاط وعرض مواصفات القطعة</span></li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">done</span><span>حماية الخصوصية ومحادثات آمنة</span></li>
+                  </ul>
+                </div>
+                <a class="btn-gold w-full py-3.5 rounded-full font-label-lg text-label-lg text-center font-bold" href="#sell">اعرض قطعتك الأولى</a>
+              </div>
+            </div>
+
+            <!-- Stores -->
+            <div class="reveal lift-card bg-surface-container-low p-8 rounded-3xl flex flex-col justify-between border border-surface-container-high">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center text-primary mb-4">
+                  <span class="material-symbols-outlined text-[28px]">storefront</span>
+                </div>
+                <span class="font-label-md text-label-md text-on-surface-variant font-bold">للصاغة ومحلات المجوهرات</span>
+                <h3 class="font-headline-md text-headline-md font-bold text-on-surface mt-1 mb-3">المتاجر والأنشطة</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mb-6">
+                  واجهة رقمية مرموقة للمعارض ومتاجر الذهب لعرض تشكيلاتها وتوسيع قاعدة زبائنها والوصول إلى كافة إمارات الدولة.
+                </p>
+                <ul class="flex flex-col gap-2.5 font-body-sm text-body-sm text-on-surface mb-6">
+                  <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">done</span><span>شارة النشاط التجاري المرخص والموثق</span></li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">done</span><span>عرض أوقات العمل وفروع المعارض</span></li>
+                  <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[18px]">done</span><span>كتالوج إعلانات متعدد بإدارة موحدة</span></li>
+                </ul>
+              </div>
+              <a class="w-full py-3 rounded-full bg-surface-container-highest text-on-surface font-label-lg text-label-lg text-center font-bold hover:bg-onyx hover:text-primary-fixed transition-all" href="#for-stores">انضم كشريك تجاري</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION H: TRUST & SECURITY ONYX BANNER -->
+      <section class="grain w-full py-space-xl bg-onyx text-on-primary relative overflow-hidden">
+        <div class="glow-orb absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-primary-container/15 rounded-full blur-[140px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-gutter relative z-10 text-center">
+          <div class="reveal relative w-20 h-20 mx-auto mb-space-md">
+            <div class="absolute -inset-3 rounded-full spin-ring"></div>
+            <div class="absolute -inset-6 rounded-full spin-ring opacity-40" style="animation-direction:reverse;animation-duration:16s"></div>
+            <div class="relative w-20 h-20 rounded-full btn-gold flex items-center justify-center shadow-2xl shadow-primary-container/40">
+              <span class="material-symbols-outlined text-[44px]" style="font-variation-settings:'FILL' 1">shield</span>
+            </div>
+          </div>
+          <h2 class="reveal font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl font-extrabold text-on-primary mb-3">
+            منظومة ثقة ووضوح <span class="text-molten">ترتقي بمعاملاتك</span>
+          </h2>
+          <p class="reveal font-body-lg text-body-lg text-outline-variant max-w-2xl mx-auto mb-space-xl leading-relaxed">
+            صممنا سوق عيار ليكون البيئة الأكثر أماناً وموثوقية في قطاع المعادن الثمينة بدولة الإمارات، عبر ثلاث ركائز واضحة لا غنى عنها.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-right mb-space-lg" data-stagger>
+            <div class="reveal ticker-card bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-md">
+              <div class="w-10 h-10 rounded-xl bg-primary-container/20 text-primary-fixed flex items-center justify-center mb-4 ring-1 ring-primary-container/30">
+                <span class="material-symbols-outlined">person_outline</span>
+              </div>
+              <h3 class="font-headline-sm text-headline-sm font-bold text-on-primary mb-1">هوية موثقة</h3>
+              <p class="font-body-sm text-body-sm text-secondary-fixed">شارة تمنح للمستخدمين الأفراد بعد التحقق من بيانات الهوية الرسمية لإرساء الجدية في التعامل.</p>
+            </div>
+            <div class="reveal ticker-card bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-md">
+              <div class="w-10 h-10 rounded-xl bg-primary-container/20 text-primary-fixed flex items-center justify-center mb-4 ring-1 ring-primary-container/30">
+                <span class="material-symbols-outlined">verified</span>
+              </div>
+              <h3 class="font-headline-sm text-headline-sm font-bold text-on-primary mb-1">نشاط تجاري موثق</h3>
+              <p class="font-body-sm text-body-sm text-secondary-fixed">شارة مخصصة للشركات والمتاجر المرخصة بموجب الرخص الاقتصادية الرسمية في الإمارات.</p>
+            </div>
+            <div class="reveal ticker-card bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-md">
+              <div class="w-10 h-10 rounded-xl bg-primary-container/20 text-primary-fixed flex items-center justify-center mb-4 ring-1 ring-primary-container/30">
+                <span class="material-symbols-outlined">rate_review</span>
+              </div>
+              <h3 class="font-headline-sm text-headline-sm font-bold text-on-primary mb-1">إعلان تمت مراجعته</h3>
+              <p class="font-body-sm text-body-sm text-secondary-fixed">فحص إداري دقيق قبل نشر الإعلان لضمان كفاية البيانات وصحة المواصفات الفنية المكتوبة.</p>
+            </div>
+          </div>
+          <div class="reveal max-w-3xl mx-auto p-4 rounded-2xl bg-black/40 border border-primary-container/30">
+            <p class="font-label-md text-label-md text-outline-variant leading-relaxed">
+              🔒 <strong class="text-primary-fixed">إيضاح هام:</strong> التوثيق يخص هوية صاحب الحساب أو صفته التجارية المرخصة، ولا يُعد فحصاً مخبرياً للقطعة أو كفالة بنكية للمعاملات المالية. ننصح دائماً بإتمام المعاملات وفق الأصول التجارية المتعارف عليها في الدولة.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION I: FAQ ACCORDION -->
+      <section class="w-full py-space-xl bg-surface-container-low" id="faq">
+        <div class="max-w-4xl mx-auto px-gutter">
+          <div class="reveal text-center mb-space-xl">
+            <span class="font-label-lg text-label-lg text-primary font-bold">إجابات واضحة</span>
+            <h2 class="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-on-surface font-extrabold mt-1 mb-2">
+              الأسئلة الشائعة حول <span class="text-gold-static">سوق عيار</span>
+            </h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">كل ما تحتاج معرفته عن المنصة، وآلية التوثيق، وطرق التسعير والنشر.</p>
+          </div>
+          <div class="flex flex-col gap-3.5" data-stagger>
+            <div class="reveal faq-item bg-surface rounded-2xl shadow-sm border border-primary-container/20 overflow-hidden" id="faq-item-1">
+              <button aria-controls="faq-content-1" aria-expanded="false" class="w-full p-5 text-right flex items-center justify-between gap-4 font-headline-sm text-headline-sm font-bold text-on-surface hover:text-primary transition-colors" onclick="toggleFaq(1)" type="button">
+                <span>ما هو تطبيق سوق عيار؟</span>
+                <span class="faq-icon material-symbols-outlined shrink-0 w-9 h-9 rounded-full bg-surface-container text-primary flex items-center justify-center">expand_more</span>
+              </button>
+              <div class="faq-panel" id="faq-content-1">
+                <div class="overflow-hidden min-h-0">
+                  <div class="px-5 pb-5 pt-3 text-on-surface-variant font-body-md text-body-md border-t border-surface-container">
+                    سوق عيار هو أول منصة إلكترونية متخصصة في إعلانات الذهب والمجوهرات والمعادن الثمينة في دولة الإمارات العربية المتحدة. يتيح للأفراد والمتاجر المرخصة عرض وطلب القطع الثمينة مع تفاصيل دقيقة للأوزان والعيارات، بجانب مؤشرات فورية لأسعار الذهب.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="reveal faq-item bg-surface rounded-2xl shadow-sm border border-primary-container/20 overflow-hidden" id="faq-item-2">
+              <button aria-controls="faq-content-2" aria-expanded="false" class="w-full p-5 text-right flex items-center justify-between gap-4 font-headline-sm text-headline-sm font-bold text-on-surface hover:text-primary transition-colors" onclick="toggleFaq(2)" type="button">
+                <span>هل يمكن للأفراد والمتاجر معاً نشر الإعلانات؟</span>
+                <span class="faq-icon material-symbols-outlined shrink-0 w-9 h-9 rounded-full bg-surface-container text-primary flex items-center justify-center">expand_more</span>
+              </button>
+              <div class="faq-panel" id="faq-content-2">
+                <div class="overflow-hidden min-h-0">
+                  <div class="px-5 pb-5 pt-3 text-on-surface-variant font-body-md text-body-md border-t border-surface-container">
+                    نعم، التطبيق مفتوح للأفراد الراغبين في بيع مقتنياتهم الشخصية بعد توثيق هوياتهم، وكذلك للمتاجر والصاغة المرخصين الذين يحصلون على واجهة تجارية مخصصة لعرض مخزونهم وتشكيلاتهم.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="reveal faq-item bg-surface rounded-2xl shadow-sm border border-primary-container/20 overflow-hidden" id="faq-item-3">
+              <button aria-controls="faq-content-3" aria-expanded="false" class="w-full p-5 text-right flex items-center justify-between gap-4 font-headline-sm text-headline-sm font-bold text-on-surface hover:text-primary transition-colors" onclick="toggleFaq(3)" type="button">
+                <span>ماذا تعني شارات التوثيق في التطبيق؟</span>
+                <span class="faq-icon material-symbols-outlined shrink-0 w-9 h-9 rounded-full bg-surface-container text-primary flex items-center justify-center">expand_more</span>
+              </button>
+              <div class="faq-panel" id="faq-content-3">
+                <div class="overflow-hidden min-h-0">
+                  <div class="px-5 pb-5 pt-3 text-on-surface-variant font-body-md text-body-md border-t border-surface-container">
+                    شارات التوثيق تنقسم إلى نوعين: «هوية موثقة» وتعني التحقق من وثائق الهوية الشخصية للمعلن الفرد، و«نشاط تجاري موثق» وتعني التحقق من الرخصة التجارية والسجل الاقتصادي للمتجر. تمنح هذه الشارات طمأنينة حول هوية الطرف الآخر.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="reveal faq-item bg-surface rounded-2xl shadow-sm border border-primary-container/20 overflow-hidden" id="faq-item-4">
+              <button aria-controls="faq-content-4" aria-expanded="false" class="w-full p-5 text-right flex items-center justify-between gap-4 font-headline-sm text-headline-sm font-bold text-on-surface hover:text-primary transition-colors" onclick="toggleFaq(4)" type="button">
+                <span>هل تتم مراجعة الإعلانات قبل ظهورها للعامة؟</span>
+                <span class="faq-icon material-symbols-outlined shrink-0 w-9 h-9 rounded-full bg-surface-container text-primary flex items-center justify-center">expand_more</span>
+              </button>
+              <div class="faq-panel" id="faq-content-4">
+                <div class="overflow-hidden min-h-0">
+                  <div class="px-5 pb-5 pt-3 text-on-surface-variant font-body-md text-body-md border-t border-surface-container">
+                    نعم، تخضع كافة الإعلانات للمراجعة والتدقيق الإداري للتأكد من استيفاء تفاصيل العيار والوزن، ووضوح الصور، وخلوها من المخالفات القانونية أو الشروط المبهمة قبل إتاحتها للمستخدمين.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="reveal faq-item bg-surface rounded-2xl shadow-sm border border-primary-container/20 overflow-hidden" id="faq-item-5">
+              <button aria-controls="faq-content-5" aria-expanded="false" class="w-full p-5 text-right flex items-center justify-between gap-4 font-headline-sm text-headline-sm font-bold text-on-surface hover:text-primary transition-colors" onclick="toggleFaq(5)" type="button">
+                <span>ما هي طرق عرض السعر المتاحة للمعلن؟</span>
+                <span class="faq-icon material-symbols-outlined shrink-0 w-9 h-9 rounded-full bg-surface-container text-primary flex items-center justify-center">expand_more</span>
+              </button>
+              <div class="faq-panel" id="faq-content-5">
+                <div class="overflow-hidden min-h-0">
+                  <div class="px-5 pb-5 pt-3 text-on-surface-variant font-body-md text-body-md border-t border-surface-container">
+                    يوفر سوق عيار ثلاثة خيارات: سعر محدد ثابت يضعه المعلن، أو سعر مرتبط بمؤشر الذهب اللحظي (يتغير تلقائياً حسب حركة البورصة)، أو خيار «تواصل لمعرفة السعر» للقطع التراثية أو القطع ذات الصياغة الخاصة النادرة.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="reveal faq-item bg-surface rounded-2xl shadow-sm border border-primary-container/20 overflow-hidden" id="faq-item-6">
+              <button aria-controls="faq-content-6" aria-expanded="false" class="w-full p-5 text-right flex items-center justify-between gap-4 font-headline-sm text-headline-sm font-bold text-on-surface hover:text-primary transition-colors" onclick="toggleFaq(6)" type="button">
+                <span>هل سعر المعدن المرجعي في التطبيق هو سعر البيع النهائي؟</span>
+                <span class="faq-icon material-symbols-outlined shrink-0 w-9 h-9 rounded-full bg-surface-container text-primary flex items-center justify-center">expand_more</span>
+              </button>
+              <div class="faq-panel" id="faq-content-6">
+                <div class="overflow-hidden min-h-0">
+                  <div class="px-5 pb-5 pt-3 text-on-surface-variant font-body-md text-body-md border-t border-surface-container">
+                    لا، أسعار المعادن المعروضة في شريط الأسعار هي أسعار خام استرشادية ومرجعية. سعر القطعة النهائي المعروض من البائع يتضمن عادة قيمة الصياغة (المصنعية)، وحالة القطعة، ووجود الأحجار الكريمة، وضريبة القيمة المضافة.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="gold-divider"></div>
+
+      <!-- SECTION J: CLOSING APP DOWNLOAD BANNER -->
+      <section class="w-full py-space-xl bg-surface-bright" id="download">
+        <div class="max-w-7xl mx-auto px-gutter">
+          <div class="reveal ambient-shift relative bg-gradient-to-r from-primary-fixed/60 via-primary-container/30 to-surface-container-high rounded-[40px] p-8 lg:p-16 overflow-hidden border border-primary-container/40 shadow-[0_40px_80px_-30px_rgba(154,116,0,0.45)]">
+            <div class="glow-orb absolute -top-20 -left-20 w-80 h-80 bg-primary-fixed/50 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(rgba(154,116,0,0.18)_1px,transparent_1px)] [background-size:22px_22px] opacity-60 pointer-events-none"></div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+              <div class="lg:col-span-7 text-right flex flex-col gap-space-sm">
+                <span class="font-label-lg text-label-lg text-tertiary font-bold">ابدأ تجربتك الآن</span>
+                <h2 class="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl font-extrabold text-on-surface">
+                  سوق الذهب والمجوهرات… <span class="text-molten">بات في متناولك</span>
+                </h2>
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl leading-relaxed">
+                  اكتشف الإعلانات المميزة، تعرّف على التفاصيل بدقة، واعرض قطعك في سوق يجمع نخبة المهتمين بالذهب في دولة الإمارات العربية المتحدة.
+                </p>
+                <div class="flex flex-wrap items-center gap-space-sm mt-space-sm">
+                  <a class="store-btn flex items-center gap-2.5 bg-onyx hover:bg-black text-on-primary px-space-md py-3 rounded-2xl" href="#">
+                    <svg class="w-7 h-7 fill-current text-white" viewBox="0 0 24 24">
+                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8.92-2.87-.9.04-2.02.61-2.65 1.35-.56.64-.99 1.7-.88 2.74 1.02.08 2-.47 2.61-1.22z"></path>
+                    </svg>
+                    <div class="flex flex-col text-right">
+                      <span class="font-label-micro text-label-micro text-outline-variant font-light leading-none">تحميل من</span>
+                      <span class="font-label-lg text-label-lg font-bold leading-tight">App Store</span>
+                    </div>
+                  </a>
+                  <a class="store-btn flex items-center gap-2.5 bg-onyx hover:bg-black text-on-primary px-space-md py-3 rounded-2xl" href="#">
+                    <svg class="w-7 h-7" viewBox="0 0 24 24">
+                      <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92z" fill="#4285F4"></path>
+                      <path d="M14.499 12.707l2.302 2.302-10.937 6.333 8.635-8.635z" fill="#EA4335"></path>
+                      <path d="M17.698 9.509l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491z" fill="#FBBC04"></path>
+                      <path d="M5.864 2.658L16.802 8.99l-2.303 2.303-8.635-8.635z" fill="#34A853"></path>
+                    </svg>
+                    <div class="flex flex-col text-right">
+                      <span class="font-label-micro text-label-micro text-outline-variant font-light leading-none">تنزيل عبر</span>
+                      <span class="font-label-lg text-label-lg font-bold leading-tight">Google Play</span>
+                    </div>
+                  </a>
+                </div>
+                <div class="flex flex-wrap items-center gap-4 mt-2">
+                  <span class="flex items-center gap-1 font-label-micro text-label-micro text-on-surface-variant">
+                    <span class="material-symbols-outlined text-primary text-[16px]">verified</span> تطبيق إماراتي 100%
+                  </span>
+                  <span class="flex items-center gap-1 font-label-micro text-label-micro text-on-surface-variant">
+                    <span class="material-symbols-outlined text-primary text-[16px]">lock</span> بيانات مشفرة ومحمية
+                  </span>
+                </div>
+              </div>
+              <div class="lg:col-span-5 flex justify-center">
+                <div class="float-phone">
+                  <div class="w-64 sm:w-72 bg-onyx p-3 rounded-[44px] shadow-2xl border-2 border-primary-container/60 transform rotate-[-3deg] hover:rotate-0 transition-transform duration-500">
+                    <div class="rounded-[36px] overflow-hidden">
+                      <img alt="لوحة تحكم البائع في تطبيق سوق عيار" class="w-full h-[480px] object-cover object-top" src="assests/images/Apple%20iPhone%2014%20Plus%20Screenshot%203.png" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="relative w-full bg-surface-container-low text-on-surface-variant">
+    <div class="gold-divider"></div>
+    <div class="max-w-7xl mx-auto px-gutter py-space-xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-lg mb-space-xl">
+        <div class="lg:col-span-2 flex flex-col gap-space-sm">
+          <div class="flex items-center gap-space-sm">
+            <img alt="سوق عيار" class="w-10 h-10 rounded-xl object-cover" src="assests/logo.png" />
+            <span class="font-headline-md text-headline-md text-on-surface font-extrabold">سوق عيار</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm leading-relaxed">سوق متخصص وموثوق لإعلانات الذهب والمجوهرات في دولة الإمارات العربية المتحدة. يجمع بين الأمان التقني ورونق تجارة المعادن النفيسة.</p>
+          <div class="flex items-center gap-space-xs mt-space-xs">
+            <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">verified</span>
+            <span class="font-label-md text-label-md text-primary font-bold">منصة معتمدة وموثقة لضمان المعاملات</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-space-sm">
+          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">روابط سريعة</h3>
+          <ul class="flex flex-col gap-space-xs font-body-sm text-body-sm">
+            <li><a class="hover:text-primary transition-colors" data-path="about" href="#about">عن التطبيق</a></li>
+            <li><a class="hover:text-primary transition-colors" data-path="features" href="#features">المميزات والخدمات</a></li>
+            <li><a class="hover:text-primary transition-colors" data-path="how-it-works" href="#how-it-works">دليل الاستخدام</a></li>
+            <li><a class="hover:text-primary transition-colors" data-path="for-stores" href="#for-stores">حسابات التجار</a></li>
+          </ul>
+        </div>
+        <div class="flex flex-col gap-space-sm">
+          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">الشروط والدعم</h3>
+          <ul class="flex flex-col gap-space-xs font-body-sm text-body-sm">
+            <li><a class="hover:text-primary transition-colors" data-path="privacy-policy" href="#">سياسة الخصوصية</a></li>
+            <li><a class="hover:text-primary transition-colors" data-path="terms-of-service" href="#">شروط الاستخدام</a></li>
+            <li><a class="hover:text-primary transition-colors" data-path="security-standards" href="#">معايير فحص العيار</a></li>
+            <li><a class="hover:text-primary transition-colors" data-path="faq" href="#faq">مركز المساعدة</a></li>
+          </ul>
+        </div>
+        <div class="flex flex-col gap-space-sm">
+          <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">تواصل معنا</h3>
+          <p class="font-body-sm text-body-sm">دبي، الإمارات العربية المتحدة</p>
+          <p class="font-body-sm text-body-sm dir-ltr text-right">support@ayarsouq.ae</p>
+          <div class="flex items-center gap-space-xs mt-space-xs">
+            <span class="material-symbols-outlined text-secondary">shield</span>
+            <span class="font-label-md text-label-md text-secondary">دعم مدار الساعة للعملاء</span>
+          </div>
+        </div>
+      </div>
+      <div class="pt-space-md border-t border-primary-container/20 flex flex-col md:flex-row items-center justify-between gap-space-sm font-label-md text-label-md text-on-surface-variant">
+        <p>جميع الحقوق محفوظة © سوق عيار</p>
+        <p>الإمارات العربية المتحدة • المنصة الأولى للذهب والمجوهرات</p>
+      </div>
+    </div>
+  </footer>
+
+  <button aria-label="العودة للأعلى" class="to-top btn-gold fixed bottom-6 left-6 z-50 w-12 h-12 rounded-full flex items-center justify-center" id="to-top" type="button">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
+
+  <script>
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function toggleFaq(index) {
+      const item = document.getElementById('faq-item-' + index);
+      if (!item) return;
+      const isOpen = item.classList.toggle('is-open');
+      const button = item.querySelector('button');
+      if (button) button.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    function switchStepMode(mode) {
+      const buttons = { buyer: document.getElementById('tab-buyer'), seller: document.getElementById('tab-seller') };
+      Object.entries(buttons).forEach(([key, btn]) => {
+        if (!btn) return;
+        btn.classList.toggle('is-active', key === mode);
+        btn.setAttribute('aria-selected', String(key === mode));
+      });
+
+      const next = document.querySelector('[data-steps="' + mode + '"]');
+      const current = document.querySelector('[data-steps]:not(.hidden)');
+      if (!next || current === next) return;
+
+      const show = () => {
+        current.classList.add('hidden');
+        current.classList.remove('flex', 'is-fading');
+        next.classList.add('flex', 'is-fading');
+        next.classList.remove('hidden');
+        requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove('is-fading')));
+      };
+
+      if (prefersReducedMotion) { show(); return; }
+      current.classList.add('is-fading');
+      setTimeout(show, 300);
+    }
+
+    (function () {
+      // Header scroll state, back-to-top visibility
+      const header = document.getElementById('site-header');
+      const toTop = document.getElementById('to-top');
+      const onScroll = () => {
+        const y = window.scrollY;
+        header.classList.toggle('is-scrolled', y > 40);
+        toTop.classList.toggle('is-visible', y > 700);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
+
+      // Scrollspy for the main nav
+      const navLinks = document.querySelectorAll('#main-nav .nav-link');
+      const spy = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach((link) => link.classList.toggle('is-active', link.getAttribute('href') === '#' + entry.target.id));
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      navLinks.forEach((link) => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) spy.observe(target);
+      });
+
+      // Stagger delays for grouped reveals
+      document.querySelectorAll('[data-stagger]').forEach((group) => {
+        group.querySelectorAll(':scope > .reveal').forEach((el, i) => el.style.setProperty('--d', (i * 90) + 'ms'));
+      });
+
+      // Scroll reveals; the class is stripped afterwards so hover transitions stay snappy
+      const revealEls = document.querySelectorAll('.reveal');
+      if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+        revealEls.forEach((el) => el.classList.remove('reveal'));
+      } else {
+        const revealer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            revealer.unobserve(el);
+            el.classList.add('is-in');
+            const delay = parseInt(el.style.getPropertyValue('--d'), 10) || 0;
+            setTimeout(() => el.classList.remove('reveal', 'is-in'), 1000 + delay);
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach((el) => revealer.observe(el));
+      }
+
+      // Hero pointer parallax (fine pointers only)
+      const hero = document.getElementById('about');
+      const layers = hero ? hero.querySelectorAll('[data-parallax]') : [];
+      if (!prefersReducedMotion && window.matchMedia('(pointer: fine)').matches && layers.length) {
+        let frame = null;
+        hero.addEventListener('pointermove', (e) => {
+          const rect = hero.getBoundingClientRect();
+          const nx = (e.clientX - rect.left) / rect.width - 0.5;
+          const ny = (e.clientY - rect.top) / rect.height - 0.5;
+          if (frame) cancelAnimationFrame(frame);
+          frame = requestAnimationFrame(() => {
+            layers.forEach((el) => {
+              const depth = parseFloat(el.dataset.parallax) || 1;
+              el.style.translate = (nx * depth * 14).toFixed(1) + 'px ' + (ny * depth * 14).toFixed(1) + 'px';
+            });
+          });
+        });
+        hero.addEventListener('pointerleave', () => layers.forEach((el) => { el.style.translate = '0px 0px'; }));
+        layers.forEach((el) => { el.style.transition = 'translate .6s cubic-bezier(.2,.7,.2,1)'; });
+      }
+
+      // Market ticker: count-up on first view, then a gentle simulated random walk
+      const tickerGrid = document.getElementById('ticker-grid');
+      const cards = tickerGrid ? Array.from(tickerGrid.querySelectorAll('[data-ticker]')) : [];
+      const fmt = (v) => v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const state = cards.map((card) => {
+        const priceEl = card.querySelector('[data-price]');
+        const changeEl = card.querySelector('[data-change]');
+        return {
+          priceEl, changeEl,
+          textEl: card.querySelector('[data-change-text]'),
+          iconEl: card.querySelector('[data-change-icon]'),
+          price: parseFloat(priceEl.dataset.price),
+          change: parseFloat(changeEl.dataset.change)
+        };
+      });
+
+      const countUp = (s, duration) => new Promise((resolve) => {
+        const start = performance.now();
+        const step = (now) => {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 3);
+          s.priceEl.textContent = fmt(s.price * eased);
+          if (t < 1) requestAnimationFrame(step); else resolve();
+        };
+        requestAnimationFrame(step);
+      });
+
+      const tick = () => {
+        if (document.hidden || !state.length) return;
+        const s = state[Math.floor(Math.random() * state.length)];
+        const delta = s.price * (Math.random() - 0.5) * 0.003;
+        s.price = Math.max(0, s.price + delta);
+        s.change = s.change + (delta / s.price) * 100;
+        const up = delta >= 0;
+        s.priceEl.textContent = fmt(s.price);
+        s.priceEl.classList.remove('flash-up', 'flash-down');
+        void s.priceEl.offsetWidth;
+        s.priceEl.classList.add(up ? 'flash-up' : 'flash-down');
+        const positive = s.change >= 0;
+        s.textEl.textContent = (positive ? '+' : '') + s.change.toFixed(2) + '%';
+        s.iconEl.textContent = positive ? 'arrow_upward' : 'arrow_downward';
+        s.changeEl.classList.toggle('text-emerald-400', positive);
+        s.changeEl.classList.toggle('text-rose-400', !positive);
+      };
+
+      if (tickerGrid && !prefersReducedMotion) {
+        const tickerObserver = new IntersectionObserver((entries) => {
+          if (!entries.some((e) => e.isIntersecting)) return;
+          tickerObserver.disconnect();
+          Promise.all(state.map((s) => countUp(s, 1600))).then(() => setInterval(tick, 3500));
+        }, { threshold: 0.3 });
+        tickerObserver.observe(tickerGrid);
+      }
+    })();
+  </script>
+</body>
+</html>

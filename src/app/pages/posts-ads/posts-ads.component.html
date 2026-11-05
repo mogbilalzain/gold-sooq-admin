@@ -3,156 +3,349 @@
   [subtitle]="translationService.t('posts.subtitle')">
 </app-page-header>
 
-@if (errorMessage) {
-  <div class="mb-4 p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">
-    {{ errorMessage }}
-  </div>
-}
-
 <!-- Filters -->
-<div class="mb-6 rounded-lg border border-gray-200 bg-white p-4 shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
-  <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+<div class="modern-card !p-5 md:!p-6 mb-6">
+  <div class="flex flex-col gap-4">
+
+    <!-- Row 1: Review status filter (primary) -->
     <div class="flex flex-wrap items-center gap-3">
-      <button
-        (click)="onStatusFilterChange('all')"
-        [class.bg-brand-500]="statusFilter === 'all'"
-        [class.text-white]="statusFilter === 'all'"
-        [class.text-gray-700]="statusFilter !== 'all'"
-        class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
-        {{ translationService.t('posts.all') }}
-      </button>
-      <button
-        (click)="onStatusFilterChange('active')"
-        [class.bg-brand-500]="statusFilter === 'active'"
-        [class.text-white]="statusFilter === 'active'"
-        [class.text-gray-700]="statusFilter !== 'active'"
-        class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
-        {{ translationService.t('posts.active') }}
-      </button>
-      <button
-        (click)="onStatusFilterChange('inactive')"
-        [class.bg-brand-500]="statusFilter === 'inactive'"
-        [class.text-white]="statusFilter === 'inactive'"
-        [class.text-gray-700]="statusFilter !== 'inactive'"
-        class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
-        {{ translationService.t('posts.inactive') }}
-      </button>
+      <mat-chip-listbox hideSingleSelectionIndicator [attr.aria-label]="translationService.t('posts.reviewStatus')">
+        <mat-chip-option [selected]="reviewFilter === 'all'" (selectionChange)="pickReview($event, 'all')">
+          {{ translationService.t('posts.all') }}
+        </mat-chip-option>
+        <mat-chip-option [selected]="reviewFilter === 'pending'" (selectionChange)="pickReview($event, 'pending')">
+          <span class="flex items-center gap-1.5">
+            <span class="h-2 w-2 rounded-full bg-warning-500"></span>
+            {{ translationService.t('posts.pending') }}
+          </span>
+        </mat-chip-option>
+        <mat-chip-option [selected]="reviewFilter === 'approved'" (selectionChange)="pickReview($event, 'approved')">
+          <span class="flex items-center gap-1.5">
+            <span class="h-2 w-2 rounded-full bg-success-500"></span>
+            {{ translationService.t('posts.approved') }}
+          </span>
+        </mat-chip-option>
+        <mat-chip-option [selected]="reviewFilter === 'rejected'" (selectionChange)="pickReview($event, 'rejected')">
+          <span class="flex items-center gap-1.5">
+            <span class="h-2 w-2 rounded-full bg-error-500"></span>
+            {{ translationService.t('posts.rejected') }}
+          </span>
+        </mat-chip-option>
+      </mat-chip-listbox>
+
+      <span class="mx-1 h-5 w-px bg-outline-variant/60 hidden sm:block"></span>
+
+      <!-- Active status filter (secondary) -->
+      <mat-chip-listbox hideSingleSelectionIndicator [attr.aria-label]="translationService.t('posts.status')">
+        <mat-chip-option [selected]="statusFilter === 'all'" (selectionChange)="pickStatus($event, 'all')">
+          {{ translationService.t('posts.allStatus') }}
+        </mat-chip-option>
+        <mat-chip-option [selected]="statusFilter === 'active'" (selectionChange)="pickStatus($event, 'active')">
+          {{ translationService.t('posts.active') }}
+        </mat-chip-option>
+        <mat-chip-option [selected]="statusFilter === 'inactive'" (selectionChange)="pickStatus($event, 'inactive')">
+          {{ translationService.t('posts.inactive') }}
+        </mat-chip-option>
+        <mat-chip-option [selected]="statusFilter === 'deleted'" (selectionChange)="pickStatus($event, 'deleted')">
+          {{ translationService.t('posts.deletedByOwner') }}
+        </mat-chip-option>
+      </mat-chip-listbox>
     </div>
-    <div class="flex items-center gap-2">
-      <app-input-field
-        type="text"
-        [value]="searchTerm"
-        (valueChange)="onSearchTermChange($event)"
-        [placeholder]="translationService.t('common.search')"
-        class="form-input w-full md:w-64"
-      />
-      <app-button size="sm" (btnClick)="onSearch()">
-        {{ translationService.t('common.search') }}
-      </app-button>
+
+    <!-- Row 2: Country filter -->
+    <div class="flex flex-wrap items-center gap-3 border-t border-outline-variant/30 pt-4">
+      <label class="text-xs font-medium text-[color:var(--color-on-surface-variant)]">
+        {{ translationService.t('posts.countryFilter') }}
+      </label>
+      <select
+        [ngModel]="countryId"
+        (ngModelChange)="onCountryChange($event)"
+        class="rounded-xl border border-outline-variant/40 bg-[color:var(--color-surface-container-low)] px-3 py-1.5 text-sm text-[color:var(--color-on-surface)]"
+      >
+        <option [ngValue]="null">{{ translationService.t('posts.all') }}</option>
+        @for (country of countries; track country.id) {
+          <option [ngValue]="country.id">{{ countryName(country) }}</option>
+        }
+      </select>
     </div>
+
   </div>
 </div>
 
 @if (isLoading) {
   <app-loading-spinner />
+} @else if (errorMessage) {
+  <div class="modern-card">
+    <app-error-state [message]="errorMessage" (retry)="loadPosts()" />
+  </div>
+} @else if (filteredPosts.length === 0) {
+  <div class="modern-card">
+    <app-empty-state
+      [title]="translationService.t('posts.noPosts')"
+      [description]="translationService.t('posts.subtitle')"
+    />
+  </div>
 } @else {
-  <div class="rounded-lg border border-gray-200 bg-white shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+  <div class="modern-table">
     <div class="overflow-x-auto">
-      <table class="w-full" [ngClass]="{'text-right': translationService.isRTL, 'text-left': !translationService.isRTL}">
-        <thead class="bg-gray-50 dark:bg-gray-800">
-          <tr>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('posts.title') }}
-            </th>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('posts.price') }}
-            </th>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('posts.status') }}
-            </th>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('posts.featured') }}
-            </th>
-            <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">
-              {{ translationService.t('common.actions') }}
-            </th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-          @if (posts.length === 0) {
-            <tr>
-              <td colspan="5" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
-                {{ translationService.t('posts.noPosts') }}
-              </td>
-            </tr>
-          } @else {
-            @for (post of posts; track post.id) {
-              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
-                <td class="px-6 py-4">
-                  <div class="text-sm font-medium text-gray-800 dark:text-white">
-                    {{ post.postTitle }}
-                  </div>
-                  <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    {{ post.postDetail?.substring(0, 50) }}...
-                  </div>
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-white">
-                  @if (post.price) {
-                    {{ post.price | number }} {{ translationService.t('posts.currency') }}
-                  } @else {
-                    <span class="text-gray-400">-</span>
+      <table mat-table [dataSource]="filteredPosts" class="w-full" [ngClass]="{'text-right': translationService.isRTL, 'text-left': !translationService.isRTL}">
+        <ng-container matColumnDef="post">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('posts.post') }}</th>
+          <td mat-cell *matCellDef="let post" class="max-w-[260px]">
+                <div class="flex items-start gap-3">
+                  @if (post.main_image_url) {
+                    <img
+                      [src]="getImageUrl(post)"
+                      [alt]="post.post_title"
+                      class="h-12 w-12 flex-shrink-0 rounded-xl object-cover bg-[color:var(--color-surface-container)]"
+                      (error)="$any($event.target).style.display='none'"
+                    />
                   }
-                </td>
-                <td class="px-6 py-4">
-                  <button
-                    (click)="toggleActive(post)"
-                    [class.bg-success-100]="post.isActive"
-                    [class.text-success-700]="post.isActive"
-                    [class.bg-gray-100]="!post.isActive"
-                    [class.text-gray-700]="!post.isActive"
-                    class="px-3 py-1 text-xs font-medium rounded-full">
-                    {{ post.isActive ? translationService.t('posts.active') : translationService.t('posts.inactive') }}
-                  </button>
-                </td>
-                <td class="px-6 py-4">
-                  <button
-                    (click)="toggleFeatured(post)"
-                    [class.bg-brand-100]="post.isFeatured"
-                    [class.text-brand-700]="post.isFeatured"
-                    [class.bg-gray-100]="!post.isFeatured"
-                    [class.text-gray-700]="!post.isFeatured"
-                    class="px-3 py-1 text-xs font-medium rounded-full">
-                    {{ post.isFeatured ? translationService.t('posts.yes') : translationService.t('posts.no') }}
-                  </button>
-                </td>
-                <td class="px-6 py-4 text-sm">
-                  <div class="flex items-center gap-2">
-                    <a [routerLink]="['/posts-ads/edit', post.id]" 
-                       class="text-brand-500 hover:text-brand-600 dark:text-brand-400">
-                      {{ translationService.t('common.edit') }}
-                    </a>
-                    <button (click)="onDelete(post.id)" 
-                            class="text-error-500 hover:text-error-600 dark:text-error-400">
-                      {{ translationService.t('common.delete') }}
-                    </button>
+                  <div class="min-w-0">
+                    <div class="text-sm font-semibold text-[color:var(--color-on-surface)] line-clamp-2">
+                      {{ post.post_title }}
+                    </div>
+                    @if (post.categoryName) {
+                      <div class="mt-0.5 text-xs text-[color:var(--color-on-surface-variant)]">
+                        {{ post.categoryName }}
+                      </div>
+                    }
+                    @if (post.countryName) {
+                      <div class="mt-0.5 text-xs text-[color:var(--color-outline)]">
+                        {{ post.countryName }}@if (post.stateName) { · {{ post.stateName }} }
+                      </div>
+                    }
+                    @if (getCreateDate(post)) {
+                      <div class="mt-0.5 text-xs text-[color:var(--color-outline)]">
+                        {{ getCreateDate(post) | date:'dd/MM/yyyy' }}
+                      </div>
+                    }
                   </div>
-                </td>
-              </tr>
-            }
-          }
-        </tbody>
+                </div>
+              </td>
+        </ng-container>
+
+        <ng-container matColumnDef="seller">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('posts.seller') }}</th>
+          <td mat-cell *matCellDef="let post" class="max-w-[200px]">
+                @if (isBusinessSeller(post)) {
+                  <div class="flex items-center gap-2">
+                    <app-safe-image
+                      [src]="post.logoUrl"
+                      [alt]="post.tradeName || ''"
+                      imgClass="h-8 w-8 rounded-lg object-cover"
+                      placeholderClass="h-8 w-8 rounded-lg text-xs"
+                      [placeholderText]="(post.tradeName || post.user_name || '?').charAt(0)"
+                    />
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1 text-sm font-medium text-[color:var(--color-on-surface)]">
+                        <span class="truncate">{{ post.tradeName || post.user_name || '—' }}</span>
+                        @if (businessVerified(post)) {
+                          <span class="inline-flex shrink-0 text-brand-500" [title]="translationService.t('posts.businessVerified')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54L7.4 12l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41-5.64 5.66z"/></svg>
+                          </span>
+                        }
+                      </div>
+                      <div class="text-xs text-[color:var(--color-on-surface-variant)]">
+                        {{ translationService.t('posts.sellerBusiness') }}
+                      </div>
+                    </div>
+                  </div>
+                } @else {
+                  <div class="flex items-center gap-1 text-sm font-medium text-[color:var(--color-on-surface)]">
+                    <span class="truncate">{{ post.user_name || '—' }}</span>
+                    @if (identityVerified(post)) {
+                      <span class="inline-flex shrink-0 text-success-500" [title]="translationService.t('posts.identityVerified')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54L7.4 12l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41-5.64 5.66z"/></svg>
+                      </span>
+                    }
+                  </div>
+                  @if (post.user_email) {
+                    <div class="text-xs text-[color:var(--color-on-surface-variant)] truncate">
+                      {{ post.user_email }}
+                    </div>
+                  }
+                }
+              </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('posts.price') }}</th>
+          <td mat-cell *matCellDef="let post" class="whitespace-nowrap text-sm font-semibold">
+                @if (priceKindOf(post) === 'market') {
+                  <span class="rounded-full bg-brand-500/10 px-2.5 py-1 text-xs font-semibold text-brand-700 dark:text-brand-400">
+                    {{ translationService.t('posts.priceMarket') }}
+                  </span>
+                } @else if (priceKindOf(post) === 'contact') {
+                  <span class="rounded-full bg-surface-container-high px-2.5 py-1 text-xs font-semibold text-[color:var(--color-on-surface-variant)]">
+                    {{ translationService.t('posts.priceContact') }}
+                  </span>
+                } @else if (hasNumericPrice(post)) {
+                  <span class="text-brand-700 dark:text-brand-400">
+                    {{ post.price | number }}
+                    @if (post.currency) {
+                      <span class="text-xs font-normal text-[color:var(--color-on-surface-variant)]"> {{ post.currency }}</span>
+                    }
+                  </span>
+                } @else {
+                  <span class="text-[color:var(--color-outline)]">—</span>
+                }
+              </td>
+        </ng-container>
+
+        <ng-container matColumnDef="reviewStatus">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('posts.reviewStatus') }}</th>
+          <td mat-cell *matCellDef="let post">
+                <span class="status-pill"
+                  [class.status-pill-warning]="post.review_status === 'pending'"
+                  [class.status-pill-success]="post.review_status === 'approved'"
+                  [class.status-pill-error]="post.review_status === 'rejected'">
+                  {{ translationService.t('posts.' + (post.review_status || 'pending')) }}
+                </span>
+                @if (post.review_status === 'rejected' && post.reject_reason) {
+                  <div class="mt-1 max-w-[160px] text-xs text-error-600 dark:text-error-400 line-clamp-2" [title]="post.reject_reason">
+                    {{ post.reject_reason }}
+                  </div>
+                }
+              </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('posts.status') }}</th>
+          <td mat-cell *matCellDef="let post">
+                <button
+                  (click)="toggleActive(post)"
+                  class="status-pill"
+                  [class.status-pill-success]="isActive(post)"
+                  [class.status-pill-warning]="!isActive(post)">
+                  {{ isActive(post) ? translationService.t('posts.active') : translationService.t('posts.inactive') }}
+                </button>
+              </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>{{ translationService.t('common.actions') }}</th>
+          <td mat-cell *matCellDef="let post">
+                <div class="flex items-center gap-1">
+
+                  <!-- View details page -->
+                  <a mat-icon-button [routerLink]="['/posts-ads', post.id]"
+                          [matTooltip]="translationService.t('posts.viewDetails')"
+                          [attr.aria-label]="translationService.t('posts.viewDetails')"
+                          class="!text-brand-600 dark:!text-brand-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                  </a>
+
+                  <!-- Approve (pending or rejected) -->
+                  @if (post.review_status === 'pending' || post.review_status === 'rejected') {
+                    <button mat-icon-button (click)="openApprove(post)"
+                            [matTooltip]="translationService.t('posts.approve')"
+                            [attr.aria-label]="translationService.t('posts.approve')"
+                            class="!text-success-600 dark:!text-success-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                      </svg>
+                    </button>
+                  }
+
+                  <!-- Reject (pending or approved) -->
+                  @if (post.review_status === 'pending' || post.review_status === 'approved') {
+                    <button mat-icon-button (click)="openReject(post)"
+                            [matTooltip]="translationService.t('posts.reject')"
+                            [attr.aria-label]="translationService.t('posts.reject')"
+                            class="!text-warning-600 dark:!text-warning-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                      </svg>
+                    </button>
+                  }
+
+                  <!-- Delete -->
+                  <button mat-icon-button (click)="openDelete(post)"
+                          [matTooltip]="translationService.t('common.delete')"
+                          [attr.aria-label]="translationService.t('common.delete')"
+                          class="!text-[color:var(--color-error)]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                  </button>
+
+                </div>
+              </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
 
     @if (totalPages > 1) {
-      <app-pagination
-        [currentPage]="currentPage"
-        [totalPages]="totalPages"
-        [total]="total"
-        [limit]="limit"
-        (pageChange)="onPageChange($event)"
-      />
+      <div class="border-t border-outline-variant/40 dark:border-outline-variant/30">
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalPages]="totalPages"
+          [total]="total"
+          [limit]="limit"
+          (pageChange)="onPageChange($event)"
+        />
+      </div>
     }
   </div>
 }
 
+<!-- Delete confirmation -->
+<app-confirm-dialog
+  [open]="!!deleteTarget"
+  variant="destructive"
+  [title]="translationService.t('posts.confirmDeleteTitle')"
+  [message]="(deleteTarget?.post_title || '') + ' — ' + translationService.t('posts.confirmDelete')"
+  [confirmLabel]="translationService.t('common.delete')"
+  [processing]="actionProcessing"
+  (confirmed)="confirmDelete()"
+  (cancelled)="deleteTarget = null"
+/>
+
+<!-- Approve confirmation -->
+<app-confirm-dialog
+  [open]="!!approveTarget"
+  variant="default"
+  [title]="translationService.t('posts.confirmApproveTitle')"
+  [message]="(approveTarget?.post_title || '') + ' — ' + translationService.t('posts.confirmApprove')"
+  [confirmLabel]="translationService.t('posts.approve')"
+  [processing]="actionProcessing"
+  (confirmed)="confirmApprove()"
+  (cancelled)="approveTarget = null"
+/>
+
+<!-- Reject with reason -->
+<app-confirm-dialog
+  [open]="!!rejectTarget"
+  variant="destructive"
+  [title]="translationService.t('posts.confirmRejectTitle')"
+  [message]="rejectTarget?.post_title || ''"
+  [confirmLabel]="translationService.t('posts.reject')"
+  [processing]="actionProcessing"
+  (confirmed)="confirmReject()"
+  (cancelled)="closeReject()"
+>
+  <div class="mt-4">
+    <mat-form-field class="w-full" subscriptSizing="dynamic">
+      <mat-label>{{ translationService.t('posts.rejectReason') }}</mat-label>
+      <textarea
+        matInput
+        rows="3"
+        [value]="rejectReason"
+        (input)="onRejectReasonChange($any($event.target).value)"
+        [disabled]="actionProcessing"
+        [placeholder]="translationService.t('posts.rejectReasonPlaceholder')"
+      ></textarea>
+      <mat-hint align="end">{{ rejectReason.length }} / {{ reasonMax }}</mat-hint>
+    </mat-form-field>
+    @if (rejectError) {
+      <div class="-mt-3 text-xs text-error-500">{{ rejectError }}</div>
+    }
+  </div>
+</app-confirm-dialog>

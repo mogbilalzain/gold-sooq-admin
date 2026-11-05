@@ -1,0 +1,202 @@
+/* =========================================================
+   Ayar Premium — shared styles for the public site
+   ========================================================= */
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  /* background-color: #fdf8f8; */
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: 'Tajawal', sans-serif; }
+
+/* Dark surface tokens (Tailwind CDN has no dark palette for custom colors,
+   so dark mode is handled here via the `dark` class on <html>) */
+.dark body { background-color: #141311; color: #f4f0ef; }
+.dark .d-surface { background-color: #1c1b1a; }
+.dark .d-surface-low { background-color: #232120; }
+.dark .d-card { background-color: #232120; border-color: rgba(206, 198, 178, 0.14); }
+.dark .d-text { color: #f4f0ef; }
+.dark .d-text-muted { color: #b8b0a0; }
+.dark .d-border { border-color: rgba(206, 198, 178, 0.16); }
+
+/* Depth */
+.gold-shadow { box-shadow: 0px 10px 30px rgba(214, 180, 44, 0.08); }
+.card-shadow { box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04); }
+.dark .card-shadow { box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.35); }
+
+.hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.hover-lift:hover { transform: translateY(-4px); box-shadow: 0px 10px 30px rgba(214, 180, 44, 0.15); }
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+.dark .glass-card {
+  background: rgba(28, 27, 26, 0.72);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d6b42c; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #715d00; }
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* Floating island header */
+.ayar-island {
+  background: rgba(253, 248, 248, 0.72);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: height 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, max-width 0.3s ease;
+}
+.dark .ayar-island {
+  background: rgba(28, 27, 26, 0.72);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.ayar-header.is-scrolled .ayar-island {
+  height: 56px;
+  max-width: 1120px;
+  background: rgba(253, 248, 248, 0.88);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.dark .ayar-header.is-scrolled .ayar-island {
+  background: rgba(28, 27, 26, 0.88);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+@media (min-width: 768px) {
+  .ayar-header.is-scrolled .ayar-island { height: 62px; }
+}
+.ayar-logo { transition: height 0.3s ease; }
+.ayar-header.is-scrolled .ayar-logo { height: 32px; }
+
+/* Nav links: animated underline (RTL-safe via inset-inline) */
+.nav-link { position: relative; padding: 8px 12px; border-radius: 9999px; }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  inset-inline: 12px;
+  height: 2px;
+  border-radius: 2px;
+  background: #d6b42c;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+.nav-link:hover::after { transform: scaleX(1); }
+.nav-link.is-active { color: #554600; }
+.nav-link.is-active::after { transform: scaleX(1); }
+.dark .nav-link.is-active { color: #fde17e; }
+
+/* Drawer links: active state */
+.drawer-link.is-active {
+  color: #554600;
+  background: rgba(214, 180, 44, 0.1);
+}
+.dark .drawer-link.is-active { color: #fde17e; }
+
+/* Mobile drawer */
+.ayar-drawer { transform: translateX(-100%); transition: transform 0.3s ease; }
+[dir="rtl"] .ayar-drawer { transform: translateX(100%); }
+.ayar-drawer.is-open { transform: translateX(0); }
+.ayar-drawer-backdrop { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.ayar-drawer-backdrop.is-open { opacity: 1; pointer-events: auto; }
+body.is-drawer-open { overflow: hidden; }
+
+/* FAQ accordion */
+.faq-item summary { list-style: none; cursor: pointer; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item .faq-chevron { transition: transform 0.25s ease; }
+.faq-item[open] .faq-chevron { transform: rotate(180deg); }
+
+/* Focus visibility */
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 2px solid #d6b42c;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  right: 16px;
+  z-index: 100;
+  transition: top 0.2s ease;
+}
+.skip-link:focus { top: 12px; }
+
+/* Floating hero cards */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float { animation: float-y 4s ease-in-out infinite; }
+.animate-float-delayed { animation: float-y 5s ease-in-out 1s infinite; }
+
+/* Ticker marquee feel: subtle pulse on update */
+@keyframes price-flash { 0% { color: #d6b42c; } 100% { color: inherit; } }
+.price-flash { animation: price-flash 0.8s ease; }
+
+/* Hero shader fallback gradient (used when WebGL is unavailable) */
+.hero-fallback {
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 40%, rgba(214, 180, 44, 0.12), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(113, 93, 0, 0.06), transparent 70%);
+}
+.dark .hero-fallback {
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 40%, rgba(214, 180, 44, 0.08), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(224, 197, 102, 0.05), transparent 70%);
+}
+
+/* ===================== Download section ===================== */
+.store-btn {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.store-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(214, 180, 44, 0.18);
+  border-color: rgba(214, 180, 44, 0.4);
+}
+
+.qr-card { transition: box-shadow 0.3s ease, border-color 0.3s ease; }
+.qr-card:hover {
+  border-color: rgba(214, 180, 44, 0.5);
+  box-shadow: 0 8px 28px rgba(214, 180, 44, 0.15);
+}
+
+@keyframes float-y-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+.animate-float-slow { animation: float-y-slow 6s ease-in-out 0.5s infinite; }
+
+.gold-radial {
+  background: radial-gradient(ellipse 55% 60% at 50% 45%, rgba(214, 180, 44, 0.16), rgba(244, 210, 31, 0.05) 45%, transparent 72%);
+}
+
+[data-parallax] { transition: translate 0.35s ease-out; will-change: translate; }
+
+/* Reduced motion: disable all decorative animation */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-float, .animate-float-delayed { animation: none; }
+  .hover-lift, .hover-lift:hover { transform: none; transition: none; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

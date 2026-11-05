@@ -1,0 +1,231 @@
+// Angular Material theme — gold MD3, generated palette in _theme-colors.scss.
+// System tokens are pointed at the app's brand variables in styles.css so both
+// design systems read from a single source of truth.
+
+@use '@angular/material' as mat;
+@use './theme-colors' as *;
+
+html {
+  color-scheme: light;
+
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: $primary-palette,
+        tertiary: $tertiary-palette,
+      ),
+      typography: (
+        plain-family: 'Tajawal, Outfit, sans-serif',
+        brand-family: 'Tajawal, Outfit, sans-serif',
+      ),
+      density: -1,
+    )
+  );
+}
+
+html.dark {
+  color-scheme: dark;
+
+  @include mat.theme(
+    (
+      color: (
+        theme-type: dark,
+        primary: $primary-palette,
+        tertiary: $tertiary-palette,
+      ),
+      typography: (
+        plain-family: 'Tajawal, Outfit, sans-serif',
+        brand-family: 'Tajawal, Outfit, sans-serif',
+      ),
+      density: -1,
+    )
+  );
+}
+
+// ---- Single source of truth: reuse the brand tokens from styles.css ----
+html {
+  --mat-sys-primary: var(--color-primary);
+  --mat-sys-on-primary: var(--color-on-primary);
+  --mat-sys-primary-container: var(--color-primary-container);
+  --mat-sys-on-primary-container: var(--color-on-primary-container);
+  --mat-sys-surface: var(--color-surface);
+  --mat-sys-on-surface: var(--color-on-surface);
+  --mat-sys-surface-variant: var(--color-surface-variant);
+  --mat-sys-on-surface-variant: var(--color-on-surface-variant);
+  --mat-sys-surface-container-lowest: var(--color-surface-container-lowest);
+  --mat-sys-surface-container-low: var(--color-surface-container-low);
+  --mat-sys-surface-container: var(--color-surface-container);
+  --mat-sys-surface-container-high: var(--color-surface-container-high);
+  --mat-sys-surface-container-highest: var(--color-surface-container-highest);
+  --mat-sys-outline: var(--color-outline);
+  --mat-sys-outline-variant: var(--color-outline-variant);
+  --mat-sys-error: var(--color-error);
+  --mat-sys-on-error: var(--color-on-error);
+  --mat-sys-error-container: var(--color-error-container);
+  --mat-sys-on-error-container: var(--color-on-error-container);
+}
+
+// ---- Borderless fields & outlined buttons: border -> elevation shadow ----
+// The visible boundary is painted with box-shadow in styles.css instead.
+html {
+  @include mat.form-field-overrides(
+    (
+      outlined-outline-width: 0,
+      outlined-focus-outline-width: 0,
+    )
+  );
+
+  @include mat.button-overrides(
+    (
+      outlined-outline-width: 0,
+    )
+  );
+
+  // Table rows and filter chips: no outline lines — zebra rows / chip
+  // shadows in styles.css provide the separation instead.
+  @include mat.table-overrides(
+    (
+      row-item-outline-width: 0,
+    )
+  );
+
+  @include mat.chips-overrides(
+    (
+      outline-width: 0,
+    )
+  );
+
+  // Header dropdown panels: rounded M3 surface floating on elevation,
+  // with gold-tinted state layers on hover/focus instead of grey.
+  @include mat.menu-overrides(
+    (
+      container-color: var(--color-surface-container-lowest),
+      container-shape: var(--radius-m3-lg),
+      container-elevation-shadow: var(--shadow-elevation-3),
+      item-hover-state-layer-color: color-mix(in srgb, var(--color-primary) 8%, transparent),
+      item-focus-state-layer-color: color-mix(in srgb, var(--color-primary) 10%, transparent),
+    )
+  );
+}
+
+// ---- Compatibility with Tailwind preflight ----
+// Preflight sets `border-style: solid; border-width: 0` on every element and
+// resets `img, video { max-width: 100%; height: auto }`, which breaks MDC
+// internals. Scoped restores here.
+.mat-mdc-form-field {
+  * {
+    border-style: solid;
+  }
+
+  .mdc-notched-outline__notch {
+    border-inline-end-style: hidden;
+  }
+}
+
+.cdk-overlay-container img,
+.cdk-overlay-container svg {
+  max-width: none;
+}
+
+.cdk-overlay-container {
+  z-index: 100000;
+}
+
+// Destructive button variant used by <app-button variant="danger">
+.app-btn-danger {
+  @include mat.button-overrides(
+    (
+      filled-container-color: var(--color-error),
+      filled-label-text-color: var(--color-on-error),
+      outlined-label-text-color: var(--color-error),
+      outlined-outline-color: var(--color-error),
+      text-label-text-color: var(--color-error),
+    )
+  );
+}
+
+// Approve/positive action buttons (no Material role for success).
+.app-btn-success {
+  @include mat.button-overrides(
+    (
+      filled-container-color: var(--color-success-600, #039855),
+      filled-label-text-color: #ffffff,
+    )
+  );
+}
+
+// Dialogs whose content manages its own padding (sticky header/footer layouts).
+.app-dialog-flush .mat-mdc-dialog-surface {
+  padding: 0;
+  overflow: hidden;
+}
+
+// <app-button size="sm|lg"> keeps its previous heights.
+.app-btn-sm {
+  @include mat.button-overrides(
+    (
+      filled-container-height: 36px,
+      outlined-container-height: 36px,
+      text-container-height: 36px,
+      filled-horizontal-padding: 16px,
+      outlined-horizontal-padding: 16px,
+      text-horizontal-padding: 12px,
+    )
+  );
+}
+
+.app-btn-lg {
+  @include mat.button-overrides(
+    (
+      filled-container-height: 48px,
+      outlined-container-height: 48px,
+      text-container-height: 48px,
+      filled-horizontal-padding: 28px,
+      outlined-horizontal-padding: 28px,
+      text-horizontal-padding: 20px,
+    )
+  );
+}
+
+// Explicit error/success states for <app-input-field>
+.app-field-error {
+  @include mat.form-field-overrides(
+    (
+      outlined-error-outline-color: var(--color-error),
+      outlined-error-hover-outline-color: var(--color-error),
+      outlined-error-focus-outline-color: var(--color-error),
+      outlined-outline-color: var(--color-error),
+      outlined-hover-outline-color: var(--color-error),
+      outlined-focus-outline-color: var(--color-error),
+      outlined-error-label-text-color: var(--color-error),
+      outlined-label-text-color: var(--color-error),
+      outlined-hover-label-text-color: var(--color-error),
+      outlined-focus-label-text-color: var(--color-error),
+    )
+  );
+}
+
+.app-field-success {
+  @include mat.form-field-overrides(
+    (
+      outlined-outline-color: var(--color-success-500),
+      outlined-hover-outline-color: var(--color-success-500),
+      outlined-focus-outline-color: var(--color-success-500),
+    )
+  );
+}
+
+// Centered OTP field used on the reset-password page.
+.app-otp-field {
+  .mat-mdc-form-field-flex {
+    height: 56px;
+  }
+
+  .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix input {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5em;
+  }
+}

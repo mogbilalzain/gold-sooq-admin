@@ -1,14 +1,14 @@
-<div class="rounded-lg border border-gray-200 bg-white shadow-theme-xs dark:border-gray-800 dark:bg-gray-dark">
+<div class="modern-card !p-0 overflow-hidden">
   @if (showTitle) {
-    <div class="border-b border-gray-200 p-4 dark:border-gray-800">
-      <div class="flex items-center justify-between">
-        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+    <div class="border-b border-outline-variant/40 dark:border-outline-variant/30 p-6">
+      <div class="flex items-center justify-between gap-4">
+        <h3 class="text-m3-title-lg font-medium text-[color:var(--color-on-surface)]">
           {{ translationService.t('metals.currentPrices') }}
         </h3>
         <button
           (click)="refresh()"
           [disabled]="isLoading"
-          class="flex items-center gap-2 px-3 py-1 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+          class="modern-button modern-button-secondary px-4 text-m3-label-lg">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M4 4V9H4.58152M19.9381 11C19.446 7.05369 16.0796 4 12 4C8.64262 4 5.76829 6.06817 4.58152 9M4.58152 9H9M20 20V15H19.4185M19.4185 15C18.2317 17.9318 15.3574 20 12 20C7.92038 20 4.55399 16.9463 4.06189 13M19.4185 15H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -24,160 +24,177 @@
     </div>
   } @else if (errorMessage) {
     <div class="p-6 text-center">
-      <p class="text-red-500 dark:text-red-400">{{ errorMessage }}</p>
+      <p class="text-[color:var(--color-error)]">{{ errorMessage }}</p>
       <button
         (click)="loadCurrentPrices()"
-        class="mt-4 px-4 py-2 text-sm font-medium text-white bg-brand-500 rounded-lg hover:bg-brand-600">
+        class="modern-button modern-button-primary mt-4 px-6 text-m3-label-lg">
         {{ translationService.t('common.retry') }}
       </button>
     </div>
-  } @else if (currentPrices) {
+  } @else if (metals) {
     <div class="p-4 space-y-6">
       <!-- Gold Prices -->
-      <div class="rounded-lg border border-gray-200 bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 dark:border-yellow-800/30 p-4">
+      @if (gold; as gold) {
+      <div class="rounded-m3-lg bg-brand-50 p-5 dark:bg-brand-500/10">
         <div class="flex items-center justify-between mb-4">
-          <h4 class="text-lg font-semibold text-gray-800 dark:text-white flex items-center gap-2">
-            <span class="text-yellow-600 dark:text-yellow-400">🪙</span>
+          <h4 class="text-m3-title-md font-medium text-[color:var(--color-on-surface)] flex items-center gap-2">
+            <span class="inline-flex text-brand-600 dark:text-brand-400">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="5"/><path d="M18.09 10.37A5 5 0 1 1 10.34 18"/><path d="M6.5 7.5h3M7 6v3"/></svg>
+            </span>
             {{ translationService.t('metals.gold') }}
           </h4>
-          <span class="text-sm text-gray-600 dark:text-gray-400">
-            {{ currentPrices.currency }}
+          <span class="text-sm text-[color:var(--color-on-surface-variant)]">
+            {{ currentPrices?.currency || settingsService.currency }}
           </span>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <div class="bg-white dark:bg-gray-800 rounded-lg p-3">
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">{{ translationService.t('metals.perGram') }}</p>
-            <p class="text-xl font-bold text-gray-900 dark:text-white">
-              {{ currentPrices.metals.gold.local_per_gram.toFixed(2) }}
+          <div class="rounded-m3-md p-3 bg-surface-container-lowest dark:bg-surface-container">
+            <p class="text-xs text-[color:var(--color-on-surface-variant)] mb-1">{{ translationService.t('metals.perGram') }}</p>
+            <p class="text-m3-title-lg font-semibold text-[color:var(--color-on-surface)]" dir="ltr">
+              {{ gold.local_per_gram?.toFixed(2) ?? '—' }}
             </p>
           </div>
-          <div class="bg-white dark:bg-gray-800 rounded-lg p-3">
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">{{ translationService.t('metals.perToz') }}</p>
-            <p class="text-xl font-bold text-gray-900 dark:text-white">
-              {{ currentPrices.metals.gold.local_per_toz.toFixed(2) }}
+          <div class="rounded-m3-md p-3 bg-surface-container-lowest dark:bg-surface-container">
+            <p class="text-xs text-[color:var(--color-on-surface-variant)] mb-1">{{ translationService.t('metals.perToz') }}</p>
+            <p class="text-m3-title-lg font-semibold text-[color:var(--color-on-surface)]" dir="ltr">
+              {{ gold.local_per_toz?.toFixed(2) ?? '—' }}
             </p>
           </div>
-          <div class="bg-white dark:bg-gray-800 rounded-lg p-3">
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">USD/Toz</p>
-            <p class="text-xl font-bold text-gray-900 dark:text-white">
-              {{ currentPrices.metals.gold.usd_per_toz.toFixed(2) }}
+          <div class="rounded-m3-md p-3 bg-surface-container-lowest dark:bg-surface-container">
+            <p class="text-xs text-[color:var(--color-on-surface-variant)] mb-1">USD/Toz</p>
+            <p class="text-m3-title-lg font-semibold text-[color:var(--color-on-surface)]" dir="ltr">
+              {{ gold.usd_per_toz?.toFixed(2) ?? '—' }}
             </p>
           </div>
         </div>
 
         <!-- Gold by Carat -->
         <div class="mt-4">
-          <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <p class="text-sm font-medium text-[color:var(--color-on-surface)] mb-2">
             {{ translationService.t('metals.byCarat') }}
           </p>
           <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
-            <div class="bg-white dark:bg-gray-800 rounded p-2 text-center">
-              <p class="text-xs text-gray-500 dark:text-gray-400">24K</p>
-              <p class="text-sm font-semibold text-gray-900 dark:text-white">
-                {{ currentPrices.metals.gold.by_carat['24k'].toFixed(2) }}
+            <div class="rounded-m3-sm p-2 bg-surface-container-lowest dark:bg-surface-container text-center">
+              <p class="text-xs text-[color:var(--color-on-surface-variant)]">24K</p>
+              <p class="text-sm font-semibold text-[color:var(--color-on-surface)]">
+                {{ gold.by_carat?.['24k']?.toFixed(2) ?? '—' }}
               </p>
             </div>
-            <div class="bg-white dark:bg-gray-800 rounded p-2 text-center">
-              <p class="text-xs text-gray-500 dark:text-gray-400">22K</p>
-              <p class="text-sm font-semibold text-gray-900 dark:text-white">
-                {{ currentPrices.metals.gold.by_carat['22k'].toFixed(2) }}
+            <div class="rounded-m3-sm p-2 bg-surface-container-lowest dark:bg-surface-container text-center">
+              <p class="text-xs text-[color:var(--color-on-surface-variant)]">22K</p>
+              <p class="text-sm font-semibold text-[color:var(--color-on-surface)]">
+                {{ gold.by_carat?.['22k']?.toFixed(2) ?? '—' }}
               </p>
             </div>
-            <div class="bg-white dark:bg-gray-800 rounded p-2 text-center">
-              <p class="text-xs text-gray-500 dark:text-gray-400">21K</p>
-              <p class="text-sm font-semibold text-gray-900 dark:text-white">
-                {{ currentPrices.metals.gold.by_carat['21k'].toFixed(2) }}
+            <div class="rounded-m3-sm p-2 bg-surface-container-lowest dark:bg-surface-container text-center">
+              <p class="text-xs text-[color:var(--color-on-surface-variant)]">21K</p>
+              <p class="text-sm font-semibold text-[color:var(--color-on-surface)]">
+                {{ gold.by_carat?.['21k']?.toFixed(2) ?? '—' }}
               </p>
             </div>
-            <div class="bg-white dark:bg-gray-800 rounded p-2 text-center">
-              <p class="text-xs text-gray-500 dark:text-gray-400">18K</p>
-              <p class="text-sm font-semibold text-gray-900 dark:text-white">
-                {{ currentPrices.metals.gold.by_carat['18k'].toFixed(2) }}
+            <div class="rounded-m3-sm p-2 bg-surface-container-lowest dark:bg-surface-container text-center">
+              <p class="text-xs text-[color:var(--color-on-surface-variant)]">18K</p>
+              <p class="text-sm font-semibold text-[color:var(--color-on-surface)]">
+                {{ gold.by_carat?.['18k']?.toFixed(2) ?? '—' }}
               </p>
             </div>
-            <div class="bg-white dark:bg-gray-800 rounded p-2 text-center">
-              <p class="text-xs text-gray-500 dark:text-gray-400">14K</p>
-              <p class="text-sm font-semibold text-gray-900 dark:text-white">
-                {{ currentPrices.metals.gold.by_carat['14k'].toFixed(2) }}
+            <div class="rounded-m3-sm p-2 bg-surface-container-lowest dark:bg-surface-container text-center">
+              <p class="text-xs text-[color:var(--color-on-surface-variant)]">14K</p>
+              <p class="text-sm font-semibold text-[color:var(--color-on-surface)]">
+                {{ gold.by_carat?.['14k']?.toFixed(2) ?? '—' }}
               </p>
             </div>
           </div>
         </div>
       </div>
+      }
 
       <!-- Silver Prices -->
-      <div class="rounded-lg border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800/20 dark:to-gray-700/20 dark:border-gray-700/30 p-4">
+      @if (silver; as silver) {
+      <div class="rounded-m3-lg bg-surface-container-low p-5 dark:bg-surface-container-high">
         <div class="flex items-center justify-between mb-4">
-          <h4 class="text-lg font-semibold text-gray-800 dark:text-white flex items-center gap-2">
-            <span class="text-gray-600 dark:text-gray-400">🥈</span>
+          <h4 class="text-m3-title-md font-medium text-[color:var(--color-on-surface)] flex items-center gap-2">
+            <span class="inline-flex text-[color:var(--color-on-surface-variant)]">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/></svg>
+            </span>
             {{ translationService.t('metals.silver') }}
           </h4>
-          <span class="text-sm text-gray-600 dark:text-gray-400">
-            {{ currentPrices.currency }}
+          <span class="text-sm text-[color:var(--color-on-surface-variant)]">
+            {{ currentPrices?.currency || settingsService.currency }}
           </span>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-white dark:bg-gray-800 rounded-lg p-3">
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">{{ translationService.t('metals.perGram') }}</p>
-            <p class="text-xl font-bold text-gray-900 dark:text-white">
-              {{ currentPrices.metals.silver.local_per_gram.toFixed(2) }}
+          <div class="rounded-m3-md p-3 bg-surface-container-lowest dark:bg-surface-container">
+            <p class="text-xs text-[color:var(--color-on-surface-variant)] mb-1">{{ translationService.t('metals.perGram') }}</p>
+            <p class="text-m3-title-lg font-semibold text-[color:var(--color-on-surface)]" dir="ltr">
+              {{ silver.local_per_gram?.toFixed(2) ?? '—' }}
             </p>
           </div>
-          <div class="bg-white dark:bg-gray-800 rounded-lg p-3">
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">{{ translationService.t('metals.perToz') }}</p>
-            <p class="text-xl font-bold text-gray-900 dark:text-white">
-              {{ currentPrices.metals.silver.local_per_toz.toFixed(2) }}
+          <div class="rounded-m3-md p-3 bg-surface-container-lowest dark:bg-surface-container">
+            <p class="text-xs text-[color:var(--color-on-surface-variant)] mb-1">{{ translationService.t('metals.perToz') }}</p>
+            <p class="text-m3-title-lg font-semibold text-[color:var(--color-on-surface)]" dir="ltr">
+              {{ silver.local_per_toz?.toFixed(2) ?? '—' }}
             </p>
           </div>
-          <div class="bg-white dark:bg-gray-800 rounded-lg p-3">
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">USD/Toz</p>
-            <p class="text-xl font-bold text-gray-900 dark:text-white">
-              {{ currentPrices.metals.silver.usd_per_toz.toFixed(2) }}
+          <div class="rounded-m3-md p-3 bg-surface-container-lowest dark:bg-surface-container">
+            <p class="text-xs text-[color:var(--color-on-surface-variant)] mb-1">USD/Toz</p>
+            <p class="text-m3-title-lg font-semibold text-[color:var(--color-on-surface)]" dir="ltr">
+              {{ silver.usd_per_toz?.toFixed(2) ?? '—' }}
             </p>
           </div>
         </div>
       </div>
+      }
 
       <!-- Platinum Prices -->
-      <div class="rounded-lg border border-gray-200 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 dark:border-blue-800/30 p-4">
+      @if (platinum; as platinum) {
+      <div class="rounded-m3-lg bg-blue-light-50 p-5 dark:bg-blue-light-500/10">
         <div class="flex items-center justify-between mb-4">
-          <h4 class="text-lg font-semibold text-gray-800 dark:text-white flex items-center gap-2">
-            <span class="text-blue-600 dark:text-blue-400">💎</span>
+          <h4 class="text-m3-title-md font-medium text-[color:var(--color-on-surface)] flex items-center gap-2">
+            <span class="inline-flex text-blue-light-600 dark:text-blue-light-400">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9l4-6Z"/><path d="M2 9h20M9.5 3 8 9l4 12M14.5 3 16 9l-4 12"/></svg>
+            </span>
             {{ translationService.t('metals.platinum') }}
           </h4>
-          <span class="text-sm text-gray-600 dark:text-gray-400">
-            {{ currentPrices.currency }}
+          <span class="text-sm text-[color:var(--color-on-surface-variant)]">
+            {{ currentPrices?.currency || settingsService.currency }}
           </span>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-white dark:bg-gray-800 rounded-lg p-3">
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">{{ translationService.t('metals.perGram') }}</p>
-            <p class="text-xl font-bold text-gray-900 dark:text-white">
-              {{ currentPrices.metals.platinum.local_per_gram.toFixed(2) }}
+          <div class="rounded-m3-md p-3 bg-surface-container-lowest dark:bg-surface-container">
+            <p class="text-xs text-[color:var(--color-on-surface-variant)] mb-1">{{ translationService.t('metals.perGram') }}</p>
+            <p class="text-m3-title-lg font-semibold text-[color:var(--color-on-surface)]" dir="ltr">
+              {{ platinum.local_per_gram?.toFixed(2) ?? '—' }}
             </p>
           </div>
-          <div class="bg-white dark:bg-gray-800 rounded-lg p-3">
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">{{ translationService.t('metals.perToz') }}</p>
-            <p class="text-xl font-bold text-gray-900 dark:text-white">
-              {{ currentPrices.metals.platinum.local_per_toz.toFixed(2) }}
+          <div class="rounded-m3-md p-3 bg-surface-container-lowest dark:bg-surface-container">
+            <p class="text-xs text-[color:var(--color-on-surface-variant)] mb-1">{{ translationService.t('metals.perToz') }}</p>
+            <p class="text-m3-title-lg font-semibold text-[color:var(--color-on-surface)]" dir="ltr">
+              {{ platinum.local_per_toz?.toFixed(2) ?? '—' }}
             </p>
           </div>
-          <div class="bg-white dark:bg-gray-800 rounded-lg p-3">
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">USD/Toz</p>
-            <p class="text-xl font-bold text-gray-900 dark:text-white">
-              {{ currentPrices.metals.platinum.usd_per_toz.toFixed(2) }}
+          <div class="rounded-m3-md p-3 bg-surface-container-lowest dark:bg-surface-container">
+            <p class="text-xs text-[color:var(--color-on-surface-variant)] mb-1">USD/Toz</p>
+            <p class="text-m3-title-lg font-semibold text-[color:var(--color-on-surface)]" dir="ltr">
+              {{ platinum.usd_per_toz?.toFixed(2) ?? '—' }}
             </p>
           </div>
         </div>
       </div>
+      }
 
       <!-- Timestamps -->
-      <div class="text-xs text-gray-500 dark:text-gray-400 text-center pt-2 border-t border-gray-200 dark:border-gray-700">
-        <p>{{ translationService.t('metals.lastUpdated') }}: {{ currentPrices.timestamps.metal | date:'short' }}</p>
+      <div class="text-xs text-[color:var(--color-on-surface-variant)] text-center pt-2 border-t border-outline-variant/40">
+        <p>{{ translationService.t('metals.lastUpdated') }}: {{ timestamps?.metal | date:'short' }}</p>
       </div>
+    </div>
+  } @else {
+    <!-- No data: show a friendly empty state instead of a blank card -->
+    <div class="p-6 text-center">
+      <p class="text-[color:var(--color-on-surface-variant)]">{{ translationService.t('metals.noData') }}</p>
     </div>
   }
 </div>

@@ -27,6 +27,22 @@ import { UserFormComponent } from './pages/users/user-form/user-form.component';
 import { MetalsPricesComponent } from './pages/metals-prices/metals-prices.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { NotificationFormComponent } from './pages/notifications/notification-form/notification-form.component';
+import { ForgotPasswordComponent } from './pages/auth-pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/auth-pages/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './pages/auth-pages/change-password/change-password.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { AdAttributesComponent } from './pages/ad-attributes/ad-attributes.component';
+import { PostDetailsComponent } from './pages/posts-ads/post-details/post-details.component';
+import { UserProfileComponent } from './pages/users/user-profile/user-profile.component';
+import { UserAdsComponent } from './pages/users/user-ads/user-ads.component';
+import { IdentityRequestsComponent } from './pages/identity-requests/identity-requests.component';
+import { IdentityRequestDetailsComponent } from './pages/identity-requests/identity-request-details/identity-request-details.component';
+import { BusinessRequestsComponent } from './pages/business-requests/business-requests.component';
+import { BusinessRequestDetailsComponent } from './pages/business-requests/business-request-details/business-request-details.component';
+import { BusinessProfileComponent } from './pages/business-profiles/business-profile/business-profile.component';
+import { ContactMessagesComponent } from './pages/contact-messages/contact-messages.component';
+import { ContactMessageDetailsComponent } from './pages/contact-messages/contact-message-details/contact-message-details.component';
+import { AdminInboxComponent } from './pages/admin-inbox/admin-inbox.component';
 import { authGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
@@ -139,6 +155,16 @@ export const routes: Routes = [
         title:'Edit Post | Gold Market Admin'
       },
       {
+        path:'posts-ads/:id',
+        component:PostDetailsComponent,
+        title:'Ad Details | Gold Market Admin'
+      },
+      {
+        path:'ad-attributes',
+        component:AdAttributesComponent,
+        title:'Ad Attributes | Gold Market Admin'
+      },
+      {
         path:'users',
         component:UsersComponent,
         title:'Users Management | Gold Market Admin'
@@ -149,9 +175,59 @@ export const routes: Routes = [
         title:'Edit User | Gold Market Admin'
       },
       {
+        path:'users/:id/ads',
+        component:UserAdsComponent,
+        title:'User Ads | Gold Market Admin'
+      },
+      {
+        path:'users/:id',
+        component:UserProfileComponent,
+        title:'User Profile | Gold Market Admin'
+      },
+      {
+        path:'identity-requests',
+        component:IdentityRequestsComponent,
+        title:'Identity Verification | Gold Market Admin'
+      },
+      {
+        path:'identity-requests/:id',
+        component:IdentityRequestDetailsComponent,
+        title:'Identity Request Details | Gold Market Admin'
+      },
+      {
+        path:'business-requests',
+        component:BusinessRequestsComponent,
+        title:'Business Verification | Gold Market Admin'
+      },
+      {
+        path:'business-requests/:id',
+        component:BusinessRequestDetailsComponent,
+        title:'Business Request Details | Gold Market Admin'
+      },
+      {
+        path:'business-profiles/:userId',
+        component:BusinessProfileComponent,
+        title:'Business Profile | Gold Market Admin'
+      },
+      {
+        path:'contact-messages',
+        component:ContactMessagesComponent,
+        title:'Contact Messages | Gold Market Admin'
+      },
+      {
+        path:'contact-messages/:id',
+        component:ContactMessageDetailsComponent,
+        title:'Contact Message Details | Gold Market Admin'
+      },
+      {
         path:'metals-prices',
         component:MetalsPricesComponent,
         title:'Metals Prices | Gold Market Admin'
+      },
+      {
+        path:'admin-inbox',
+        component:AdminInboxComponent,
+        title:'Admin Notifications | Gold Market Admin'
       },
       {
         path:'notifications',
@@ -163,6 +239,16 @@ export const routes: Routes = [
         component:NotificationFormComponent,
         title:'Send Notification | Gold Market Admin'
       },
+      {
+        path:'change-password',
+        component:ChangePasswordComponent,
+        title:'Change Password | Gold Market Admin'
+      },
+      {
+        path:'settings',
+        component:SettingsComponent,
+        title:'Settings | Gold Market Admin'
+      },
     ]
   },
   // auth pages
@@ -170,6 +256,16 @@ export const routes: Routes = [
     path:'signin',
     component:SignInComponent,
     title:'Angular Sign In Dashboard | TailAdmin - Angular Admin Dashboard Template'
+  },
+  {
+    path:'forgot-password',
+    component:ForgotPasswordComponent,
+    title:'Forgot Password | Gold Market Admin'
+  },
+  {
+    path:'reset-password',
+    component:ResetPasswordComponent,
+    title:'Reset Password | Gold Market Admin'
   },
   {
     path:'signup',

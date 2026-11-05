@@ -35,7 +35,7 @@ export class BarChartOneComponent {
   ];
 
   public chart: ApexChart = {
-    fontFamily: 'Outfit, sans-serif',
+    fontFamily: 'Tajawal, Outfit, sans-serif',
     type: 'bar',
     height: 180,
     toolbar: {
@@ -43,7 +43,8 @@ export class BarChartOneComponent {
     },
   };
 
-  public colors: string[] = ['#465fff'];
+  // Ayar Sooq brand: premium gold
+  public colors: string[] = ['#d4af37'];
 
   public plotOptions: ApexPlotOptions = {
     bar: {
@@ -87,7 +88,7 @@ export class BarChartOneComponent {
     show: true,
     position: 'top',
     horizontalAlign: 'left',
-    fontFamily: 'Outfit',
+    fontFamily: 'Tajawal, Outfit',
   };
 
   public grid: ApexGrid = {

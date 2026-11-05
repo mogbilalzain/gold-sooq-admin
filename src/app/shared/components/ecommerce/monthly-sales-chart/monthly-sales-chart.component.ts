@@ -40,7 +40,7 @@ export class MonthlySalesChartComponent {
     bar: {
       horizontal: false,
       columnWidth: '39%',
-      borderRadius: 5,
+      borderRadius: 8,
       borderRadiusApplication: 'end',
     },
   };
@@ -57,13 +57,26 @@ export class MonthlySalesChartComponent {
     fontFamily: 'Outfit',
   };
   public yaxis: ApexYAxis = { title: { text: undefined } };
-  public grid: ApexGrid = { yaxis: { lines: { show: true } } };
-  public fill: ApexFill = { opacity: 1 };
+  public grid: ApexGrid = { yaxis: { lines: { show: true } }, borderColor: 'rgba(208, 197, 175, 0.25)' };
+  public fill: ApexFill = {
+    type: 'gradient',
+    gradient: {
+      shade: 'light',
+      type: 'vertical',
+      shadeIntensity: 0.25,
+      gradientToColors: ['#e9c349'],
+      inverseColors: false,
+      opacityFrom: 1,
+      opacityTo: 0.85,
+      stops: [0, 100],
+    },
+  };
   public tooltip: ApexTooltip = {
     x: { show: false },
     y: { formatter: (val: number) => `${val}` },
   };
-  public colors: string[] = ['#465fff'];
+  // Ayar Sooq brand palette: premium gold primary
+  public colors: string[] = ['#d4af37'];
 
   isOpen = false;
 
