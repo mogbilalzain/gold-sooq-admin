@@ -70,6 +70,10 @@ export class ApiConfigService {
     return `${this.baseUrl}/admin/stats`;
   }
 
+  getAdminSiteAnalyticsUrl(): string {
+    return `${this.baseUrl}/admin/site-analytics`;
+  }
+
   /** socket.io is served from the API host root (`/socket.io/`), not under the API path. */
   getSocketUrl(): string {
     return new URL(this.baseUrl).origin;

@@ -43,6 +43,7 @@ export interface TranslationKeys {
     identityVerification: string;
     businessVerification: string;
     contactMessages: string;
+    siteAnalytics: string;
   };
   // Header
   header: {
@@ -745,6 +746,33 @@ export interface TranslationKeys {
     enableDesktop: string;
     desktopBlocked: string;
   };
+  // Public website (ayarsouq.com) visits and app-download clicks
+  siteAnalytics: {
+    title: string;
+    subtitle: string;
+    rangeDays: string;
+    visitors: string;
+    visitorsHint: string;
+    pageViews: string;
+    downloadClicks: string;
+    conversionRate: string;
+    conversionHint: string;
+    dailyChart: string;
+    downloadsByStore: string;
+    downloadsByPlacement: string;
+    topPages: string;
+    devices: string;
+    topReferrers: string;
+    page: string;
+    views: string;
+    visits: string;
+    clicks: string;
+    noData: string;
+    loadError: string;
+    privacyNote: string;
+    placements: Record<string, string>;
+    deviceTypes: Record<string, string>;
+  };
   // Server error codes (APIError.message) shown to the admin
   errors: Record<string, string>;
 }
@@ -794,6 +822,7 @@ export class TranslationService {
         identityVerification: 'توثيق الهوية',
         businessVerification: 'توثيق الأعمال',
         contactMessages: 'رسائل تواصل معنا',
+        siteAnalytics: 'زوار الموقع',
       },
       header: {
         search: 'ابحث في لوحة التحكم...',
@@ -1599,6 +1628,42 @@ export class TranslationService {
         enableDesktop: 'تفعيل تنبيهات سطح المكتب',
         desktopBlocked: 'تنبيهات سطح المكتب محظورة من إعدادات المتصفح',
       },
+      siteAnalytics: {
+        title: 'زوار الموقع',
+        subtitle: 'زيارات موقع ayarsouq.com ونقرات أزرار تحميل التطبيق',
+        rangeDays: 'آخر {n} يوم',
+        visitors: 'الزوار',
+        visitorsHint: 'مجموع الزوار الفريدين يومياً',
+        pageViews: 'مشاهدات الصفحات',
+        downloadClicks: 'نقرات التحميل',
+        conversionRate: 'نسبة التحويل',
+        conversionHint: 'من الزوار ضغطوا زر التحميل',
+        dailyChart: 'الزيارات والتحميلات يومياً',
+        downloadsByStore: 'التحميل حسب المتجر',
+        downloadsByPlacement: 'مكان زر التحميل',
+        topPages: 'أكثر الصفحات زيارة',
+        devices: 'الأجهزة',
+        topReferrers: 'مصادر الزيارات',
+        page: 'الصفحة',
+        views: 'المشاهدات',
+        visits: 'الزيارات',
+        clicks: 'النقرات',
+        noData: 'لا توجد بيانات في هذه الفترة بعد',
+        loadError: 'تعذّر تحميل إحصائيات الموقع',
+        privacyNote: 'إحصائيات مجهولة الهوية: لا تُخزَّن عناوين IP ولا ملفات تعريف الارتباط.',
+        placements: {
+          hero: 'أعلى الصفحة الرئيسية',
+          download_section: 'قسم التحميل',
+          categories: 'صفحة الفئات',
+          contact: 'صفحة تواصل معنا',
+          other: 'أخرى',
+        },
+        deviceTypes: {
+          mobile: 'جوال',
+          tablet: 'جهاز لوحي',
+          desktop: 'كمبيوتر',
+        },
+      },
       errors: {
         CATEGORY_HAS_SUBCATEGORIES: 'لا يمكن حذف هذه الفئة لأن لها فئات فرعية. احذف الفئات الفرعية أو انقلها أولاً.',
         CATEGORY_HAS_ADS: 'لا يمكن حذف هذه الفئة لأن لها إعلانات (بما فيها المحذوفة من أصحابها).',
@@ -1646,6 +1711,7 @@ export class TranslationService {
         identityVerification: 'Identity Verification',
         businessVerification: 'Business Verification',
         contactMessages: 'Contact Messages',
+        siteAnalytics: 'Website Visitors',
       },
       header: {
         search: 'Search in dashboard...',
@@ -2450,6 +2516,42 @@ export class TranslationService {
         emptyFiltered: 'No notifications match this filter',
         enableDesktop: 'Enable desktop alerts',
         desktopBlocked: 'Desktop alerts are blocked in your browser settings',
+      },
+      siteAnalytics: {
+        title: 'Website Visitors',
+        subtitle: 'Visits to ayarsouq.com and clicks on the app download buttons',
+        rangeDays: 'Last {n} days',
+        visitors: 'Visitors',
+        visitorsHint: 'Sum of daily unique visitors',
+        pageViews: 'Page views',
+        downloadClicks: 'Download clicks',
+        conversionRate: 'Conversion rate',
+        conversionHint: 'clicked download',
+        dailyChart: 'Daily visits and downloads',
+        downloadsByStore: 'Downloads by store',
+        downloadsByPlacement: 'Download button placement',
+        topPages: 'Top pages',
+        devices: 'Devices',
+        topReferrers: 'Traffic sources',
+        page: 'Page',
+        views: 'Views',
+        visits: 'Visits',
+        clicks: 'Clicks',
+        noData: 'No data for this period yet',
+        loadError: 'Could not load website analytics',
+        privacyNote: 'Anonymous statistics: no IP addresses or cookies are stored.',
+        placements: {
+          hero: 'Home page hero',
+          download_section: 'Download section',
+          categories: 'Categories page',
+          contact: 'Contact page',
+          other: 'Other',
+        },
+        deviceTypes: {
+          mobile: 'Mobile',
+          tablet: 'Tablet',
+          desktop: 'Desktop',
+        },
       },
       errors: {
         CATEGORY_HAS_SUBCATEGORIES: 'This category has subcategories. Delete or move them first.',

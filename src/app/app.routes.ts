@@ -43,6 +43,7 @@ import { BusinessProfileComponent } from './pages/business-profiles/business-pro
 import { ContactMessagesComponent } from './pages/contact-messages/contact-messages.component';
 import { ContactMessageDetailsComponent } from './pages/contact-messages/contact-message-details/contact-message-details.component';
 import { AdminInboxComponent } from './pages/admin-inbox/admin-inbox.component';
+import { SiteAnalyticsComponent } from './pages/site-analytics/site-analytics.component';
 import { authGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
@@ -228,6 +229,11 @@ export const routes: Routes = [
         path:'admin-inbox',
         component:AdminInboxComponent,
         title:'Admin Notifications | Gold Market Admin'
+      },
+      {
+        path:'site-analytics',
+        component:SiteAnalyticsComponent,
+        title:'Website Visitors | Gold Market Admin'
       },
       {
         path:'notifications',
