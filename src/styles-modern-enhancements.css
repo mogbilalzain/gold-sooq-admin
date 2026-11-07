@@ -375,6 +375,8 @@
 .header-modern.scrolled {
   background-color: var(--color-surface-container-low);
   box-shadow: none;
+  /* Keep the sticky header above page content (stat cards use z-10) */
+  z-index: 99;
 }
 
 /* Gmail-style rounded corner where the header meets the sidebar (docked xl+).
