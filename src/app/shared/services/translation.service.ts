@@ -1656,6 +1656,11 @@ export class TranslationService {
           download_section: 'قسم التحميل',
           categories: 'صفحة الفئات',
           contact: 'صفحة تواصل معنا',
+          sticky_bar: 'شريط التحميل الثابت',
+          gold_price: 'صفحة سعر الذهب',
+          business: 'صفحة للمتاجر',
+          about: 'صفحة من نحن',
+          guides: 'صفحات الأدلة',
           other: 'أخرى',
         },
         deviceTypes: {
@@ -2545,6 +2550,11 @@ export class TranslationService {
           download_section: 'Download section',
           categories: 'Categories page',
           contact: 'Contact page',
+          sticky_bar: 'Sticky download bar',
+          gold_price: 'Gold price page',
+          business: 'For Stores page',
+          about: 'About page',
+          guides: 'Guide pages',
           other: 'Other',
         },
         deviceTypes: {
