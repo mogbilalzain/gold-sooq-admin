@@ -1,6 +1,6 @@
 <div class="app-home space-y-6">
   <!-- 1. Welcome banner: greeting, date, pending summary, shortcuts -->
-  <app-welcome-banner [pendingTotal]="pendingTotal"></app-welcome-banner>
+  <app-welcome-banner class="block" [pendingTotal]="pendingTotal"></app-welcome-banner>
 
   <!-- 2. KPI cards with 30-day trends -->
   @if (isLoading) {
