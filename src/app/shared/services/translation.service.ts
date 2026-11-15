@@ -122,6 +122,22 @@ export interface TranslationKeys {
         newUsers: string;
         newAds: string;
         statsLoadError: string;
+        greetingMorning: string;
+        greetingAfternoon: string;
+        greetingEvening: string;
+        pendingSummary: string;
+        noPendingTasks: string;
+        quickLinks: string;
+        quickReviewAds: string;
+        quickSendNotification: string;
+        quickMetalsPrices: string;
+        quickSiteAnalytics: string;
+        last30Days: string;
+        activeShare: string;
+        marketSection: string;
+        marketSectionHint: string;
+        allPrices: string;
+        morePending: string;
       };
       // Categories
       categories: {
@@ -898,6 +914,22 @@ export class TranslationService {
         newUsers: 'مستخدمون جدد',
         newAds: 'إعلانات جديدة',
         statsLoadError: 'تعذر تحميل الإحصائيات',
+        greetingMorning: 'صباح الخير',
+        greetingAfternoon: 'مساء الخير',
+        greetingEvening: 'مساء الخير',
+        pendingSummary: 'مهام بانتظار إجراءك',
+        noPendingTasks: 'لا توجد مهام معلقة — كل شيء تحت السيطرة',
+        quickLinks: 'اختصارات',
+        quickReviewAds: 'مراجعة الإعلانات',
+        quickSendNotification: 'إرسال إشعار',
+        quickMetalsPrices: 'أسعار المعادن',
+        quickSiteAnalytics: 'زوار الموقع',
+        last30Days: 'آخر 30 يوماً',
+        activeShare: 'من إجمالي الإعلانات',
+        marketSection: 'سوق المعادن',
+        marketSectionHint: 'أسعار الذهب والفضة والبلاتين اليوم',
+        allPrices: 'كل الأسعار',
+        morePending: 'إعلانات أخرى بانتظار المراجعة',
       },
       categories: {
         title: 'الفئات',
@@ -1792,6 +1824,22 @@ export class TranslationService {
         newUsers: 'New users',
         newAds: 'New ads',
         statsLoadError: 'Could not load statistics',
+        greetingMorning: 'Good morning',
+        greetingAfternoon: 'Good afternoon',
+        greetingEvening: 'Good evening',
+        pendingSummary: 'tasks waiting for your action',
+        noPendingTasks: 'All caught up — no pending tasks',
+        quickLinks: 'Quick links',
+        quickReviewAds: 'Review ads',
+        quickSendNotification: 'Send notification',
+        quickMetalsPrices: 'Metals prices',
+        quickSiteAnalytics: 'Site visitors',
+        last30Days: 'last 30 days',
+        activeShare: 'of all ads',
+        marketSection: 'Metals market',
+        marketSectionHint: "Today's gold, silver and platinum prices",
+        allPrices: 'All prices',
+        morePending: 'more ads awaiting review',
       },
       categories: {
         title: 'Categories',

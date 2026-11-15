@@ -26,15 +26,13 @@ const GRID_COLOR = 'rgba(206, 198, 178, 0.35)';
   standalone: true,
   imports: [CommonModule, NgApexchartsModule],
   template: `
-    <div
-      class="rounded-m3-lg border border-outline-variant/50 bg-surface-container-lowest p-6 shadow-elevation-1 dark:border-outline-variant dark:bg-surface-container h-full"
-    >
+    <div class="dashboard-card h-full">
       <div class="flex flex-wrap items-start gap-4 mb-4">
         <div>
-          <h3 class="text-m3-title-lg font-medium text-surface-on-surface">
+          <h3 class="dashboard-card-title">
             {{ translationService.t('dashboard.activityChart') }}
           </h3>
-          <p class="text-sm text-surface-on-surface-variant mt-0.5">
+          <p class="dashboard-card-hint">
             {{ translationService.t('dashboard.activityChartHint') }}
           </p>
         </div>

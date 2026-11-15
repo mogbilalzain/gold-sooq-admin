@@ -56,8 +56,7 @@ export const routes: Routes = [
         path: '',
         component: EcommerceComponent,
         pathMatch: 'full',
-        title:
-          'Angular Ecommerce Dashboard | TailAdmin - Angular Admin Dashboard Template',
+        title: 'Dashboard | Gold Market Admin',
       },
       {
         path:'calendar',

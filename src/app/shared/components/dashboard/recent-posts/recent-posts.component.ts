@@ -9,16 +9,14 @@ import { TranslationService } from '../../../services/translation.service';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <div
-      class="rounded-m3-lg border border-outline-variant/50 bg-surface-container-lowest p-6 shadow-elevation-1 dark:border-outline-variant dark:bg-surface-container"
-    >
+    <div class="dashboard-card">
       <!-- Header -->
       <div class="flex items-center justify-between mb-5">
         <div>
-          <h3 class="text-m3-title-lg font-medium text-surface-on-surface">
+          <h3 class="dashboard-card-title">
             {{ translationService.t('dashboard.recentPosts') }}
           </h3>
-          <p class="text-sm text-surface-on-surface-variant mt-0.5">
+          <p class="dashboard-card-hint">
             {{ translationService.t('dashboard.recentPostsHint') }}
           </p>
         </div>
@@ -78,7 +76,7 @@ import { TranslationService } from '../../../services/translation.service';
                   class="gold-row-hover border-b border-outline-variant/40 last:border-0 transition-colors"
                 >
                   <!-- Post -->
-                  <td class="py-3 pe-3">
+                  <td class="py-3.5 pe-3">
                     <div class="flex items-center gap-3">
                       @if (post.main_image_url) {
                         <img
@@ -116,7 +114,7 @@ import { TranslationService } from '../../../services/translation.service';
                     <span class="text-xs text-surface-on-surface-variant ms-1">{{ post.currency }}</span>
                   </td>
                   <!-- Active status -->
-                  <td class="py-3 pe-3">
+                  <td class="py-3.5 pe-3">
                     <span
                       class="status-pill"
                       [ngClass]="getActiveBadgeClass(post)"
@@ -127,7 +125,7 @@ import { TranslationService } from '../../../services/translation.service';
                     </span>
                   </td>
                   <!-- Review status -->
-                  <td class="py-3 pe-3">
+                  <td class="py-3.5 pe-3">
                     <span
                       class="status-pill"
                       [ngClass]="getReviewBadgeClass(post)"
@@ -136,7 +134,7 @@ import { TranslationService } from '../../../services/translation.service';
                     </span>
                   </td>
                   <!-- Date -->
-                  <td class="py-3 text-xs text-surface-on-surface-variant whitespace-nowrap">
+                  <td class="py-3.5 text-xs text-surface-on-surface-variant whitespace-nowrap">
                     {{ formatDate(post.create_date) }}
                   </td>
                 </tr>

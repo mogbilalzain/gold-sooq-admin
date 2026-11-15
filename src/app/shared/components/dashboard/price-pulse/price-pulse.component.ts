@@ -9,16 +9,14 @@ import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
   standalone: true,
   imports: [CommonModule, SafeHtmlPipe],
   template: `
-    <div
-      class="rounded-m3-lg border border-outline-variant/50 bg-surface-container-lowest p-6 shadow-elevation-1 dark:border-outline-variant dark:bg-surface-container h-full flex flex-col"
-    >
+    <div class="dashboard-card h-full flex flex-col">
       <!-- Header -->
       <div class="flex items-center mb-5">
         <div>
-          <h3 class="text-m3-title-lg font-medium text-surface-on-surface">
+          <h3 class="dashboard-card-title">
             {{ translationService.t('dashboard.goldPulse') }}
           </h3>
-          <p class="text-sm text-surface-on-surface-variant mt-0.5">
+          <p class="dashboard-card-hint">
             {{ translationService.t('dashboard.pulsePeriod') }}
           </p>
         </div>
