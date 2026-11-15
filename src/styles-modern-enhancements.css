@@ -377,52 +377,37 @@
   background: var(--color-surface-container-highest);
 }
 
+/* M3 navigation drawer: title-small group headlines */
 .ayar-nav-group-label {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #94a3b8;
-}
-
-.dark .ayar-nav-group-label {
+  font-size: 14px;
+  font-weight: 500;
   color: var(--color-on-surface-variant);
 }
 
+/* M3 navigation drawer item: pill, state-layer hover, no borders */
 .ayar-nav-item {
-  @apply relative flex items-center gap-3.5 rounded-xl px-3.5 py-2.5 text-sm font-medium;
-  color: #475569;
-  border: 1px solid transparent;
+  @apply relative flex items-center gap-3 rounded-full px-4 py-3 text-sm font-medium;
+  color: var(--color-on-surface-variant);
   transition:
     background-color var(--m3-duration-short) var(--ease-m3-standard),
-    color var(--m3-duration-short) var(--ease-m3-standard),
-    border-color var(--m3-duration-short) var(--ease-m3-standard);
+    color var(--m3-duration-short) var(--ease-m3-standard);
 }
 
 .ayar-nav-item:hover {
-  background-color: #f8fafc;
-  color: #0f172a;
-}
-
-.dark .ayar-nav-item {
-  color: var(--color-on-surface-variant);
-}
-
-.dark .ayar-nav-item:hover {
-  background-color: var(--color-surface-container-high);
+  background-color: color-mix(in srgb, var(--color-on-surface) 8%, transparent);
   color: var(--color-on-surface);
 }
 
 .ayar-nav-icon {
   @apply shrink-0;
-  width: 20px;
-  height: 20px;
-  font-size: 20px;
-  color: #94a3b8;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  color: var(--color-on-surface-variant);
 }
 
-.dark .ayar-nav-icon {
-  color: var(--color-on-surface-variant);
+.ayar-nav-item:hover .ayar-nav-icon {
+  color: var(--color-on-surface);
 }
 
 .ayar-nav-chevron {
@@ -431,13 +416,12 @@
   font-size: 18px;
 }
 
+/* Active item: tonal pill (secondary-container), per M3 navigation drawer */
 .ayar-nav-item-active,
 .ayar-nav-item-active:hover {
-  background-color: color-mix(in srgb, #fdfbf7 85%, transparent);
-  color: var(--color-gold-700);
-  font-weight: 700;
-  border-color: color-mix(in srgb, #f5e8d2 70%, transparent);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  background-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+  font-weight: 600;
 }
 
 /* Active item renders its symbol filled, per M3 navigation */
@@ -447,29 +431,12 @@
     'wght' 400,
     'GRAD' 0,
     'opsz' 24;
-  color: var(--color-gold-600);
+  color: var(--color-on-secondary-container);
 }
 
-.dark .ayar-nav-item-active,
-.dark .ayar-nav-item-active:hover {
-  background-color: rgba(212, 168, 83, 0.12);
-  color: var(--color-gold-400);
-  border-color: rgba(212, 168, 83, 0.25);
-}
-
-.dark .ayar-nav-item-active .ayar-nav-icon {
-  color: var(--color-gold-400);
-}
-
-/* Amber highlight for the metals-prices link */
+/* Amber text accent for the live metals-prices link */
 .ayar-nav-item-accent:not(.ayar-nav-item-active) {
   color: #b45309;
-  background-color: color-mix(in srgb, #fffbeb 60%, transparent);
-}
-
-.ayar-nav-item-accent:not(.ayar-nav-item-active):hover {
-  background-color: color-mix(in srgb, #fef3c7 60%, transparent);
-  color: #92400e;
 }
 
 .ayar-nav-item-accent:not(.ayar-nav-item-active) .ayar-nav-icon {
@@ -478,12 +445,6 @@
 
 .dark .ayar-nav-item-accent:not(.ayar-nav-item-active) {
   color: #fbbf24;
-  background-color: rgba(251, 191, 36, 0.08);
-}
-
-.dark .ayar-nav-item-accent:not(.ayar-nav-item-active):hover {
-  background-color: rgba(251, 191, 36, 0.14);
-  color: #fcd34d;
 }
 
 .dark .ayar-nav-item-accent:not(.ayar-nav-item-active) .ayar-nav-icon {
@@ -491,61 +452,44 @@
 }
 
 .ayar-nav-subitem {
-  @apply block rounded-lg px-3 py-2 text-sm font-medium;
-  color: #64748b;
+  @apply block rounded-full px-4 py-2 text-sm font-medium;
+  color: var(--color-on-surface-variant);
   transition:
     background-color var(--m3-duration-short) var(--ease-m3-standard),
     color var(--m3-duration-short) var(--ease-m3-standard);
 }
 
 .ayar-nav-subitem:hover {
-  background-color: #f8fafc;
-  color: #0f172a;
-}
-
-.dark .ayar-nav-subitem {
-  color: var(--color-on-surface-variant);
-}
-
-.dark .ayar-nav-subitem:hover {
-  background-color: var(--color-surface-container-high);
+  background-color: color-mix(in srgb, var(--color-on-surface) 8%, transparent);
   color: var(--color-on-surface);
 }
 
 .ayar-nav-subitem-active,
 .ayar-nav-subitem-active:hover {
-  color: var(--color-gold-700);
-  font-weight: 700;
-  background-color: color-mix(in srgb, #fdfbf7 85%, transparent);
+  background-color: var(--color-secondary-container);
+  color: var(--color-on-secondary-container);
+  font-weight: 600;
 }
 
-.dark .ayar-nav-subitem-active,
-.dark .ayar-nav-subitem-active:hover {
-  color: var(--color-gold-400);
-  background-color: rgba(212, 168, 83, 0.12);
-}
-
+/* M3 nav badges: plain label text, no chip */
 .ayar-badge-total {
-  @apply inline-flex items-center rounded-md px-2 py-0.5 text-xs;
   font-variant-numeric: tabular-nums;
-  background-color: #f1f5f9;
-  color: #475569;
-}
-
-.dark .ayar-badge-total {
-  background-color: var(--color-surface-container-high);
+  font-size: 13px;
   color: var(--color-on-surface-variant);
 }
 
+.ayar-nav-item-active .ayar-badge-total {
+  color: var(--color-on-secondary-container);
+}
+
 .ayar-badge-new {
-  @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-bold;
-  background-color: #fef3c7;
-  color: #92400e;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-gold-700);
 }
 
 .dark .ayar-badge-new {
-  background-color: rgba(251, 191, 36, 0.15);
-  color: #fcd34d;
+  color: var(--color-gold-400);
 }
 
 .ayar-sidebar-footer {
