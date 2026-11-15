@@ -13,6 +13,7 @@ import {
   NgApexchartsModule,
 } from 'ng-apexcharts';
 import { Subject, takeUntil } from 'rxjs';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { StatsDailyPoint } from '../../../services/data/stats.service';
 import { ThemeService } from '../../../services/theme.service';
 import { TranslationService } from '../../../services/translation.service';
@@ -26,7 +27,7 @@ type ActivityPeriod = 'weekly' | 'monthly';
 @Component({
   selector: 'app-activity-chart',
   standalone: true,
-  imports: [CommonModule, NgApexchartsModule],
+  imports: [CommonModule, NgApexchartsModule, MatButtonToggleModule],
   template: `
     <div class="dashboard-card h-full">
       <div class="mb-4 flex flex-wrap items-center gap-4">
@@ -38,24 +39,19 @@ type ActivityPeriod = 'weekly' | 'monthly';
             {{ translationService.t('dashboard.activityChartHint') }}
           </p>
         </div>
-        <div class="ayar-segmented ms-auto">
-          <button
-            type="button"
-            class="ayar-segmented-btn"
-            [class.ayar-segmented-btn-active]="period === 'weekly'"
-            (click)="setPeriod('weekly')"
-          >
+        <mat-button-toggle-group
+          class="ms-auto"
+          hideSingleSelectionIndicator
+          [value]="period"
+          (change)="setPeriod($event.value)"
+        >
+          <mat-button-toggle value="weekly">
             {{ translationService.t('dashboard.weekly') }}
-          </button>
-          <button
-            type="button"
-            class="ayar-segmented-btn"
-            [class.ayar-segmented-btn-active]="period === 'monthly'"
-            (click)="setPeriod('monthly')"
-          >
+          </mat-button-toggle>
+          <mat-button-toggle value="monthly">
             {{ translationService.t('dashboard.monthly') }}
-          </button>
-        </div>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
 
       @if (!loading && visibleDaily.length) {

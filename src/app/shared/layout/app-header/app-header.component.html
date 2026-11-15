@@ -2,10 +2,11 @@
   <div class="flex h-20 items-center gap-2 px-3 sm:gap-3 sm:px-6">
     <!-- Sidebar toggle -->
     <button
-      class="header-icon-btn shrink-0"
-      [class.header-icon-btn-active]="isMobileOpen$ | async"
+      matIconButton
+      class="shrink-0"
+      [matTooltip]="translationService.t('header.toggleSidebar')"
       (click)="handleToggle()"
-      aria-label="Toggle Sidebar"
+      [attr.aria-label]="translationService.t('header.toggleSidebar')"
     >
       @if (isMobileOpen$ | async) {
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -54,8 +55,8 @@
         type="text"
         [value]="searchQuery"
         (input)="onSearchInput($event)"
-        (keydown)="onSearchKeydown($event)"
-        (focus)="onSearchFocus()"
+        [matAutocomplete]="auto"
+        [matAutocompleteDisabled]="!searchQuery.trim()"
         [placeholder]="translationService.t('header.searchPages')"
         class="ayar-header-search-input"
         autocomplete="off"
@@ -64,43 +65,35 @@
         <span>⌘</span><span>K</span>
       </kbd>
 
-      @if (searchOpen && searchQuery.trim()) {
-        <div class="ayar-search-panel" role="listbox">
-          @if (filteredPages.length) {
-            @for (page of filteredPages; track page.path; let i = $index) {
-              <button
-                type="button"
-                role="option"
-                [attr.aria-selected]="i === activeIndex"
-                class="ayar-search-item"
-                [class.ayar-search-item-active]="i === activeIndex"
-                (click)="goToPage(page)"
-                (mouseenter)="activeIndex = i"
-              >
-                <svg class="h-4 w-4 shrink-0 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onPageSelected($event)">
+        @if (filteredPages.length) {
+          @for (page of filteredPages; track page.path) {
+            <mat-option [value]="page">
+              <span class="flex items-center gap-2.5">
+                <svg class="h-4 w-4 shrink-0 text-slate-400 rtl:-scale-x-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M9 18l6-6-6-6" />
                 </svg>
                 <span class="truncate">{{ translationService.t(page.labelKey) }}</span>
-              </button>
-            }
-          } @else {
-            <p class="ayar-search-empty">{{ translationService.t('header.noResults') }}</p>
+              </span>
+            </mat-option>
           }
-        </div>
-      }
+        } @else {
+          <mat-option disabled>{{ translationService.t('header.noResults') }}</mat-option>
+        }
+      </mat-autocomplete>
     </div>
 
     <!-- Actions -->
     <div class="ms-auto flex items-center gap-1.5 sm:gap-3">
       <div class="hidden md:flex items-center gap-2">
-        <a routerLink="/notifications/send" class="ayar-quick-btn">
-          <svg class="h-4 w-4 text-slate-500 dark:text-[color:var(--color-on-surface-variant)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <a matButton="tonal" routerLink="/notifications/send" class="!gap-2">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 4v16m8-8H4" />
           </svg>
           <span>{{ translationService.t('dashboard.quickSendNotification') }}</span>
         </a>
-        <a routerLink="/metals-prices" class="ayar-quick-btn">
-          <svg class="h-4 w-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <a matButton="tonal" routerLink="/metals-prices" class="!gap-2">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
           <span>{{ translationService.t('dashboard.quickMetalsPrices') }}</span>

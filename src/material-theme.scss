@@ -16,8 +16,8 @@ html {
         tertiary: $tertiary-palette,
       ),
       typography: (
-        plain-family: 'Tajawal, Outfit, sans-serif',
-        brand-family: 'Tajawal, Outfit, sans-serif',
+        plain-family: 'Cairo, Outfit, sans-serif',
+        brand-family: 'Cairo, Outfit, sans-serif',
       ),
       density: -1,
     )
@@ -35,8 +35,8 @@ html.dark {
         tertiary: $tertiary-palette,
       ),
       typography: (
-        plain-family: 'Tajawal, Outfit, sans-serif',
-        brand-family: 'Tajawal, Outfit, sans-serif',
+        plain-family: 'Cairo, Outfit, sans-serif',
+        brand-family: 'Cairo, Outfit, sans-serif',
       ),
       density: -1,
     )
@@ -66,47 +66,221 @@ html {
   --mat-sys-on-error-container: var(--color-on-error-container);
 }
 
-// ---- Borderless fields & outlined buttons: border -> elevation shadow ----
-// The visible boundary is painted with box-shadow in styles.css instead.
+// ---- Stitch look on top of Material behavior ----
+// Shapes, borders and state colors come from component token overrides so
+// ripples, focus rings and keyboard nav stay stock Material.
 html {
-  @include mat.form-field-overrides(
-    (
-      outlined-outline-width: 0,
-      outlined-focus-outline-width: 0,
-    )
-  );
-
+  // Buttons: 12px radius instead of the M3 pill; Stitch state colors.
   @include mat.button-overrides(
     (
-      outlined-outline-width: 0,
+      filled-container-shape: var(--radius-m3-md),
+      outlined-container-shape: var(--radius-m3-md),
+      text-container-shape: var(--radius-m3-md),
+      tonal-container-shape: var(--radius-m3-md),
+      protected-container-shape: var(--radius-m3-md),
+      outlined-outline-width: 1px,
+      outlined-outline-color: #e2e8f0,
+      tonal-container-color: var(--color-gold-50),
+      tonal-label-text-color: var(--color-gold-700),
+      text-label-text-color: var(--color-gold-700),
     )
   );
 
-  // Table rows and filter chips: no outline lines — zebra rows / chip
-  // shadows in styles.css provide the separation instead.
+  // Fields: 1px slate-200 outline, gold-300 on hover, 2px gold-500 on focus.
+  @include mat.form-field-overrides(
+    (
+      outlined-container-shape: var(--radius-m3-md),
+      outlined-outline-width: 1px,
+      outlined-outline-color: #e2e8f0,
+      outlined-hover-outline-color: var(--color-gold-300),
+      outlined-focus-outline-color: var(--color-gold-500),
+      outlined-focus-outline-width: 2px,
+    )
+  );
+
+  // Tables: small bold slate header, 1px #f1f5f9 row separators.
   @include mat.table-overrides(
     (
-      row-item-outline-width: 0,
+      header-headline-color: #94a3b8,
+      header-headline-size: 12px,
+      header-headline-weight: 700,
+      row-item-outline-color: #f1f5f9,
+      row-item-outline-width: 1px,
+    )
+  );
+
+  // Chips: 8px radius, slate-100 rest / gold selected with gold-200 border.
+  @include mat.chips-overrides(
+    (
+      container-shape-radius: var(--radius-m3-sm),
+      outline-width: 0,
+      outline-color: var(--color-gold-200),
+      flat-selected-outline-width: 1px,
+      elevated-container-color: #f1f5f9,
+      elevated-selected-container-color: var(--color-gold-50),
+      label-text-color: #475569,
+      selected-label-text-color: var(--color-gold-700),
+    )
+  );
+
+  // Segmented controls: slate-100 track, white selected button.
+  @include mat.button-toggle-overrides(
+    (
+      shape: var(--radius-m3-sm),
+      height: 36px,
+      background-color: #f1f5f9,
+      text-color: #64748b,
+      selected-state-background-color: #ffffff,
+      selected-state-text-color: #0f172a,
+      divider-color: transparent,
+    )
+  );
+
+  @include mat.dialog-overrides(
+    (
+      container-shape: var(--radius-m3-lg),
+      container-elevation-shadow: var(--shadow-luxury),
+    )
+  );
+
+  // Header dropdown panels: white surface on the luxury shadow,
+  // with gold-tinted state layers on hover/focus instead of grey.
+  @include mat.menu-overrides(
+    (
+      container-color: var(--color-surface-container-lowest),
+      container-shape: var(--radius-m3-md),
+      container-elevation-shadow: var(--shadow-luxury),
+      item-hover-state-layer-color: color-mix(in srgb, var(--color-primary) 8%, transparent),
+      item-focus-state-layer-color: color-mix(in srgb, var(--color-primary) 10%, transparent),
+    )
+  );
+
+  @include mat.autocomplete-overrides(
+    (
+      container-shape: var(--radius-m3-md),
+      container-elevation-shadow: var(--shadow-luxury),
+    )
+  );
+
+  @include mat.tooltip-overrides(
+    (
+      container-color: #0f172a,
+      container-shape: var(--radius-m3-sm),
+      supporting-text-color: #ffffff,
+      supporting-text-size: 12px,
+      supporting-text-font: 'Cairo, Outfit, sans-serif',
+    )
+  );
+
+  @include mat.snack-bar-overrides(
+    (
+      container-color: #0f172a,
+      container-shape: var(--radius-m3-md),
+      supporting-text-color: #ffffff,
+      button-color: var(--color-gold-400),
+    )
+  );
+}
+
+// Dark-mode retuning for the light-only state colors above.
+html.dark {
+  @include mat.button-overrides(
+    (
+      outlined-outline-color: rgba(255, 255, 255, 0.14),
+      tonal-container-color: color-mix(in srgb, var(--color-gold-400) 14%, transparent),
+      tonal-label-text-color: var(--color-gold-300),
+      text-label-text-color: var(--color-gold-300),
     )
   );
 
   @include mat.chips-overrides(
     (
-      outline-width: 0,
+      elevated-container-color: rgba(255, 255, 255, 0.08),
+      elevated-selected-container-color: color-mix(in srgb, var(--color-gold-400) 16%, transparent),
+      outline-color: color-mix(in srgb, var(--color-gold-400) 45%, transparent),
+      label-text-color: rgba(255, 255, 255, 0.72),
+      selected-label-text-color: var(--color-gold-300),
     )
   );
 
-  // Header dropdown panels: rounded M3 surface floating on elevation,
-  // with gold-tinted state layers on hover/focus instead of grey.
-  @include mat.menu-overrides(
+  @include mat.button-toggle-overrides(
     (
-      container-color: var(--color-surface-container-lowest),
-      container-shape: var(--radius-m3-lg),
-      container-elevation-shadow: var(--shadow-elevation-3),
-      item-hover-state-layer-color: color-mix(in srgb, var(--color-primary) 8%, transparent),
-      item-focus-state-layer-color: color-mix(in srgb, var(--color-primary) 10%, transparent),
+      background-color: rgba(255, 255, 255, 0.06),
+      text-color: rgba(255, 255, 255, 0.6),
+      selected-state-background-color: rgba(255, 255, 255, 0.12),
+      selected-state-text-color: #ffffff,
     )
   );
+
+  @include mat.table-overrides(
+    (
+      row-item-outline-color: rgba(255, 255, 255, 0.06),
+    )
+  );
+}
+
+// Dark container button (primary CTA in the shell): slate-900 in light,
+// gold-500 in dark.
+.app-btn-dark {
+  @include mat.button-overrides(
+    (
+      filled-container-color: #0f172a,
+      filled-label-text-color: #ffffff,
+    )
+  );
+}
+
+html.dark .app-btn-dark {
+  @include mat.button-overrides(
+    (
+      filled-container-color: var(--color-gold-500),
+      filled-label-text-color: #0f172a,
+    )
+  );
+}
+
+// Gold selected state for segmented controls (e.g. the karat picker).
+.app-toggle-gold {
+  @include mat.button-toggle-overrides(
+    (
+      selected-state-background-color: var(--color-gold-500),
+      selected-state-text-color: #ffffff,
+    )
+  );
+}
+
+// Segmented-control internals: the track needs padding and the buttons need
+// their own radius and a soft shadow — tokens do not cover these.
+.mat-button-toggle-group {
+  padding: 3px;
+}
+
+.mat-button-toggle {
+  border-radius: calc(var(--radius-m3-sm) - 3px);
+}
+
+.mat-button-toggle-checked {
+  box-shadow:
+    0 1px 2px rgb(15 23 42 / 6%),
+    0 1px 3px rgb(15 23 42 / 8%);
+}
+
+html.dark .mat-button-toggle-checked {
+  box-shadow: none;
+}
+
+// Table row hover replaces the old zebra striping.
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #f8fafc;
+}
+
+html.dark .mat-mdc-row:hover .mat-mdc-cell {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+// mat-select panel: no shape token exists, so round the public panel class.
+.mat-mdc-select-panel {
+  border-radius: var(--radius-m3-md);
 }
 
 // ---- Compatibility with Tailwind preflight ----

@@ -1,7 +1,8 @@
 <button
+  matIconButton
   (click)="toggleTheme()"
-  class="header-icon-btn"
-  aria-label="Toggle theme"
+  [matTooltip]="translationService.t('header.toggleTheme')"
+  [attr.aria-label]="translationService.t('header.toggleTheme')"
 >
   <!-- Dark icon (moon) -->
   @if ((theme$ | async) === 'dark') {

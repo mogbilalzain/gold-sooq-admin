@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild, computed, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService } from '../../../services/translation.service';
 import { AdminInboxItem, AdminInboxService } from '../../../services/data/admin-inbox.service';
 import { InboxItemIconComponent } from './inbox-item-icon.component';
@@ -9,7 +11,7 @@ import { InboxItemIconComponent } from './inbox-item-icon.component';
 @Component({
   selector: 'app-notification-dropdown',
   templateUrl: './notification-dropdown.component.html',
-  imports: [CommonModule, RouterModule, MatMenuModule, InboxItemIconComponent],
+  imports: [CommonModule, RouterModule, MatMenuModule, MatButtonModule, MatTooltipModule, InboxItemIconComponent],
 })
 export class NotificationDropdownComponent implements OnInit, OnDestroy {
   readonly inbox = inject(AdminInboxService);

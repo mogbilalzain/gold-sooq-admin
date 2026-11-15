@@ -100,7 +100,8 @@
       <div class="ms-auto flex items-center gap-2">
         <button
           type="button"
-          class="ayar-btn ayar-btn-gold"
+          matButton="filled"
+          class="!gap-2"
           [disabled]="refreshingMarket"
           (click)="refreshMarket()"
         >
@@ -120,7 +121,7 @@
           </svg>
           {{ translationService.t('dashboard.refreshPrices') }}
         </button>
-        <a routerLink="/metals-prices" class="ayar-btn ayar-btn-outline">
+        <a matButton="outlined" routerLink="/metals-prices">
           {{ translationService.t('dashboard.pricesPage') }}
         </a>
       </div>

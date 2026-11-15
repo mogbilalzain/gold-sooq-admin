@@ -30,39 +30,32 @@
 
   <!-- Controls: period (white active) + karat (gold active) -->
   <div class="flex flex-wrap items-center gap-3 mb-4">
-    <div
-      class="ayar-segmented"
-      role="group"
+    <mat-button-toggle-group
+      hideSingleSelectionIndicator
+      [value]="period"
+      (change)="setPeriod($event.value)"
       [attr.aria-label]="translationService.t('dashboard.goldChart')"
     >
       @for (p of periods; track p) {
-        <button
-          type="button"
-          class="ayar-segmented-btn"
-          [class.ayar-segmented-btn-active]="period === p"
-          (click)="setPeriod(p)"
-        >
+        <mat-button-toggle [value]="p">
           {{ translationService.t(periodLabelKey(p)) }}
-        </button>
+        </mat-button-toggle>
       }
-    </div>
+    </mat-button-toggle-group>
 
-    <div
-      class="ayar-segmented ms-auto"
-      role="group"
+    <mat-button-toggle-group
+      class="app-toggle-gold ms-auto"
+      hideSingleSelectionIndicator
+      [value]="karat"
+      (change)="setKarat($event.value)"
       [attr.aria-label]="translationService.t('dashboard.karat')"
     >
       @for (k of karats; track k) {
-        <button
-          type="button"
-          class="ayar-segmented-btn"
-          [class.ayar-segmented-btn-gold]="karat === k"
-          (click)="setKarat(k)"
-        >
+        <mat-button-toggle [value]="k">
           {{ k }}K
-        </button>
+        </mat-button-toggle>
       }
-    </div>
+    </mat-button-toggle-group>
   </div>
 
   @if (loading) {

@@ -64,12 +64,15 @@
                   <!-- Submenu parent (charts) -->
                   <button
                     type="button"
+                    matRipple
                     (click)="toggleSubmenu(groupIndex + '-' + itemIndex)"
                     class="ayar-nav-item w-full"
                     [class.ayar-nav-item-active]="openSubmenu === groupIndex + '-' + itemIndex"
                     [class.justify-center]="!full"
                     [class.px-0]="!full"
-                    [attr.title]="full ? null : translationService.t(item.labelKey)"
+                    [matTooltip]="translationService.t(item.labelKey)"
+                    matTooltipPosition="after"
+                    [matTooltipDisabled]="full"
                   >
                     <span class="ayar-nav-icon" [innerHTML]="item.icon | safeHtml"></span>
                     @if (full) {
@@ -99,6 +102,7 @@
                         @for (child of item.children; track child.path) {
                           <li>
                             <a
+                              matRipple
                               [routerLink]="child.path"
                               (click)="onNavClick()"
                               class="ayar-nav-subitem"
@@ -114,6 +118,7 @@
                 } @else {
                   <!-- Regular link -->
                   <a
+                    matRipple
                     [routerLink]="item.path"
                     [routerLinkActive]="['ayar-nav-item-active']"
                     [routerLinkActiveOptions]="{ exact: item.path === '/' }"
@@ -122,7 +127,9 @@
                     [class.ayar-nav-item-accent]="item.accent"
                     [class.justify-center]="!full"
                     [class.px-0]="!full"
-                    [attr.title]="full ? null : translationService.t(item.labelKey)"
+                    [matTooltip]="translationService.t(item.labelKey)"
+                    matTooltipPosition="after"
+                    [matTooltipDisabled]="full"
                   >
                     <span class="ayar-nav-icon" [innerHTML]="item.icon | safeHtml"></span>
                     @if (full) {

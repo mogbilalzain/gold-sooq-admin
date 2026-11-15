@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -50,7 +51,7 @@ const GRID_COLOR = 'rgba(148, 163, 184, 0.2)';
 @Component({
   selector: 'app-gold-price-chart',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, NgApexchartsModule],
+  imports: [CommonModule, MatButtonModule, MatButtonToggleModule, NgApexchartsModule],
   templateUrl: './gold-price-chart.component.html',
 })
 export class GoldPriceChartComponent implements OnInit, OnDestroy {

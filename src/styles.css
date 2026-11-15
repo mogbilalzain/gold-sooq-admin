@@ -80,19 +80,19 @@ layer(base);
   --color-gold-800: #754e1e;
   --color-gold-900: #5f3e1b;
 
-  /* Ayar Premium warm surface tokens - Material 3 inspired tiered system */
+  /* Ayar surface tokens - slate neutrals matching the Stitch shell */
   --color-surface: #ffffff;
-  --color-surface-dim: #ddd9d8;
+  --color-surface-dim: #e2e8f0;
   --color-surface-bright: #ffffff;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f7f2f2;
-  --color-surface-container: #f0eded;
-  --color-surface-container-high: #ece7e7;
-  --color-surface-container-highest: #e6e1e1;
-  --color-on-surface: #1c1b1b;
-  --color-on-surface-variant: #4c4637;
-  --color-outline: #7d7766;
-  --color-outline-variant: #cec6b2;
+  --color-surface-container-low: #f8fafc;
+  --color-surface-container: #f1f5f9;
+  --color-surface-container-high: #eef2f7;
+  --color-surface-container-highest: #e2e8f0;
+  --color-on-surface: #0f172a;
+  --color-on-surface-variant: #64748b;
+  --color-outline: #94a3b8;
+  --color-outline-variant: #e2e8f0;
   --color-inverse-surface: #313030;
   --color-inverse-on-surface: #f4f0ef;
   --color-gold-accent: #d6b42c;
@@ -107,11 +107,11 @@ layer(base);
   --color-info-wash: #e0f2fe;
   --color-info-wash-text: #026aa2;
 
-  /* Material 3 color roles, derived from the gold brand palette */
-  --color-primary: #b8962e;
+  /* Material 3 color roles, derived from the Stitch gold palette */
+  --color-primary: #b88730;
   --color-on-primary: #ffffff;
-  --color-primary-container: #faeca6;
-  --color-on-primary-container: #574500;
+  --color-primary-container: #fbf6ee;
+  --color-on-primary-container: #754e1e;
   --color-secondary-container: #f3e9cf;
   --color-on-secondary-container: #3d3420;
   --color-error: #ba1a1a;
@@ -333,8 +333,8 @@ layer(base);
   --color-info-wash: rgba(11, 165, 236, 0.15);
   --color-info-wash-text: #7cd4fd;
 
-  --color-primary: #e9c349;
-  --color-on-primary: #3c2f00;
+  --color-primary: #e3be82;
+  --color-on-primary: #5f3e1b;
   --color-primary-container: #574500;
   --color-on-primary-container: #ffe088;
   --color-secondary-container: #4f4532;
@@ -792,46 +792,11 @@ layer(base);
 }
 
 /*
-  Borderless elevation treatment — borders are replaced by soft shadows.
-  The Material outline widths themselves are zeroed via tokens in
-  material-theme.scss; this layer paints the shadow boundary for form
-  fields, stroked buttons, and legacy Tailwind-bordered buttons/inputs.
+  Borderless elevation treatment for legacy (non-Material) elements —
+  borders are replaced by soft shadows. Material components draw their own
+  Stitch borders via token overrides in material-theme.scss.
 */
 @layer components {
-  /* mat-form-field: floating label over a shadowed, solid wrapper */
-  .mat-mdc-form-field .mdc-text-field--outlined {
-    background-color: var(--color-surface-container-lowest);
-    border-radius: var(--radius-m3-sm);
-    box-shadow: var(--shadow-elevation-1);
-    transition: box-shadow var(--m3-duration-short) var(--ease-m3-standard);
-  }
-  .mat-mdc-form-field:hover .mdc-text-field--outlined:not(.mdc-text-field--focused):not(.mdc-text-field--disabled) {
-    box-shadow: var(--shadow-elevation-2);
-  }
-  .mat-mdc-form-field .mdc-text-field--outlined.mdc-text-field--focused {
-    box-shadow:
-      0 0 0 2px color-mix(in srgb, var(--color-primary) 45%, transparent),
-      var(--shadow-elevation-2);
-  }
-  .mat-mdc-form-field.mat-mdc-form-field-invalid .mdc-text-field--outlined,
-  .mat-mdc-form-field.ng-invalid.ng-touched .mdc-text-field--outlined {
-    box-shadow:
-      0 0 0 1.5px color-mix(in srgb, var(--color-error) 50%, transparent),
-      var(--shadow-elevation-1);
-  }
-  .mat-mdc-form-field .mdc-text-field--outlined.mdc-text-field--disabled {
-    box-shadow: none;
-  }
-
-  /* Material stroked buttons: solid surface + shadow instead of the outline */
-  .mat-mdc-outlined-button:not(:disabled) {
-    background-color: var(--color-surface-container-lowest);
-    box-shadow: var(--shadow-elevation-1);
-  }
-  .mat-mdc-outlined-button:not(:disabled):hover {
-    box-shadow: var(--shadow-elevation-2);
-  }
-
   /* Legacy Tailwind-bordered buttons and raw inputs (checkbox/radio excluded) */
   button[class*="border"]:not([class*="border-0"]):not([type="checkbox"]):not([type="radio"]),
   input:not([type="checkbox"]):not([type="radio"])[class*="border"]:not([class*="border-0"]),
@@ -863,42 +828,6 @@ layer(base);
     box-shadow: var(--shadow-elevation-1);
   }
 
-  /* Filter chips: shadow instead of the M3 outline (zeroed via token) */
-  .mat-mdc-chip-option {
-    transition: box-shadow var(--m3-duration-short) var(--ease-m3-standard),
-      background-color var(--m3-duration-short) var(--ease-m3-standard);
-  }
-  .mat-mdc-chip-option:not(.mat-mdc-chip-selected) {
-    background-color: var(--color-surface-container-lowest);
-    box-shadow: var(--shadow-elevation-1);
-  }
-  .mat-mdc-chip-option:not(.mat-mdc-chip-selected):hover {
-    box-shadow: var(--shadow-elevation-2);
-  }
-  .mat-mdc-chip-option.mat-mdc-chip-selected {
-    box-shadow: var(--shadow-elevation-1);
-  }
-
-}
-
-/* Zebra rows replace the removed row separators (works in light + dark).
-   Unlayered on purpose: Material's unlayered `.mat-mdc-cell { background:
-   inherit }` would otherwise win over the components layer. Higher
-   specificity than that rule, and hover stays after zebra so it wins on
-   striped rows. */
-.mat-mdc-table tbody tr:nth-child(even) .mat-mdc-cell,
-.modern-table tbody tr:nth-child(even) td {
-  background-color: color-mix(in srgb, var(--color-on-surface) 3%, transparent);
-}
-.mat-mdc-table tbody tr:hover .mat-mdc-cell,
-.modern-table tbody tr:hover td {
-  background-color: color-mix(in srgb, var(--color-primary) 7%, transparent);
-}
-
-/* Unlayered on purpose: Material's own unlayered stroked-button background
-   would otherwise win over the components layer above. */
-.mat-mdc-outlined-button:not(:disabled) {
-  background-color: var(--color-surface-container-lowest);
 }
 
 /*

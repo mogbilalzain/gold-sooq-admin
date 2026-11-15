@@ -2,6 +2,9 @@ import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeToggleButtonComponent } from '../../components/common/theme-toggle/theme-toggle-button.component';
 import { NotificationDropdownComponent } from '../../components/header/notification-dropdown/notification-dropdown.component';
 import { UserDropdownComponent } from '../../components/header/user-dropdown/user-dropdown.component';
@@ -14,6 +17,9 @@ import { ADMIN_NAV_PAGES, AdminNavPage } from '../admin-nav';
   imports: [
     CommonModule,
     RouterModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatTooltipModule,
     ThemeToggleButtonComponent,
     NotificationDropdownComponent,
     UserDropdownComponent,
@@ -27,8 +33,6 @@ export class AppHeaderComponent {
 
   /** Page-jump search state (filters ADMIN_NAV_PAGES). */
   searchQuery = '';
-  searchOpen = false;
-  activeIndex = 0;
 
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
@@ -59,54 +63,21 @@ export class AppHeaderComponent {
 
   onSearchInput(event: Event) {
     this.searchQuery = (event.target as HTMLInputElement).value;
-    this.searchOpen = true;
-    this.activeIndex = 0;
   }
 
-  onSearchFocus() {
-    if (this.searchQuery.trim()) {
-      this.searchOpen = true;
-    }
-  }
-
-  onSearchKeydown(event: KeyboardEvent) {
-    const items = this.filteredPages;
-    if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      this.activeIndex = Math.min(this.activeIndex + 1, items.length - 1);
-    } else if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      this.activeIndex = Math.max(this.activeIndex - 1, 0);
-    } else if (event.key === 'Enter' && items.length) {
-      event.preventDefault();
-      this.goToPage(items[this.activeIndex]);
-    } else if (event.key === 'Escape') {
-      this.closeSearch();
-      this.searchInput?.nativeElement.blur();
-    }
+  onPageSelected(event: MatAutocompleteSelectedEvent) {
+    this.goToPage(event.option.value as AdminNavPage);
   }
 
   goToPage(page: AdminNavPage) {
     this.router.navigateByUrl(page.path);
-    this.closeSearch();
-    this.searchInput?.nativeElement.blur();
-  }
-
-  closeSearch() {
-    this.searchOpen = false;
     this.searchQuery = '';
+    this.searchInput?.nativeElement.blur();
   }
 
   @HostListener('window:scroll')
   onWindowScroll() {
     this.isScrolled = window.scrollY > 8;
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    if (!(event.target as HTMLElement).closest('.ayar-header-search')) {
-      this.searchOpen = false;
-    }
   }
 
   ngAfterViewInit() {

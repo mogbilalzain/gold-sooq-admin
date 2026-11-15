@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 import { KpiCardComponent } from '../../../shared/components/dashboard/kpi-card/kpi-card.component';
 import { TranslationService } from '../../../shared/services/translation.service';
 import { PostsAdsService, PostAd } from '../../../shared/services/data/posts-ads.service';
@@ -25,6 +26,7 @@ import {
   imports: [
     CommonModule,
     RouterModule,
+    MatButtonModule,
     KpiCardComponent,
     GoldPriceChartComponent,
     ActivityChartComponent,

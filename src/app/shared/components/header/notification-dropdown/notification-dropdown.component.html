@@ -1,8 +1,10 @@
 <div class="relative">
   <button
+    matIconButton
     [matMenuTriggerFor]="notifMenu"
-    class="header-icon-btn relative"
-    aria-label="Notifications"
+    class="relative"
+    [matTooltip]="translationService.t('sidebar.notifications')"
+    [attr.aria-label]="translationService.t('sidebar.notifications')"
   >
     @if (inbox.unreadCount() > 0) {
       <span class="app-inbox-badge">{{ badge() }}</span>
@@ -30,8 +32,8 @@
       </h5>
       <button
         type="button"
+        matIconButton
         (click)="closeMenu()"
-        class="header-icon-btn"
         [attr.aria-label]="translationService.t('common.close')"
       >
         <svg

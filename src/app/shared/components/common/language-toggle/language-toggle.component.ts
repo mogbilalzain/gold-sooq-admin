@@ -1,27 +1,28 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslationService, Language } from '../../../services/translation.service';
 
 @Component({
   selector: 'app-language-toggle',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule, MatTooltipModule],
   template: `
-    <div class="relative">
-      <button
-        (click)="toggleLanguage()"
-        class="header-icon-btn"
-        [attr.aria-label]="currentLang === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'"
-      >
-        <span class="text-sm font-semibold tracking-wide">{{ currentLang === 'ar' ? 'EN' : 'ع' }}</span>
-      </button>
-    </div>
+    <button
+      matIconButton
+      (click)="toggleLanguage()"
+      [matTooltip]="translationService.t('header.toggleLanguage')"
+      [attr.aria-label]="currentLang === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'"
+    >
+      <span class="text-sm font-semibold tracking-wide">{{ currentLang === 'ar' ? 'EN' : 'ع' }}</span>
+    </button>
   `,
 })
 export class LanguageToggleComponent {
   currentLang: Language = 'ar';
 
-  constructor(private translationService: TranslationService) {
+  constructor(public translationService: TranslationService) {
     this.translationService.currentLanguage.subscribe(lang => {
       this.currentLang = lang;
     });

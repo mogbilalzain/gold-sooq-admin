@@ -23,7 +23,7 @@
         } @else if (errorMessage) {
           <div class="flex flex-1 flex-col items-center justify-center py-6 text-center">
             <p class="text-sm text-[color:var(--color-error)]">{{ errorMessage }}</p>
-            <button (click)="loadCurrentPrices()" class="ayar-btn ayar-btn-outline mt-4">
+            <button matButton="outlined" (click)="loadCurrentPrices()" class="mt-4">
               {{ translationService.t('common.retry') }}
             </button>
           </div>

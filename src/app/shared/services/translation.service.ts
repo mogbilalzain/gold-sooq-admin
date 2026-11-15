@@ -63,6 +63,9 @@ export interface TranslationKeys {
     searchPages: string;
     noResults: string;
     roleAdmin: string;
+    toggleSidebar: string;
+    toggleLanguage: string;
+    toggleTheme: string;
   };
   // Footer
   footer: {
@@ -896,6 +899,9 @@ export class TranslationService {
         searchPages: 'ابحث عن صفحة في لوحة التحكم...',
         noResults: 'لا نتائج',
         roleAdmin: 'مدير النظام',
+        toggleSidebar: 'القائمة الجانبية',
+        toggleLanguage: 'تغيير اللغة',
+        toggleTheme: 'تبديل المظهر',
       },
       footer: {
         brand: 'منصة عيار (Ayar) لتجارة الذهب والمجوهرات',
@@ -1844,6 +1850,9 @@ export class TranslationService {
         searchPages: 'Search dashboard pages...',
         noResults: 'No results',
         roleAdmin: 'System admin',
+        toggleSidebar: 'Sidebar',
+        toggleLanguage: 'Change language',
+        toggleTheme: 'Toggle theme',
       },
       footer: {
         brand: 'Ayar gold & jewelry trading platform',

@@ -4,11 +4,13 @@ import { RouterModule } from '@angular/router';
 import { PostAd } from '../../../services/data/posts-ads.service';
 import { TranslationService } from '../../../services/translation.service';
 import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-pending-review',
   standalone: true,
-  imports: [CommonModule, RouterModule, SafeHtmlPipe],
+  imports: [CommonModule, RouterModule, SafeHtmlPipe, MatButtonModule, MatRippleModule],
   template: `
     <div class="dashboard-card flex h-full flex-col">
       <!-- Header separated by a hairline -->
@@ -64,6 +66,7 @@ import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
           @for (post of pendingPosts; track post.id) {
             <li>
               <a
+                matRipple
                 [routerLink]="['/posts-ads', post.id]"
                 class="group flex items-center gap-3 rounded-xl bg-slate-50 p-3 transition-colors hover:bg-slate-100 dark:bg-[color:var(--color-surface-container-high)] dark:hover:bg-[color:var(--color-surface-container-highest)]"
               >
@@ -108,9 +111,10 @@ import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
 
         @if (total !== null && total > pendingPosts.length) {
           <a
+            matButton="outlined"
             routerLink="/posts-ads"
             [queryParams]="{ status: 'pending' }"
-            class="ayar-btn ayar-btn-outline mt-4 w-full border-dashed"
+            class="!gap-2 mt-4 w-full border-dashed"
           >
             <span dir="ltr" class="ayar-num">+{{ total - pendingPosts.length }}</span>
             {{ translationService.t('dashboard.morePending') }}

@@ -3,6 +3,8 @@ import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslationService } from '../../../services/translation.service';
 import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 
 export interface AttentionItem {
   labelKey: string;
@@ -16,7 +18,7 @@ export interface AttentionItem {
 @Component({
   selector: 'app-attention-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, SafeHtmlPipe],
+  imports: [CommonModule, RouterModule, SafeHtmlPipe, MatButtonModule, MatRippleModule],
   template: `
     <div class="dashboard-card flex h-full flex-col">
       <!-- Header: amber count box + title -->
@@ -51,6 +53,7 @@ export interface AttentionItem {
           @for (item of items; track item.labelKey) {
             <li>
               <a
+                matRipple
                 [routerLink]="item.route"
                 [queryParams]="item.queryParams"
                 class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors"
@@ -101,7 +104,7 @@ export interface AttentionItem {
       }
 
       <!-- Bottom action -->
-      <a routerLink="/admin-inbox" class="ayar-btn ayar-btn-outline mt-5 w-full">
+      <a matButton="outlined" routerLink="/admin-inbox" class="!gap-2 mt-5 w-full">
         <span class="inline-flex h-4 w-4" [innerHTML]="inboxIcon | safeHtml"></span>
         {{ translationService.t('dashboard.adminInboxButton') }}
       </a>

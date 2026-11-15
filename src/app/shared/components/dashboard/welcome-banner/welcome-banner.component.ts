@@ -4,11 +4,12 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { TranslationService } from '../../../services/translation.service';
 import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-welcome-banner',
   standalone: true,
-  imports: [CommonModule, RouterModule, SafeHtmlPipe],
+  imports: [CommonModule, RouterModule, SafeHtmlPipe, MatButtonModule],
   template: `
     <div class="dashboard-card relative overflow-hidden">
       <!-- Soft gold glow in the corner, decorative only -->
@@ -50,9 +51,10 @@ import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
         </div>
 
         <a
+          matButton="filled"
           routerLink="/posts-ads"
           [queryParams]="{ status: 'pending' }"
-          class="ayar-btn ayar-btn-dark shrink-0 sm:self-center"
+          class="app-btn-dark !gap-2 shrink-0 sm:self-center"
         >
           <span class="inline-flex h-4 w-4" [innerHTML]="reviewIcon | safeHtml"></span>
           {{ translationService.t('dashboard.quickReviewAds') }}
