@@ -1,8 +1,9 @@
-import { EnvironmentProviders, Injectable, inject, makeEnvironmentProviders, EventEmitter } from '@angular/core';
+import { EnvironmentProviders, Injectable, inject, makeEnvironmentProviders, provideAppInitializer, EventEmitter } from '@angular/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions } from '@angular/material/form-field';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogConfig } from '@angular/material/dialog';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatIconRegistry } from '@angular/material/icon';
 import { Directionality, Direction } from '@angular/cdk/bidi';
 import { TranslationService, Language } from '../services/translation.service';
 
@@ -89,5 +90,10 @@ export function provideMaterialDefaults(): EnvironmentProviders {
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: snackBarDefaults },
     { provide: MatPaginatorIntl, useClass: AppPaginatorIntl },
     { provide: Directionality, useExisting: AppDirectionality },
+    // Ligature icons render through Material Symbols Rounded instead of
+    // the legacy filled Material Icons font.
+    provideAppInitializer(() => {
+      inject(MatIconRegistry).setDefaultFontSetClass('material-symbols-rounded');
+    }),
   ]);
 }

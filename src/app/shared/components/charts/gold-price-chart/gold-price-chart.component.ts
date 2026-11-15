@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -45,13 +48,23 @@ const PERIOD_LABEL_KEYS: Record<Period, string> = {
   '3m': 'metals.3months',
 };
 
-const GOLD_COLOR = '#d4a853';
+// M3 primary role per theme (gold).
+const GOLD_LIGHT = '#b88730';
+const GOLD_DARK = '#e3be82';
 const GRID_COLOR = 'rgba(148, 163, 184, 0.2)';
 
 @Component({
   selector: 'app-gold-price-chart',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatButtonToggleModule, NgApexchartsModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatChipsModule,
+    MatIconModule,
+    NgApexchartsModule,
+  ],
   templateUrl: './gold-price-chart.component.html',
 })
 export class GoldPriceChartComponent implements OnInit, OnDestroy {
@@ -81,7 +94,7 @@ export class GoldPriceChartComponent implements OnInit, OnDestroy {
   tooltip!: ApexTooltip;
   xaxis!: ApexXAxis;
   yaxis!: ApexYAxis;
-  colors: string[] = [GOLD_COLOR];
+  colors: string[] = [GOLD_LIGHT];
 
   constructor(
     public translationService: TranslationService,
@@ -212,10 +225,16 @@ export class GoldPriceChartComponent implements OnInit, OnDestroy {
     return values.length ? values.reduce((sum, v) => sum + v, 0) / values.length : 0;
   }
 
-  get changeBadgeClass(): string {
-    if (this.changePercent > 0.05) return 'status-pill-success';
-    if (this.changePercent < -0.05) return 'status-pill-error';
-    return 'bg-surface-container-high text-surface-on-surface-variant';
+  get changeChipClass(): string {
+    if (this.changePercent > 0.05) return 'app-chip-success';
+    if (this.changePercent < -0.05) return 'app-chip-error';
+    return '';
+  }
+
+  get trendIcon(): string {
+    if (this.changePercent > 0.05) return 'trending_up';
+    if (this.changePercent < -0.05) return 'trending_down';
+    return 'trending_flat';
   }
 
   get trendLabel(): string {
@@ -231,6 +250,8 @@ export class GoldPriceChartComponent implements OnInit, OnDestroy {
     }
 
     const isDark = this.themeService.currentTheme === 'dark';
+    const goldColor = isDark ? GOLD_DARK : GOLD_LIGHT;
+    this.colors = [goldColor];
     const isRTL = this.translationService.isRTL;
     const fontFamily = isRTL ? 'Cairo, sans-serif' : 'Outfit, sans-serif';
     const labelColor = isDark ? '#b8b0a0' : '#6b7280';
@@ -270,7 +291,7 @@ export class GoldPriceChartComponent implements OnInit, OnDestroy {
 
     this.markers = {
       size: 0,
-      strokeColors: GOLD_COLOR,
+      strokeColors: goldColor,
       hover: { size: 6 },
     };
 

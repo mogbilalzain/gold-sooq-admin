@@ -1,138 +1,131 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
+export type KpiTone = 'primary' | 'secondary' | 'tertiary' | 'error' | 'success' | 'neutral';
 
 /**
- * Stitch KPI card for the dashboard home only.
+ * M3 KPI card for the dashboard home only.
  * Footer variants (pick one via inputs):
- *  - trend:    green "+N" + label + sparkline       (trend + trendCount + trendLabel)
- *  - progress: gold gradient bar + caption          (progress + progressLabel)
- *  - link:     hint + management link               (linkHint + linkText + linkRoute)
+ *  - trend:    success "+N" + label + primary sparkline  (trend + trendCount + trendLabel)
+ *  - progress: mat-progress-bar + caption                (progress + progressLabel)
+ *  - link:     hint + text-button management link        (linkHint + linkText + linkRoute)
  */
 @Component({
   selector: 'app-kpi-card',
   standalone: true,
-  imports: [CommonModule, RouterModule, SafeHtmlPipe],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatButtonModule,
+    MatCardModule,
+    MatChipsModule,
+    MatDividerModule,
+    MatIconModule,
+    MatProgressBarModule,
+  ],
   template: `
-    <div class="dashboard-card flex h-full flex-col">
-      <div class="flex items-start justify-between gap-3">
-        <p class="pt-1 text-sm font-medium text-slate-500 dark:text-[color:var(--color-on-surface-variant)]">
-          {{ title }}
-        </p>
-        <div
-          class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
-          [ngClass]="iconBgClass"
-        >
-          <span class="kpi-icon" [innerHTML]="icon | safeHtml"></span>
+    <mat-card appearance="outlined" class="h-full">
+      <div class="flex h-full flex-col p-5">
+        <div class="flex items-start justify-between gap-3">
+          <p class="pt-1 text-m3-title-sm font-medium text-(--mat-sys-on-surface-variant)">
+            {{ title }}
+          </p>
+          <div
+            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
+            [ngClass]="'app-tone-' + tone"
+          >
+            <mat-icon>{{ icon }}</mat-icon>
+          </div>
+        </div>
+
+        <div class="mb-4 mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+          <p class="ayar-num text-m3-display-sm text-(--mat-sys-on-surface)">
+            {{ value | number }}
+          </p>
+          @if (percentPill !== undefined) {
+            <mat-chip-set aria-hidden="true">
+              <mat-chip class="app-chip-success">
+                <span dir="ltr">{{ percentPill | number: '1.0-0' }}%</span>
+                {{ percentPillLabel }}
+              </mat-chip>
+            </mat-chip-set>
+          }
+        </div>
+
+        <div class="mt-auto">
+          <mat-divider></mat-divider>
+
+          @if (trend.length >= 2) {
+            <div class="flex items-end justify-between gap-3 pt-4">
+              <span
+                class="inline-flex flex-wrap items-center gap-1 text-m3-label-md font-medium text-success-600 dark:text-success-300"
+              >
+                <mat-icon style="font-size: 16px; width: 16px; height: 16px">trending_up</mat-icon>
+                <span dir="ltr">+{{ trendCount | number }}</span>
+                <span class="font-normal text-(--mat-sys-on-surface-variant)">
+                  {{ trendLabel }}
+                </span>
+              </span>
+              <svg
+                viewBox="0 0 100 28"
+                preserveAspectRatio="none"
+                class="h-7 w-20 shrink-0"
+                aria-hidden="true"
+              >
+                <polyline
+                  [attr.points]="sparkPoints"
+                  fill="none"
+                  stroke="var(--mat-sys-primary)"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  vector-effect="non-scaling-stroke"
+                />
+              </svg>
+            </div>
+          }
+
+          @if (progress !== undefined) {
+            <div class="pt-4">
+              <mat-progress-bar mode="determinate" [value]="clampedProgress"></mat-progress-bar>
+              <p class="mt-2 text-m3-body-md text-(--mat-sys-on-surface-variant)">
+                {{ progressLabel }}
+              </p>
+            </div>
+          }
+
+          @if (linkRoute) {
+            <div class="flex items-center justify-between gap-2 pt-3">
+              <span class="text-m3-body-md text-(--mat-sys-on-surface-variant)">
+                {{ linkHint }}
+              </span>
+              <a matButton="text" [routerLink]="linkRoute" class="app-btn-sm -me-2 shrink-0">
+                {{ linkText }}
+                <mat-icon class="app-icon-flip">arrow_forward</mat-icon>
+              </a>
+            </div>
+          }
         </div>
       </div>
-
-      <div class="mb-4 mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
-        <p class="ayar-num text-3xl font-extrabold text-slate-900 dark:text-[color:var(--color-on-surface)]">
-          {{ value | number }}
-        </p>
-        @if (percentPill !== undefined) {
-          <span class="ayar-pill ayar-pill-success" dir="ltr">
-            {{ percentPill | number: '1.0-0' }}%
-            <span dir="auto">{{ percentPillLabel }}</span>
-          </span>
-        }
-      </div>
-
-      <div class="kpi-card-footer">
-        @if (trend.length >= 2) {
-          <div class="flex items-end justify-between gap-3">
-            <span class="inline-flex flex-wrap items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M8 3.33334L12 7.33334H9.33333V12.6667H6.66667V7.33334H4L8 3.33334Z" fill="currentColor" />
-              </svg>
-              <span dir="ltr">+{{ trendCount | number }}</span>
-              <span class="font-medium text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-                {{ trendLabel }}
-              </span>
-            </span>
-            <svg
-              viewBox="0 0 100 28"
-              preserveAspectRatio="none"
-              class="h-7 w-20 shrink-0"
-              aria-hidden="true"
-            >
-              <polyline
-                [attr.points]="sparkPoints"
-                fill="none"
-                [attr.stroke]="trendColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                vector-effect="non-scaling-stroke"
-              />
-            </svg>
-          </div>
-        }
-
-        @if (progress !== undefined) {
-          <div>
-            <div class="h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]">
-              <div
-                class="gold-gradient-bg h-full rounded-full transition-[width] duration-500"
-                [style.width.%]="clampedProgress"
-              ></div>
-            </div>
-            <p class="mt-2 text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-              {{ progressLabel }}
-            </p>
-          </div>
-        }
-
-        @if (linkRoute) {
-          <div class="flex items-center justify-between gap-2">
-            <span class="text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-              {{ linkHint }}
-            </span>
-            <a
-              [routerLink]="linkRoute"
-              class="inline-flex shrink-0 items-center gap-1 text-xs font-bold text-gold-600 transition-colors hover:text-gold-700 dark:text-gold-400 dark:hover:text-gold-300"
-            >
-              {{ linkText }}
-              <svg class="attention-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 6l6 6-6 6" />
-              </svg>
-            </a>
-          </div>
-        }
-      </div>
-    </div>
+    </mat-card>
   `,
-  styles: [
-    `
-      .kpi-icon {
-        display: inline-flex;
-        height: 1.375rem;
-        width: 1.375rem;
-      }
-      .kpi-icon > svg {
-        height: 100%;
-        width: 100%;
-      }
-      .kpi-card-footer {
-        margin-top: auto;
-        padding-top: 1rem;
-        border-top: 1px solid #f1f5f9;
-      }
-      :host-context(.dark) .kpi-card-footer {
-        border-top-color: var(--color-outline-variant);
-      }
-    `,
-  ],
 })
 export class KpiCardComponent {
   @Input() title = '';
   @Input() value = 0;
+  /** Material Symbols ligature name, e.g. "group". */
   @Input() icon = '';
-  @Input() iconBgClass = 'bg-gold-50 text-gold-600 dark:bg-gold-500/10 dark:text-gold-400';
+  /** Role tint for the icon circle. */
+  @Input() tone: KpiTone = 'primary';
 
-  /** Small success pill next to the value, e.g. "42% active". */
+  /** Small success chip next to the value, e.g. "42% active". */
   @Input() percentPill: number | undefined;
   @Input() percentPillLabel = '';
 
@@ -140,7 +133,6 @@ export class KpiCardComponent {
   @Input() trend: number[] = [];
   @Input() trendCount: number | null = null;
   @Input() trendLabel = '';
-  @Input() trendColor = '#d4a853';
 
   /** Progress footer (0..100). */
   @Input() progress: number | undefined;

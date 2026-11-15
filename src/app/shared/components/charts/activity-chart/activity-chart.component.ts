@@ -14,12 +14,16 @@ import {
 } from 'ng-apexcharts';
 import { Subject, takeUntil } from 'rxjs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
 import { StatsDailyPoint } from '../../../services/data/stats.service';
 import { ThemeService } from '../../../services/theme.service';
 import { TranslationService } from '../../../services/translation.service';
 
-const USERS_COLOR = '#2563eb';
-const ADS_COLOR = '#f59e0b';
+// M3 role colors: users = tertiary, ads = primary (per light/dark theme).
+const USERS_LIGHT = '#0053db';
+const USERS_DARK = '#b4c5ff';
+const ADS_LIGHT = '#b88730';
+const ADS_DARK = '#e3be82';
 const GRID_COLOR = 'rgba(148, 163, 184, 0.2)';
 
 type ActivityPeriod = 'weekly' | 'monthly';
@@ -27,21 +31,20 @@ type ActivityPeriod = 'weekly' | 'monthly';
 @Component({
   selector: 'app-activity-chart',
   standalone: true,
-  imports: [CommonModule, NgApexchartsModule, MatButtonToggleModule],
+  imports: [CommonModule, NgApexchartsModule, MatButtonToggleModule, MatCardModule],
   template: `
-    <div class="dashboard-card h-full">
-      <div class="mb-4 flex flex-wrap items-center gap-4">
+    <mat-card appearance="outlined" class="h-full">
+      <mat-card-header class="flex-wrap justify-between gap-3">
         <div class="min-w-0">
-          <h3 class="dashboard-card-title">
+          <mat-card-title class="text-m3-title-lg font-medium">
             {{ translationService.t('dashboard.activityDaily') }}
-          </h3>
-          <p class="dashboard-card-hint">
+          </mat-card-title>
+          <mat-card-subtitle>
             {{ translationService.t('dashboard.activityChartHint') }}
-          </p>
+          </mat-card-subtitle>
         </div>
         <mat-button-toggle-group
-          class="ms-auto"
-          hideSingleSelectionIndicator
+          class="shrink-0"
           [value]="period"
           (change)="setPeriod($event.value)"
         >
@@ -52,51 +55,53 @@ type ActivityPeriod = 'weekly' | 'monthly';
             {{ translationService.t('dashboard.monthly') }}
           </mat-button-toggle>
         </mat-button-toggle-group>
-      </div>
+      </mat-card-header>
 
-      @if (!loading && visibleDaily.length) {
-        <!-- Legend with totals in parentheses -->
-        <div class="mb-3 flex flex-wrap gap-x-5 gap-y-1.5">
-          <div class="flex items-center gap-2">
-            <span class="h-2.5 w-2.5 shrink-0 rounded-sm" [style.background-color]="usersColor"></span>
-            <span class="text-xs text-slate-500 dark:text-[color:var(--color-on-surface-variant)]">
-              {{ translationService.t('dashboard.newUsers') }}
-              <span class="ayar-num font-bold text-slate-700 dark:text-[color:var(--color-on-surface)]" dir="ltr">({{ totalUsers }})</span>
-            </span>
+      <mat-card-content>
+        @if (!loading && visibleDaily.length) {
+          <!-- Legend with totals in parentheses -->
+          <div class="mb-3 flex flex-wrap gap-x-5 gap-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="h-2.5 w-2.5 shrink-0 rounded-sm" [style.background-color]="usersColor"></span>
+              <span class="text-m3-body-md text-(--mat-sys-on-surface-variant)">
+                {{ translationService.t('dashboard.newUsers') }}
+                <span class="ayar-num font-medium text-(--mat-sys-on-surface)" dir="ltr">({{ totalUsers }})</span>
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="h-2.5 w-2.5 shrink-0 rounded-sm" [style.background-color]="adsColor"></span>
+              <span class="text-m3-body-md text-(--mat-sys-on-surface-variant)">
+                {{ translationService.t('dashboard.newAds') }}
+                <span class="ayar-num font-medium text-(--mat-sys-on-surface)" dir="ltr">({{ totalAds }})</span>
+              </span>
+            </div>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="h-2.5 w-2.5 shrink-0 rounded-sm" [style.background-color]="adsColor"></span>
-            <span class="text-xs text-slate-500 dark:text-[color:var(--color-on-surface-variant)]">
-              {{ translationService.t('dashboard.newAds') }}
-              <span class="ayar-num font-bold text-slate-700 dark:text-[color:var(--color-on-surface)]" dir="ltr">({{ totalAds }})</span>
-            </span>
-          </div>
-        </div>
-      }
+        }
 
-      @if (loading) {
-        <div class="h-[300px] w-full animate-pulse rounded-xl bg-slate-50 dark:bg-[color:var(--color-surface-container-high)]"></div>
-      } @else if (!visibleDaily.length) {
-        <div class="flex h-[300px] items-center justify-center">
-          <p class="text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-            {{ translationService.t('dashboard.statsLoadError') }}
-          </p>
-        </div>
-      } @else {
-        <apx-chart
-          [series]="series"
-          [chart]="chart"
-          [colors]="colors"
-          [plotOptions]="plotOptions"
-          [grid]="grid"
-          [dataLabels]="dataLabels"
-          [legend]="legend"
-          [tooltip]="tooltip"
-          [xaxis]="xaxis"
-          [yaxis]="yaxis"
-        ></apx-chart>
-      }
-    </div>
+        @if (loading) {
+          <div class="app-skeleton h-[300px] w-full animate-pulse"></div>
+        } @else if (!visibleDaily.length) {
+          <div class="flex h-[300px] items-center justify-center">
+            <p class="text-(--mat-sys-on-surface-variant)">
+              {{ translationService.t('dashboard.statsLoadError') }}
+            </p>
+          </div>
+        } @else {
+          <apx-chart
+            [series]="series"
+            [chart]="chart"
+            [colors]="colors"
+            [plotOptions]="plotOptions"
+            [grid]="grid"
+            [dataLabels]="dataLabels"
+            [legend]="legend"
+            [tooltip]="tooltip"
+            [xaxis]="xaxis"
+            [yaxis]="yaxis"
+          ></apx-chart>
+        }
+      </mat-card-content>
+    </mat-card>
   `,
 })
 export class ActivityChartComponent implements OnInit, OnChanges, OnDestroy {
@@ -117,9 +122,9 @@ export class ActivityChartComponent implements OnInit, OnChanges, OnDestroy {
   tooltip!: ApexTooltip;
   xaxis!: ApexXAxis;
   yaxis!: ApexYAxis;
-  colors: string[] = [USERS_COLOR, ADS_COLOR];
-  readonly usersColor = USERS_COLOR;
-  readonly adsColor = ADS_COLOR;
+  colors: string[] = [USERS_LIGHT, ADS_LIGHT];
+  usersColor = USERS_LIGHT;
+  adsColor = ADS_LIGHT;
 
   constructor(
     public translationService: TranslationService,
@@ -170,6 +175,9 @@ export class ActivityChartComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     const isDark = this.themeService.currentTheme === 'dark';
+    this.usersColor = isDark ? USERS_DARK : USERS_LIGHT;
+    this.adsColor = isDark ? ADS_DARK : ADS_LIGHT;
+    this.colors = [this.usersColor, this.adsColor];
     const isRTL = this.translationService.isRTL;
     const fontFamily = isRTL ? 'Cairo, sans-serif' : 'Outfit, sans-serif';
     const labelColor = isDark ? '#a8a29e' : '#94a3b8';

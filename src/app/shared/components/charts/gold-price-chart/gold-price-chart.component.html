@@ -1,139 +1,140 @@
-<div class="dashboard-card">
-  <!-- Header: title + current price + change badge -->
-  <div class="flex flex-wrap items-start gap-4 mb-5">
-    <div>
-      <h3 class="dashboard-card-title">
+<mat-card appearance="outlined">
+  <mat-card-header class="flex-wrap justify-between gap-3">
+    <div class="min-w-0">
+      <mat-card-title class="text-m3-title-lg font-medium">
         {{ translationService.t('dashboard.goldChart') }}
-      </h3>
-      <p class="dashboard-card-hint">
+      </mat-card-title>
+      <mat-card-subtitle>
         {{ translationService.t('dashboard.goldChartHint') }}
-      </p>
+      </mat-card-subtitle>
     </div>
     @if (!loading && !loadError && rates.length) {
-      <div class="ms-auto text-end">
+      <div class="text-end">
         <div class="flex items-end gap-2">
-          <span class="text-m3-headline-md font-semibold text-surface-on-surface">
+          <span class="ayar-num text-m3-headline-md font-medium text-surface-on-surface">
             {{ currentValue | number: '1.2-2' }}
           </span>
-          <span class="text-sm text-surface-on-surface-variant mb-1">{{ currency }}</span>
+          <span class="mb-1 text-m3-body-md text-surface-on-surface-variant">{{ currency }}</span>
         </div>
-        <span
-          class="inline-flex items-center gap-1 rounded-m3-sm px-2.5 py-1 text-m3-label-md font-medium mt-1"
-          [ngClass]="changeBadgeClass"
-        >
-          {{ changePercent > 0 ? '+' : '' }}{{ changePercent | number: '1.2-2' }}%
-          <span class="font-normal opacity-80">{{ trendLabel }}</span>
-        </span>
+        <mat-chip-set aria-hidden="true" class="mt-1">
+          <mat-chip [ngClass]="changeChipClass">
+            <mat-icon>{{ trendIcon }}</mat-icon>
+            <span dir="ltr">{{ changePercent > 0 ? '+' : '' }}{{ changePercent | number: '1.2-2' }}%</span>
+            <span class="font-normal opacity-80">{{ trendLabel }}</span>
+          </mat-chip>
+        </mat-chip-set>
       </div>
     }
-  </div>
+  </mat-card-header>
 
-  <!-- Controls: period (white active) + karat (gold active) -->
-  <div class="flex flex-wrap items-center gap-3 mb-4">
-    <mat-button-toggle-group
-      hideSingleSelectionIndicator
-      [value]="period"
-      (change)="setPeriod($event.value)"
-      [attr.aria-label]="translationService.t('dashboard.goldChart')"
-    >
-      @for (p of periods; track p) {
-        <mat-button-toggle [value]="p">
-          {{ translationService.t(periodLabelKey(p)) }}
-        </mat-button-toggle>
-      }
-    </mat-button-toggle-group>
-
-    <mat-button-toggle-group
-      class="app-toggle-gold ms-auto"
-      hideSingleSelectionIndicator
-      [value]="karat"
-      (change)="setKarat($event.value)"
-      [attr.aria-label]="translationService.t('dashboard.karat')"
-    >
-      @for (k of karats; track k) {
-        <mat-button-toggle [value]="k">
-          {{ k }}K
-        </mat-button-toggle>
-      }
-    </mat-button-toggle-group>
-  </div>
-
-  @if (loading) {
-    <!-- Loading skeleton -->
-    <div class="animate-pulse space-y-4">
-      <div class="h-[320px] w-full rounded-xl bg-surface-container-high"></div>
-      <div class="grid grid-cols-3 gap-4">
-        @for (i of [1, 2, 3]; track i) {
-          <div class="h-14 rounded-xl bg-surface-container-high"></div>
+  <mat-card-content>
+    <!-- Controls: M3 segmented period + karat filter chips -->
+    <div class="mb-4 flex flex-wrap items-center gap-3">
+      <mat-button-toggle-group
+        [value]="period"
+        (change)="setPeriod($event.value)"
+        [attr.aria-label]="translationService.t('dashboard.goldChart')"
+      >
+        @for (p of periods; track p) {
+          <mat-button-toggle [value]="p">
+            {{ translationService.t(periodLabelKey(p)) }}
+          </mat-button-toggle>
         }
-      </div>
-    </div>
-  } @else if (loadError) {
-    <!-- Visible error state with retry -->
-    <div class="flex h-[320px] flex-col items-center justify-center gap-4 text-center">
-      <div>
-        <p class="text-surface-on-surface-variant">
-          {{ translationService.t('dashboard.pricesLoadError') }}
-        </p>
-        @if (errorMessage) {
-          <p class="mt-1 text-xs text-surface-on-surface-variant/70" dir="auto">{{ errorMessage }}</p>
+      </mat-button-toggle-group>
+
+      <mat-chip-listbox
+        class="ms-auto"
+        [attr.aria-label]="translationService.t('dashboard.karat')"
+      >
+        @for (k of karats; track k) {
+          <mat-chip-option
+            [selected]="k === karat"
+            [selectable]="k !== karat"
+            (selectionChange)="$event.selected && setKarat(k)"
+          >
+            {{ k }}K
+          </mat-chip-option>
         }
+      </mat-chip-listbox>
+    </div>
+
+    @if (loading) {
+      <!-- Loading skeleton -->
+      <div class="animate-pulse space-y-4">
+        <div class="app-skeleton h-[320px] w-full"></div>
+        <div class="grid grid-cols-3 gap-4">
+          @for (i of [1, 2, 3]; track i) {
+            <div class="app-skeleton h-14"></div>
+          }
+        </div>
       </div>
-      <button matButton="outlined" (click)="retry()">
-        {{ translationService.t('common.retry') }}
-      </button>
-    </div>
-  } @else if (!rates.length) {
-    <!-- Empty state -->
-    <div class="flex h-[320px] items-center justify-center">
-      <p class="text-surface-on-surface-variant">{{ translationService.t('metals.noData') }}</p>
-    </div>
-  } @else {
-    <!-- Notice shown after an automatic fallback from 3 months to 1 month -->
-    @if (periodFallback) {
-      <div class="mb-3 rounded-m3-sm bg-surface-container-high px-3 py-2 text-sm text-surface-on-surface-variant">
-        {{ translationService.t('dashboard.periodFallback') }}
+    } @else if (loadError) {
+      <!-- Visible error state with retry -->
+      <div class="flex h-[320px] flex-col items-center justify-center gap-4 text-center">
+        <div>
+          <p class="text-surface-on-surface-variant">
+            {{ translationService.t('dashboard.pricesLoadError') }}
+          </p>
+          @if (errorMessage) {
+            <p class="mt-1 text-xs text-surface-on-surface-variant/70" dir="auto">{{ errorMessage }}</p>
+          }
+        </div>
+        <button matButton="outlined" (click)="retry()">
+          {{ translationService.t('common.retry') }}
+        </button>
+      </div>
+    } @else if (!rates.length) {
+      <!-- Empty state -->
+      <div class="flex h-[320px] items-center justify-center">
+        <p class="text-surface-on-surface-variant">{{ translationService.t('metals.noData') }}</p>
+      </div>
+    } @else {
+      <!-- Notice shown after an automatic fallback from 3 months to 1 month -->
+      @if (periodFallback) {
+        <div class="mb-3 rounded-m3-sm bg-surface-container-high px-3 py-2 text-sm text-surface-on-surface-variant">
+          {{ translationService.t('dashboard.periodFallback') }}
+        </div>
+      }
+
+      <!-- Chart -->
+      <apx-chart
+        [series]="series"
+        [chart]="chart"
+        [colors]="colors"
+        [stroke]="stroke"
+        [fill]="fill"
+        [markers]="markers"
+        [grid]="grid"
+        [dataLabels]="dataLabels"
+        [tooltip]="tooltip"
+        [xaxis]="xaxis"
+        [yaxis]="yaxis"
+      ></apx-chart>
+
+      <!-- Period stats: three surface-container boxes -->
+      <div class="mt-4 grid grid-cols-3 gap-3">
+        <div class="rounded-xl bg-surface-container px-3 py-2.5 text-center">
+          <p class="text-m3-label-md text-surface-on-surface-variant">{{ translationService.t('dashboard.high') }}</p>
+          <p class="ayar-num mt-0.5 text-m3-title-md font-medium text-surface-on-surface">
+            <span dir="ltr">{{ highValue | number: '1.2-2' }}</span>
+            <span class="text-[10px] text-surface-on-surface-variant">{{ currency }}</span>
+          </p>
+        </div>
+        <div class="rounded-xl bg-surface-container px-3 py-2.5 text-center">
+          <p class="text-m3-label-md text-surface-on-surface-variant">{{ translationService.t('dashboard.low') }}</p>
+          <p class="ayar-num mt-0.5 text-m3-title-md font-medium text-surface-on-surface">
+            <span dir="ltr">{{ lowValue | number: '1.2-2' }}</span>
+            <span class="text-[10px] text-surface-on-surface-variant">{{ currency }}</span>
+          </p>
+        </div>
+        <div class="rounded-xl bg-surface-container px-3 py-2.5 text-center">
+          <p class="text-m3-label-md text-surface-on-surface-variant">{{ translationService.t('dashboard.average') }}</p>
+          <p class="ayar-num mt-0.5 text-m3-title-md font-medium text-surface-on-surface">
+            <span dir="ltr">{{ averageValue | number: '1.2-2' }}</span>
+            <span class="text-[10px] text-surface-on-surface-variant">{{ currency }}</span>
+          </p>
+        </div>
       </div>
     }
-
-    <!-- Chart -->
-    <apx-chart
-      [series]="series"
-      [chart]="chart"
-      [colors]="colors"
-      [stroke]="stroke"
-      [fill]="fill"
-      [markers]="markers"
-      [grid]="grid"
-      [dataLabels]="dataLabels"
-      [tooltip]="tooltip"
-      [xaxis]="xaxis"
-      [yaxis]="yaxis"
-    ></apx-chart>
-
-    <!-- Period stats: three soft boxes -->
-    <div class="grid grid-cols-3 gap-3 mt-4">
-      <div class="rounded-xl bg-slate-50 px-3 py-2.5 text-center dark:bg-[color:var(--color-surface-container-high)]">
-        <p class="text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ translationService.t('dashboard.high') }}</p>
-        <p class="ayar-num mt-0.5 text-sm font-extrabold text-slate-900 dark:text-[color:var(--color-on-surface)]">
-          <span dir="ltr">{{ highValue | number: '1.2-2' }}</span>
-          <span class="text-[10px] font-semibold text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ currency }}</span>
-        </p>
-      </div>
-      <div class="rounded-xl bg-slate-50 px-3 py-2.5 text-center dark:bg-[color:var(--color-surface-container-high)]">
-        <p class="text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ translationService.t('dashboard.low') }}</p>
-        <p class="ayar-num mt-0.5 text-sm font-extrabold text-slate-900 dark:text-[color:var(--color-on-surface)]">
-          <span dir="ltr">{{ lowValue | number: '1.2-2' }}</span>
-          <span class="text-[10px] font-semibold text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ currency }}</span>
-        </p>
-      </div>
-      <div class="rounded-xl bg-slate-50 px-3 py-2.5 text-center dark:bg-[color:var(--color-surface-container-high)]">
-        <p class="text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ translationService.t('dashboard.average') }}</p>
-        <p class="ayar-num mt-0.5 text-sm font-extrabold text-slate-900 dark:text-[color:var(--color-on-surface)]">
-          <span dir="ltr">{{ averageValue | number: '1.2-2' }}</span>
-          <span class="text-[10px] font-semibold text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ currency }}</span>
-        </p>
-      </div>
-    </div>
-  }
-</div>
+  </mat-card-content>
+</mat-card>

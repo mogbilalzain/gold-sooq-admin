@@ -123,19 +123,6 @@ html {
     )
   );
 
-  // Segmented controls: slate-100 track, white selected button.
-  @include mat.button-toggle-overrides(
-    (
-      shape: var(--radius-m3-sm),
-      height: 36px,
-      background-color: #f1f5f9,
-      text-color: #64748b,
-      selected-state-background-color: #ffffff,
-      selected-state-text-color: #0f172a,
-      divider-color: transparent,
-    )
-  );
-
   @include mat.dialog-overrides(
     (
       container-shape: var(--radius-m3-lg),
@@ -203,15 +190,6 @@ html.dark {
     )
   );
 
-  @include mat.button-toggle-overrides(
-    (
-      background-color: rgba(255, 255, 255, 0.06),
-      text-color: rgba(255, 255, 255, 0.6),
-      selected-state-background-color: rgba(255, 255, 255, 0.12),
-      selected-state-text-color: #ffffff,
-    )
-  );
-
   @include mat.table-overrides(
     (
       row-item-outline-color: rgba(255, 255, 255, 0.06),
@@ -237,36 +215,6 @@ html.dark .app-btn-dark {
       filled-label-text-color: #0f172a,
     )
   );
-}
-
-// Gold selected state for segmented controls (e.g. the karat picker).
-.app-toggle-gold {
-  @include mat.button-toggle-overrides(
-    (
-      selected-state-background-color: var(--color-gold-500),
-      selected-state-text-color: #ffffff,
-    )
-  );
-}
-
-// Segmented-control internals: the track needs padding and the buttons need
-// their own radius and a soft shadow — tokens do not cover these.
-.mat-button-toggle-group {
-  padding: 3px;
-}
-
-.mat-button-toggle {
-  border-radius: calc(var(--radius-m3-sm) - 3px);
-}
-
-.mat-button-toggle-checked {
-  box-shadow:
-    0 1px 2px rgb(15 23 42 / 6%),
-    0 1px 3px rgb(15 23 42 / 8%);
-}
-
-html.dark .mat-button-toggle-checked {
-  box-shadow: none;
 }
 
 // Table row hover replaces the old zebra striping.
@@ -401,5 +349,134 @@ html.dark .mat-mdc-row:hover .mat-mdc-cell {
     font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: 0.5em;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// .app-home — the dashboard home page follows stock Material Design 3
+// (pill buttons, M3 chips, role colors). The shell and other pages keep the
+// Stitch retuning above. The `html` prefix ties the dark Stitch overrides in
+// specificity and wins by source order.
+// ---------------------------------------------------------------------------
+html .app-home {
+  // Pill-shaped buttons per M3 spec.
+  @include mat.button-overrides(
+    (
+      filled-container-shape: var(--mat-sys-corner-full),
+      outlined-container-shape: var(--mat-sys-corner-full),
+      text-container-shape: var(--mat-sys-corner-full),
+      tonal-container-shape: var(--mat-sys-corner-full),
+      protected-container-shape: var(--mat-sys-corner-full),
+    )
+  );
+
+  // M3 filter chips: outlined at rest, secondary-container when selected.
+  @include mat.chips-overrides(
+    (
+      container-shape-radius: var(--mat-sys-corner-small),
+      outline-width: 1px,
+      outline-color: var(--mat-sys-outline-variant),
+      flat-selected-outline-width: 0,
+      elevated-container-color: transparent,
+      elevated-selected-container-color: var(--mat-sys-secondary-container),
+      label-text-color: var(--mat-sys-on-surface-variant),
+      selected-label-text-color: var(--mat-sys-on-secondary-container),
+    )
+  );
+
+  // Thicker progress indicator for the KPI cards.
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-height: 6px,
+      track-height: 6px,
+      track-shape: var(--mat-sys-corner-full),
+    )
+  );
+}
+
+// Hero welcome card: filled primary-container surface.
+.app-hero-card {
+  @include mat.card-overrides(
+    (
+      filled-container-color: var(--mat-sys-primary-container),
+    )
+  );
+}
+
+// Static status chips (non-interactive) tinted by semantic role.
+html .app-chip-warning {
+  @include mat.chips-overrides(
+    (
+      elevated-container-color: var(--mat-sys-primary-container),
+      label-text-color: var(--mat-sys-on-primary-container),
+      container-height: 26px,
+      outline-width: 0,
+    )
+  );
+}
+
+html .app-chip-info {
+  @include mat.chips-overrides(
+    (
+      elevated-container-color: var(--mat-sys-tertiary-container),
+      label-text-color: var(--mat-sys-on-tertiary-container),
+      container-height: 26px,
+      outline-width: 0,
+    )
+  );
+}
+
+html .app-chip-error {
+  @include mat.chips-overrides(
+    (
+      elevated-container-color: var(--mat-sys-error-container),
+      label-text-color: var(--mat-sys-on-error-container),
+      container-height: 26px,
+      outline-width: 0,
+    )
+  );
+}
+
+// No M3 role for success — brand success tokens instead.
+html .app-chip-success {
+  @include mat.chips-overrides(
+    (
+      elevated-container-color: var(--color-success-100),
+      label-text-color: var(--color-success-700),
+      container-height: 26px,
+      outline-width: 0,
+    )
+  );
+}
+
+html.dark .app-chip-success {
+  @include mat.chips-overrides(
+    (
+      elevated-container-color: color-mix(in srgb, var(--color-success-500) 18%, transparent),
+      label-text-color: var(--color-success-300),
+    )
+  );
+}
+
+// Chip floating on the hero card surface.
+html .app-chip-surface {
+  @include mat.chips-overrides(
+    (
+      elevated-container-color: var(--mat-sys-surface-container-lowest),
+      label-text-color: var(--mat-sys-on-surface),
+      container-height: 26px,
+      outline-width: 0,
+    )
+  );
+}
+
+// Chip icons inherit the chip label color instead of the primary default.
+.app-chip-warning,
+.app-chip-info,
+.app-chip-error,
+.app-chip-success,
+.app-chip-surface {
+  mat-icon {
+    color: inherit;
   }
 }

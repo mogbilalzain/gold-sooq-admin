@@ -2,109 +2,112 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MetalsPriceData } from '../../charts/metals-prices-chart/metals-prices-chart.component';
 import { TranslationService } from '../../../services/translation.service';
-import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
+/** M3 card: current gold price, change chip and a small area sparkline. */
 @Component({
   selector: 'app-price-pulse',
   standalone: true,
-  imports: [CommonModule, SafeHtmlPipe],
+  imports: [CommonModule, MatCardModule, MatChipsModule, MatIconModule],
   template: `
-    <div class="dashboard-card flex h-full flex-col">
-      <!-- Period row: bolt icon + "last 30 days" -->
-      <div class="mb-3 flex items-center gap-2">
-        <span
-          class="flex h-8 w-8 items-center justify-center rounded-lg bg-gold-50 text-gold-600 dark:bg-gold-500/10 dark:text-gold-400"
-          [innerHTML]="boltIcon | safeHtml"
-        ></span>
-        <span class="text-xs font-bold text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
+    <mat-card appearance="outlined" class="h-full">
+      <mat-card-header>
+        <div mat-card-avatar class="app-tone-primary flex items-center justify-center">
+          <mat-icon>bolt</mat-icon>
+        </div>
+        <mat-card-title class="text-m3-title-lg font-medium">
+          {{ translationService.t('dashboard.goldPulse') }}
+        </mat-card-title>
+        <mat-card-subtitle>
           {{ translationService.t('dashboard.pulsePeriod') }}
-        </span>
-      </div>
+        </mat-card-subtitle>
+      </mat-card-header>
 
-      <h3 class="text-sm font-medium text-slate-500 dark:text-[color:var(--color-on-surface-variant)]">
-        {{ translationService.t('dashboard.goldPulse') }}
-      </h3>
-
-      @if (!data.length) {
-        <!-- Skeleton -->
-        <div class="flex-1 animate-pulse space-y-4 pt-4">
-          <div class="h-10 w-36 rounded-lg bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
-          <div class="h-5 w-24 rounded-lg bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
-          <div class="h-16 w-full rounded-xl bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
-        </div>
-      } @else {
-        <!-- Current price + change -->
-        <div class="mt-2 flex items-end gap-2">
-          <span class="ayar-num text-4xl font-extrabold leading-none text-slate-900 dark:text-[color:var(--color-on-surface)]" dir="ltr">
-            {{ currentPrice | number: '1.2-2' }}
-          </span>
-          <span class="mb-0.5 text-sm font-medium text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-            {{ currency }}
-          </span>
-        </div>
-
-        <div class="mt-2.5 flex items-center gap-2">
-          <span
-            class="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-bold"
-            [ngClass]="changeBadgeClass"
-          >
-            <span class="inline-block h-3.5 w-3.5" [innerHTML]="trendIcon | safeHtml"></span>
-            <span dir="ltr">{{ changePercent > 0 ? '+' : '' }}{{ changePercent | number: '1.2-2' }}%</span>
-          </span>
-          <span class="text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ trendLabel }}</span>
-        </div>
-
-        <!-- Area sparkline with first-day / today labels -->
-        <div class="mt-auto pt-4">
-          <svg
-            viewBox="0 0 200 56"
-            preserveAspectRatio="none"
-            class="h-16 w-full"
-            aria-hidden="true"
-          >
-            <defs>
-              <linearGradient id="pulseFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" [attr.stop-color]="strokeColor" stop-opacity="0.28" />
-                <stop offset="100%" [attr.stop-color]="strokeColor" stop-opacity="0" />
-              </linearGradient>
-            </defs>
-            <path [attr.d]="areaPath" fill="url(#pulseFill)" />
-            <path
-              [attr.d]="linePath"
-              fill="none"
-              [attr.stroke]="strokeColor"
-              stroke-width="2.2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <circle
-              [attr.cx]="lastPoint.x"
-              [attr.cy]="lastPoint.y"
-              r="3.4"
-              [attr.fill]="strokeColor"
-            />
-          </svg>
-          <div class="mt-1 flex items-center justify-between text-[11px] text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-            <span>{{ firstDateLabel }}</span>
-            <span>{{ translationService.t('dashboard.today') }}</span>
+      <mat-card-content class="flex-1">
+        @if (!data.length) {
+          <!-- Skeleton -->
+          <div class="animate-pulse space-y-4 pt-2">
+            <div class="app-skeleton h-10 w-36"></div>
+            <div class="app-skeleton h-5 w-24"></div>
+            <div class="app-skeleton h-16 w-full"></div>
           </div>
-        </div>
-      }
-    </div>
+        } @else {
+          <div class="flex h-full flex-col">
+            <!-- Current price + change -->
+            <div class="mt-2 flex items-end gap-2">
+              <span
+                class="ayar-num text-m3-display-sm leading-none text-(--mat-sys-on-surface)"
+                dir="ltr"
+              >
+                {{ currentPrice | number: '1.2-2' }}
+              </span>
+              <span class="mb-0.5 text-m3-body-md text-(--mat-sys-on-surface-variant)">
+                {{ currency }}
+              </span>
+            </div>
+
+            <div class="mt-2.5 flex items-center gap-2">
+              <mat-chip-set aria-hidden="true">
+                <mat-chip [ngClass]="changeChipClass">
+                  <mat-icon>{{ trendIcon }}</mat-icon>
+                  <span dir="ltr"
+                    >{{ changePercent > 0 ? '+' : '' }}{{ changePercent | number: '1.2-2' }}%</span
+                  >
+                </mat-chip>
+              </mat-chip-set>
+              <span class="text-m3-body-md text-(--mat-sys-on-surface-variant)">{{
+                trendLabel
+              }}</span>
+            </div>
+
+            <!-- Area sparkline with first-day / today labels -->
+            <div class="mt-auto pt-4">
+              <svg
+                viewBox="0 0 200 56"
+                preserveAspectRatio="none"
+                class="h-16 w-full text-(--mat-sys-primary)"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient id="pulseFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" [attr.stop-color]="strokeColor" stop-opacity="0.28" />
+                    <stop offset="100%" [attr.stop-color]="strokeColor" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path [attr.d]="areaPath" fill="url(#pulseFill)" />
+                <path
+                  [attr.d]="linePath"
+                  fill="none"
+                  [attr.stroke]="strokeColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <circle
+                  [attr.cx]="lastPoint.x"
+                  [attr.cy]="lastPoint.y"
+                  r="3.4"
+                  [attr.fill]="strokeColor"
+                />
+              </svg>
+              <div
+                class="mt-1 flex items-center justify-between text-[11px] text-(--mat-sys-on-surface-variant)"
+              >
+                <span>{{ firstDateLabel }}</span>
+                <span>{{ translationService.t('dashboard.today') }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </mat-card-content>
+    </mat-card>
   `,
 })
 export class PricePulseComponent {
   @Input() data: MetalsPriceData[] = [];
   @Input() currency = '';
-
-  readonly boltIcon =
-    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>';
-  readonly upIcon =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>';
-  readonly downIcon =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10M17 9v8H9"/></svg>';
-  readonly flatIcon =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/></svg>';
 
   constructor(public translationService: TranslationService) {}
 
@@ -134,25 +137,22 @@ export class PricePulseComponent {
   }
 
   get trendIcon(): string {
-    if (this.changePercent > 0.05) return this.upIcon;
-    if (this.changePercent < -0.05) return this.downIcon;
-    return this.flatIcon;
+    if (this.changePercent > 0.05) return 'trending_up';
+    if (this.changePercent < -0.05) return 'trending_down';
+    return 'trending_flat';
   }
 
-  get changeBadgeClass(): string {
-    if (this.changePercent > 0.05) {
-      return 'status-pill-success';
-    }
-    if (this.changePercent < -0.05) {
-      return 'status-pill-error';
-    }
-    return 'bg-surface-container-high text-surface-on-surface-variant';
+  get changeChipClass(): string {
+    if (this.changePercent > 0.05) return 'app-chip-success';
+    if (this.changePercent < -0.05) return 'app-chip-error';
+    return '';
   }
 
+  /** Stable trend uses the primary role via currentColor on the svg. */
   get strokeColor(): string {
     if (this.changePercent > 0.05) return '#12b76a';
     if (this.changePercent < -0.05) return '#f04438';
-    return '#d4af37';
+    return 'currentColor';
   }
 
   private get points(): { x: number; y: number }[] {

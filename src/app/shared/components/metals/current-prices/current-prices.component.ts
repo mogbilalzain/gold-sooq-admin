@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { TranslationService } from '../../../services/translation.service';
 import { MetalsPricesService, CurrentPricesResponse } from '../../../services/data/metals-prices.service';
 import { ErrorHandlerService } from '../../../services/api/error-handler.service';
@@ -13,6 +15,8 @@ import { SettingsService } from '../../../services/data/settings.service';
   imports: [
     CommonModule,
     MatButtonModule,
+    MatCardModule,
+    MatIconModule,
     LoadingSpinnerComponent,
   ],
   templateUrl: './current-prices.component.html',

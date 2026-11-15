@@ -1,4 +1,4 @@
-<div class="space-y-6">
+<div class="app-home space-y-6">
   <!-- 1. Welcome banner: greeting, date, pending summary, shortcuts -->
   <app-welcome-banner [pendingTotal]="pendingTotal"></app-welcome-banner>
 
@@ -6,16 +6,16 @@
   @if (isLoading) {
     <div class="grid grid-cols-2 gap-4 lg:grid-cols-4 md:gap-6">
       @for (i of [1, 2, 3, 4]; track i) {
-        <div class="dashboard-card animate-pulse">
-          <div class="flex items-start justify-between gap-3">
-            <div class="mt-1 h-3.5 w-1/2 rounded bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
-            <div class="h-11 w-11 rounded-xl bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
+        <mat-card appearance="outlined" class="animate-pulse">
+          <div class="p-5">
+            <div class="flex items-start justify-between gap-3">
+              <div class="app-skeleton mt-1 h-3.5 w-1/2"></div>
+              <div class="app-skeleton h-11 w-11" style="border-radius: 9999px"></div>
+            </div>
+            <div class="app-skeleton mb-4 mt-3 h-8 w-2/3"></div>
+            <div class="app-skeleton h-10 w-full"></div>
           </div>
-          <div class="mb-4 mt-3 h-8 w-2/3 rounded bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
-          <div class="kpi-skeleton-footer">
-            <div class="h-6 w-full rounded bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
-          </div>
-        </div>
+        </mat-card>
       }
     </div>
   } @else {
@@ -23,30 +23,28 @@
       <app-kpi-card
         [title]="translationService.t('dashboard.totalUsers')"
         [value]="stats.totalUsers"
-        [icon]="userIcon"
-        iconBgClass="bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400"
+        icon="group"
+        tone="tertiary"
         [trend]="userTrend"
         [trendCount]="newUsers30"
         [trendLabel]="translationService.t('dashboard.last30Days')"
-        trendColor="#2563eb"
       ></app-kpi-card>
 
       <app-kpi-card
         [title]="translationService.t('dashboard.totalPosts')"
         [value]="stats.totalPosts"
-        [icon]="postIcon"
-        iconBgClass="bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"
+        icon="article"
+        tone="success"
         [trend]="adTrend"
         [trendCount]="newAds30"
         [trendLabel]="translationService.t('dashboard.last30Days')"
-        trendColor="#10b981"
       ></app-kpi-card>
 
       <app-kpi-card
         [title]="translationService.t('dashboard.activePosts')"
         [value]="stats.activePosts"
-        [icon]="activeIcon"
-        iconBgClass="bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400"
+        icon="check_circle"
+        tone="primary"
         [percentPill]="activePostsPercent"
         [percentPillLabel]="translationService.t('dashboard.activeShort')"
         [progress]="activePostsPercent"
@@ -56,7 +54,8 @@
       <app-kpi-card
         [title]="translationService.t('dashboard.totalCategories')"
         [value]="stats.totalCategories"
-        [icon]="categoryIcon"
+        icon="category"
+        tone="secondary"
         [linkHint]="translationService.t('dashboard.categoriesHint')"
         [linkText]="translationService.t('dashboard.manage')"
         linkRoute="/categories"
@@ -87,42 +86,28 @@
   <!-- 5. Market section: pulse + chart + spot prices -->
   <section class="space-y-4">
     <div class="flex flex-wrap items-center gap-3">
-      <span class="relative flex h-2.5 w-2.5">
-        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-60"></span>
-        <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-amber-500"></span>
-      </span>
-      <h3 class="text-lg font-extrabold text-slate-900 dark:text-[color:var(--color-on-surface)]">
+      <h3 class="text-m3-title-lg font-medium text-(--mat-sys-on-surface)">
         {{ translationService.t('dashboard.marketSection') }}
       </h3>
-      <span class="ayar-pill ayar-pill-warning">
-        {{ translationService.t('dashboard.liveEveryMinute') }}
-      </span>
+      <mat-chip-set aria-hidden="true">
+        <mat-chip class="app-chip-warning">
+          <mat-icon>sensors</mat-icon>
+          {{ translationService.t('dashboard.liveEveryMinute') }}
+        </mat-chip>
+      </mat-chip-set>
       <div class="ms-auto flex items-center gap-2">
         <button
           type="button"
-          matButton="filled"
-          class="!gap-2"
+          matButton="tonal"
           [disabled]="refreshingMarket"
           (click)="refreshMarket()"
         >
-          <svg
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            [class.animate-spin]="refreshingMarket"
-            aria-hidden="true"
-          >
-            <path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6" />
-          </svg>
+          <mat-icon [class.animate-spin]="refreshingMarket">refresh</mat-icon>
           {{ translationService.t('dashboard.refreshPrices') }}
         </button>
         <a matButton="outlined" routerLink="/metals-prices">
           {{ translationService.t('dashboard.pricesPage') }}
+          <mat-icon class="app-icon-flip">arrow_forward</mat-icon>
         </a>
       </div>
     </div>

@@ -3,162 +3,185 @@
   <div class="grid grid-cols-12 gap-4 md:gap-6">
     <!-- Gold hero card -->
     <div class="col-span-12 xl:col-span-8">
-      <div class="dashboard-card flex h-full flex-col">
+      <mat-card appearance="outlined" class="h-full">
         @if (isLoading && !metals) {
-          <div class="animate-pulse space-y-4">
+          <div class="animate-pulse space-y-4 p-5">
             <div class="flex items-center gap-3">
-              <div class="h-11 w-11 rounded-xl bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
+              <div class="app-skeleton h-11 w-11" style="border-radius: 9999px"></div>
               <div class="flex-1 space-y-2">
-                <div class="h-3.5 w-24 rounded bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
-                <div class="h-3 w-40 rounded bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
+                <div class="app-skeleton h-3.5 w-24"></div>
+                <div class="app-skeleton h-3 w-40"></div>
               </div>
             </div>
-            <div class="h-10 w-40 rounded bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
+            <div class="app-skeleton h-10 w-40"></div>
             <div class="grid grid-cols-5 gap-2">
               @for (i of [1, 2, 3, 4, 5]; track i) {
-                <div class="h-14 rounded-xl bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
+                <div class="app-skeleton h-14"></div>
               }
             </div>
           </div>
         } @else if (errorMessage) {
-          <div class="flex flex-1 flex-col items-center justify-center py-6 text-center">
-            <p class="text-sm text-[color:var(--color-error)]">{{ errorMessage }}</p>
+          <div class="flex flex-col items-center justify-center p-6 py-10 text-center">
+            <p class="text-sm text-(--mat-sys-error)">{{ errorMessage }}</p>
             <button matButton="outlined" (click)="loadCurrentPrices()" class="mt-4">
               {{ translationService.t('common.retry') }}
             </button>
           </div>
         } @else {
           @if (gold; as gold) {
-          <div class="flex flex-wrap items-center gap-3">
-            <span class="gold-gradient-bg flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-sm font-extrabold text-white shadow-md" dir="ltr">
+          <mat-card-header>
+            <div
+              mat-card-avatar
+              class="flex items-center justify-center bg-(--mat-sys-primary) text-sm font-medium text-(--mat-sys-on-primary)"
+              dir="ltr"
+            >
               Au
-            </span>
-            <div class="min-w-0">
-              <h4 class="font-bold text-slate-900 dark:text-[color:var(--color-on-surface)]">
-                {{ translationService.t('metals.gold') }}
-              </h4>
-              <p class="mt-0.5 text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-                {{ translationService.t('dashboard.perOunce') }}:
-                <span class="ayar-num font-semibold text-slate-600 dark:text-[color:var(--color-on-surface)]" dir="ltr">{{ gold.local_per_toz | number: '1.2-2' }}</span>
-                {{ currentPrices?.currency || settingsService.currency }}
-                <span class="mx-1">|</span>
-                <span class="ayar-num font-semibold text-slate-600 dark:text-[color:var(--color-on-surface)]" dir="ltr">{{ gold.usd_per_toz | number: '1.2-2' }}</span>
-                USD
-              </p>
             </div>
-            <span class="ms-auto text-xs font-medium text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
+            <mat-card-title class="text-m3-title-lg font-medium">
+              {{ translationService.t('metals.gold') }}
+            </mat-card-title>
+            <mat-card-subtitle>
+              {{ translationService.t('dashboard.perOunce') }}:
+              <span class="ayar-num" dir="ltr">{{ gold.local_per_toz | number: '1.2-2' }}</span>
+              {{ currentPrices?.currency || settingsService.currency }}
+              <span class="mx-1">|</span>
+              <span class="ayar-num" dir="ltr">{{ gold.usd_per_toz | number: '1.2-2' }}</span>
+              USD
+            </mat-card-subtitle>
+            <span class="ms-auto shrink-0 text-m3-label-md text-(--mat-sys-on-surface-variant)">
               {{ currentPrices?.currency || settingsService.currency }}
             </span>
-          </div>
+          </mat-card-header>
 
-          <div class="mt-4">
-            <p class="mb-1 text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-              {{ translationService.t('metals.perGram') }} (24K)
-            </p>
-            <p class="ayar-num text-4xl font-extrabold leading-none text-slate-900 dark:text-[color:var(--color-on-surface)]" dir="ltr">
-              {{ gold.local_per_gram?.toFixed(2) ?? '—' }}
-            </p>
-          </div>
+          <mat-card-content>
+            <div class="mt-2">
+              <p class="mb-1 text-m3-label-md text-(--mat-sys-on-surface-variant)">
+                {{ translationService.t('metals.perGram') }} (24K)
+              </p>
+              <p class="ayar-num text-m3-display-sm leading-none text-(--mat-sys-on-surface)" dir="ltr">
+                {{ gold.local_per_gram?.toFixed(2) ?? '—' }}
+              </p>
+            </div>
 
-          <!-- Karat boxes: 24K highlighted -->
-          <div class="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-5">
-            @for (k of karatKeys; track k) {
-              <div
-                class="rounded-xl px-2 py-2.5 text-center"
-                [ngClass]="
-                  k === '24k'
-                    ? 'bg-gold-50 ring-1 ring-inset ring-gold-200 dark:bg-gold-500/10 dark:ring-gold-500/25'
-                    : 'bg-slate-50 dark:bg-[color:var(--color-surface-container-high)]'
-                "
-              >
-                <p
-                  class="text-[11px] font-bold"
-                  [ngClass]="k === '24k' ? 'text-gold-700 dark:text-gold-400' : 'text-slate-400 dark:text-[color:var(--color-on-surface-variant)]'"
-                  dir="ltr"
+            <!-- Karat boxes: 24K on primary-container, rest on surface-container-high -->
+            <div class="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-5">
+              @for (k of karatKeys; track k) {
+                <div
+                  class="rounded-xl px-2 py-2.5 text-center"
+                  [ngClass]="
+                    k === '24k'
+                      ? 'bg-(--mat-sys-primary-container)'
+                      : 'bg-(--mat-sys-surface-container-high)'
+                  "
                 >
-                  {{ k.replace('k', 'K') }}
-                </p>
-                <p class="ayar-num mt-0.5 text-sm font-extrabold text-slate-900 dark:text-[color:var(--color-on-surface)]" dir="ltr">
-                  {{ $any(gold.by_carat)?.[k]?.toFixed(2) ?? '—' }}
-                </p>
-              </div>
-            }
-          </div>
+                  <p
+                    class="text-m3-label-md font-medium"
+                    [ngClass]="
+                      k === '24k'
+                        ? 'text-(--mat-sys-on-primary-container)'
+                        : 'text-(--mat-sys-on-surface-variant)'
+                    "
+                    dir="ltr"
+                  >
+                    {{ k.replace('k', 'K') }}
+                  </p>
+                  <p
+                    class="ayar-num mt-0.5 text-m3-title-md font-medium"
+                    [ngClass]="
+                      k === '24k'
+                        ? 'text-(--mat-sys-on-primary-container)'
+                        : 'text-(--mat-sys-on-surface)'
+                    "
+                    dir="ltr"
+                  >
+                    {{ $any(gold.by_carat)?.[k]?.toFixed(2) ?? '—' }}
+                  </p>
+                </div>
+              }
+            </div>
+          </mat-card-content>
           } @else {
-            <p class="py-6 text-center text-sm text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
+            <p class="py-6 text-center text-sm text-(--mat-sys-on-surface-variant)">
               {{ translationService.t('metals.noData') }}
             </p>
           }
         }
-      </div>
+      </mat-card>
     </div>
 
     <!-- Silver + platinum horizontal cards, last update below -->
     <div class="col-span-12 flex flex-col gap-4 xl:col-span-4">
       @if (silver; as silver) {
-        <div class="dashboard-card flex-1">
-          <div class="flex items-center gap-3">
-            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-200 text-xs font-extrabold text-slate-600 dark:bg-slate-500/20 dark:text-slate-300" dir="ltr">
-              Ag
-            </span>
-            <h4 class="font-bold text-slate-900 dark:text-[color:var(--color-on-surface)]">
-              {{ translationService.t('metals.silver') }}
-            </h4>
-            <div class="ms-auto text-end">
-              <p class="ayar-num text-xl font-extrabold leading-none text-slate-900 dark:text-[color:var(--color-on-surface)]" dir="ltr">
-                {{ silver.local_per_gram?.toFixed(2) ?? '—' }}
-              </p>
-              <p class="mt-1 text-[11px] text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-                {{ translationService.t('metals.perGram') }}
-              </p>
+        <mat-card appearance="outlined" class="flex-1">
+          <div class="p-5">
+            <div class="flex items-center gap-3">
+              <span
+                class="app-tone-secondary flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-m3-label-lg font-medium"
+                dir="ltr"
+              >
+                Ag
+              </span>
+              <h4 class="text-m3-title-md font-medium text-(--mat-sys-on-surface)">
+                {{ translationService.t('metals.silver') }}
+              </h4>
+              <div class="ms-auto text-end">
+                <p class="ayar-num text-m3-title-lg font-medium leading-none text-(--mat-sys-on-surface)" dir="ltr">
+                  {{ silver.local_per_gram?.toFixed(2) ?? '—' }}
+                </p>
+                <p class="mt-1 text-m3-label-md text-(--mat-sys-on-surface-variant)">
+                  {{ translationService.t('metals.perGram') }}
+                </p>
+              </div>
             </div>
+            <p class="mt-3 text-m3-body-md text-(--mat-sys-on-surface-variant)">
+              {{ translationService.t('dashboard.perOunce') }}:
+              <span class="ayar-num" dir="ltr">{{ silver.local_per_toz | number: '1.2-2' }}</span>
+              {{ currentPrices?.currency || settingsService.currency }}
+              <span class="mx-1">|</span>
+              <span class="ayar-num" dir="ltr">{{ silver.usd_per_toz | number: '1.2-2' }}</span>
+              USD
+            </p>
           </div>
-          <p class="mt-3 text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-            {{ translationService.t('dashboard.perOunce') }}:
-            <span class="ayar-num font-semibold text-slate-600 dark:text-[color:var(--color-on-surface)]" dir="ltr">{{ silver.local_per_toz | number: '1.2-2' }}</span>
-            {{ currentPrices?.currency || settingsService.currency }}
-            <span class="mx-1">|</span>
-            <span class="ayar-num font-semibold text-slate-600 dark:text-[color:var(--color-on-surface)]" dir="ltr">{{ silver.usd_per_toz | number: '1.2-2' }}</span>
-            USD
-          </p>
-        </div>
+        </mat-card>
       }
 
       @if (platinum; as platinum) {
-        <div class="dashboard-card flex-1">
-          <div class="flex items-center gap-3">
-            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-xs font-extrabold text-blue-600 dark:bg-blue-500/10 dark:text-blue-400" dir="ltr">
-              Pt
-            </span>
-            <h4 class="font-bold text-slate-900 dark:text-[color:var(--color-on-surface)]">
-              {{ translationService.t('metals.platinum') }}
-            </h4>
-            <div class="ms-auto text-end">
-              <p class="ayar-num text-xl font-extrabold leading-none text-slate-900 dark:text-[color:var(--color-on-surface)]" dir="ltr">
-                {{ platinum.local_per_gram?.toFixed(2) ?? '—' }}
-              </p>
-              <p class="mt-1 text-[11px] text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-                {{ translationService.t('metals.perGram') }}
-              </p>
+        <mat-card appearance="outlined" class="flex-1">
+          <div class="p-5">
+            <div class="flex items-center gap-3">
+              <span
+                class="app-tone-tertiary flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-m3-label-lg font-medium"
+                dir="ltr"
+              >
+                Pt
+              </span>
+              <h4 class="text-m3-title-md font-medium text-(--mat-sys-on-surface)">
+                {{ translationService.t('metals.platinum') }}
+              </h4>
+              <div class="ms-auto text-end">
+                <p class="ayar-num text-m3-title-lg font-medium leading-none text-(--mat-sys-on-surface)" dir="ltr">
+                  {{ platinum.local_per_gram?.toFixed(2) ?? '—' }}
+                </p>
+                <p class="mt-1 text-m3-label-md text-(--mat-sys-on-surface-variant)">
+                  {{ translationService.t('metals.perGram') }}
+                </p>
+              </div>
             </div>
+            <p class="mt-3 text-m3-body-md text-(--mat-sys-on-surface-variant)">
+              {{ translationService.t('dashboard.perOunce') }}:
+              <span class="ayar-num" dir="ltr">{{ platinum.local_per_toz | number: '1.2-2' }}</span>
+              {{ currentPrices?.currency || settingsService.currency }}
+              <span class="mx-1">|</span>
+              <span class="ayar-num" dir="ltr">{{ platinum.usd_per_toz | number: '1.2-2' }}</span>
+              USD
+            </p>
           </div>
-          <p class="mt-3 text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-            {{ translationService.t('dashboard.perOunce') }}:
-            <span class="ayar-num font-semibold text-slate-600 dark:text-[color:var(--color-on-surface)]" dir="ltr">{{ platinum.local_per_toz | number: '1.2-2' }}</span>
-            {{ currentPrices?.currency || settingsService.currency }}
-            <span class="mx-1">|</span>
-            <span class="ayar-num font-semibold text-slate-600 dark:text-[color:var(--color-on-surface)]" dir="ltr">{{ platinum.usd_per_toz | number: '1.2-2' }}</span>
-            USD
-          </p>
-        </div>
+        </mat-card>
       }
 
       @if (timestamps?.metal) {
-        <p class="flex items-center justify-center gap-1.5 text-center text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
-          <span class="relative flex h-2 w-2">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
-            <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
-          </span>
+        <p class="flex items-center justify-center gap-1.5 text-center text-m3-body-md text-(--mat-sys-on-surface-variant)">
+          <mat-icon style="font-size: 16px; width: 16px; height: 16px">schedule</mat-icon>
           {{ translationService.t('metals.lastUpdated') }}: {{ timestamps?.metal | date: 'short' }}
         </p>
       }
