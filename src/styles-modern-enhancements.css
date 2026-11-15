@@ -641,6 +641,41 @@
   border-color: var(--color-outline-variant);
 }
 
+/* Gold focus tint for the search icon (Stitch detail) */
+.ayar-header-search:focus-within .ayar-search-icon,
+.ayar-mobile-search:focus-within .ayar-search-icon {
+  color: var(--color-gold-600);
+}
+
+.dark .ayar-header-search:focus-within .ayar-search-icon,
+.dark .ayar-mobile-search:focus-within .ayar-search-icon {
+  color: var(--color-gold-400);
+}
+
+/* Mobile search row: slides in under the main header bar */
+.ayar-mobile-search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.75rem 0.75rem;
+  animation: ayar-mobile-search-in 160ms var(--ease-m3-standard);
+}
+
+.ayar-mobile-search .ayar-header-search-input {
+  padding-inline-end: 2.75rem;
+}
+
+@keyframes ayar-mobile-search-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .ayar-header-divider {
   width: 1px;
   height: 1.5rem;

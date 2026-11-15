@@ -66,6 +66,7 @@ export interface TranslationKeys {
     toggleSidebar: string;
     toggleLanguage: string;
     toggleTheme: string;
+    quickActions: string;
   };
   // Footer
   footer: {
@@ -902,6 +903,7 @@ export class TranslationService {
         toggleSidebar: 'القائمة الجانبية',
         toggleLanguage: 'تغيير اللغة',
         toggleTheme: 'تبديل المظهر',
+        quickActions: 'إجراءات سريعة',
       },
       footer: {
         brand: 'منصة عيار (Ayar) لتجارة الذهب والمجوهرات',
@@ -1853,6 +1855,7 @@ export class TranslationService {
         toggleSidebar: 'Sidebar',
         toggleLanguage: 'Change language',
         toggleTheme: 'Toggle theme',
+        quickActions: 'Quick actions',
       },
       footer: {
         brand: 'Ayar gold & jewelry trading platform',

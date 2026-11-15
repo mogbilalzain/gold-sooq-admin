@@ -41,10 +41,25 @@
       </span>
     </a>
 
+    <!-- Mobile search toggle -->
+    <span class="lg:hidden">
+      <button
+        matIconButton
+        (click)="toggleMobileSearch()"
+        [matTooltip]="translationService.t('header.search')"
+        [attr.aria-label]="translationService.t('header.search')"
+        [attr.aria-expanded]="mobileSearchOpen"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </button>
+    </span>
+
     <!-- Page-jump search -->
-    <div class="ayar-header-search relative hidden lg:block lg:flex-1 lg:max-w-md 2xl:max-w-lg">
+    <div class="ayar-header-search relative hidden lg:block lg:flex-1 lg:max-w-xl">
       <span
-        class="pointer-events-none absolute inset-y-0 start-3.5 flex items-center text-slate-400 dark:text-[color:var(--color-on-surface-variant)]"
+        class="ayar-search-icon pointer-events-none absolute inset-y-0 start-3.5 flex items-center text-slate-400 dark:text-[color:var(--color-on-surface-variant)]"
       >
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -85,7 +100,8 @@
 
     <!-- Actions -->
     <div class="ms-auto flex items-center gap-1.5 sm:gap-3">
-      <div class="hidden md:flex items-center gap-2">
+      <!-- Quick actions: both buttons when there is room (xl+) -->
+      <div class="hidden xl:flex items-center gap-2">
         <a matButton="tonal" routerLink="/notifications/send" class="!gap-2">
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 4v16m8-8H4" />
@@ -100,12 +116,97 @@
         </a>
       </div>
 
-      <span class="ayar-header-divider hidden sm:block"></span>
+      <!-- Quick actions merged into one menu when space is tight (md to xl) -->
+      <div class="hidden md:block xl:hidden">
+        <button
+          matIconButton
+          [matMenuTriggerFor]="quickMenu"
+          [matTooltip]="translationService.t('header.quickActions')"
+          [attr.aria-label]="translationService.t('header.quickActions')"
+        >
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 4v16m8-8H4" />
+          </svg>
+        </button>
+        <mat-menu #quickMenu="matMenu">
+          <a mat-menu-item routerLink="/notifications/send" class="app-menu-item">
+            <span class="inline-flex h-4.5 w-4.5">
+              <svg class="h-full w-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 4v16m8-8H4" />
+              </svg>
+            </span>
+            <span>{{ translationService.t('dashboard.quickSendNotification') }}</span>
+          </a>
+          <a mat-menu-item routerLink="/metals-prices" class="app-menu-item">
+            <span class="inline-flex h-4.5 w-4.5 text-amber-500">
+              <svg class="h-full w-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </span>
+            <span>{{ translationService.t('dashboard.quickMetalsPrices') }}</span>
+          </a>
+        </mat-menu>
+      </div>
+
+      <span class="ayar-header-divider hidden md:block"></span>
 
       <app-language-toggle />
       <app-theme-toggle-button />
       <app-notification-dropdown />
+
+      <span class="ayar-header-divider hidden md:block"></span>
       <app-user-dropdown />
     </div>
   </div>
+
+  <!-- Mobile search row -->
+  @if (mobileSearchOpen) {
+    <div class="ayar-mobile-search lg:hidden">
+      <div class="relative flex-1">
+        <span
+          class="ayar-search-icon pointer-events-none absolute inset-y-0 start-3.5 flex items-center text-slate-400 dark:text-[color:var(--color-on-surface-variant)]"
+        >
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </span>
+        <input
+          #mobileSearchInput
+          type="text"
+          [value]="searchQuery"
+          (input)="onSearchInput($event)"
+          [matAutocomplete]="autoMobile"
+          [matAutocompleteDisabled]="!searchQuery.trim()"
+          [placeholder]="translationService.t('header.searchPages')"
+          class="ayar-header-search-input"
+          autocomplete="off"
+        />
+        <mat-autocomplete #autoMobile="matAutocomplete" (optionSelected)="onPageSelected($event)">
+          @if (filteredPages.length) {
+            @for (page of filteredPages; track page.path) {
+              <mat-option [value]="page">
+                <span class="flex items-center gap-2.5">
+                  <svg class="h-4 w-4 shrink-0 text-slate-400 rtl:-scale-x-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                  <span class="truncate">{{ translationService.t(page.labelKey) }}</span>
+                </span>
+              </mat-option>
+            }
+          } @else {
+            <mat-option disabled>{{ translationService.t('header.noResults') }}</mat-option>
+          }
+        </mat-autocomplete>
+      </div>
+      <button
+        matIconButton
+        (click)="closeMobileSearch()"
+        [attr.aria-label]="translationService.t('common.close')"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  }
 </header>

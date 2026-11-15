@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeToggleButtonComponent } from '../../components/common/theme-toggle/theme-toggle-button.component';
 import { NotificationDropdownComponent } from '../../components/header/notification-dropdown/notification-dropdown.component';
@@ -19,6 +20,7 @@ import { ADMIN_NAV_PAGES, AdminNavPage } from '../admin-nav';
     RouterModule,
     MatAutocompleteModule,
     MatButtonModule,
+    MatMenuModule,
     MatTooltipModule,
     ThemeToggleButtonComponent,
     NotificationDropdownComponent,
@@ -33,8 +35,11 @@ export class AppHeaderComponent {
 
   /** Page-jump search state (filters ADMIN_NAV_PAGES). */
   searchQuery = '';
+  /** Second search row under the header bar on small screens. */
+  mobileSearchOpen = false;
 
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('mobileSearchInput') mobileSearchInput?: ElementRef<HTMLInputElement>;
 
   constructor(
     public sidebarService: SidebarService,
@@ -73,6 +78,18 @@ export class AppHeaderComponent {
     this.router.navigateByUrl(page.path);
     this.searchQuery = '';
     this.searchInput?.nativeElement.blur();
+    this.closeMobileSearch();
+  }
+
+  toggleMobileSearch() {
+    this.mobileSearchOpen = !this.mobileSearchOpen;
+    if (this.mobileSearchOpen) {
+      setTimeout(() => this.mobileSearchInput?.nativeElement.focus());
+    }
+  }
+
+  closeMobileSearch() {
+    this.mobileSearchOpen = false;
   }
 
   @HostListener('window:scroll')
