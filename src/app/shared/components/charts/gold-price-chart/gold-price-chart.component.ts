@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatChipSelectionChange, MatChipsModule } from '@angular/material/chips';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -45,13 +44,13 @@ const PERIOD_LABEL_KEYS: Record<Period, string> = {
   '3m': 'metals.3months',
 };
 
-const GOLD_COLOR = '#d4af37';
-const GRID_COLOR = 'rgba(206, 198, 178, 0.35)';
+const GOLD_COLOR = '#d4a853';
+const GRID_COLOR = 'rgba(148, 163, 184, 0.2)';
 
 @Component({
   selector: 'app-gold-price-chart',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatChipsModule, NgApexchartsModule],
+  imports: [CommonModule, MatButtonModule, NgApexchartsModule],
   templateUrl: './gold-price-chart.component.html',
 })
 export class GoldPriceChartComponent implements OnInit, OnDestroy {
@@ -142,6 +141,11 @@ export class GoldPriceChartComponent implements OnInit, OnDestroy {
     this.load();
   }
 
+  /** Public hook for the dashboard "refresh prices" button. */
+  reload() {
+    this.load();
+  }
+
   /** Tolerant mapping: the API keys `rates` by date, but accept arrays too. */
   private mapRates(raw: unknown): GoldRatePoint[] {
     const list: unknown[] = Array.isArray(raw)
@@ -158,28 +162,18 @@ export class GoldPriceChartComponent implements OnInit, OnDestroy {
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }
 
-  /** Single-select chip guard: re-select the chip if the user clicks the active one. */
-  pickPeriod(event: MatChipSelectionChange, period: Period) {
-    if (event.selected) {
-      if (this.period !== period) {
-        this.period = period;
-        this.periodFallback = false;
-        this.load();
-      }
-    } else {
-      event.source.select();
-    }
+  /** Segmented-control handlers (no-ops when the active option is re-clicked). */
+  setPeriod(period: Period) {
+    if (this.period === period) return;
+    this.period = period;
+    this.periodFallback = false;
+    this.load();
   }
 
-  pickKarat(event: MatChipSelectionChange, karat: Karat) {
-    if (event.selected) {
-      if (this.karat !== karat) {
-        this.karat = karat;
-        this.rebuildChart();
-      }
-    } else {
-      event.source.select();
-    }
+  setKarat(karat: Karat) {
+    if (this.karat === karat) return;
+    this.karat = karat;
+    this.rebuildChart();
   }
 
   periodLabelKey(period: Period): string {
@@ -237,7 +231,7 @@ export class GoldPriceChartComponent implements OnInit, OnDestroy {
 
     const isDark = this.themeService.currentTheme === 'dark';
     const isRTL = this.translationService.isRTL;
-    const fontFamily = isRTL ? 'Tajawal, sans-serif' : 'Outfit, sans-serif';
+    const fontFamily = isRTL ? 'Cairo, sans-serif' : 'Outfit, sans-serif';
     const labelColor = isDark ? '#b8b0a0' : '#6b7280';
     const locale = isRTL ? 'ar-SA' : 'en-US';
 
@@ -256,7 +250,7 @@ export class GoldPriceChartComponent implements OnInit, OnDestroy {
     this.chart = {
       type: 'area',
       height: 320,
-      fontFamily: 'Tajawal, Outfit, sans-serif',
+      fontFamily: 'Cairo, Outfit, sans-serif',
       toolbar: { show: false },
       animations: { enabled: true, speed: 400 },
     };

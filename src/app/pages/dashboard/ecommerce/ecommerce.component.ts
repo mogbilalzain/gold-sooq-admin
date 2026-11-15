@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { StatsCardComponent } from '../../../shared/components/common/stats-card/stats-card.component';
+import { KpiCardComponent } from '../../../shared/components/dashboard/kpi-card/kpi-card.component';
 import { TranslationService } from '../../../shared/services/translation.service';
 import { PostsAdsService, PostAd } from '../../../shared/services/data/posts-ads.service';
 import { StatsService, StatsDailyPoint, StatsPending } from '../../../shared/services/data/stats.service';
@@ -25,7 +25,7 @@ import {
   imports: [
     CommonModule,
     RouterModule,
-    StatsCardComponent,
+    KpiCardComponent,
     GoldPriceChartComponent,
     ActivityChartComponent,
     CurrentPricesComponent,
@@ -54,6 +54,13 @@ export class EcommerceComponent implements OnInit {
   metalsCurrency = 'AED';
   recentPosts: PostAd[] = [];
   pendingPosts: PostAd[] = [];
+  recentPage = 1;
+  recentTotal = 0;
+  readonly recentLimit = 5;
+  refreshingMarket = false;
+
+  @ViewChild('goldChart') private goldChart?: GoldPriceChartComponent;
+  @ViewChild('currentPrices') private currentPrices?: CurrentPricesComponent;
 
   identityIcon = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.6-1.4 1.7-2 3-2s2.4.6 3 2M14.5 10H18M14.5 13H17"/></svg>';
 
@@ -115,6 +122,12 @@ export class EcommerceComponent implements OnInit {
   get activePostsPercent(): number {
     if (!this.stats.totalPosts) return 0;
     return (this.stats.activePosts / this.stats.totalPosts) * 100;
+  }
+
+  /** "5 من 16 إعلان نشط" / "5 of 16 ads active" — under the active-posts progress bar. */
+  get activePostsLabel(): string {
+    const t = (k: string) => this.translationService.t(k);
+    return `${this.stats.activePosts} ${t('common.of')} ${this.stats.totalPosts} ${t('dashboard.adsUnit')} ${t('dashboard.activeShort')}`;
   }
 
   loadDashboardStats() {
@@ -196,6 +209,7 @@ export class EcommerceComponent implements OnInit {
   }
 
   loadMetalsPrices() {
+    this.refreshingMarket = true;
     this.metalsPricesService.getHistoricalPrices({
       countryCode: 'AE',
       period: '1m'
@@ -215,26 +229,44 @@ export class EcommerceComponent implements OnInit {
             new Date(a.date).getTime() - new Date(b.date).getTime()
           );
         }
+        this.refreshingMarket = false;
       },
       error: (error) => {
         console.error('Error loading metals prices:', error);
+        this.refreshingMarket = false;
       }
     });
   }
 
-  loadRecentPosts() {
+  /** "تحديث الأسعار": reloads the pulse series, the chart and the spot cards together. */
+  refreshMarket() {
+    this.loadMetalsPrices();
+    this.goldChart?.reload();
+    this.currentPrices?.refresh();
+  }
+
+  loadRecentPosts(page: number = this.recentPage) {
     this.loadingPosts = true;
+    this.recentPage = page;
     const langCode = this.translationService.currentLanguageValue;
 
-    this.postsAdsService.listPosts({ page: 1, limit: 6, langCode, status: 'all' }).subscribe({
-      next: (response) => {
-        this.recentPosts = response.data?.posts || [];
-        this.loadingPosts = false;
-      },
-      error: (error) => {
-        console.error('Error loading recent posts:', error);
-        this.loadingPosts = false;
-      },
-    });
+    this.postsAdsService
+      .listPosts({ page, limit: this.recentLimit, langCode, status: 'all' })
+      .subscribe({
+        next: (response) => {
+          this.recentPosts = response.data?.posts || [];
+          this.recentTotal = response.data?.pagination?.total ?? this.recentPosts.length;
+          this.loadingPosts = false;
+        },
+        error: (error) => {
+          console.error('Error loading recent posts:', error);
+          this.loadingPosts = false;
+        },
+      });
+  }
+
+  /** Recent-ads table pagination. */
+  onRecentPage(page: number) {
+    this.loadRecentPosts(page);
   }
 }

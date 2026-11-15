@@ -2,61 +2,76 @@
   <!-- 1. Welcome banner: greeting, date, pending summary, shortcuts -->
   <app-welcome-banner [pendingTotal]="pendingTotal"></app-welcome-banner>
 
-  <!-- 2. KPI stats with 30-day trends -->
+  <!-- 2. KPI cards with 30-day trends -->
   @if (isLoading) {
     <div class="grid grid-cols-2 gap-4 lg:grid-cols-4 md:gap-6">
       @for (i of [1, 2, 3, 4]; track i) {
         <div class="dashboard-card animate-pulse">
-          <div class="h-12 w-12 rounded-m3-md bg-surface-container-high"></div>
-          <div class="mt-4 space-y-2">
-            <div class="h-3 w-1/2 rounded bg-surface-container-high"></div>
-            <div class="h-6 w-2/3 rounded bg-surface-container-high"></div>
-            <div class="h-7 w-full rounded bg-surface-container-high"></div>
+          <div class="flex items-start justify-between gap-3">
+            <div class="mt-1 h-3.5 w-1/2 rounded bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
+            <div class="h-11 w-11 rounded-xl bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
+          </div>
+          <div class="mb-4 mt-3 h-8 w-2/3 rounded bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
+          <div class="kpi-skeleton-footer">
+            <div class="h-6 w-full rounded bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
           </div>
         </div>
       }
     </div>
   } @else {
     <div class="grid grid-cols-2 gap-4 lg:grid-cols-4 md:gap-6">
-      <app-stats-card
+      <app-kpi-card
         [title]="translationService.t('dashboard.totalUsers')"
         [value]="stats.totalUsers"
         [icon]="userIcon"
-        [hint]="'+' + newUsers30 + ' ' + translationService.t('dashboard.last30Days')"
+        iconBgClass="bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400"
         [trend]="userTrend"
-        trendColor="#5b8def"
-      ></app-stats-card>
+        [trendCount]="newUsers30"
+        [trendLabel]="translationService.t('dashboard.last30Days')"
+        trendColor="#2563eb"
+      ></app-kpi-card>
 
-      <app-stats-card
+      <app-kpi-card
         [title]="translationService.t('dashboard.totalPosts')"
         [value]="stats.totalPosts"
         [icon]="postIcon"
-        iconBgClass="bg-success-50 text-success-600 dark:bg-success-500/15 dark:text-success-500"
-        [hint]="'+' + newAds30 + ' ' + translationService.t('dashboard.last30Days')"
+        iconBgClass="bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"
         [trend]="adTrend"
-        trendColor="#12b76a"
-      ></app-stats-card>
+        [trendCount]="newAds30"
+        [trendLabel]="translationService.t('dashboard.last30Days')"
+        trendColor="#10b981"
+      ></app-kpi-card>
 
-      <app-stats-card
+      <app-kpi-card
         [title]="translationService.t('dashboard.activePosts')"
         [value]="stats.activePosts"
         [icon]="activeIcon"
-        iconBgClass="bg-warning-500/10 text-warning-600 dark:bg-warning-500/15 dark:text-warning-400"
+        iconBgClass="bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400"
+        [percentPill]="activePostsPercent"
+        [percentPillLabel]="translationService.t('dashboard.activeShort')"
         [progress]="activePostsPercent"
-        [progressLabel]="translationService.t('dashboard.activeShare')"
-        trendColor="#f79009"
-      ></app-stats-card>
+        [progressLabel]="activePostsLabel"
+      ></app-kpi-card>
 
-      <app-stats-card
+      <app-kpi-card
         [title]="translationService.t('dashboard.totalCategories')"
         [value]="stats.totalCategories"
         [icon]="categoryIcon"
-      ></app-stats-card>
+        [linkHint]="translationService.t('dashboard.categoriesHint')"
+        [linkText]="translationService.t('dashboard.manage')"
+        linkRoute="/categories"
+      ></app-kpi-card>
     </div>
   }
 
-  <!-- 3. Work zone: ads awaiting review + unified task list -->
+  <!-- 3. Work zone: unified task list first, then ads awaiting review -->
   <div class="grid grid-cols-12 gap-4 md:gap-6">
+    <div class="col-span-12 xl:col-span-4">
+      <app-attention-list
+        [items]="attentionItems"
+        [loading]="isLoading"
+      ></app-attention-list>
+    </div>
     <div class="col-span-12 xl:col-span-8">
       <app-pending-review
         [posts]="pendingPosts"
@@ -64,55 +79,81 @@
         [loading]="loadingPending"
       ></app-pending-review>
     </div>
-    <div class="col-span-12 xl:col-span-4">
-      <app-attention-list
-        [items]="attentionItems"
-        [loading]="isLoading"
-      ></app-attention-list>
-    </div>
   </div>
 
   <!-- 4. Platform activity over the last 30 days -->
   <app-activity-chart class="block" [daily]="daily" [loading]="isLoading"></app-activity-chart>
 
-  <!-- 5. Market section -->
+  <!-- 5. Market section: pulse + chart + spot prices -->
   <section class="space-y-4">
-    <div class="flex items-center justify-between gap-4">
-      <div>
-        <h3 class="text-m3-title-lg font-medium text-surface-on-surface">
-          {{ translationService.t('dashboard.marketSection') }}
-        </h3>
-        <p class="text-sm text-surface-on-surface-variant mt-0.5">
-          {{ translationService.t('dashboard.marketSectionHint') }}
-        </p>
+    <div class="flex flex-wrap items-center gap-3">
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-60"></span>
+        <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-amber-500"></span>
+      </span>
+      <h3 class="text-lg font-extrabold text-slate-900 dark:text-[color:var(--color-on-surface)]">
+        {{ translationService.t('dashboard.marketSection') }}
+      </h3>
+      <span class="ayar-pill ayar-pill-warning">
+        {{ translationService.t('dashboard.liveEveryMinute') }}
+      </span>
+      <div class="ms-auto flex items-center gap-2">
+        <button
+          type="button"
+          class="ayar-btn ayar-btn-gold"
+          [disabled]="refreshingMarket"
+          (click)="refreshMarket()"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            [class.animate-spin]="refreshingMarket"
+            aria-hidden="true"
+          >
+            <path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6" />
+          </svg>
+          {{ translationService.t('dashboard.refreshPrices') }}
+        </button>
+        <a routerLink="/metals-prices" class="ayar-btn ayar-btn-outline">
+          {{ translationService.t('dashboard.pricesPage') }}
+        </a>
       </div>
-      <a
-        routerLink="/metals-prices"
-        class="state-layer inline-flex h-10 shrink-0 items-center rounded-full px-3 text-m3-label-lg font-medium text-brand-700 dark:text-brand-300"
-      >
-        {{ translationService.t('dashboard.allPrices') }}
-      </a>
     </div>
 
     <div class="grid grid-cols-12 gap-4 md:gap-6">
-      <div class="col-span-12 xl:col-span-8">
-        <app-gold-price-chart></app-gold-price-chart>
-      </div>
       <div class="col-span-12 xl:col-span-4">
         <app-price-pulse
           [data]="metalsPricesData"
           [currency]="metalsCurrency"
         ></app-price-pulse>
       </div>
+      <div class="col-span-12 xl:col-span-8">
+        <app-gold-price-chart #goldChart></app-gold-price-chart>
+      </div>
     </div>
 
-    <app-current-prices></app-current-prices>
+    <app-current-prices
+      #currentPrices
+      variant="spot"
+      [showTitle]="false"
+      [autoRefresh]="true"
+    ></app-current-prices>
   </section>
 
-  <!-- 6. Recent ads -->
+  <!-- 6. Recent ads with real pagination -->
   <app-recent-posts
     class="block"
     [posts]="recentPosts"
     [loading]="loadingPosts"
+    [total]="recentTotal"
+    [page]="recentPage"
+    [limit]="recentLimit"
+    (pageChange)="onRecentPage($event)"
   ></app-recent-posts>
 </div>

@@ -9,61 +9,57 @@ import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
   standalone: true,
   imports: [CommonModule, SafeHtmlPipe],
   template: `
-    <div class="dashboard-card h-full flex flex-col">
-      <!-- Header -->
-      <div class="flex items-center mb-5">
-        <div>
-          <h3 class="dashboard-card-title">
-            {{ translationService.t('dashboard.goldPulse') }}
-          </h3>
-          <p class="dashboard-card-hint">
-            {{ translationService.t('dashboard.pulsePeriod') }}
-          </p>
-        </div>
+    <div class="dashboard-card flex h-full flex-col">
+      <!-- Period row: bolt icon + "last 30 days" -->
+      <div class="mb-3 flex items-center gap-2">
         <span
-          class="ms-auto flex h-11 w-11 items-center justify-center rounded-m3-md bg-[color:var(--color-primary-container)] text-[color:var(--color-on-primary-container)]"
-          [innerHTML]="goldIcon | safeHtml"
+          class="flex h-8 w-8 items-center justify-center rounded-lg bg-gold-50 text-gold-600 dark:bg-gold-500/10 dark:text-gold-400"
+          [innerHTML]="boltIcon | safeHtml"
         ></span>
+        <span class="text-xs font-bold text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
+          {{ translationService.t('dashboard.pulsePeriod') }}
+        </span>
       </div>
+
+      <h3 class="text-sm font-medium text-slate-500 dark:text-[color:var(--color-on-surface-variant)]">
+        {{ translationService.t('dashboard.goldPulse') }}
+      </h3>
 
       @if (!data.length) {
         <!-- Skeleton -->
-        <div class="animate-pulse space-y-4 flex-1">
-          <div class="h-9 w-32 rounded-lg bg-surface-container-high"></div>
-          <div class="h-5 w-24 rounded-lg bg-surface-container-high"></div>
-          <div class="h-16 w-full rounded-xl bg-surface-container-high"></div>
+        <div class="flex-1 animate-pulse space-y-4 pt-4">
+          <div class="h-10 w-36 rounded-lg bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
+          <div class="h-5 w-24 rounded-lg bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
+          <div class="h-16 w-full rounded-xl bg-slate-100 dark:bg-[color:var(--color-surface-container-high)]"></div>
         </div>
       } @else {
         <!-- Current price + change -->
-        <div class="mb-1">
-          <p class="text-xs font-medium text-surface-on-surface-variant">
-            {{ translationService.t('dashboard.gold24k') }}
-          </p>
-          <div class="flex items-end gap-3 mt-1">
-            <span class="text-m3-headline-md font-semibold text-surface-on-surface">
-              {{ currentPrice | number: '1.2-2' }}
-            </span>
-            <span class="text-sm text-surface-on-surface-variant mb-1">{{ currency }}</span>
-          </div>
+        <div class="mt-2 flex items-end gap-2">
+          <span class="ayar-num text-4xl font-extrabold leading-none text-slate-900 dark:text-[color:var(--color-on-surface)]" dir="ltr">
+            {{ currentPrice | number: '1.2-2' }}
+          </span>
+          <span class="mb-0.5 text-sm font-medium text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
+            {{ currency }}
+          </span>
         </div>
 
-        <div class="flex items-center gap-2 mb-4">
+        <div class="mt-2.5 flex items-center gap-2">
           <span
-            class="inline-flex items-center gap-1 rounded-m3-sm px-2.5 py-1 text-m3-label-md font-medium"
+            class="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-bold"
             [ngClass]="changeBadgeClass"
           >
-            <span class="inline-block w-3.5 h-3.5" [innerHTML]="trendIcon | safeHtml"></span>
-            {{ changePercent > 0 ? '+' : '' }}{{ changePercent | number: '1.2-2' }}%
+            <span class="inline-block h-3.5 w-3.5" [innerHTML]="trendIcon | safeHtml"></span>
+            <span dir="ltr">{{ changePercent > 0 ? '+' : '' }}{{ changePercent | number: '1.2-2' }}%</span>
           </span>
-          <span class="text-xs text-surface-on-surface-variant">{{ trendLabel }}</span>
+          <span class="text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ trendLabel }}</span>
         </div>
 
-        <!-- Sparkline -->
-        <div class="mt-auto">
+        <!-- Area sparkline with first-day / today labels -->
+        <div class="mt-auto pt-4">
           <svg
             viewBox="0 0 200 56"
             preserveAspectRatio="none"
-            class="w-full h-16"
+            class="h-16 w-full"
             aria-hidden="true"
           >
             <defs>
@@ -88,6 +84,10 @@ import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
               [attr.fill]="strokeColor"
             />
           </svg>
+          <div class="mt-1 flex items-center justify-between text-[11px] text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
+            <span>{{ firstDateLabel }}</span>
+            <span>{{ translationService.t('dashboard.today') }}</span>
+          </div>
         </div>
       }
     </div>
@@ -97,8 +97,8 @@ export class PricePulseComponent {
   @Input() data: MetalsPriceData[] = [];
   @Input() currency = '';
 
-  readonly goldIcon =
-    '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="5"/><circle cx="16" cy="15" r="5"/><path d="M6.5 7.5h3M14.5 13.5h3"/></svg>';
+  readonly boltIcon =
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>';
   readonly upIcon =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>';
   readonly downIcon =
@@ -110,6 +110,13 @@ export class PricePulseComponent {
 
   get currentPrice(): number {
     return this.data.length ? this.data[this.data.length - 1].gold_local : 0;
+  }
+
+  /** First day of the series, shown under the sparkline. */
+  get firstDateLabel(): string {
+    if (!this.data.length) return '';
+    const locale = this.translationService.currentLanguageValue === 'ar' ? 'ar-AE' : 'en-GB';
+    return new Date(this.data[0].date).toLocaleDateString(locale, { day: 'numeric', month: 'short' });
   }
 
   get changePercent(): number {

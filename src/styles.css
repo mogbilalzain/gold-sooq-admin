@@ -68,6 +68,18 @@ layer(base);
   --color-brand-900: #574500;
   --color-brand-950: #241a00;
 
+  /* Stitch redesign gold palette (design reference: stitch_ui_redesign_enhancement) */
+  --color-gold-50: #fdfbf7;
+  --color-gold-100: #fbf6ee;
+  --color-gold-200: #f5e8d2;
+  --color-gold-300: #eed6b0;
+  --color-gold-400: #e3be82;
+  --color-gold-500: #d4a853;
+  --color-gold-600: #b88730;
+  --color-gold-700: #946622;
+  --color-gold-800: #754e1e;
+  --color-gold-900: #5f3e1b;
+
   /* Ayar Premium warm surface tokens - Material 3 inspired tiered system */
   --color-surface: #ffffff;
   --color-surface-dim: #ddd9d8;
@@ -218,6 +230,11 @@ layer(base);
   --shadow-level-2: var(--shadow-elevation-3);
   --shadow-gold: 0 8px 20px -6px rgba(212, 175, 55, 0.35);
   --shadow-gold-lg: 0 12px 28px -8px rgba(212, 175, 55, 0.45);
+  /* Stitch redesign shadows */
+  --shadow-gold-sm: 0 2px 10px -2px rgba(212, 168, 83, 0.15);
+  --shadow-gold-md: 0 8px 25px -4px rgba(212, 168, 83, 0.2);
+  --shadow-luxury: 0 10px 30px -5px rgba(15, 23, 42, 0.04),
+    0 4px 10px -3px rgba(15, 23, 42, 0.02);
 
   --shadow-datepicker: -5px 0 0 #262d3c, 5px 0 0 #262d3c;
   --shadow-focus-ring: 0px 0px 0px 4px rgba(212, 175, 55, 0.18);
@@ -423,19 +440,19 @@ layer(base);
     color: var(--color-on-surface);
   }
   
-  /* Arabic Font - Tajawal (Ayar Premium identity) */
+  /* Arabic Font - Cairo (Stitch redesign identity) */
   [dir="rtl"],
   [lang="ar"],
   .lang-ar,
   body.lang-ar,
   html[lang="ar"] body {
-    font-family: 'Tajawal', 'Cairo', sans-serif !important;
+    font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif !important;
   }
 
   [dir="rtl"] *,
   [lang="ar"] *,
   .lang-ar * {
-    font-family: 'Tajawal', 'Cairo', sans-serif;
+    font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
   }
   
   /* English Font - Outfit */

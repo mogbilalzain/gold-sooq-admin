@@ -28,30 +28,41 @@
     }
   </div>
 
-  <!-- Controls: period + karat -->
+  <!-- Controls: period (white active) + karat (gold active) -->
   <div class="flex flex-wrap items-center gap-3 mb-4">
-    <mat-chip-listbox
-      hideSingleSelectionIndicator
+    <div
+      class="ayar-segmented"
+      role="group"
       [attr.aria-label]="translationService.t('dashboard.goldChart')"
     >
       @for (p of periods; track p) {
-        <mat-chip-option [selected]="period === p" (selectionChange)="pickPeriod($event, p)">
+        <button
+          type="button"
+          class="ayar-segmented-btn"
+          [class.ayar-segmented-btn-active]="period === p"
+          (click)="setPeriod(p)"
+        >
           {{ translationService.t(periodLabelKey(p)) }}
-        </mat-chip-option>
+        </button>
       }
-    </mat-chip-listbox>
+    </div>
 
-    <mat-chip-listbox
-      hideSingleSelectionIndicator
-      class="ms-auto"
+    <div
+      class="ayar-segmented ms-auto"
+      role="group"
       [attr.aria-label]="translationService.t('dashboard.karat')"
     >
       @for (k of karats; track k) {
-        <mat-chip-option [selected]="karat === k" (selectionChange)="pickKarat($event, k)">
+        <button
+          type="button"
+          class="ayar-segmented-btn"
+          [class.ayar-segmented-btn-gold]="karat === k"
+          (click)="setKarat(k)"
+        >
           {{ k }}K
-        </mat-chip-option>
+        </button>
       }
-    </mat-chip-listbox>
+    </div>
   </div>
 
   @if (loading) {
@@ -107,24 +118,27 @@
       [yaxis]="yaxis"
     ></apx-chart>
 
-    <!-- Period stats -->
-    <div class="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-outline-variant/40 dark:border-outline-variant/30">
-      <div class="text-center">
-        <p class="text-xs text-surface-on-surface-variant">{{ translationService.t('dashboard.high') }}</p>
-        <p class="text-sm font-semibold text-surface-on-surface mt-0.5">
-          {{ highValue | number: '1.2-2' }}
+    <!-- Period stats: three soft boxes -->
+    <div class="grid grid-cols-3 gap-3 mt-4">
+      <div class="rounded-xl bg-slate-50 px-3 py-2.5 text-center dark:bg-[color:var(--color-surface-container-high)]">
+        <p class="text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ translationService.t('dashboard.high') }}</p>
+        <p class="ayar-num mt-0.5 text-sm font-extrabold text-slate-900 dark:text-[color:var(--color-on-surface)]">
+          <span dir="ltr">{{ highValue | number: '1.2-2' }}</span>
+          <span class="text-[10px] font-semibold text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ currency }}</span>
         </p>
       </div>
-      <div class="text-center">
-        <p class="text-xs text-surface-on-surface-variant">{{ translationService.t('dashboard.low') }}</p>
-        <p class="text-sm font-semibold text-surface-on-surface mt-0.5">
-          {{ lowValue | number: '1.2-2' }}
+      <div class="rounded-xl bg-slate-50 px-3 py-2.5 text-center dark:bg-[color:var(--color-surface-container-high)]">
+        <p class="text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ translationService.t('dashboard.low') }}</p>
+        <p class="ayar-num mt-0.5 text-sm font-extrabold text-slate-900 dark:text-[color:var(--color-on-surface)]">
+          <span dir="ltr">{{ lowValue | number: '1.2-2' }}</span>
+          <span class="text-[10px] font-semibold text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ currency }}</span>
         </p>
       </div>
-      <div class="text-center">
-        <p class="text-xs text-surface-on-surface-variant">{{ translationService.t('dashboard.average') }}</p>
-        <p class="text-sm font-semibold text-surface-on-surface mt-0.5">
-          {{ averageValue | number: '1.2-2' }}
+      <div class="rounded-xl bg-slate-50 px-3 py-2.5 text-center dark:bg-[color:var(--color-surface-container-high)]">
+        <p class="text-xs text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ translationService.t('dashboard.average') }}</p>
+        <p class="ayar-num mt-0.5 text-sm font-extrabold text-slate-900 dark:text-[color:var(--color-on-surface)]">
+          <span dir="ltr">{{ averageValue | number: '1.2-2' }}</span>
+          <span class="text-[10px] font-semibold text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">{{ currency }}</span>
         </p>
       </div>
     </div>

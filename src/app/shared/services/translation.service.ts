@@ -44,12 +44,33 @@ export interface TranslationKeys {
     businessVerification: string;
     contactMessages: string;
     siteAnalytics: string;
+    groupMain: string;
+    groupVerification: string;
+    groupCommunication: string;
+    groupMarket: string;
+    groupAccount: string;
+    new: string;
+    brandName: string;
+    brandTagline: string;
+    goldCardTitle: string;
+    goldCardLive: string;
   };
   // Header
   header: {
     search: string;
     viewAll: string;
     accountSettings: string;
+    searchPages: string;
+    noResults: string;
+    roleAdmin: string;
+  };
+  // Footer
+  footer: {
+    brand: string;
+    rights: string;
+    privacy: string;
+    terms: string;
+    help: string;
   };
   // Common
       common: {
@@ -119,6 +140,7 @@ export interface TranslationKeys {
         attentionContact: string;
         activityChart: string;
         activityChartHint: string;
+        activityDaily: string;
         newUsers: string;
         newAds: string;
         statsLoadError: string;
@@ -138,6 +160,23 @@ export interface TranslationKeys {
         marketSectionHint: string;
         allPrices: string;
         morePending: string;
+        weekly: string;
+        monthly: string;
+        refreshPrices: string;
+        pricesPage: string;
+        liveEveryMinute: string;
+        adminInboxButton: string;
+        viewDetails: string;
+        editPost: string;
+        categoriesHint: string;
+        manage: string;
+        perOunce: string;
+        today: string;
+        viewAllPosts: string;
+        merchantLabel: string;
+        adsUnit: string;
+        activeShort: string;
+        noPendingDesc: string;
       };
       // Categories
       categories: {
@@ -839,11 +878,31 @@ export class TranslationService {
         businessVerification: 'توثيق الأعمال',
         contactMessages: 'رسائل تواصل معنا',
         siteAnalytics: 'زوار الموقع',
+        groupMain: 'القائمة الرئيسية',
+        groupVerification: 'التحقق والأمان',
+        groupCommunication: 'التواصل والتسويق',
+        groupMarket: 'البورصة والأسعار',
+        groupAccount: 'الحساب',
+        new: 'جديدة',
+        brandName: 'عيار',
+        brandTagline: 'منصة الذهب والمجوهرات الموثقة',
+        goldCardTitle: 'ذهب عيار 24',
+        goldCardLive: 'تحديث مباشر',
       },
       header: {
         search: 'ابحث في لوحة التحكم...',
         viewAll: 'عرض الكل',
         accountSettings: 'إعدادات الحساب',
+        searchPages: 'ابحث عن صفحة في لوحة التحكم...',
+        noResults: 'لا نتائج',
+        roleAdmin: 'مدير النظام',
+      },
+      footer: {
+        brand: 'منصة عيار (Ayar) لتجارة الذهب والمجوهرات',
+        rights: 'جميع الحقوق محفوظة',
+        privacy: 'سياسة الخصوصية',
+        terms: 'شروط المعاملات',
+        help: 'الدعم الفني والامتثال',
       },
       common: {
         loading: 'جاري التحميل...',
@@ -882,7 +941,7 @@ export class TranslationService {
         activePosts: 'الإعلانات النشطة',
         totalCategories: 'إجمالي الفئات',
         subtitle: 'نظرة عامة على أداء المنصة وأسعار الذهب',
-        goldPulse: 'نبض سعر الذهب',
+        goldPulse: 'نبض سعر الذهب (عيار 24 للأونصة)',
         gold24k: 'ذهب عيار 24',
         pulsePeriod: 'آخر 30 يوم',
         pulseUp: 'اتجاه صاعد',
@@ -910,7 +969,8 @@ export class TranslationService {
         attentionBusiness: 'طلبات الحسابات التجارية',
         attentionContact: 'رسائل تواصل جديدة',
         activityChart: 'نشاط المنصة',
-        activityChartHint: 'المستخدمون الجدد والإعلانات الجديدة يومياً — آخر 30 يوماً (توقيت دبي)',
+        activityChartHint: 'المستخدمون الجدد والإعلانات الجديدة يومياً (توقيت دبي)',
+        activityDaily: 'نشاط المنصة اليومي',
         newUsers: 'مستخدمون جدد',
         newAds: 'إعلانات جديدة',
         statsLoadError: 'تعذر تحميل الإحصائيات',
@@ -926,10 +986,27 @@ export class TranslationService {
         quickSiteAnalytics: 'زوار الموقع',
         last30Days: 'آخر 30 يوماً',
         activeShare: 'من إجمالي الإعلانات',
-        marketSection: 'سوق المعادن',
+        marketSection: 'سوق المعادن النفيسة',
         marketSectionHint: 'أسعار الذهب والفضة والبلاتين اليوم',
         allPrices: 'كل الأسعار',
         morePending: 'إعلانات أخرى بانتظار المراجعة',
+        weekly: 'أسبوعي',
+        monthly: 'شهري',
+        refreshPrices: 'تحديث الأسعار',
+        pricesPage: 'صفحة الأسعار',
+        liveEveryMinute: 'يتحدّث كل دقيقة',
+        adminInboxButton: 'صندوق إشعارات الإدارة',
+        viewDetails: 'عرض التفاصيل',
+        editPost: 'تعديل',
+        categoriesHint: 'الفئات الرئيسية والفرعية',
+        manage: 'إدارة',
+        perOunce: 'للأونصة',
+        today: 'اليوم',
+        viewAllPosts: 'عرض كل الإعلانات',
+        merchantLabel: 'التاجر',
+        adsUnit: 'إعلان',
+        activeShort: 'نشط',
+        noPendingDesc: 'ستظهر الإعلانات الجديدة هنا فور إرسالها من التجار',
       },
       categories: {
         title: 'الفئات',
@@ -1749,11 +1826,31 @@ export class TranslationService {
         businessVerification: 'Business Verification',
         contactMessages: 'Contact Messages',
         siteAnalytics: 'Website Visitors',
+        groupMain: 'Main Menu',
+        groupVerification: 'Verification & Security',
+        groupCommunication: 'Communication & Marketing',
+        groupMarket: 'Market & Prices',
+        groupAccount: 'Account',
+        new: 'new',
+        brandName: 'Ayar',
+        brandTagline: 'Trusted gold & jewelry platform',
+        goldCardTitle: '24K Gold',
+        goldCardLive: 'Live update',
       },
       header: {
         search: 'Search in dashboard...',
         viewAll: 'View all',
         accountSettings: 'Account settings',
+        searchPages: 'Search dashboard pages...',
+        noResults: 'No results',
+        roleAdmin: 'System admin',
+      },
+      footer: {
+        brand: 'Ayar gold & jewelry trading platform',
+        rights: 'All rights reserved',
+        privacy: 'Privacy Policy',
+        terms: 'Terms of Service',
+        help: 'Support & Compliance',
       },
       common: {
         loading: 'Loading...',
@@ -1792,7 +1889,7 @@ export class TranslationService {
         activePosts: 'Active Posts',
         totalCategories: 'Total Categories',
         subtitle: 'Overview of platform performance and gold prices',
-        goldPulse: 'Gold Price Pulse',
+        goldPulse: 'Gold price pulse (24K per ounce)',
         gold24k: '24K Gold',
         pulsePeriod: 'Last 30 days',
         pulseUp: 'Uptrend',
@@ -1820,7 +1917,8 @@ export class TranslationService {
         attentionBusiness: 'Business account requests',
         attentionContact: 'New contact messages',
         activityChart: 'Platform activity',
-        activityChartHint: 'New users and new ads per day — last 30 days (Dubai time)',
+        activityChartHint: 'New users and new ads per day (Dubai time)',
+        activityDaily: 'Daily platform activity',
         newUsers: 'New users',
         newAds: 'New ads',
         statsLoadError: 'Could not load statistics',
@@ -1836,10 +1934,27 @@ export class TranslationService {
         quickSiteAnalytics: 'Site visitors',
         last30Days: 'last 30 days',
         activeShare: 'of all ads',
-        marketSection: 'Metals market',
+        marketSection: 'Precious metals market',
         marketSectionHint: "Today's gold, silver and platinum prices",
         allPrices: 'All prices',
         morePending: 'more ads awaiting review',
+        weekly: 'Weekly',
+        monthly: 'Monthly',
+        refreshPrices: 'Refresh prices',
+        pricesPage: 'Prices page',
+        liveEveryMinute: 'Updates every minute',
+        adminInboxButton: 'Admin inbox',
+        viewDetails: 'View details',
+        editPost: 'Edit',
+        categoriesHint: 'Main and sub categories',
+        manage: 'Manage',
+        perOunce: 'per ounce',
+        today: 'Today',
+        viewAllPosts: 'View all ads',
+        merchantLabel: 'Merchant',
+        adsUnit: 'ads',
+        activeShort: 'active',
+        noPendingDesc: 'New ads will appear here as soon as merchants submit them',
       },
       categories: {
         title: 'Categories',

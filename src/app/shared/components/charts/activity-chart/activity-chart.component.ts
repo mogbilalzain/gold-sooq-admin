@@ -17,9 +17,11 @@ import { StatsDailyPoint } from '../../../services/data/stats.service';
 import { ThemeService } from '../../../services/theme.service';
 import { TranslationService } from '../../../services/translation.service';
 
-const USERS_COLOR = '#5b8def';
-const ADS_COLOR = '#d4af37';
-const GRID_COLOR = 'rgba(206, 198, 178, 0.35)';
+const USERS_COLOR = '#2563eb';
+const ADS_COLOR = '#f59e0b';
+const GRID_COLOR = 'rgba(148, 163, 184, 0.2)';
+
+type ActivityPeriod = 'weekly' | 'monthly';
 
 @Component({
   selector: 'app-activity-chart',
@@ -27,36 +29,62 @@ const GRID_COLOR = 'rgba(206, 198, 178, 0.35)';
   imports: [CommonModule, NgApexchartsModule],
   template: `
     <div class="dashboard-card h-full">
-      <div class="flex flex-wrap items-start gap-4 mb-4">
-        <div>
+      <div class="mb-4 flex flex-wrap items-center gap-4">
+        <div class="min-w-0">
           <h3 class="dashboard-card-title">
-            {{ translationService.t('dashboard.activityChart') }}
+            {{ translationService.t('dashboard.activityDaily') }}
           </h3>
           <p class="dashboard-card-hint">
             {{ translationService.t('dashboard.activityChartHint') }}
           </p>
         </div>
-        @if (!loading && daily.length) {
-          <div class="ms-auto flex gap-4">
-            <div class="flex items-center gap-2">
-              <span class="h-2.5 w-2.5 shrink-0 rounded-sm" [style.background-color]="usersColor"></span>
-              <span class="text-xs text-surface-on-surface-variant">{{ translationService.t('dashboard.newUsers') }}</span>
-              <span class="text-sm font-semibold text-surface-on-surface">{{ totalUsers }}</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="h-2.5 w-2.5 shrink-0 rounded-sm" [style.background-color]="adsColor"></span>
-              <span class="text-xs text-surface-on-surface-variant">{{ translationService.t('dashboard.newAds') }}</span>
-              <span class="text-sm font-semibold text-surface-on-surface">{{ totalAds }}</span>
-            </div>
-          </div>
-        }
+        <div class="ayar-segmented ms-auto">
+          <button
+            type="button"
+            class="ayar-segmented-btn"
+            [class.ayar-segmented-btn-active]="period === 'weekly'"
+            (click)="setPeriod('weekly')"
+          >
+            {{ translationService.t('dashboard.weekly') }}
+          </button>
+          <button
+            type="button"
+            class="ayar-segmented-btn"
+            [class.ayar-segmented-btn-active]="period === 'monthly'"
+            (click)="setPeriod('monthly')"
+          >
+            {{ translationService.t('dashboard.monthly') }}
+          </button>
+        </div>
       </div>
 
+      @if (!loading && visibleDaily.length) {
+        <!-- Legend with totals in parentheses -->
+        <div class="mb-3 flex flex-wrap gap-x-5 gap-y-1.5">
+          <div class="flex items-center gap-2">
+            <span class="h-2.5 w-2.5 shrink-0 rounded-sm" [style.background-color]="usersColor"></span>
+            <span class="text-xs text-slate-500 dark:text-[color:var(--color-on-surface-variant)]">
+              {{ translationService.t('dashboard.newUsers') }}
+              <span class="ayar-num font-bold text-slate-700 dark:text-[color:var(--color-on-surface)]" dir="ltr">({{ totalUsers }})</span>
+            </span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="h-2.5 w-2.5 shrink-0 rounded-sm" [style.background-color]="adsColor"></span>
+            <span class="text-xs text-slate-500 dark:text-[color:var(--color-on-surface-variant)]">
+              {{ translationService.t('dashboard.newAds') }}
+              <span class="ayar-num font-bold text-slate-700 dark:text-[color:var(--color-on-surface)]" dir="ltr">({{ totalAds }})</span>
+            </span>
+          </div>
+        </div>
+      }
+
       @if (loading) {
-        <div class="animate-pulse h-[300px] w-full rounded-xl bg-surface-container-high"></div>
-      } @else if (!daily.length) {
+        <div class="h-[300px] w-full animate-pulse rounded-xl bg-slate-50 dark:bg-[color:var(--color-surface-container-high)]"></div>
+      } @else if (!visibleDaily.length) {
         <div class="flex h-[300px] items-center justify-center">
-          <p class="text-surface-on-surface-variant">{{ translationService.t('dashboard.statsLoadError') }}</p>
+          <p class="text-slate-400 dark:text-[color:var(--color-on-surface-variant)]">
+            {{ translationService.t('dashboard.statsLoadError') }}
+          </p>
         </div>
       } @else {
         <apx-chart
@@ -78,6 +106,9 @@ const GRID_COLOR = 'rgba(206, 198, 178, 0.35)';
 export class ActivityChartComponent implements OnInit, OnChanges, OnDestroy {
   @Input() daily: StatsDailyPoint[] = [];
   @Input() loading = false;
+
+  /** Weekly shows the last 7 days; monthly (default) the full 30-day series. */
+  period: ActivityPeriod = 'monthly';
 
   private readonly destroy$ = new Subject<void>();
 
@@ -117,46 +148,57 @@ export class ActivityChartComponent implements OnInit, OnChanges, OnDestroy {
     this.destroy$.complete();
   }
 
+  get visibleDaily(): StatsDailyPoint[] {
+    return this.period === 'weekly' ? this.daily.slice(-7) : this.daily;
+  }
+
   get totalUsers(): number {
-    return this.daily.reduce((sum, d) => sum + d.users, 0);
+    return this.visibleDaily.reduce((sum, d) => sum + d.users, 0);
   }
 
   get totalAds(): number {
-    return this.daily.reduce((sum, d) => sum + d.ads, 0);
+    return this.visibleDaily.reduce((sum, d) => sum + d.ads, 0);
+  }
+
+  setPeriod(period: ActivityPeriod) {
+    if (this.period === period) return;
+    this.period = period;
+    this.rebuildChart();
   }
 
   rebuildChart() {
-    if (!this.daily.length) {
+    const daily = this.visibleDaily;
+    if (!daily.length) {
       this.series = [];
       return;
     }
 
     const isDark = this.themeService.currentTheme === 'dark';
     const isRTL = this.translationService.isRTL;
-    const fontFamily = isRTL ? 'Tajawal, sans-serif' : 'Outfit, sans-serif';
-    const labelColor = isDark ? '#b8b0a0' : '#6b7280';
+    const fontFamily = isRTL ? 'Cairo, sans-serif' : 'Outfit, sans-serif';
+    const labelColor = isDark ? '#a8a29e' : '#94a3b8';
     const locale = isRTL ? 'ar-SA' : 'en-US';
 
     // `date` is already a Dubai calendar day; format it as UTC so the browser timezone can't shift it.
-    const categories = this.daily.map((d) =>
+    const categories = daily.map((d) =>
       new Date(`${d.date}T00:00:00Z`).toLocaleDateString(locale, { month: 'short', day: 'numeric', timeZone: 'UTC' })
     );
 
     this.series = [
-      { name: this.translationService.t('dashboard.newUsers'), data: this.daily.map((d) => d.users) },
-      { name: this.translationService.t('dashboard.newAds'), data: this.daily.map((d) => d.ads) },
+      { name: this.translationService.t('dashboard.newUsers'), data: daily.map((d) => d.users) },
+      { name: this.translationService.t('dashboard.newAds'), data: daily.map((d) => d.ads) },
     ];
 
     this.chart = {
       type: 'bar',
       height: 300,
-      fontFamily: 'Tajawal, Outfit, sans-serif',
+      fontFamily: 'Cairo, Outfit, sans-serif',
       toolbar: { show: false },
       animations: { enabled: true, speed: 400 },
     };
 
     this.plotOptions = {
-      bar: { columnWidth: '55%', borderRadius: 3 },
+      bar: { columnWidth: '55%', borderRadius: 3, borderRadiusApplication: 'end' },
     };
 
     this.grid = {

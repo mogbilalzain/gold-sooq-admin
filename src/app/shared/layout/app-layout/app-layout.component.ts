@@ -5,6 +5,7 @@ import { AppSidebarComponent } from '../app-sidebar/app-sidebar.component';
 import { BackdropComponent } from '../backdrop/backdrop.component';
 import { RouterModule } from '@angular/router';
 import { AppHeaderComponent } from '../app-header/app-header.component';
+import { AppFooterComponent } from '../app-footer/app-footer.component';
 import { TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -14,7 +15,8 @@ import { TranslationService } from '../../services/translation.service';
     RouterModule,
     AppHeaderComponent,
     AppSidebarComponent,
-    BackdropComponent
+    BackdropComponent,
+    AppFooterComponent
   ],
   templateUrl: './app-layout.component.html',
 })

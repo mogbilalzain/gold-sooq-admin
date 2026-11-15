@@ -20,6 +20,11 @@ export class CurrentPricesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() showTitle: boolean = true;
   @Input() autoRefresh: boolean = false;
   @Input() refreshInterval: number = 60000; // 1 minute default
+  /** 'default' = metals prices page layout; 'spot' = dashboard home layout. */
+  @Input() variant: 'default' | 'spot' = 'default';
+
+  /** Karat keys of the gold by_carat map, in display order. */
+  readonly karatKeys = ['24k', '22k', '21k', '18k', '14k'];
 
   currentPrices: CurrentPricesResponse | null = null;
   isLoading = false;
