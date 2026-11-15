@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ThemeToggleButtonComponent } from '../../components/common/theme-toggle/theme-toggle-button.component';
@@ -20,6 +21,7 @@ import { ADMIN_NAV_PAGES, AdminNavPage } from '../admin-nav';
     RouterModule,
     MatAutocompleteModule,
     MatButtonModule,
+    MatIconModule,
     MatMenuModule,
     MatTooltipModule,
     ThemeToggleButtonComponent,
@@ -32,6 +34,8 @@ import { ADMIN_NAV_PAGES, AdminNavPage } from '../admin-nav';
 export class AppHeaderComponent {
   isScrolled = false;
   readonly isMobileOpen$;
+  /** Shows ⌘K on macOS and Ctrl K elsewhere in the search shortcut hint. */
+  readonly isMac = navigator.platform.toUpperCase().includes('MAC');
 
   /** Page-jump search state (filters ADMIN_NAV_PAGES). */
   searchQuery = '';

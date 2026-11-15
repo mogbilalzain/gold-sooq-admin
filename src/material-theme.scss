@@ -353,6 +353,22 @@ html.dark .mat-mdc-row:hover .mat-mdc-cell {
 }
 
 // ---------------------------------------------------------------------------
+// Header buttons: pill shape to match the dashboard's M3 treatment.
+// Scoped like .app-home so it beats the global 12px-radius overrides above.
+// ---------------------------------------------------------------------------
+html .ayar-header {
+  @include mat.button-overrides(
+    (
+      filled-container-shape: var(--mat-sys-corner-full),
+      outlined-container-shape: var(--mat-sys-corner-full),
+      text-container-shape: var(--mat-sys-corner-full),
+      tonal-container-shape: var(--mat-sys-corner-full),
+      protected-container-shape: var(--mat-sys-corner-full),
+    )
+  );
+}
+
+// ---------------------------------------------------------------------------
 // .app-home — the dashboard home page follows stock Material Design 3
 // (pill buttons, M3 chips, role colors). The shell and other pages keep the
 // Stitch retuning above. The `html` prefix ties the dark Stitch overrides in
@@ -390,6 +406,27 @@ html .app-home {
       active-indicator-height: 6px,
       track-height: 6px,
       track-shape: var(--mat-sys-corner-full),
+    )
+  );
+
+  // Softer hairlines: cards and dividers use the app's hairline token, and
+  // the segmented control separates buttons with outline-variant instead
+  // of the darker stock outline.
+  @include mat.card-overrides(
+    (
+      outlined-outline-color: var(--color-hairline),
+    )
+  );
+
+  @include mat.divider-overrides(
+    (
+      color: var(--color-hairline),
+    )
+  );
+
+  @include mat.button-toggle-overrides(
+    (
+      divider-color: var(--mat-sys-outline-variant),
     )
   );
 }

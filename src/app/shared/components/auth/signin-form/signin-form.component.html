@@ -84,10 +84,10 @@
       }
 
       <!-- Form -->
-      <form (submit)="onSignIn(); $event.preventDefault()" class="space-y-6" dir="ltr">
+      <form (submit)="onSignIn(); $event.preventDefault()" class="space-y-6">
         <div>
           <app-input-field
-            dir="ltr"
+            inputDir="ltr"
             type="tel"
             [label]="translationService.t('auth.phoneNumber')"
             [placeholder]="translationService.t('auth.phoneNumber')"

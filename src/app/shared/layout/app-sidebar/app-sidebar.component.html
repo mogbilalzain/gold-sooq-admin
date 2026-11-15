@@ -55,7 +55,7 @@
               {{ translationService.t(group.labelKey) }}
             </h3>
           } @else {
-            <div class="mx-auto mb-1.5 h-px w-8 bg-slate-200 dark:bg-[color:var(--color-outline-variant)]"></div>
+            <div class="mx-auto mb-1.5 h-px w-8 bg-(--color-hairline)"></div>
           }
           <ul class="flex flex-col gap-1">
             @for (item of group.items; track item.path; let itemIndex = $index) {
@@ -74,17 +74,14 @@
                     matTooltipPosition="after"
                     [matTooltipDisabled]="full"
                   >
-                    <span class="ayar-nav-icon" [innerHTML]="item.icon | safeHtml"></span>
+                    <mat-icon class="ayar-nav-icon">{{ item.icon }}</mat-icon>
                     @if (full) {
                       <span class="truncate">{{ translationService.t(item.labelKey) }}</span>
-                      <svg
-                        class="ms-auto h-4 w-4 shrink-0 text-slate-400 transition-transform duration-200"
+                      <mat-icon
+                        class="ayar-nav-chevron ms-auto shrink-0 text-slate-400 transition-transform duration-200"
                         [class.rotate-180]="openSubmenu === groupIndex + '-' + itemIndex"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                      >
-                        <path d="M4.79175 7.396L10.0001 12.6043L15.2084 7.396" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
+                        [fontIcon]="'expand_more'"
+                      ></mat-icon>
                     }
                   </button>
                   @if (full) {
@@ -131,7 +128,7 @@
                     matTooltipPosition="after"
                     [matTooltipDisabled]="full"
                   >
-                    <span class="ayar-nav-icon" [innerHTML]="item.icon | safeHtml"></span>
+                    <mat-icon class="ayar-nav-icon">{{ item.icon }}</mat-icon>
                     @if (full) {
                       <span class="truncate">{{ translationService.t(item.labelKey) }}</span>
                       @if (item.badge && badgeCount(item) > 0) {

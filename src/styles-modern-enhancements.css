@@ -414,16 +414,21 @@
 }
 
 .ayar-nav-icon {
-  @apply h-5 w-5 shrink-0;
+  @apply shrink-0;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
   color: #94a3b8;
-}
-
-.ayar-nav-icon svg {
-  @apply h-5 w-5;
 }
 
 .dark .ayar-nav-icon {
   color: var(--color-on-surface-variant);
+}
+
+.ayar-nav-chevron {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
 }
 
 .ayar-nav-item-active,
@@ -435,7 +440,13 @@
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 }
 
+/* Active item renders its symbol filled, per M3 navigation */
 .ayar-nav-item-active .ayar-nav-icon {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
   color: var(--color-gold-600);
 }
 
@@ -592,59 +603,62 @@
   z-index: 99;
 }
 
+/* M3 search bar: borderless pill on surface-container-high; the tokens
+   switch for dark mode so no .dark variants are needed. */
 .ayar-header-search-input {
-  @apply w-full rounded-xl py-2.5 ps-11 pe-20 text-sm outline-none;
-  background-color: #f8fafc;
-  color: #0f172a;
-  border: 1px solid #e2e8f0;
+  @apply w-full rounded-full py-2.5 ps-11 pe-20 text-sm outline-none;
+  background-color: var(--color-surface-container-high);
+  color: var(--color-on-surface);
+  border: 0;
   transition:
     background-color var(--m3-duration-short) var(--ease-m3-standard),
-    border-color var(--m3-duration-short) var(--ease-m3-standard),
     box-shadow var(--m3-duration-short) var(--ease-m3-standard);
 }
 
 .ayar-header-search-input:hover {
-  background-color: color-mix(in srgb, #f1f5f9 70%, transparent);
-}
-
-.ayar-header-search-input:focus {
-  background-color: #ffffff;
-  border-color: var(--color-gold-400);
-  box-shadow: 0 0 0 4px var(--color-gold-100);
-}
-
-.ayar-header-search-input::placeholder {
-  color: #94a3b8;
-}
-
-.dark .ayar-header-search-input {
-  background-color: var(--color-surface-container-high);
-  color: var(--color-on-surface);
-  border-color: var(--color-outline-variant);
-}
-
-.dark .ayar-header-search-input:hover {
   background-color: var(--color-surface-container-highest);
 }
 
-.dark .ayar-header-search-input:focus {
+.ayar-header-search-input:focus {
   background-color: var(--color-surface-container-lowest);
-  border-color: var(--color-gold-500);
-  box-shadow: 0 0 0 4px rgba(212, 168, 83, 0.15);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 45%, transparent);
+}
+
+.ayar-header-search-input::placeholder {
+  color: var(--color-on-surface-variant);
 }
 
 .ayar-kbd {
   @apply pointer-events-none absolute inset-y-0 my-auto hidden h-6 items-center gap-1 rounded-md px-2 text-[11px] font-medium sm:inline-flex;
   color: #94a3b8;
   background-color: #ffffff;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-hairline);
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
 }
 
 .dark .ayar-kbd {
   color: var(--color-on-surface-variant);
   background-color: var(--color-surface-container);
-  border-color: var(--color-outline-variant);
+  border-color: var(--color-hairline);
+}
+
+.ayar-search-icon mat-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+}
+
+.app-jump-chevron {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+}
+
+.ayar-user-chevron {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+  color: var(--color-on-surface-variant);
 }
 
 /* Gold focus tint for the search icon (Stitch detail) */
@@ -685,14 +699,10 @@
 .ayar-header-divider {
   width: 1px;
   height: 1.5rem;
-  background-color: #e2e8f0;
+  background-color: var(--color-hairline);
 }
 
-.dark .ayar-header-divider {
-  background-color: var(--color-outline-variant);
-}
-
-/* User dropdown trigger: rounded avatar with a gold ring + online dot */
+/* User dropdown trigger: circular avatar with a hairline ring + online dot */
 .ayar-user-btn {
   display: inline-flex;
   align-items: center;
@@ -716,9 +726,9 @@
 .ayar-user-avatar {
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 0.75rem;
+  border-radius: 9999px;
   object-fit: cover;
-  box-shadow: 0 0 0 2px rgba(212, 168, 83, 0.4);
+  box-shadow: 0 0 0 1px var(--color-hairline);
 }
 
 .ayar-user-dot {
@@ -738,11 +748,7 @@
 
 /* Footer */
 .ayar-footer {
-  border-top: 1px solid #e2e8f0;
-}
-
-.dark .ayar-footer {
-  border-top-color: var(--color-outline-variant);
+  border-top: 1px solid var(--color-hairline);
 }
 
 .ayar-footer-link {
@@ -776,11 +782,7 @@
    travels with collapse/expand. The header is h-20 at xl, so the sidebar
    hairline starts at calc(80px + radius). */
 .ayar-header {
-  --ayar-frame-border: #e2e8f0;
-}
-
-.dark .ayar-header {
-  --ayar-frame-border: var(--color-outline-variant);
+  --ayar-frame-border: var(--color-hairline);
 }
 
 /* Header bottom hairline (full width below xl, after the corner at xl+) */
@@ -854,11 +856,7 @@
     bottom: 0;
     inset-inline-end: 0;
     width: 1px;
-    background-color: #e2e8f0;
-  }
-
-  .dark .ayar-sidebar::after {
-    background-color: var(--color-outline-variant);
+    background-color: var(--color-hairline);
   }
 }
 
@@ -906,16 +904,16 @@
   width: 100%;
   white-space: nowrap;
 }
-.app-menu-item svg {
+.app-menu-item mat-icon {
   flex-shrink: 0;
   width: 20px;
   height: 20px;
-  fill: var(--color-on-surface-variant);
+  font-size: 20px;
+  color: var(--color-on-surface-variant);
 }
 .app-menu-item-danger,
-.app-menu-item-danger svg {
+.app-menu-item-danger mat-icon {
   color: var(--color-error);
-  fill: var(--color-error);
 }
 
 .app-menu-user-block {
@@ -950,9 +948,10 @@
   padding: 2.25rem 1rem;
   text-align: center;
 }
-.app-menu-empty svg {
+.app-menu-empty mat-icon {
   width: 3rem;
   height: 3rem;
+  font-size: 3rem;
   color: var(--color-outline);
 }
 
@@ -1014,9 +1013,10 @@
   background-color: var(--color-primary-container);
   color: var(--color-on-primary-container);
 }
-.app-inbox-icon svg {
+.app-inbox-icon mat-icon {
   width: 1.125rem;
   height: 1.125rem;
+  font-size: 1.125rem;
 }
 .app-inbox-text {
   display: flex;
@@ -1076,9 +1076,10 @@
 .app-inbox-desktop-btn:hover {
   background-color: var(--color-surface-container-high);
 }
-.app-inbox-desktop-btn svg {
+.app-inbox-desktop-btn mat-icon {
   width: 1.125rem;
   height: 1.125rem;
+  font-size: 1.125rem;
 }
 .app-inbox-desktop-note {
   color: var(--color-on-surface-variant);
@@ -1350,13 +1351,13 @@
 .dashboard-card {
   @apply relative rounded-2xl p-5 sm:p-6;
   background-color: #ffffff;
-  border: 1px solid color-mix(in srgb, #e2e8f0 90%, transparent);
+  border: 1px solid var(--color-hairline);
   box-shadow: var(--shadow-luxury);
 }
 
 .dark .dashboard-card {
   background-color: var(--color-surface-container);
-  border-color: var(--color-outline-variant);
+  border-color: var(--color-hairline);
 }
 
 .dashboard-card-title {

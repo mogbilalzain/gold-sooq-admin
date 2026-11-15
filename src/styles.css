@@ -96,6 +96,8 @@ layer(base);
   --color-on-surface-variant: #64748b;
   --color-outline: #94a3b8;
   --color-outline-variant: #e2e8f0;
+  /* Softer than outline-variant: decorative separators and card hairlines */
+  --color-hairline: #edf0f4;
   --color-inverse-surface: #313030;
   --color-inverse-on-surface: #f4f0ef;
   --color-gold-accent: #d6b42c;
@@ -325,6 +327,8 @@ layer(base);
   --color-on-surface-variant: #b8b0a0;
   --color-outline: #8b8371;
   --color-outline-variant: #454037;
+  /* Softer than outline-variant: decorative separators and card hairlines */
+  --color-hairline: rgba(255, 255, 255, 0.08);
   --color-inverse-surface: #f4f0ef;
   --color-inverse-on-surface: #313030;
 
@@ -458,6 +462,14 @@ layer(base);
   [lang="ar"] *,
   .lang-ar * {
     font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+  }
+
+  /* The ligature icon font must win over the Arabic text font above,
+     otherwise mat-icon renders the ligature name as clipped text in RTL. */
+  [dir="rtl"] .material-symbols-rounded,
+  [lang="ar"] .material-symbols-rounded,
+  .lang-ar .material-symbols-rounded {
+    font-family: 'Material Symbols Rounded';
   }
   
   /* English Font - Outfit */

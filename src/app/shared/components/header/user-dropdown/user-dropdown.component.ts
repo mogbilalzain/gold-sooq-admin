@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../../services/auth/auth.service';
 import { TranslationService } from '../../../services/translation.service';
 
 @Component({
   selector: 'app-user-dropdown',
   templateUrl: './user-dropdown.component.html',
-  imports: [CommonModule, RouterModule, MatMenuModule, MatDividerModule],
+  imports: [CommonModule, RouterModule, MatMenuModule, MatDividerModule, MatIconModule],
 })
 export class UserDropdownComponent {
   constructor(

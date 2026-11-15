@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { SafeHtmlPipe } from '../../pipe/safe-html.pipe';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
 import { combineLatest, Subscription } from 'rxjs';
 import { TranslationService } from '../../services/translation.service';
 import { StatsService, StatsOverview } from '../../services/data/stats.service';
@@ -16,7 +16,7 @@ import { ADMIN_NAV_GROUPS, AdminNavItem } from '../admin-nav';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [CommonModule, RouterModule, SafeHtmlPipe, MatRippleModule, MatTooltipModule],
+  imports: [CommonModule, RouterModule, MatRippleModule, MatTooltipModule, MatIconModule],
   templateUrl: './app-sidebar.component.html',
 })
 export class AppSidebarComponent implements OnInit, OnDestroy {
