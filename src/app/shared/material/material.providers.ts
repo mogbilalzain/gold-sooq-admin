@@ -93,7 +93,7 @@ export function provideMaterialDefaults(): EnvironmentProviders {
     // Ligature icons render through Material Symbols Rounded instead of
     // the legacy filled Material Icons font.
     provideAppInitializer(() => {
-      inject(MatIconRegistry).setDefaultFontSetClass('material-symbols-rounded');
+      inject(MatIconRegistry).setDefaultFontSetClass('material-symbols-rounded', 'mat-ligature-font');
     }),
   ]);
 }

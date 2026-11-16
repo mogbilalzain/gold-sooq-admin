@@ -47,8 +47,8 @@
         class="ayar-header-search-input"
         autocomplete="off"
       />
-      <kbd class="ayar-kbd end-3" dir="ltr">
-        <span>{{ isMac ? '⌘' : 'Ctrl' }}</span><span>K</span>
+      <kbd class="ayar-kbd end-3">
+        <span class="inline-flex items-center gap-1" dir="ltr"><span>{{ isMac ? '⌘' : 'Ctrl' }}</span><span>K</span></span>
       </kbd>
 
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onPageSelected($event)">

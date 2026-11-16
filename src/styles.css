@@ -554,11 +554,6 @@ layer(base);
     margin-right: 2.25rem !important;
   }
   
-  /* RTL header adjustments */
-  [dir="rtl"] header .flex-row {
-    flex-direction: row-reverse;
-  }
-  
   /* RTL header search adjustments */
   [dir="rtl"] .absolute.left-4 {
     left: auto !important;
@@ -600,14 +595,6 @@ layer(base);
     text-align: left;
   }
   
-  /* RTL header gap adjustments */
-  [dir="rtl"] header .gap-2 {
-    flex-direction: row-reverse;
-  }
-  
-  [dir="rtl"] header .gap-4 {
-    flex-direction: row-reverse;
-  }
 }
 
 /* M3 navigation drawer items */
