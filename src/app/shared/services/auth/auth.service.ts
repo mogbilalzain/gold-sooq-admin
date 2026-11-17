@@ -64,15 +64,15 @@ export class AuthService {
     }
   }
 
-  login(credentials: LoginRequest): Observable<ApiResponse<LoginResponse>> {
+  login(credentials: LoginRequest, remember = true): Observable<ApiResponse<LoginResponse>> {
     return this.http.post<ApiResponse<LoginResponse>>(
       `${this.apiConfig.getAdminAuthUrl()}/signin`,
       credentials
     ).pipe(
       tap(response => {
         if (response.status === 'success' && response.data) {
-          this.tokenStorage.saveToken(response.data.token);
-          this.tokenStorage.saveUser(response.data);
+          this.tokenStorage.saveToken(response.data.token, remember);
+          this.tokenStorage.saveUser(response.data, remember);
           this.currentUserSubject.next(response.data);
         }
       })

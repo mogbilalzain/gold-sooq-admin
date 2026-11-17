@@ -58,10 +58,13 @@ export class SigninFormComponent {
     this.isLoading = true;
 
     // Call login service
-    this.authService.login({
-      phoneNumber: this.phoneNumber,
-      password: this.password
-    }).subscribe({
+    this.authService.login(
+      {
+        phoneNumber: this.phoneNumber,
+        password: this.password
+      },
+      this.isChecked
+    ).subscribe({
       next: (response) => {
         this.isLoading = false;
         if (response.status === 'success' && response.data) {

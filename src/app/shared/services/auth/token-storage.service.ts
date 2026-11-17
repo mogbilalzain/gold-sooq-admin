@@ -8,31 +8,35 @@ const USER_KEY = 'auth_user';
 })
 export class TokenStorageService {
   
-  saveToken(token: string): void {
+  saveToken(token: string, remember = true): void {
     localStorage.removeItem(TOKEN_KEY);
-    localStorage.setItem(TOKEN_KEY, token);
+    sessionStorage.removeItem(TOKEN_KEY);
+    (remember ? localStorage : sessionStorage).setItem(TOKEN_KEY, token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem(TOKEN_KEY);
+    return localStorage.getItem(TOKEN_KEY) ?? sessionStorage.getItem(TOKEN_KEY);
   }
 
   removeToken(): void {
     localStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem(TOKEN_KEY);
   }
 
-  saveUser(user: any): void {
+  saveUser(user: any, remember = true): void {
     localStorage.removeItem(USER_KEY);
-    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    sessionStorage.removeItem(USER_KEY);
+    (remember ? localStorage : sessionStorage).setItem(USER_KEY, JSON.stringify(user));
   }
 
   getUser(): any {
-    const user = localStorage.getItem(USER_KEY);
+    const user = localStorage.getItem(USER_KEY) ?? sessionStorage.getItem(USER_KEY);
     return user ? JSON.parse(user) : null;
   }
 
   removeUser(): void {
     localStorage.removeItem(USER_KEY);
+    sessionStorage.removeItem(USER_KEY);
   }
 
   clear(): void {
