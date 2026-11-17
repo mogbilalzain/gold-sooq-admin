@@ -744,18 +744,14 @@ textarea:-webkit-autofill:focus {
 }
 
 /* ===== Header/sidebar frame (Stitch shell) =====
-   Borderless, except for the 16px (rounded-2xl) Gmail corner where the
-   header meets the sidebar: a quarter-circle hairline drawn by
-   .ayar-header::after (a solid shell-colored square with the quarter-circle
-   hairline drawn across it). Docked xl+ only — below that the
-   sidebar is a drawer and there is no fixed junction. Placement uses
-   logical props; the gradient center is a physical position, so it gets
-   its own [dir='rtl'] value. The header wrapper already follows the
-   sidebar width, so the corner travels with collapse/expand. */
-.ayar-header {
-  --ayar-frame-border: var(--color-hairline);
-}
-
+   Borderless, except for the 16px (rounded-2xl) corner notch where the
+   header meets the sidebar, covered by .ayar-header::after: a radial
+   gradient that is transparent inside the circle (scrolling content shows
+   through) and shell color outside — no ring. Docked xl+ only — below
+   that the sidebar is a drawer and there is no fixed junction. The
+   gradient center is a physical position, so it gets its own [dir='rtl']
+   value. The header wrapper already follows the sidebar width, so the
+   corner travels with collapse/expand. */
 @media (min-width: 1280px) {
   .ayar-header::after {
     content: '';
@@ -766,9 +762,7 @@ textarea:-webkit-autofill:focus {
     height: var(--radius-m3-lg);
     background: radial-gradient(
       circle at 100% 100%,
-      #ffffff calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
+      transparent calc(var(--radius-m3-lg) - 0.5px),
       #ffffff calc(var(--radius-m3-lg) - 0.5px)
     );
   }
@@ -776,9 +770,7 @@ textarea:-webkit-autofill:focus {
   [dir='rtl'] .ayar-header::after {
     background: radial-gradient(
       circle at 0 100%,
-      #ffffff calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
+      transparent calc(var(--radius-m3-lg) - 0.5px),
       #ffffff calc(var(--radius-m3-lg) - 0.5px)
     );
   }
@@ -786,9 +778,7 @@ textarea:-webkit-autofill:focus {
   .dark .ayar-header::after {
     background: radial-gradient(
       circle at 100% 100%,
-      var(--color-surface-container) calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
+      transparent calc(var(--radius-m3-lg) - 0.5px),
       var(--color-surface-container) calc(var(--radius-m3-lg) - 0.5px)
     );
   }
@@ -796,9 +786,7 @@ textarea:-webkit-autofill:focus {
   [dir='rtl'] .dark .ayar-header::after {
     background: radial-gradient(
       circle at 0 100%,
-      var(--color-surface-container) calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
+      transparent calc(var(--radius-m3-lg) - 0.5px),
       var(--color-surface-container) calc(var(--radius-m3-lg) - 0.5px)
     );
   }
