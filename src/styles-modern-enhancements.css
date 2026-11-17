@@ -566,15 +566,15 @@ textarea:-webkit-autofill:focus {
    so a translucent header would show a color mismatch while scrolling. */
 .ayar-header {
   background-color: #ffffff;
-  transition: box-shadow var(--m3-duration-medium) var(--ease-m3-standard);
 }
 
 .dark .ayar-header {
   background-color: var(--color-surface-container);
 }
 
+/* Keeps the sticky header above sticky content while scrolling; no shadow
+   (borderless shell). */
 .ayar-header.scrolled {
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
   z-index: 99;
 }
 
