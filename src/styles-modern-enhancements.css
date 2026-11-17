@@ -390,6 +390,24 @@ textarea:-webkit-autofill:focus {
   background: var(--color-surface-container-highest);
 }
 
+/* Scrollbar on the outer screen edge: flip direction on the scroll
+   container only, then restore content direction for the nav. */
+[dir='ltr'] .ayar-sidebar-scroll {
+  direction: rtl;
+}
+
+[dir='ltr'] .ayar-sidebar-scroll > * {
+  direction: ltr;
+}
+
+[dir='rtl'] .ayar-sidebar-scroll {
+  direction: ltr;
+}
+
+[dir='rtl'] .ayar-sidebar-scroll > * {
+  direction: rtl;
+}
+
 /* M3 navigation drawer: title-small group headlines */
 .ayar-nav-group-label {
   font-size: 14px;
