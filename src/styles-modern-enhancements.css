@@ -744,9 +744,65 @@ textarea:-webkit-autofill:focus {
 }
 
 /* ===== Header/sidebar frame (Stitch shell) =====
-   Borderless: the frame separates from the content by background
-   contrast alone (shell white/dark-container vs bg-luxury-pattern);
-   the scrolled header keeps its soft shadow. */
+   Borderless, except for the 16px (rounded-2xl) Gmail corner where the
+   header meets the sidebar: a quarter-circle hairline drawn by
+   .ayar-header::after (transparent inside the arc so scrolling content
+   shows through, shell color outside). Docked xl+ only — below that the
+   sidebar is a drawer and there is no fixed junction. Placement uses
+   logical props; the gradient center is a physical position, so it gets
+   its own [dir='rtl'] value. The header wrapper already follows the
+   sidebar width, so the corner travels with collapse/expand. */
+.ayar-header {
+  --ayar-frame-border: var(--color-hairline);
+}
+
+@media (min-width: 1280px) {
+  .ayar-header::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    inset-inline-start: 0;
+    width: var(--radius-m3-lg);
+    height: var(--radius-m3-lg);
+    background: radial-gradient(
+      circle at 100% 100%,
+      transparent calc(var(--radius-m3-lg) - 1.5px),
+      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
+      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
+      #ffffff calc(var(--radius-m3-lg) - 0.5px)
+    );
+  }
+
+  [dir='rtl'] .ayar-header::after {
+    background: radial-gradient(
+      circle at 0 100%,
+      transparent calc(var(--radius-m3-lg) - 1.5px),
+      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
+      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
+      #ffffff calc(var(--radius-m3-lg) - 0.5px)
+    );
+  }
+
+  .dark .ayar-header::after {
+    background: radial-gradient(
+      circle at 100% 100%,
+      transparent calc(var(--radius-m3-lg) - 1.5px),
+      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
+      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
+      var(--color-surface-container) calc(var(--radius-m3-lg) - 0.5px)
+    );
+  }
+
+  [dir='rtl'] .dark .ayar-header::after {
+    background: radial-gradient(
+      circle at 0 100%,
+      transparent calc(var(--radius-m3-lg) - 1.5px),
+      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
+      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
+      var(--color-surface-container) calc(var(--radius-m3-lg) - 0.5px)
+    );
+  }
+}
 
 
 /* ===== Header dropdown panels (notifications + user menu) =====
@@ -1240,13 +1296,11 @@ textarea:-webkit-autofill:focus {
 .dashboard-card {
   @apply relative rounded-2xl p-5 sm:p-6;
   background-color: #ffffff;
-  border: 1px solid var(--color-hairline);
   box-shadow: var(--shadow-luxury);
 }
 
 .dark .dashboard-card {
   background-color: var(--color-surface-container);
-  border-color: var(--color-hairline);
 }
 
 .dashboard-card-title {
