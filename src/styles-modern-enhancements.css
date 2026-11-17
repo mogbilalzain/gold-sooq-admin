@@ -746,8 +746,8 @@ textarea:-webkit-autofill:focus {
 /* ===== Header/sidebar frame (Stitch shell) =====
    Borderless, except for the 16px (rounded-2xl) Gmail corner where the
    header meets the sidebar: a quarter-circle hairline drawn by
-   .ayar-header::after (transparent inside the arc so scrolling content
-   shows through, shell color outside). Docked xl+ only — below that the
+   .ayar-header::after (a solid shell-colored square with the quarter-circle
+   hairline drawn across it). Docked xl+ only — below that the
    sidebar is a drawer and there is no fixed junction. Placement uses
    logical props; the gradient center is a physical position, so it gets
    its own [dir='rtl'] value. The header wrapper already follows the
@@ -766,7 +766,7 @@ textarea:-webkit-autofill:focus {
     height: var(--radius-m3-lg);
     background: radial-gradient(
       circle at 100% 100%,
-      transparent calc(var(--radius-m3-lg) - 1.5px),
+      #ffffff calc(var(--radius-m3-lg) - 1.5px),
       var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
       var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
       #ffffff calc(var(--radius-m3-lg) - 0.5px)
@@ -776,7 +776,7 @@ textarea:-webkit-autofill:focus {
   [dir='rtl'] .ayar-header::after {
     background: radial-gradient(
       circle at 0 100%,
-      transparent calc(var(--radius-m3-lg) - 1.5px),
+      #ffffff calc(var(--radius-m3-lg) - 1.5px),
       var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
       var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
       #ffffff calc(var(--radius-m3-lg) - 0.5px)
@@ -786,7 +786,7 @@ textarea:-webkit-autofill:focus {
   .dark .ayar-header::after {
     background: radial-gradient(
       circle at 100% 100%,
-      transparent calc(var(--radius-m3-lg) - 1.5px),
+      var(--color-surface-container) calc(var(--radius-m3-lg) - 1.5px),
       var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
       var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
       var(--color-surface-container) calc(var(--radius-m3-lg) - 0.5px)
@@ -796,7 +796,7 @@ textarea:-webkit-autofill:focus {
   [dir='rtl'] .dark .ayar-header::after {
     background: radial-gradient(
       circle at 0 100%,
-      transparent calc(var(--radius-m3-lg) - 1.5px),
+      var(--color-surface-container) calc(var(--radius-m3-lg) - 1.5px),
       var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
       var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
       var(--color-surface-container) calc(var(--radius-m3-lg) - 0.5px)
