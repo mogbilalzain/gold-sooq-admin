@@ -743,97 +743,11 @@ textarea:-webkit-autofill:focus {
   color: var(--color-gold-400);
 }
 
-/* ===== Header/sidebar frame + Gmail corner (Stitch shell) =====
-   Header and sidebar share one shell color; the content sits on
-   bg-luxury-pattern like an independent sheet. The slate-200 hairline that
-   separates frame from content bends around a 16px (rounded-2xl) quarter
-   circle where the header meets the sidebar — docked xl+ only (below that
-   the sidebar is a drawer and there is no fixed junction). The corner is
-   drawn by .ayar-header::after: a 16x16 square under the header, transparent
-   inside the circle (scrolling content shows through), a 1px ring on the
-   arc, shell color outside. Placement uses logical props; the gradient
-   center is a physical position, so it gets its own [dir="rtl"] value.
-   The header wrapper already follows the sidebar width, so the corner
-   travels with collapse/expand. The header is h-20 at xl, so the sidebar
-   hairline starts at calc(80px + radius). */
-.ayar-header {
-  --ayar-frame-border: var(--color-hairline);
-}
+/* ===== Header/sidebar frame (Stitch shell) =====
+   Borderless: the frame separates from the content by background
+   contrast alone (shell white/dark-container vs bg-luxury-pattern);
+   the scrolled header keeps its soft shadow. */
 
-/* Header bottom hairline (full width below xl, after the corner at xl+) */
-.ayar-header::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  inset-inline-end: 0;
-  inset-inline-start: 0;
-  height: 1px;
-  background-color: var(--ayar-frame-border);
-}
-
-@media (min-width: 1280px) {
-  .ayar-header::before {
-    inset-inline-start: var(--radius-m3-lg);
-  }
-
-  .ayar-header::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    inset-inline-start: 0;
-    width: var(--radius-m3-lg);
-    height: var(--radius-m3-lg);
-    pointer-events: none;
-    background: radial-gradient(
-      circle at 100% 100%,
-      transparent calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
-      #ffffff calc(var(--radius-m3-lg) - 0.5px)
-    );
-  }
-
-  [dir='rtl'] .ayar-header::after {
-    background: radial-gradient(
-      circle at 0 100%,
-      transparent calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
-      #ffffff calc(var(--radius-m3-lg) - 0.5px)
-    );
-  }
-
-  .dark .ayar-header::after {
-    background: radial-gradient(
-      circle at 100% 100%,
-      transparent calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
-      var(--color-surface-container) calc(var(--radius-m3-lg) - 0.5px)
-    );
-  }
-
-  [dir='rtl'] .dark .ayar-header::after {
-    background: radial-gradient(
-      circle at 0 100%,
-      transparent calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 1.5px),
-      var(--ayar-frame-border) calc(var(--radius-m3-lg) - 0.5px),
-      var(--color-surface-container) calc(var(--radius-m3-lg) - 0.5px)
-    );
-  }
-
-  /* Sidebar inner hairline: starts below the corner arc */
-  .ayar-sidebar::after {
-    content: '';
-    position: absolute;
-    top: calc(80px + var(--radius-m3-lg));
-    bottom: 0;
-    inset-inline-end: 0;
-    width: 1px;
-    background-color: var(--color-hairline);
-  }
-}
 
 /* ===== Header dropdown panels (notifications + user menu) =====
    Shared layout language: rounded floating surface (tokens in
