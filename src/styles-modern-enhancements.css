@@ -750,8 +750,10 @@ textarea:-webkit-autofill:focus {
    through) and shell color outside — no ring. Docked xl+ only — below
    that the sidebar is a drawer and there is no fixed junction. The
    gradient center is a physical position, so it gets its own [dir='rtl']
-   value. The header wrapper already follows the sidebar width, so the
-   corner travels with collapse/expand. */
+   value. Both dir and .dark are set on <html>, so the dark RTL selector
+   must be the compound [dir='rtl'].dark — the descendant form
+   [dir='rtl'] .dark can never match. The header wrapper already follows
+   the sidebar width, so the corner travels with collapse/expand. */
 @media (min-width: 1280px) {
   .ayar-header::after {
     content: '';
@@ -783,7 +785,7 @@ textarea:-webkit-autofill:focus {
     );
   }
 
-  [dir='rtl'] .dark .ayar-header::after {
+  [dir='rtl'].dark .ayar-header::after {
     background: radial-gradient(
       circle at 0 100%,
       transparent calc(var(--radius-m3-lg) - 0.5px),
